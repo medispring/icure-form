@@ -1,6 +1,9 @@
 import {css} from "lit-element";
 
 export const iqrTextFieldStyle = css`
+:host {
+	--bg-color-1: #F44336;
+}
 .ProseMirror {
   position: relative;
 }
@@ -81,7 +84,7 @@ li.ProseMirror-selectednode:after {
   content: "";
   display: block;
   height: 1px;
-  background-color: silver;
+  background: silver;
   line-height: 2px;
 }
 
@@ -153,7 +156,6 @@ li.ProseMirror-selectednode:after {
   display: none;
 }
 #editor, .editor {
-  background: white;
   color: black;
   background-clip: padding-box;
   border-radius: 4px;
@@ -194,9 +196,12 @@ li.ProseMirror-selectednode:after {
   background: #EDF2F7;
   border-radius: 8px;
   border: none;
-  position: relative;
   min-height: 28px;
   height: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #editor {
@@ -228,9 +233,7 @@ h3 {
 }
 
 .extra {
-  position: absolute;
-  top: 0;
-  right: 0;
+	flex-shrink: 0;
   height: 28px;
   display: flex;
   flex-flow: row nowrap;
@@ -439,6 +442,122 @@ h3 {
   font-weight: 500;
   border-radius: 4px;
 }
+
+span {
+	position: relative;
+	z-index: 1;
+}
+
+span:hover::after {
+	position: absolute;
+	content: attr(data-content);
+	background: #274768;
+	color: #FFFFFF;
+	font-size: 9px;
+	top: -10px;
+	left: 0px;
+	padding: 0px 2px;
+}
+span::before {
+	position:absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	opacity: .2;
+}
+
+span.icd-I::after, span.icd-I::before {
+	background: #F44336;
+	color: white;
+}
+span.icd-II::after, span.icd-II::before {
+	background: #E91E63;
+	color: white;
+}
+span.icd-III::after, span.icd-III::before {
+	background: #9C27B0;
+	color: white;
+}
+span.icd-IV::after, span.icd-IV::before {
+	background: #673AB7;
+	color: white;
+}
+span.icd-V::after, span.icd-V::before {
+	background: #009688;
+	color: white;
+}
+span.icd-VI::after, span.icd-VI::before {
+	background: #4CAF50;
+	color: white;
+}
+span.icd-VII::after, span.icd-VII::before {
+	background: #8BC34A;
+	color: white;
+}
+span.icd-VIII::after, span.icd-VIII::before {
+	background: #03A9F4;
+	color: white;
+}
+span.icd-IX::after, span.icd-IX::before {
+	background: #00BCD4;
+	color: white;
+}
+span.icd-X::after, span.icd-X::before {
+	background: #FFC107;
+	color: black;
+}
+span.icd-XI::after, span.icd-XI::before {
+	background: #FF9800;
+	color: black;
+}
+span.icd-XII::after, span.icd-XII::before {
+	background: #FF5722;
+	color: white;
+}
+span.icd-XIII::after, span.icd-XIII::before {
+	background: #795548;
+	color: white;
+}
+span.icd-XIV::after, span.icd-XIV::before {
+	background: #3949AB;
+	color: white;
+}
+span.icd-XV::after, span.icd-XV::before {
+	background: #C0CA33;
+	color: black;
+}
+span.icd-XVI::after, span.icd-XVI::before {
+	background: #07F87F;
+	color: black;
+}
+span.icd-XVII::after, span.icd-XVII::before {
+	background: #FF6262;
+	color: white;
+}
+span.icd-XVIII::after, span.icd-XVIII::before {
+	background: #718792;
+	color: white;
+}
+span.icd-XIX::after, span.icd-XIX::before {
+	background: #00ECB9;
+	color: black;
+}
+span.icd-XX::after, span.icd-XX::before {
+	background: #FF20A3;
+	color: black;
+}
+span.icd-XXI::after, span.icd-XXI::before {
+	background: #FFCE38;
+	color: black;
+}
+span.icd-XXII::after, span.icd-XXII::before {
+	background: #721F01;
+	color: white;
+}
+
 
 .masked {
 	display: none;
