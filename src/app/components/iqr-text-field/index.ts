@@ -1,26 +1,18 @@
 // Import the LitElement base class and html helper function
-import { LitElement, html, property } from 'lit-element';
-import { EditorState, Plugin } from 'prosemirror-state'
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view'
-import { Schema } from 'prosemirror-model'
-import { undo, redo, history } from "prosemirror-history";
-import { keymap } from "prosemirror-keymap";
-import {
-	baseKeymap,
-	chainCommands,
-	exitCode,
-	joinDown,
-	joinUp,
-	setBlockType,
-	toggleMark
-} from "prosemirror-commands";
-import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
+import {html, LitElement, property} from 'lit-element';
+import {EditorState, Plugin} from 'prosemirror-state'
+import {Decoration, DecorationSet, EditorView} from 'prosemirror-view'
+import {Schema} from 'prosemirror-model'
+import {history, redo, undo} from "prosemirror-history";
+import {keymap} from "prosemirror-keymap";
+import {baseKeymap, chainCommands, exitCode, joinDown, joinUp, setBlockType, toggleMark} from "prosemirror-commands";
+import {liftListItem, sinkListItem, splitListItem, wrapInList} from "prosemirror-schema-list"
 
-import { schema } from './markdown-schema'
+import {schema} from './markdown-schema'
 import MarkdownIt from 'markdown-it'
-import { MarkdownParser } from 'prosemirror-markdown'
-import { iqrTextFieldStyle } from "./style";
-import { unwrapFrom, wrapInIfNeeded } from "./prosemirror-commands";
+import {MarkdownParser} from 'prosemirror-markdown'
+import {iqrTextFieldStyle} from "./style";
+import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
@@ -43,7 +35,6 @@ class IqrTextField extends LitElement {
 	private shouldDisplayDecorationsWhenPossible: boolean = false;
 	private mouseCount: number = 0;
 	private readonly windowListeners: any[] = [];
-
 
 	constructor() {
 		super();
@@ -196,7 +187,7 @@ class IqrTextField extends LitElement {
 	}
 
 	decrementMouseCount() {
-		this.mouseCount--
+		this.mouseCount = 0
 		console.log(this.mouseCount)
 	}
 
