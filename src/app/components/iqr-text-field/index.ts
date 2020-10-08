@@ -24,18 +24,21 @@ import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
+	@property() codeColorProvider: (type:string, code:string) => string = () => '#f4ff84'
+	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
+	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
 	@property() value: string = '';
 	@property() owner?: string;
 	@property() displayOwnerMenu: boolean = false;
 
 	private readonly schema: Schema;
-	private readonly markdownParser: MarkdownParser<Schema<"paragraph" | "list_item" | "image" | "blockquote" | "bullet_list" | "hard_break" | "heading" | "horizontal_rule" | "doc" | "ordered_list" | "text", "strong" | "codification" | "em" | "link">>;
+	private readonly markdownParser: MarkdownParser<Schema<"paragraph" | "list_item" | "image" | "blockquote" | "bullet_list" | "hard_break" | "heading" | "horizontal_rule" | "doc" | "ordered_list" | "text", "strong" | "em" | "link">>;
 	private view?: EditorView;
 
 	constructor() {
 		super();
-		this.schema = schema
-		this.markdownParser = new MarkdownParser(schema, MarkdownIt("commonmark", {html: false}), {
+		this.schema = schema((t,c,isC) => isC ? this.codeColorProvider(t, c): this.linkColorProvider(t, c), this.codeContentProvider)
+		this.markdownParser = new MarkdownParser(this.schema, MarkdownIt("commonmark", {html: false}), {
 			blockquote: {block: "blockquote"},
 			paragraph: {block: "paragraph"},
 			list_item: {block: "list_item"},
@@ -177,7 +180,10 @@ class IqrTextField extends LitElement {
 				dispatchTransaction: (tr) => {
 					this.view && this.view.updateState(this.view.state.apply(tr));
 					//current state as json in text area
-					this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
+					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
+					if (this.view && this.view.state && this.view.state.selection.from >= 0 && this.view.state.selection.to > this.view.state.selection.from) {
+						console.log(window.getSelection())
+					}
 				}
 			})
 		}
