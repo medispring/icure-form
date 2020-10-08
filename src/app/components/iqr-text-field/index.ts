@@ -16,7 +16,7 @@ import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
-	@property() codeColorProvider: (type:string, code:string) => string = () => '#f4ff84'
+	@property() codeColorProvider: (type:string, code:string) => string = () => 'I'
 	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
 	@property() value: string = '';
