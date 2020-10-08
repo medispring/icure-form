@@ -200,7 +200,7 @@ li.ProseMirror-selectednode:after {
   height: auto;
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -466,10 +466,31 @@ span::before {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
-	opacity: .2;
+	opacity: .3;
 }
 
 .masked {
 	display: none;
 }
+
+span.code-count-1::after, span.code-count-1::before {
+	background: var(--bg-code-color-1);
+	color: var(--text-code-color-1);
+}
+span.code-count-2::after, span.code-count-2::before {
+	background: var(--bg-code-color-1);
+	color: var(--text-code-color-1);
+	/* STRIPES */
+	/*background: repeating-linear-gradient(*/
+	/*	45deg,*/
+	/*	var(--bg-code-color-1),*/
+	/*	var(--bg-code-color-1) 10px,*/
+	/*	var(--bg-code-color-2) 10px,*/
+	/*	var(--bg-code-color-2) 20px*/
+	/*);*/
+	
+	/* PAS STRIPES */
+	background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);
+}
+
  `
