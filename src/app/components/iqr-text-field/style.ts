@@ -439,4 +439,8 @@ h3 {
   font-weight: 500;
   border-radius: 4px;
 }
+
+.masked {
+	display: none;
+}
  `

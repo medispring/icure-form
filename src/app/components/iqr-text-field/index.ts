@@ -1,7 +1,7 @@
 // Import the LitElement base class and html helper function
 import { LitElement, html, property } from 'lit-element';
-import { EditorState } from 'prosemirror-state'
-import { EditorView } from 'prosemirror-view'
+import { EditorState, Plugin } from 'prosemirror-state'
+import { Decoration, DecorationSet, EditorView } from 'prosemirror-view'
 import { Schema } from 'prosemirror-model'
 import { undo, redo, history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
@@ -20,7 +20,7 @@ import { schema } from './markdown-schema'
 import MarkdownIt from 'markdown-it'
 import { MarkdownParser } from 'prosemirror-markdown'
 import { iqrTextFieldStyle } from "./style";
-import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
+import { unwrapFrom, wrapInIfNeeded } from "./prosemirror-commands";
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
@@ -33,7 +33,17 @@ class IqrTextField extends LitElement {
 
 	private readonly schema: Schema;
 	private readonly markdownParser: MarkdownParser<Schema<"paragraph" | "list_item" | "image" | "blockquote" | "bullet_list" | "hard_break" | "heading" | "horizontal_rule" | "doc" | "ordered_list" | "text", "strong" | "em" | "link">>;
+
 	private view?: EditorView;
+	private selectionCompanion?: HTMLElement;
+	private displaySelectionCompanion: boolean = false;
+	private displayDecorations: boolean = false;
+	private latestSelectionChange: number = 0;
+	private latestSelection: [number?, number?] = [1,1];
+	private shouldDisplayDecorationsWhenPossible: boolean = false;
+	private mouseCount: number = 0;
+	private readonly windowListeners: any[] = [];
+
 
 	constructor() {
 		super();
@@ -60,11 +70,58 @@ class IqrTextField extends LitElement {
 					title: tok.attrGet("title") || null
 				})}
 		})
+	}
 
+	connectedCallback() {
+		super.connectedCallback()
+		const imc = this.incrementMouseCount.bind(this)
+		const dmc = this.decrementMouseCount.bind(this)
+
+		this.windowListeners.push(['mousedown',imc], ['mouseup',dmc])
+
+		window.addEventListener('mousedown', imc)
+		window.addEventListener('mouseup', dmc)
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback()
+		this.windowListeners.forEach(wl => window.removeEventListener(wl[0], wl[1]))
 	}
 
 	static get styles() {
 		return [ iqrTextFieldStyle ];
+	}
+
+	updateDisplaySelectionCompanion() {
+		if (this.displaySelectionCompanion && this.shadowRoot) {
+			const selectionMarker = this.shadowRoot.querySelector('.sel-end')
+
+			if (selectionMarker) {
+				const {top, right, bottom}= selectionMarker.getBoundingClientRect()
+
+				if (this.selectionCompanion) {
+					this.selectionCompanion.style.top = `${top}px`
+					this.selectionCompanion.style.left = `${right}px`
+					this.selectionCompanion.style.height = `${bottom - top}px`
+
+					this.selectionCompanion.classList.remove('masked')
+				} else {
+					this.selectionCompanion = document.createElement("div");
+
+					this.selectionCompanion.classList.add('selection-companion')
+					this.selectionCompanion.style.position = 'fixed'
+
+					this.selectionCompanion.style.top = `${top}px`
+					this.selectionCompanion.style.left = `${right}px`
+					this.selectionCompanion.style.height = `${bottom - top}px`
+					this.selectionCompanion.style.backgroundColor = 'yellow'
+
+					this.selectionCompanion.innerHTML = '<span>+</span>'
+
+					this.shadowRoot.appendChild(this.selectionCompanion);
+				}
+			}
+		}
 	}
 
 	render() {
@@ -133,6 +190,28 @@ class IqrTextField extends LitElement {
 		this.displayOwnerMenu = !this.displayOwnerMenu
 	}
 
+	incrementMouseCount() {
+		this.mouseCount++
+		console.log(this.mouseCount)
+	}
+
+	decrementMouseCount() {
+		this.mouseCount--
+		console.log(this.mouseCount)
+	}
+
+	checkSelectionCompanionDisplay() {
+		if (this.shouldDisplayDecorationsWhenPossible) {
+			if (this.mouseCount>0) {
+				setTimeout(() => this.checkSelectionCompanionDisplay(), 100)
+			} else {
+				this.shouldDisplayDecorationsWhenPossible = false
+				this.displayDecorations = true
+				this.view?.update(Object.assign({}, this.view?.props || {}))
+			}
+		}
+	}
+
 	firstUpdated() {
 		const placeHolder = this.shadowRoot?.getElementById('editor')
 
@@ -141,6 +220,8 @@ class IqrTextField extends LitElement {
 			dispatch && dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView())
 			return true
 		})
+
+		const cmp = this
 
 		if (placeHolder) {
 			let headingsKeymap = keymap([1,2,3,4,5,6].reduce((acc, idx) => {
@@ -153,6 +234,23 @@ class IqrTextField extends LitElement {
 					schema: this.schema,
 					plugins: [
 						history(),
+						new Plugin({
+							props: {
+								decorations(state) {
+									const sel = state.selection;
+									const decorations: Decoration[] = (sel.to - sel.from && cmp.displayDecorations) ? [ Decoration.inline(sel.to-1, sel.to, {class: 'sel-end'}) ] : []
+
+									cmp.displaySelectionCompanion = decorations.length > 0
+									if (decorations.length) {
+										setTimeout(() => {cmp.updateDisplaySelectionCompanion()} ,100)
+									} else {
+										cmp.selectionCompanion && !cmp.selectionCompanion.classList.contains('masked') && cmp.selectionCompanion.classList.add('masked')
+									}
+
+									return DecorationSet.create(state.doc, decorations);
+								}
+							}
+						}),
 						keymap({"Mod-z": undo, "Mod-Shift-z": redo}),
 						keymap({
 							"Mod-b": toggleMark(this.schema.marks.strong),
@@ -179,11 +277,24 @@ class IqrTextField extends LitElement {
 				}),
 				dispatchTransaction: (tr) => {
 					this.view && this.view.updateState(this.view.state.apply(tr));
+					const sel = tr.selection;
+					if (cmp.latestSelection[0] !== sel.from || cmp.latestSelection[1] !== sel.to) {
+						cmp.latestSelection = [sel.from, sel.to]
+
+						const now = +new Date()
+						cmp.latestSelectionChange = now
+						cmp.displayDecorations = false
+						cmp.shouldDisplayDecorationsWhenPossible = true
+						setTimeout(() => {
+							if (cmp.latestSelectionChange !== now || !cmp.shouldDisplayDecorationsWhenPossible) {
+								return
+							}
+							this.checkSelectionCompanionDisplay()
+						}, 400)
+					}
+
 					//current state as json in text area
 					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
-					if (this.view && this.view.state && this.view.state.selection.from >= 0 && this.view.state.selection.to > this.view.state.selection.from) {
-						console.log(window.getSelection())
-					}
 				}
 			})
 		}
