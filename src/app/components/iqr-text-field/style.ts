@@ -466,10 +466,15 @@ span::before {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
-	opacity: .2;
+	opacity: .4;
 }
 
 .masked {
 	display: none;
+}
+
+span.code-count-1::after, span.code-count-1::before {
+	background: var(--bg-code-color-1);
+	color: var(--text-code-color-1);
 }
  `
