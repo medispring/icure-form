@@ -473,6 +473,13 @@ span::before {
 	display: none;
 }
 
+.companion {
+    position: absolute;
+    width: 20px;
+    background-color: yellow;
+    z-index: 20;
+}
+
 span.code-count-1::after, span.code-count-1::before {
 	background: var(--bg-code-color-1);
 	color: var(--text-code-color-1);
