@@ -70,7 +70,7 @@ class MyApp extends LitElement {
 	}
 
 	async firstUpdated() {
-		const api = new IccCodeXApi("http://localhost:16043/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
+		const api = new IccCodeXApi("https://kraken.svc.icure.cloud/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
 		const codes = await getRowsUsingPagination<any>((key, docId, limit) => {
 			return api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then(x => ({
 				rows: (x.rows || []).map(x => ({id: x.id, code: x.code, text: x.label?.fr})),
