@@ -475,9 +475,29 @@ span::before {
 
 .companion {
     position: absolute;
-    width: 20px;
-    background-color: yellow;
+    width: 15px;
+		background-color: hsla(194,100%,50%,1);
+    color: white;
     z-index: 20;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0 2px 2px 0;
+}
+
+.companion:hover {
+	font-weight: 700;
+	background: hsla(202,100%,50%,1);
+}
+
+
+*::selection {
+	background-color: hsla(194,100%,50%,.2);
 }
 
 .suggestion-palette {

@@ -47,7 +47,7 @@ export class SelectionCompanion {
 			this.companion.style.left = pos.right + "px"
 			this.companion.style.top = (pos.top + box.top - 20) + "px"
 			this.companion.style.height = (pos.bottom - pos.top) + "px"
-			this.companion.textContent = "x"
+			this.companion.textContent = "+"
 		}
 	}
 
