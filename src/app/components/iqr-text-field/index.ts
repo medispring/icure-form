@@ -14,9 +14,12 @@ import {MarkdownParser} from 'prosemirror-markdown'
 import {iqrTextFieldStyle} from "./style";
 import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 import {SelectionCompanion} from "./selection-companion";
+import {SuggestionPalette} from "./suggestion-palette";
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
+	@property() suggestionStopWords: Set<string> = new Set<string>()
+	@property() suggestionProvider: (terms:string[]) => any[] = () => []
 	@property() codeColorProvider: (type:string, code:string) => string = () => 'XI'
 	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
@@ -181,6 +184,9 @@ class IqrTextField extends LitElement {
 						history(),
 						new Plugin({
 							view(editorView) { return new SelectionCompanion(editorView, () => cmp.mouseCount > 0) }
+						}),
+						new Plugin({
+							view(editorView) { return new SuggestionPalette(editorView, (terms: string[]) => cmp.suggestionProvider(terms), () => cmp.suggestionStopWords) }
 						}),
 						keymap({"Mod-z": undo, "Mod-Shift-z": redo}),
 						keymap({

@@ -3,7 +3,7 @@ import {EditorState} from "prosemirror-state";
 
 export class SelectionCompanion {
 	private readonly companion: HTMLDivElement;
-	private delay: () => boolean;
+	private delay: () => boolean = () => false;
 	private lastTime: number = 0;
 
 	constructor(view: EditorView, delay: () => boolean) {
