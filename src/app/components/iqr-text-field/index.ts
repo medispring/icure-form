@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement, property } from 'lit-element';
-import { EditorState, Plugin } from 'prosemirror-state'
+import {EditorState, Plugin, Transaction} from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Schema } from 'prosemirror-model'
 import { history, redo, undo } from "prosemirror-history";
@@ -33,6 +33,7 @@ class IqrTextField extends LitElement {
 	private view?: EditorView;
 	private placeHolder?: HTMLElement;
 	private readonly windowListeners: any[] = [];
+	private suggestionPalette?: SuggestionPalette;
 	private mouseCount: number = 0;
 
 	constructor() {
@@ -186,7 +187,12 @@ class IqrTextField extends LitElement {
 							view(editorView) { return new SelectionCompanion(editorView, () => cmp.mouseCount > 0) }
 						}),
 						new Plugin({
-							view(editorView) { return new SuggestionPalette(editorView, (terms: string[]) => cmp.suggestionProvider(terms), () => cmp.suggestionStopWords) }
+							view(editorView) { return (cmp.suggestionPalette = new SuggestionPalette(editorView, (terms: string[]) => cmp.suggestionProvider(terms), () => cmp.suggestionStopWords)) }
+						}),
+						keymap({
+							"Tab": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.focus() || false },
+							"ArrowUp": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowUp() || false },
+							"ArrowDown": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowDown() || false },
 						}),
 						keymap({"Mod-z": undo, "Mod-Shift-z": redo}),
 						keymap({

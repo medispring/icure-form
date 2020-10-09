@@ -1,5 +1,6 @@
 import {css} from "lit-element";
 
+// language=CSS
 export const iqrTextFieldStyle = css`
 :host {
 	--bg-color-1: #F44336;
@@ -495,14 +496,41 @@ span::before {
 	background: hsla(202,100%,50%,1);
 }
 
-
 *::selection {
 	background-color: hsla(194,100%,50%,.2);
 }
 
 .suggestion-palette {
-    position: absolute;
-    z-index: 20;
+	position: absolute;
+	z-index: 20;
+	max-width: 380px;
+	font-size: 11px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 8px;
+	border: thin solid silver;
+}
+
+.suggestion-palette {
+	position: absolute;
+	z-index: 20;
+	max-width: 380px;
+	font-size: 11px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 8px;
+	border: thin solid silver;
+}
+
+.suggestion-palette ul {
+	white-space: nowrap;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.suggestion-palette ul li.focused {
+	background-color: lavender;
 }
 
 span.code-count-1::after, span.code-count-1::before {

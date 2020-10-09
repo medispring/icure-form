@@ -87,28 +87,16 @@ class MyApp extends LitElement {
 	}
 
 	suggestionProvider(terms: string[]) {
-		const normalisedTerms = terms.map(x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
+		let normalisedTerms = terms.map(x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
 		const res = []
 		if (this.miniSearch) {
-			res.push(this.miniSearch.search(normalisedTerms.join(' ')))
-			if (res.length<20 && normalisedTerms.length>1) {
-				res.push(this.miniSearch.search(normalisedTerms.slice(1).join(' ')))
-			}
-			if (res.length<20 && normalisedTerms.length>2) {
-				res.push(this.miniSearch.search(normalisedTerms.slice(2).join(' ')))
-			}
-			if (res.length<20) {
-				res.push(this.miniSearch.search(normalisedTerms.slice(2).join(' '), { prefix: true}))
-			}
-			if (res.length<20 && normalisedTerms.length>1) {
-				res.push(this.miniSearch.search(normalisedTerms.slice(1).join(' '), { prefix: true}))
-			}
-			if (res.length<20 && normalisedTerms.length>2) {
-				res.push(this.miniSearch.search(normalisedTerms.slice(2).join(' '), { prefix: true}))
+			while(normalisedTerms.length && res.length<20) {
+				res.push(...this.miniSearch.search(normalisedTerms.join(' ')).map(s => Object.assign({normalisedTerms}, s)))
+				res.length<20 && res.push(...this.miniSearch.search(normalisedTerms.join(' '), {prefix: true}).map(s => Object.assign({normalisedTerms}, s)))
+				normalisedTerms = normalisedTerms.slice(1)
 			}
 		}
-
-		return this.miniSearch?.search(normalisedTerms.join(' '), {prefix: true}) || []
+		return res
 	}
 
 	render() {
