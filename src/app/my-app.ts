@@ -51,9 +51,11 @@ const icpc2 = {
 const stopWords = new Set(['du','au','le','les','un','la','des','sur','de'])
 
 class MyApp extends LitElement {
+	private api: IccCodeXApi = new IccCodeXApi("https://kraken.svc.icure.cloud/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
+
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
-		storeFields: ['code', 'text'], // fields to return with search results
+		storeFields: ['code', 'text', 'links'], // fields to return with search results
 		processTerm: (term, _fieldName) =>
 			term.length === 1 || stopWords.has(term) ?
 				null : term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
@@ -70,10 +72,9 @@ class MyApp extends LitElement {
 	}
 
 	async firstUpdated() {
-		const api = new IccCodeXApi("https://kraken.svc.icure.cloud/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
 		const codes = await getRowsUsingPagination<any>((key, docId, limit) => {
-			return api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then(x => ({
-				rows: (x.rows || []).map(x => ({id: x.id, code: x.code, text: x.label?.fr})),
+			return this.api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then(x => ({
+				rows: (x.rows || []).map(x => ({id: x.id, code: x.code, text: x.label?.fr, links:x.links})),
 				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
 				nextDocId: x.nextKeyPair?.startKeyDocId,
 				done: (x.rows || []).length < 10000
@@ -83,20 +84,34 @@ class MyApp extends LitElement {
 	}
 
 	codeColorProvider(type: string, code: string) {
-		return type === 'icd10' ? (icd10.find(x => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0,1)] || 'XXII'
+		return type === 'ICD' ? (icd10.find(x => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0,1)] || 'XXII'
 	}
 
 	suggestionProvider(terms: string[]) {
 		let normalisedTerms = terms.map(x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
-		const res = []
+		const res: any[] = []
 		if (this.miniSearch) {
 			while(normalisedTerms.length && res.length<20) {
-				res.push(...this.miniSearch.search(normalisedTerms.join(' ')).map(s => Object.assign({normalisedTerms}, s)))
-				res.length<20 && res.push(...this.miniSearch.search(normalisedTerms.join(' '), {prefix: true}).map(s => Object.assign({normalisedTerms}, s)))
+				res.push(...this.miniSearch.search(normalisedTerms.join(' '))
+					.filter(x => {
+						return normalisedTerms.every(t => x.terms.includes(t))
+					})
+					.map(s => Object.assign(s, {terms}))
+					.filter(t => !res.some(x => x.text === t.text)))
+				res.length<20 && res.push(...this.miniSearch.search(normalisedTerms.join(' '), {prefix: true})
+					.filter(x => normalisedTerms.every(t => x.terms.some(mt => mt.startsWith(t))))
+					.map(s => Object.assign(s, {terms})).filter(t => !res.some(x => x.text === t.text)))
 				normalisedTerms = normalisedTerms.slice(1)
+				terms = terms.slice(1)
 			}
 		}
 		return res
+	}
+
+	async linksProvider(sug: { id: string, code: string, text: string, terms: string[], links: string[] }) {
+		const links = (await Promise.all((sug.links || []).map(id => this.api.getCode(id)))).map(c => ({id:c.id, code:c.code, text:c.label?.fr, type:c.type}))
+			.concat([Object.assign({type: sug.id.split('|')[0]}, sug)])
+		return {href: links.map(c => `c-${c.type}://${c.code}`).join(','), title: links.map(c => c.text).join('; ')}
 	}
 
 	render() {
@@ -104,7 +119,7 @@ class MyApp extends LitElement {
 <h2>Simple text field</h2>
 <iqr-text-field style="width: 320px" value="*Hello* **world**" owner="Antoine Duchâteau"></iqr-text-field>
 <h2>Text field with codes, internal and external links</h2>
-<iqr-text-field .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-icpc2://N01,c-icd10://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-icpc2://N02) associée. [Grosse fatigue](c-icpc2://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
+<iqr-text-field .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
 `;
     }
 }

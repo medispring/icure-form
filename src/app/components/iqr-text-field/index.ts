@@ -19,6 +19,7 @@ import {SuggestionPalette} from "./suggestion-palette";
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
 	@property() suggestionStopWords: Set<string> = new Set<string>()
+	@property() linksProvider: (sug:{ id: string, code: string, text: string, terms: string[] }) => Promise<{ href: string, title: string } | undefined> = () => Promise.resolve(undefined)
 	@property() suggestionProvider: (terms:string[]) => any[] = () => []
 	@property() codeColorProvider: (type:string, code:string) => string = () => 'XI'
 	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
@@ -163,6 +164,7 @@ class IqrTextField extends LitElement {
 	}
 
 	firstUpdated() {
+		const cmp = this
 		this.placeHolder = this.shadowRoot?.getElementById('editor') || undefined
 
 		let br = this.schema.nodes.hard_break
@@ -171,7 +173,11 @@ class IqrTextField extends LitElement {
 			return true
 		})
 
-		const cmp = this
+		const replaceRangeWithSuggestion = async (from: number, to: number, sug:{ id: string, code: string, text: string, terms: string[] }) => {
+			const link = await this.linksProvider(sug)
+			return link && cmp.view!.state.tr.replaceWith(from, to, this.schema.text(sug.text, [this.schema.mark('link', link)])) || undefined
+		}
+
 		if (this.placeHolder) {
 			let headingsKeymap = keymap([1,2,3,4,5,6].reduce((acc, idx) => {
 				return Object.assign(acc, {[`Mod-ctrl-${idx}`]: setBlockType(this.schema.nodes.heading, {level: ''+idx})});
@@ -190,9 +196,10 @@ class IqrTextField extends LitElement {
 							view(editorView) { return (cmp.suggestionPalette = new SuggestionPalette(editorView, (terms: string[]) => cmp.suggestionProvider(terms), () => cmp.suggestionStopWords)) }
 						}),
 						keymap({
-							"Tab": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.focus() || false },
+							"Tab": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.focusOrInsert(this.view!, replaceRangeWithSuggestion) || false },
 							"ArrowUp": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowUp() || false },
 							"ArrowDown": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowDown() || false },
+							"Enter": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.insert(this.view!, replaceRangeWithSuggestion) || false },
 						}),
 						keymap({"Mod-z": undo, "Mod-Shift-z": redo}),
 						keymap({

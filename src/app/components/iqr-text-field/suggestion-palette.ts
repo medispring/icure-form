@@ -1,5 +1,7 @@
+import equal from "fast-deep-equal";
+
 import {EditorView} from "prosemirror-view";
-import {EditorState} from "prosemirror-state";
+import {EditorState, Transaction} from "prosemirror-state";
 
 export class SuggestionPalette {
 	private readonly palette: HTMLDivElement;
@@ -11,6 +13,7 @@ export class SuggestionPalette {
 	private suggestionStopWordsProvider: () => Set<string>;
 	private currentFocus?: number;
 	private hasFocus: boolean = false;
+	private suggestions: { id: string, code: string, text: string, terms: string[] }[] = [];
 
 	constructor(view: EditorView, suggestionProvider: (terms: string[]) => any[], suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
 		this.suggestionStopWordsProvider = suggestionStopWordsProvider;
@@ -42,6 +45,38 @@ export class SuggestionPalette {
 		this.focusItem(0)
 		return true
 	}
+
+	focusOrInsert(view: EditorView, transactionProvider: (from: number, to:number, sug:{ id: string, code: string, text: string, terms: string[] }) => Promise<Transaction | undefined> ) {
+		if (this.palette.style.display === "none") return false
+		return this.hasFocus ? this.insert(view, transactionProvider) : this.focus()
+	}
+
+	insert(view: EditorView, transactionProvider: (from: number, to:number, sug:{ id: string, code: string, text: string, terms: string[] }) => Promise<Transaction | undefined> ) {
+		if (this.palette.style.display === "none" || !this.hasFocus || this.currentFocus === undefined) return false
+		const sug = this.suggestions[this.currentFocus]
+		if (sug) {
+				const sel = view.state.selection
+				const stopWords = this.suggestionStopWordsProvider()
+
+				let length = sug.terms.join(' ').length - 1
+				while(sel.to - length >= 0 && !equal(view.state.doc.textBetween(sel.to - length, sel.to).split(/\s+/).filter(x => !stopWords.has(x)), sug.terms)) {
+					length++
+				}
+				if (length>sel.to) {
+					length = sug.terms.join(' ').length
+					while(sel.to - length >= 0 && !view.state.doc.textBetween(sel.to - length, sel.to).startsWith(sug.terms[0])) {
+						length++
+					}
+				}
+				if (length<=sel.to) {
+					transactionProvider(sel.to - length, sel.to, sug).then(tr => tr && view.dispatch(tr.scrollIntoView()))
+				}
+			return true
+		}
+		return false
+	}
+
+
 
 	arrowUp() {
 		if (!this.hasFocus) return false
@@ -82,8 +117,9 @@ export class SuggestionPalette {
 			setTimeout(() => {
 				if (this.previousFingerprint !== fingerprint) return
 				const res = this.suggestionProvider(lastTerms)
+				this.suggestions = res
 				if (res.length) {
-					this.palette.innerHTML = `<ul>${res.map(x => `<li id="${x.code}">${x.text}</li>`).join('\n')}</ul>`
+					this.palette.innerHTML = `<ul>${res.map(x => `<li id="${x.id}" data-code="${x.code}">${x.text}</li>`).join('\n')}</ul>`
 					// These are in screen coordinates
 					const end = view.coordsAtPos(to)
 					this.display(end, (this.lastTime = +new Date()));

@@ -553,4 +553,20 @@ span.code-count-2::after, span.code-count-2::before {
 	background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);
 }
 
+span.code-count-3::after, span.code-count-3::before {
+	background: var(--bg-code-color-1);
+	color: var(--text-code-color-1);
+	/* STRIPES */
+	background: repeating-linear-gradient(
+		45deg,
+		var(--bg-code-color-1),
+		var(--bg-code-color-1) 10px,
+		var(--bg-code-color-2) 10px,
+		var(--bg-code-color-2) 20px
+	);
+
+	/* PAS STRIPES */
+	/* background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);*/
+}
+
  `
