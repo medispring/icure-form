@@ -209,6 +209,7 @@ li.ProseMirror-selectednode:after {
   background: transparent;
   border: none;
   padding: 0;
+	flex-grow: 1;
 }
 
 #content {
@@ -507,19 +508,18 @@ span::before {
 	font-size: 11px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding: 8px;
-	border: thin solid silver;
-}
-
-.suggestion-palette {
-	position: absolute;
-	z-index: 20;
-	max-width: 380px;
-	font-size: 11px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	padding: 8px;
-	border: thin solid silver;
+	padding: 4px;
+	border: none;
+	border-radius: 8px;
+	background: white;
+	box-shadow:
+			0 1.1px 1.1px rgba(0, 0, 0, 0.022),
+			0 2.7px 2.7px rgba(0, 0, 0, 0.032),
+			0 5px 5px rgba(0, 0, 0, 0.04),
+			0 8.9px 8.9px rgba(0, 0, 0, 0.048),
+			0 16.7px 16.7px rgba(0, 0, 0, 0.058),
+			0 40px 40px rgba(0, 0, 0, 0.08)
+	;
 }
 
 .suggestion-palette ul {
@@ -528,9 +528,53 @@ span::before {
 	margin: 0;
 	padding: 0;
 }
+.suggestion-palette ul li{
+	padding: 0 8px;
+	font-size: 11px;
+	height: 20px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 4px;
+	color: rgb(39, 71, 104);
+}
+
+.suggestion-palette ul li svg {
+	height: 12px;
+	width: 12px;
+	border-radius: 4px;
+	transform-origin: center center;
+}
+.suggestion-palette ul li svg path {
+	fill: rgb(128, 154, 180);
+}
+
+.suggestion-palette ul li:not(:first-child) svg.tab-icn, .suggestion-palette ul li:not(.focused) svg.return-icn, .suggestion-palette ul.focused li:first-child svg.tab-icn {
+	height: 0;
+	width: 0;
+	transform: scale(0);
+	opacity: 0;
+}
 
 .suggestion-palette ul li.focused {
-	background-color: lavender;
+	background-color: rgb(237, 242, 247);
+}
+
+.suggestion-palette ul li.focused svg.return-icn{
+	animation: growIn .24s ease-in forwards;
+}
+
+@keyframes growIn{
+	0% {
+		transform: scale(0.5)
+	}
+	90% {
+		transform: scale(1.1)
+	}
+	100% {
+		transform: scale(1)
+	}
 }
 
 span.code-count-1::after, span.code-count-1::before {

@@ -31,6 +31,7 @@ export class SuggestionPalette {
 	focusItem(idx?: number ) {
 		const ul = this.palette.getElementsByTagName('ul')[0];
 		if (ul) {
+			ul.classList.add('focused')
 			const lis = ul.getElementsByTagName('li')
 			this.currentFocus !== undefined && (lis[this.currentFocus] as HTMLElement).classList.remove('focused');
 			idx !== undefined && (lis[idx] as HTMLElement).classList.add('focused');
@@ -119,7 +120,7 @@ export class SuggestionPalette {
 				const res = this.suggestionProvider(lastTerms)
 				this.suggestions = res
 				if (res.length) {
-					this.palette.innerHTML = `<ul>${res.map(x => `<li id="${x.id}" data-code="${x.code}">${x.text}</li>`).join('\n')}</ul>`
+					this.palette.innerHTML = `<ul>${res.map(x => `<li id="${x.id}" data-code="${x.code}">${x.text}<div class="icn-container"><svg class="tab-icn" viewBox="0 0 24 24"><path d="M12.29 8.12L15.17 11H2c-.55 0-1 .45-1 1s.45 1 1 1h13.17l-2.88 2.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41L13.7 6.7c-.39-.39-1.02-.39-1.41 0-.38.39-.39 1.03 0 1.42zM20 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg><svg class="return-icn" viewBox="0 0 24 24"><path d="M19 8v3H5.83l2.88-2.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L2.71 11.3c-.39.39-.39 1.02 0 1.41L7.3 17.3c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L5.83 13H20c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg></div></li>`).join('\n')}</ul>`
 					// These are in screen coordinates
 					const end = view.coordsAtPos(to)
 					this.display(end, (this.lastTime = +new Date()));
