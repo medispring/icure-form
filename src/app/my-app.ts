@@ -171,7 +171,7 @@ class MyApp extends LitElement {
 <h2>Text field with codes, internal and external links</h2>
 <iqr-text-field schema="text-document" .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
 <h2>Complete form</h2>
-<iqr-form .form="${dateForm}"></iqr-form>
+<iqr-form .form="${form}"></iqr-form>
 `
     }
 }
