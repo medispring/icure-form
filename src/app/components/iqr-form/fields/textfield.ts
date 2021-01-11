@@ -3,6 +3,9 @@ import '../../iqr-text-field';
 
 class Textfield extends LitElement {
 	@property() label: string = '';
+	@property() multiline: boolean = false;
+	@property() rows: number = 1;
+	@property() grows: boolean = false;
 
 	static get styles() {
 		return [ css`
@@ -13,7 +16,7 @@ class Textfield extends LitElement {
 
 	render() {
 		return html`
-		<iqr-text-field label="${this.label}"></iqr-text-field>
+		<iqr-text-field ?multiline="${this.multiline}" label="${this.label}"></iqr-text-field>
 `
 	}
 }
