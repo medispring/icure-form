@@ -9,6 +9,10 @@ import './fields/datePicker'
 import './fields/timePicker'
 import './fields/dateTimePicker'
 import './fields/multipleChoice'
+// @ts-ignore
+import baseCss from './styles/style.scss';
+// @ts-ignore
+import kendoCss from './styles/kendo.scss';
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {
@@ -27,7 +31,7 @@ class IqrForm extends LitElement {
 	}
 
 	static get styles() {
-		return [ ];
+		return [ baseCss, kendoCss ];
 	}
 
 	render() {
@@ -43,15 +47,14 @@ class IqrForm extends LitElement {
 			return fg instanceof Group ? html`
 					${h(level, html`${fg.group}`)}
 					${fg.fields?.map(f => renderFieldOrGroup(f, level+1))}` :
-				html`<label>${fg.field}</label>
-					${
-						fg.type === 'textfield' ? html`<iqr-form-textfield></iqr-form-textfield>` : 
-							fg.type === 'measure-field' ? html`<iqr-form-measure-field></iqr-form-measure-field>` : 
-								fg.type === 'number-field' ? html`<iqr-form-number-field></iqr-form-number-field>` : 
-									fg.type === 'date-picker' ? html`<iqr-form-date-picker></iqr-form-date-picker>` : 
-										fg.type === 'time-picker' ? html`<iqr-form-time-picker></iqr-form-time-picker>` : 
-											fg.type === 'date-time-picker' ? html`<iqr-form-date-time-picker></iqr-form-date-time-picker>` : 
-												fg.type === 'multiple-choice' ? html`<iqr-form-multiple-choice></iqr-form-multiple-choice>` : ''
+				html`${
+						fg.type === 'textfield' ? html`<iqr-form-textfield label="${fg.field}"></iqr-form-textfield>` : 
+							fg.type === 'measure-field' ? html`<iqr-form-measure-field label="${fg.field}"></iqr-form-measure-field>` : 
+								fg.type === 'number-field' ? html`<iqr-form-number-field label="${fg.field}"></iqr-form-number-field>` : 
+									fg.type === 'date-picker' ? html`<iqr-form-date-picker label="${fg.field}"></iqr-form-date-picker>` : 
+										fg.type === 'time-picker' ? html`<iqr-form-time-picker label="${fg.field}"></iqr-form-time-picker>` : 
+											fg.type === 'date-time-picker' ? html`<iqr-form-date-time-picker label="${fg.field}"></iqr-form-date-time-picker>` : 
+												fg.type === 'multiple-choice' ? html`<iqr-form-multiple-choice label="${fg.field}"></iqr-form-multiple-choice>` : ''
 					}`
 		}
 

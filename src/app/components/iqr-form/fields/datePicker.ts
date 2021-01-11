@@ -1,17 +1,20 @@
-import {css, html, LitElement } from 'lit-element';
+import {css, html, LitElement, property} from 'lit-element';
 import '../../iqr-text-field';
 
 export class DatePicker extends LitElement {
+	@property() label: string = '';
+
 	static get styles() {
 		return [ css`
 :host {
+	display: block;
 }
 ` ];
 	}
 
 	render() {
 		return html`
-			<iqr-text-field textRegex="^([0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[0-9]?[0-9]?)$" schema="date" owner="Antoine Duchâteau"></iqr-text-field>`
+			<iqr-text-field label="${this.label}" textRegex="^([0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[0-9]?[0-9]?)$" schema="date" owner="Antoine Duchâteau" style="width: 100%"></iqr-text-field>`
 	}
 }
 

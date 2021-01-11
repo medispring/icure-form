@@ -98,102 +98,103 @@ describe("Typescript usage suite", () => {
 			]),
 		], "Fill in the patient information inside the waiting room"))))
 		console.log(text)
-		strictEqual(text, "form: Waiting room GP\n" +
-			"description: Fill in the patient information inside the waiting room\n" +
-			"sections:\n" +
-			"  - section: All fields\n" +
-			"    fields:\n" +
-			"      - field: This field is a TextField\n" +
-			"        type: textfield\n" +
-			"        shortLabel: TextField\n" +
-			"        schema: styled-text-with-codes\n" +
-			"      - field: This field is a NumberField\n" +
-			"        type: number-field\n" +
-			"        shortLabel: NumberField\n" +
-			"      - field: This field is a MeasureField\n" +
-			"        type: measure-field\n" +
-			"        shortLabel: MeasureField\n" +
-			"      - field: This field is a DatePicker\n" +
-			"        type: date-picker\n" +
-			"        shortLabel: DatePicker\n" +
-			"      - field: This field is a TimePicker\n" +
-			"        type: time-picker\n" +
-			"        shortLabel: TimePicker\n" +
-			"      - field: This field is a DateTimePicker\n" +
-			"        type: date-time-picker\n" +
-			"        shortLabel: DateTimePicker\n" +
-			"      - field: This field is a MultipleChoice\n" +
-			"        type: multiple-choice\n" +
-			"        shortLabel: MultipleChoice\n" +
-			"  - section: Grouped fields\n" +
-			"    fields:\n" +
-			"      - group: You can group fields together\n" +
-			"        fields:\n" +
-			"          - field: This field is a TextField\n" +
-			"            type: textfield\n" +
-			"            shortLabel: TextField\n" +
-			"            schema: styled-text-with-codes\n" +
-			"          - field: This field is a NumberField\n" +
-			"            type: number-field\n" +
-			"            shortLabel: NumberField\n" +
-			"          - field: This field is a MeasureField\n" +
-			"            type: measure-field\n" +
-			"            shortLabel: MeasureField\n" +
-			"          - field: This field is a DatePicker\n" +
-			"            type: date-picker\n" +
-			"            shortLabel: DatePicker\n" +
-			"          - field: This field is a TimePicker\n" +
-			"            type: time-picker\n" +
-			"            shortLabel: TimePicker\n" +
-			"          - field: This field is a DateTimePicker\n" +
-			"            type: date-time-picker\n" +
-			"            shortLabel: DateTimePicker\n" +
-			"          - field: This field is a MultipleChoice\n" +
-			"            type: multiple-choice\n" +
-			"            shortLabel: MultipleChoice\n" +
-			"      - group: And you can add tags and codes\n" +
-			"        fields:\n" +
-			"          - field: This field is a TextField\n" +
-			"            type: textfield\n" +
-			"            shortLabel: TextField\n" +
-			"            rows: 3\n" +
-			"            grows: true\n" +
-			"            schema: text-document\n" +
-			"            tags:\n" +
-			"              - CD-ITEM|diagnosis|1\n" +
-			"            codifications:\n" +
-			"              - BE-THESAURUS\n" +
-			"              - ICD10\n" +
-			"            options:\n" +
-			"              option: blink\n" +
-			"          - field: This field is a NumberField\n" +
-			"            type: number-field\n" +
-			"            shortLabel: NumberField\n" +
-			"            tags:\n" +
-			"              - CD-ITEM|parameter|1\n" +
-			"              - CD-PARAMETER|bmi|1\n" +
-			"            codifications: []\n" +
-			"            options:\n" +
-			"              option: bang\n" +
-			"          - field: This field is a MeasureField\n" +
-			"            type: measure-field\n" +
-			"            shortLabel: MeasureField\n" +
-			"            tags:\n" +
-			"              - CD-ITEM|parameter|1\n" +
-			"              - CD-PARAMETER|heartbeat|1\n" +
-			"            codifications: []\n" +
-			"            options:\n" +
-			"              unit: bpm\n" +
-			"          - field: This field is a MultipleChoice\n" +
-			"            type: multiple-choice\n" +
-			"            shortLabel: MultipleChoice\n" +
-			"            rows: 4\n" +
-			"            columns: 4\n" +
-			"            tags: []\n" +
-			"            codifications:\n" +
-			"              - KATZ\n" +
-			"            options:\n" +
-			"              many: no\n");
+		strictEqual(text, `form: Waiting room GP
+description: Fill in the patient information inside the waiting room
+sections:
+  - section: All fields
+    fields:
+      - field: This field is a TextField
+        type: textfield
+        shortLabel: TextField
+        schema: styled-text-with-codes
+      - field: This field is a NumberField
+        type: number-field
+        shortLabel: NumberField
+      - field: This field is a MeasureField
+        type: measure-field
+        shortLabel: MeasureField
+      - field: This field is a DatePicker
+        type: date-picker
+        shortLabel: DatePicker
+      - field: This field is a TimePicker
+        type: time-picker
+        shortLabel: TimePicker
+      - field: This field is a DateTimePicker
+        type: date-time-picker
+        shortLabel: DateTimePicker
+      - field: This field is a MultipleChoice
+        type: multiple-choice
+        shortLabel: MultipleChoice
+  - section: Grouped fields
+    fields:
+      - group: You can group fields together
+        fields:
+          - field: This field is a TextField
+            type: textfield
+            shortLabel: TextField
+            schema: styled-text-with-codes
+          - field: This field is a NumberField
+            type: number-field
+            shortLabel: NumberField
+          - field: This field is a MeasureField
+            type: measure-field
+            shortLabel: MeasureField
+          - field: This field is a DatePicker
+            type: date-picker
+            shortLabel: DatePicker
+          - field: This field is a TimePicker
+            type: time-picker
+            shortLabel: TimePicker
+          - field: This field is a DateTimePicker
+            type: date-time-picker
+            shortLabel: DateTimePicker
+          - field: This field is a MultipleChoice
+            type: multiple-choice
+            shortLabel: MultipleChoice
+      - group: And you can add tags and codes
+        fields:
+          - field: This field is a TextField
+            type: textfield
+            shortLabel: TextField
+            rows: 3
+            grows: true
+            schema: text-document
+            tags:
+              - CD-ITEM|diagnosis|1
+            codifications:
+              - BE-THESAURUS
+              - ICD10
+            options:
+              option: blink
+          - field: This field is a NumberField
+            type: number-field
+            shortLabel: NumberField
+            tags:
+              - CD-ITEM|parameter|1
+              - CD-PARAMETER|bmi|1
+            codifications: []
+            options:
+              option: bang
+          - field: This field is a MeasureField
+            type: measure-field
+            shortLabel: MeasureField
+            tags:
+              - CD-ITEM|parameter|1
+              - CD-PARAMETER|heartbeat|1
+            codifications: []
+            options:
+              unit: bpm
+          - field: This field is a MultipleChoice
+            type: multiple-choice
+            shortLabel: MultipleChoice
+            rows: 4
+            columns: 4
+            tags: []
+            codifications:
+              - KATZ
+            options:
+              many: no
+`);
 	});
 	it("should Parse complex form", () => {
 		const original = "form: Waiting room GP\n" +

@@ -11,13 +11,18 @@ import { liftListItem, sinkListItem, splitListItem, wrapInList } from "prosemirr
 import {createSchema, IqrTextFieldSchema as IqrTextFieldSchema_} from './markdown-schema'
 import MarkdownIt from 'markdown-it'
 import {MarkdownParser} from 'prosemirror-markdown'
-import {iqrTextFieldStyle} from "./style";
 import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 import {SelectionCompanion} from "./selection-companion";
 import {SuggestionPalette} from "./suggestion-palette";
 import {caretFixPlugin} from "./caret-fix-plugin";
 import {hasMark} from "./prosemirror-utils";
 import {datetimeJumpPlugin} from "./datetime-jump-plugin";
+
+
+// @ts-ignore
+import baseCss from './styles/style.scss';
+// @ts-ignore
+import kendoCss from './styles/kendo.scss';
 
 export type IqrTextFieldSchema = IqrTextFieldSchema_
 
@@ -33,6 +38,7 @@ class IqrTextField extends LitElement {
 	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
 	@property() schema: IqrTextFieldSchema_ = 'styled-text-with-codes'
+	@property() label: string = '';
 	@property() value: string = '';
 	@property() owner?: string;
 	@property() displayOwnerMenu: boolean = false;
@@ -69,11 +75,12 @@ class IqrTextField extends LitElement {
 	}
 
 	static get styles() {
-		return [ iqrTextFieldStyle ];
+		return [ baseCss, kendoCss ];
 	}
 
 	render() {
 		return html`
+			<label>${this.label}</label>
 <div class="iqr-form">
   <div id="editor"></div>
   <div id="extra" class="${'extra' + (this.displayOwnerMenu ? ' forced' : '') }">

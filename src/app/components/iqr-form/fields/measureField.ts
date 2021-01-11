@@ -1,7 +1,9 @@
-import {css, html, LitElement } from 'lit-element';
+import {css, html, LitElement, property} from 'lit-element';
 import '../../iqr-text-field';
 
 export class MeasureField extends LitElement {
+	@property() label: string = '';
+
 	static get styles() {
 		return [ css`
 :host {
@@ -11,7 +13,7 @@ export class MeasureField extends LitElement {
 
 	render() {
 		return html`
-		<iqr-text-field></iqr-text-field>
+		<iqr-text-field label="${this.label}"></iqr-text-field>
 `
 	}
 }
