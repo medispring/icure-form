@@ -1,8 +1,19 @@
 import {css, html, LitElement} from 'lit-element';
-import {getRowsUsingPagination, IccCodeXApi} from '@taktik/icc-api/dist';
+import {getRowsUsingPagination, IccCodeXApi} from '@icure/api';
 
 import './components/iqr-text-field';
+import './components/iqr-form';
 import MiniSearch from 'minisearch'
+import {
+	DatePicker,
+	DateTimePicker,
+	Form, Group,
+	MeasureField, MultipleChoice,
+	NumberField,
+	Section,
+	TextField,
+	TimePicker
+} from "./components/iqr-form/model";
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -114,13 +125,54 @@ class MyApp extends LitElement {
 		return {href: links.map(c => `c-${c.type}://${c.code}`).join(','), title: links.map(c => c.text).join('; ')}
 	}
 
+
 	render() {
-        return html`
+		//@ts-ignore
+		const form = new Form("Waiting room GP", [
+			new Section("All fields", [
+				new TextField("This field is a TextField", "TextField"),
+				new NumberField("This field is a NumberField", "NumberField"),
+				new MeasureField("This field is a MeasureField", "MeasureField"),
+				new DatePicker("This field is a DatePicker", "DatePicker"),
+				new TimePicker("This field is a TimePicker", "TimePicker"),
+				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
+				new MultipleChoice("This field is a MultipleChoice", "MultipleChoice"),
+			]),
+			new Section("Grouped fields", [
+				new Group("You can group fields together", [
+					new TextField("This field is a TextField", "TextField"),
+					new NumberField("This field is a NumberField", "NumberField"),
+					new MeasureField("This field is a MeasureField", "MeasureField"),
+					new DatePicker("This field is a DatePicker", "DatePicker"),
+					new TimePicker("This field is a TimePicker", "TimePicker"),
+					new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
+					new MultipleChoice("This field is a MultipleChoice", "MultipleChoice"),
+				]),
+				new Group("And you can add tags and codes", [
+					new TextField("This field is a TextField", "TextField", 3, true, "text-document", ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS','ICD10'], {option: "blink"}),
+					new NumberField("This field is a NumberField", "NumberField", ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], {option: "bang"}),
+					new MeasureField("This field is a MeasureField", "MeasureField", ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], {unit: "bpm"}),
+					new MultipleChoice("This field is a MultipleChoice", "MultipleChoice", 4, 4, [], ['KATZ'], {many:"no"}),
+				])
+			]),
+		], "Fill in the patient information inside the waiting room")
+
+		//@ts-ignore
+		const dateForm = new Form("Dates", [
+			new Section("Main", [
+				new DatePicker("This field is a DatePicker", "DatePicker"),
+				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
+			]),
+		], "Fill in the patient information inside the waiting room")
+
+		return html`
 <h2>Simple text field</h2>
 <iqr-text-field style="width: 320px" value="*Hello* **world**" owner="Antoine Duchâteau"></iqr-text-field>
 <h2>Text field with codes, internal and external links</h2>
-<iqr-text-field .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
-`;
+<iqr-text-field schema="text-document" .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
+<h2>Complete form</h2>
+<iqr-form .form="${dateForm}"></iqr-form>
+`
     }
 }
 

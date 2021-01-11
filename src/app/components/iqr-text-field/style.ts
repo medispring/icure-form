@@ -34,6 +34,11 @@ export const iqrTextFieldStyle = css`
 }
 
 /* Make sure li selections wrap around markers */
+span.date {
+	background-color: lightgoldenrodyellow;
+	background-color: lightsteelblue;
+}
+
 
 li.ProseMirror-selectednode {
   outline: none;
@@ -164,15 +169,6 @@ li.ProseMirror-selectednode:after {
   padding: 5px 0;
 }
 
-.ProseMirror p:first-child,
-.ProseMirror h1:first-child,
-.ProseMirror h2:first-child,
-.ProseMirror h3:first-child,
-.ProseMirror h4:first-child,
-.ProseMirror h5:first-child,
-.ProseMirror h6:first-child {
-  margin-top: 3px;
-}
 
 .ProseMirror p:last-child,
 .ProseMirror h1:last-child,
@@ -181,14 +177,16 @@ li.ProseMirror-selectednode:after {
 .ProseMirror h4:last-child,
 .ProseMirror h5:last-child,
 .ProseMirror h6:last-child {
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
-
 .ProseMirror {
-  padding: 2px 8px 2px 8px;
+  padding: 6px 8px 2px 8px;
   line-height: 1.2;
-  outline: none;
+	color: #274768;
+	font-size: 14px;
+	font-weight: 400;
+	outline: none;
 }
 
 .ProseMirror p { margin-bottom: 1em }
@@ -223,9 +221,6 @@ li.ProseMirror-selectednode:after {
 }
 
 p {
-  color: #274768;
-  font-size: 14px;
-  font-weight: 400;
   margin-top: 0;
 }
 
@@ -450,7 +445,7 @@ span {
 	z-index: 1;
 }
 
-span:hover::after {
+span[data-content]:hover::after {
 	position: absolute;
 	content: attr(data-content);
 	background: #274768;
@@ -460,7 +455,8 @@ span:hover::after {
 	left: 0px;
 	padding: 0px 2px;
 }
-span::before {
+
+span[data-content]::before {
 	position:absolute;
 	content: '';
 	top: 0;

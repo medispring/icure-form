@@ -1,4 +1,13 @@
-import { Schema } from 'prosemirror-model';
+import {MarkSpec, NodeSpec, Schema, SchemaSpec} from 'prosemirror-model';
+
+type DocumentSchema = 'text-document'
+type TokensSchema = 'tokens-list' | 'styled-tokens-list' | 'tokens-list-with-codes' | 'styled-tokens-list-with-codes'
+type StyledSchema = 'text-document' | 'styled-text' | 'styled-text-with-codes' |'styled-tokens-list' | 'styled-tokens-list-with-codes'
+type InlineSchema = 'styled-text' | 'text' | 'text-with-codes' | 'styled-text-with-codes'
+type DateSchema = 'date'
+type DateTimeSchema = 'date-time'
+
+export type IqrTextFieldSchema = DocumentSchema | TokensSchema | StyledSchema | InlineSchema | DateSchema | DateTimeSchema
 
 export const colors: { [key: string]: [string, string] } = {
 	'I': ['#F44336', 'white'],
@@ -27,9 +36,103 @@ export const colors: { [key: string]: [string, string] } = {
 
 const getColor = (c:string) => colors[c] || [c, 'white']
 
-export function schema(colorProvider: (type:string, code:string, isCode: boolean) => string, contentProvider: (codes: {type: string, code: string}[]) => string) {
-	return new Schema({
-		nodes: {
+function reduceNodes(nodes: {[key:string]:NodeSpec}, selector: (key:string, spec:NodeSpec) => boolean = () => true) {
+	return Object.keys(nodes).reduce((r,k) => selector(k, nodes[k]) ? Object.assign(r, {[k]: nodes[k]}) : r ,{} as {[key:string]:NodeSpec})
+}
+
+function reduceMarks(marks: {[key:string]:MarkSpec}, selector: (key:string, spec:MarkSpec) => boolean = () => true) {
+	return Object.keys(marks).reduce((r,k) => selector(k, marks[k]) ? Object.assign(r, {[k]: marks[k]}) : r ,{} as {[key:string]:MarkSpec})
+}
+
+function getMarks(contentProvider: (codes: { type: string; code: string }[]) => string, colorProvider: (type: string, code: string, isCode: boolean) => string) : {[key:string]:MarkSpec} {
+	return {
+		em: {
+			parseDOM: [{tag: 'i'}, {tag: 'em'},
+				{style: 'font-style', getAttrs: value => value === 'italic' && null}],
+			toDOM() {
+				return ['em']
+			}
+		},
+
+		strong: {
+			parseDOM: [{tag: 'b'}, {tag: 'strong'},
+				{style: 'font-weight', getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null}],
+			toDOM() {
+				return ['strong']
+			}
+		},
+
+		link: {
+			attrs: {
+				href: {},
+				title: {default: null}
+			},
+			inclusive: false,
+			parseDOM: [{
+				tag: 'span[data-href]', getAttrs(dom) {
+					const el = dom as HTMLElement
+					return {href: el.dataset.href, title: el.dataset.title}
+				}
+			}],
+			toDOM(node) {
+				const urls: string = node.attrs.href
+				if (urls) {
+					const refs = urls.split(',').map(url => {
+						let pos = url.indexOf('://');
+						const protocol = url.substring(0, pos)
+						const code = url.substring(pos + 3)
+						let parts = protocol.split('-');
+						const category = parts[0]
+						const type = parts[1]
+
+						return {category, type, code}
+					})
+
+					const codes = refs.filter(x => x.category === 'c')
+					const ilinks = refs.filter(x => x.category === 'i')
+
+					const classes = (refs.some(x => x.category === 'x') ? ['ext-link'] : []).concat(codes.length ? [`code-count-${codes.length}`] : [])
+
+					const dataAttributes = (codes.length ? [{'data-content': contentProvider(codes)} as any] : [])
+						.concat(ilinks.map((c, idx) => ({[`data-link-color-${idx}`]: colorProvider(c.type, c.code, false)})))
+
+					const styles = codes.map((c, idx) => {
+						const color = getColor(colorProvider(c.type, c.code, true));
+						return (`--bg-code-color-${idx + 1}: ${color[0]}; --text-code-color-${idx + 1}: ${color[1]};`);
+					})
+
+					return ['span', dataAttributes.reduce((acc, da) => Object.assign(da, acc), {
+						['data-href']: node.attrs.href,
+						['data-title']: node.attrs.title,
+						'class': classes.join(' '),
+						'style': styles.join('')
+					})]
+				}
+
+				return ['span', {['data-href']: node.attrs.href, ['data-title']: node.attrs.title}]
+			}
+		}
+	};
+}
+
+function getSpec(
+	type: DocumentSchema | InlineSchema,
+	contentProvider: (codes: { type: string; code: string }[]) => string,
+	colorProvider: (type: string, code: string, isCode: boolean) => string): SchemaSpec {
+	const nodesSelector: (key:string, spec:NodeSpec) => boolean = (key:string, spec:NodeSpec) => {
+		// noinspection RedundantConditionalExpressionJS
+		return (key === 'paragraph') ? true :
+			((spec.group === 'block' || ['doc','list_item','hard_break','image'].includes(key)) && type !== 'text-document') ? false :  true
+	}
+	const marksSelector: (key:string, spec:MarkSpec) => boolean = (key:string, spec:MarkSpec) => {
+		// noinspection RedundantConditionalExpressionJS
+		return (key !== 'link' && ['text-document', 'styled-text' , 'styled-text-with-codes'].includes(type)) ? true :
+			(key === 'link' && ['text-document', 'text-with-codes', 'styled-text-with-codes']) ? true : false
+	}
+
+	return {
+		topNode: type === 'text-document' ? 'doc' : 'paragraph',
+		nodes: reduceNodes({
 			doc: {
 				content: 'block+'
 			},
@@ -153,70 +256,113 @@ export function schema(colorProvider: (type:string, code:string, isCode: boolean
 					return ['br']
 				}
 			}
-		},
+		}, nodesSelector),
+		marks: reduceMarks(getMarks(contentProvider, colorProvider), marksSelector)
+	};
+}
 
-		marks: {
-			em: {
-				parseDOM: [{tag: 'i'}, {tag: 'em'},
-					{style: 'font-style', getAttrs: value => value === 'italic' && null}],
+function getTokensSpec(
+	type: TokensSchema,
+	contentProvider: (codes: { type: string; code: string }[]) => string,
+	colorProvider: (type: string, code: string, isCode: boolean) => string): SchemaSpec {
+	const marksSelector: (key:string, spec:MarkSpec) => boolean = (key:string, spec:MarkSpec) => {
+		// noinspection RedundantConditionalExpressionJS
+		return (key !== 'link' && ['styled-tokens-list', 'styled-tokens-list-with-codes'].includes(type)) ? true :
+			(key === 'link' && ['tokens-list-with-codes', 'styled-text-with-codes']) ? true : false
+	}
+	return {
+		nodes: reduceNodes({
+			doc: {
+				content: 'token+',
+				parseDOM: [{tag: 'ul'}],
 				toDOM() {
-					return ['em']
+					return ['ul', 0]
 				}
 			},
 
-			strong: {
-				parseDOM: [{tag: 'b'}, {tag: 'strong'},
-					{style: 'font-weight', getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null}],
+			token: {
+				content: 'inline*',
+				group: 'block',
+				parseDOM: [{tag: 'li'}],
 				toDOM() {
-					return ['strong']
+					return ['li', 0]
 				}
 			},
 
-			link: {
-				attrs: {
-					href: {},
-					title: {default: null}
-				},
-				inclusive: false,
-				parseDOM: [{
-					tag: 'span[data-href]', getAttrs(dom) {
-						const el = dom as HTMLElement
-						return {href: el.dataset.href, title: el.dataset.title}
-					}
-				}],
-				toDOM(node) {
-					const urls: string = node.attrs.href
-					if (urls) {
-						const refs = urls.split(',').map(url => {
-							let pos = url.indexOf('://');
-							const protocol = url.substring(0, pos)
-							const code = url.substring(pos + 3)
-							let parts = protocol.split('-');
-							const category = parts[0]
-							const type = parts[1]
-
-							return {category, type, code}
-						})
-
-						const codes = refs.filter(x => x.category === 'c')
-						const ilinks = refs.filter(x => x.category === 'i')
-
-						const classes = (refs.some(x => x.category === 'x') ? ['ext-link'] : []).concat(codes.length ? [ `code-count-${codes.length}` ] : [])
-
-						const dataAttributes = (codes.length ? [{'data-content':contentProvider(codes)} as any] : [])
-							.concat(ilinks.map((c,idx) => ({ [`data-link-color-${idx}`]: colorProvider(c.type, c.code, false) })))
-
-						const styles = 	codes.map((c,idx) => {
-							const color = getColor(colorProvider(c.type, c.code, true));
-							return (`--bg-code-color-${idx + 1}: ${color[0]}; --text-code-color-${idx + 1}: ${color[1]};`);
-						})
-
-						return ['span', dataAttributes.reduce((acc, da) => Object.assign(da, acc), {['data-href']: node.attrs.href, ['data-title']: node.attrs.title, 'class': classes.join(' '), 'style': styles.join('')})]
-					}
-
-					return ['span', {['data-href']: node.attrs.href, ['data-title']: node.attrs.title}]
-				}
+			text: {
+				group: 'inline'
 			}
-		}
-	})
+		}),
+		marks: reduceMarks(getMarks(contentProvider, colorProvider), marksSelector)
+	};
+}
+
+function getDateSpec(): SchemaSpec {
+	return {
+		topNode: 'paragraph',
+		nodes: {
+			paragraph: {
+				content: 'date',
+			},
+
+			date: {
+				content: 'inline*',
+				group: 'block',
+				parseDOM: [{tag: 'span'}],
+				toDOM() {
+					return ['span', 0]
+				},
+				regexp: '^([0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[0-9]?[0-9]?)$'
+			},
+
+			text: {
+				group: 'inline'
+			}
+		},
+		marks: {}
+	};
+}
+
+
+function getDateTimeSpec(): SchemaSpec {
+	return {
+		topNode: 'paragraph',
+		nodes: {
+			paragraph: {
+				content: 'date time',
+			},
+
+			date: {
+				content: 'inline*',
+				group: 'block',
+				parseDOM: [{tag: 'span'}],
+				toDOM() {
+					return ['span', {class:'date'}, 0]
+				},
+				regexp: '^([0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[0-9]?[0-9]?)$'
+			},
+
+			time: {
+				content: 'inline*',
+				group: 'block',
+				parseDOM: [{tag: 'span'}],
+				toDOM() {
+					return ['span', {class:'time'}, 0]
+				},
+				regexp: '^([0-9]?[0-9]?[:]?[0-9]?[0-9]?[:]?[0-9]?[0-9])$'
+			},
+
+			text: {
+				group: 'inline'
+			}
+		},
+		marks: {}
+	};
+}
+
+export function createSchema(type: IqrTextFieldSchema, colorProvider: (type:string, code:string, isCode: boolean) => string, contentProvider: (codes: {type: string, code: string}[]) => string) {
+	return new Schema(
+		type === 'date' ? getDateSpec() :
+			type === 'date-time' ? getDateTimeSpec() :
+			type ==='tokens-list' || type ==='styled-tokens-list' || type ==='tokens-list-with-codes' || type === 'styled-tokens-list-with-codes' ? getTokensSpec(type, contentProvider, colorProvider) : getSpec(type, contentProvider, colorProvider))
 }

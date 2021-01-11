@@ -2,19 +2,27 @@
 import { html, LitElement, property } from 'lit-element';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import { Schema } from 'prosemirror-model'
+import {Node as ProsemirrorNode, Schema} from 'prosemirror-model'
 import { history, redo, undo } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap, chainCommands, exitCode, joinDown, joinUp, setBlockType, toggleMark } from "prosemirror-commands";
 import { liftListItem, sinkListItem, splitListItem, wrapInList } from "prosemirror-schema-list"
 
-import {schema} from './markdown-schema'
+import {createSchema, IqrTextFieldSchema as IqrTextFieldSchema_} from './markdown-schema'
 import MarkdownIt from 'markdown-it'
 import {MarkdownParser} from 'prosemirror-markdown'
 import {iqrTextFieldStyle} from "./style";
 import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 import {SelectionCompanion} from "./selection-companion";
 import {SuggestionPalette} from "./suggestion-palette";
+import {caretFixPlugin} from "./caret-fix-plugin";
+import {hasMark} from "./prosemirror-utils";
+import {datetimeJumpPlugin} from "./datetime-jump-plugin";
+
+export type IqrTextFieldSchema = IqrTextFieldSchema_
+
+type FullSchema = Schema<"doc" | "paragraph" | "list_item" | "image" | "blockquote" | "bullet_list" | "hard_break" | "heading" | "horizontal_rule" | "ordered_list" | "text", "strong" | "em" | "link">;
+type DateTimeSchema = Schema<"paragraph" | "date" | "time" | "text">;
 
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
@@ -24,12 +32,16 @@ class IqrTextField extends LitElement {
 	@property() codeColorProvider: (type:string, code:string) => string = () => 'XI'
 	@property() linkColorProvider: (type:string, code:string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
+	@property() schema: IqrTextFieldSchema_ = 'styled-text-with-codes'
 	@property() value: string = '';
 	@property() owner?: string;
 	@property() displayOwnerMenu: boolean = false;
+	@property() suggestions: boolean = false;
+	@property() links: boolean = false;
+	@property() textRegex: string = '';
 
-	private readonly schema: Schema;
-	private readonly markdownParser: MarkdownParser<Schema<"paragraph" | "list_item" | "image" | "blockquote" | "bullet_list" | "hard_break" | "heading" | "horizontal_rule" | "doc" | "ordered_list" | "text", "strong" | "em" | "link">>;
+	private proseMirrorSchema?: Schema;
+	private parser?: MarkdownParser<FullSchema> | { parse: (value:string) => ProsemirrorNode<DateTimeSchema> };
 
 	private view?: EditorView;
 	private placeHolder?: HTMLElement;
@@ -39,29 +51,6 @@ class IqrTextField extends LitElement {
 
 	constructor() {
 		super();
-		this.schema = schema((t,c,isC) => isC ? this.codeColorProvider(t, c): this.linkColorProvider(t, c), this.codeContentProvider)
-		this.markdownParser = new MarkdownParser(this.schema, MarkdownIt("commonmark", {html: false}), {
-			blockquote: {block: "blockquote"},
-			paragraph: {block: "paragraph"},
-			list_item: {block: "list_item"},
-			bullet_list: {block: "bullet_list"},
-			ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +(tok.attrGet("start") || 1)})},
-			heading: {block: "heading", getAttrs: tok => ({level: +tok.tag.slice(1)})},
-			hr: {node: "horizontal_rule"},
-			image: {node: "image", getAttrs: tok => ({
-					src: tok.attrGet("src"),
-					title: tok.attrGet("title") || null,
-					alt: (tok.children || [])[0]?.content || null
-				})},
-			hardbreak: {node: "hard_break"},
-
-			em: {mark: "em"},
-			strong: {mark: "strong"},
-			link: {mark: "link", getAttrs: tok => ({
-					href: tok.attrGet("href"),
-					title: tok.attrGet("title") || null
-				})}
-		})
 	}
 
 	connectedCallback() {
@@ -164,10 +153,58 @@ class IqrTextField extends LitElement {
 	}
 
 	firstUpdated() {
+		const schema: Schema = this.proseMirrorSchema = createSchema(this.schema, (t, c, isC) => isC ? this.codeColorProvider(t, c): this.linkColorProvider(t, c), this.codeContentProvider)
+		const tokenizer = MarkdownIt("commonmark", {html: false});
+		this.parser = this.schema === 'date' ? {
+			parse: (value:string) => schema.node("paragraph", {}, [
+				schema.node("date", {}, value ? [schema.text(value)] : []),
+			])
+		} : this.schema === 'date-time' ? {
+			parse: (value:string) => {
+				const date = value ? value.split(' ')[0] : '';
+				const time = value ? value.split(' ')[1] : '';
+
+				return schema.node("paragraph", {}, [
+					schema.node("date", {}, date && date.length ? [schema.text(date)] : [schema.text(' ')]),
+					schema.node("time", {}, time && time.length ? [schema.text(time)] : [schema.text(' ')]),
+				]);
+			}
+		} : this.schema === 'text-document' ? new MarkdownParser(schema, MarkdownIt("commonmark", {html: false}), {
+			blockquote: {block: "blockquote"},
+			paragraph: {block: "paragraph"},
+			list_item: {block: "list_item"},
+			bullet_list: {block: "bullet_list"},
+			ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +(tok.attrGet("start") || 1)})},
+			heading: {block: "heading", getAttrs: tok => ({level: +tok.tag.slice(1)})},
+			hr: {node: "horizontal_rule"},
+			image: {node: "image", getAttrs: tok => ({
+					src: tok.attrGet("src"),
+					title: tok.attrGet("title") || null,
+					alt: (tok.children || [])[0]?.content || null
+				})},
+			hardbreak: {node: "hard_break"},
+
+			em: hasMark(schema.spec.marks, 'em') ? {mark: "em"} : {ignore:true},
+			strong: hasMark(schema.spec.marks, 'strong') ? {mark: "strong"} : {ignore:true},
+			link: hasMark(schema.spec.marks, 'link') ? {mark: "link", getAttrs: tok => ({
+					href: tok.attrGet("href"),
+					title: tok.attrGet("title") || null
+				})} : {ignore:true}
+		}) : new MarkdownParser(schema, { parse: (src: string, env: any): any[] => {
+				return tokenizer.parse(src, env).filter(t => !t.type.startsWith('paragraph_'))
+			} } as any, {
+			em: hasMark(schema.spec.marks, 'em') ? {mark: "em"} : {ignore:true},
+			strong: hasMark(schema.spec.marks, 'strong') ? {mark: "strong"} : {ignore:true},
+			link: hasMark(schema.spec.marks, 'link') ? {mark: "link", getAttrs: tok => ({
+					href: tok.attrGet("href"),
+					title: tok.attrGet("title") || null
+				})} : {ignore:true}
+		})
+
 		const cmp = this
 		this.placeHolder = this.shadowRoot?.getElementById('editor') || undefined
 
-		let br = this.schema.nodes.hard_break
+		let br = schema.nodes.hard_break
 		const hardBreak = chainCommands(exitCode, (state, dispatch) => {
 			dispatch && dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView())
 			return true
@@ -175,55 +212,71 @@ class IqrTextField extends LitElement {
 
 		const replaceRangeWithSuggestion = async (from: number, to: number, sug:{ id: string, code: string, text: string, terms: string[] }) => {
 			const link = await this.linksProvider(sug)
-			return link && cmp.view!.state.tr.replaceWith(from, to, this.schema.text(sug.text, [this.schema.mark('link', link)])) || undefined
+			return link && cmp.view!.state.tr.replaceWith(from, to, this.proseMirrorSchema!.text(sug.text, [this.proseMirrorSchema!.mark('link', link)])) || undefined
 		}
 
 		if (this.placeHolder) {
 			let headingsKeymap = keymap([1,2,3,4,5,6].reduce((acc, idx) => {
-				return Object.assign(acc, {[`Mod-ctrl-${idx}`]: setBlockType(this.schema.nodes.heading, {level: ''+idx})});
+				return Object.assign(acc, {[`Mod-ctrl-${idx}`]: setBlockType(this.proseMirrorSchema!.nodes.heading, {level: ''+idx})});
 			},{}));
 
+			const parsedDoc = this.parser.parse(this.value);
 			this.view = new EditorView(this.placeHolder, {
 				state: EditorState.create({
-					doc: this.markdownParser.parse(this.value),
-					schema: this.schema,
+					doc: parsedDoc,
+					schema: this.proseMirrorSchema,
 					plugins: [
+						caretFixPlugin(),
+						datetimeJumpPlugin(),
 						history(),
+						this.links ?
 						new Plugin({
 							view(editorView) { return new SelectionCompanion(editorView, () => cmp.mouseCount > 0) }
-						}),
+						}) : null,
+						this.suggestions ?
 						new Plugin({
 							view(editorView) { return (cmp.suggestionPalette = new SuggestionPalette(editorView, (terms: string[]) => cmp.suggestionProvider(terms), () => cmp.suggestionStopWords)) }
-						}),
-						keymap({
+						}) : null,
+						this.suggestions ?
+							keymap({
 							"Tab": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.focusOrInsert(this.view!, replaceRangeWithSuggestion) || false },
 							"ArrowUp": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowUp() || false },
 							"ArrowDown": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.arrowDown() || false },
 							"Enter": (state: EditorState, dispatch?: (tr: Transaction) => void) => { return cmp.suggestionPalette && cmp.suggestionPalette.insert(this.view!, replaceRangeWithSuggestion) || false },
-						}),
+						}) : null,
 						keymap({"Mod-z": undo, "Mod-Shift-z": redo}),
-						keymap({
-							"Mod-b": toggleMark(this.schema.marks.strong),
-							"Mod-i": toggleMark(this.schema.marks.em),
-							"Alt-ArrowUp": joinUp,
-							"Alt-ArrowDown": joinDown,
-							"Alt-Enter": hardBreak,
-							"Shift-Enter": hardBreak,
-							"Shift-ctrl-1": wrapInList(this.schema.nodes.ordered_list),
-							"Shift-ctrl-*": wrapInList(this.schema.nodes.bullet_list),
-							"Shift-ctrl-w": wrapInIfNeeded(this.schema.nodes.blockquote),
-							"Shift-ctrl-u": unwrapFrom(this.schema.nodes.blockquote),
-							"Mod-ctrl-0": setBlockType(this.schema.nodes.paragraph),
-							"Shift-ctrl-0": setBlockType(this.schema.nodes.paragraph),
-							"Enter": splitListItem(this.schema.nodes.list_item),
-							"Mod-(": liftListItem(this.schema.nodes.list_item),
-							"Mod-[": liftListItem(this.schema.nodes.list_item),
-							"Mod-)": sinkListItem(this.schema.nodes.list_item),
-							"Mod-]": sinkListItem(this.schema.nodes.list_item),
+						keymap(Object.assign({},
+							schema.marks.strong? {"Mod-b": toggleMark(schema.marks.strong)} : {},
+							schema.marks.em? {"Mod-i": toggleMark(schema.marks.em)} : {},
+							schema.nodes.paragraph? {"Alt-ArrowUp": joinUp} : {},
+							schema.nodes.paragraph? {"Alt-ArrowDown": joinDown} : {},
+							schema.nodes.paragraph? {"Alt-Enter": hardBreak} : {},
+							schema.nodes.paragraph? {"Shift-Enter": hardBreak} : {},
+							schema.nodes.ordered_list? {"Shift-ctrl-1": wrapInList(schema.nodes.ordered_list)} : {},
+							schema.nodes.bullet_list? {"Shift-ctrl-*": wrapInList(schema.nodes.bullet_list)} : {},
+							schema.nodes.blockquote? {"Shift-ctrl-w": wrapInIfNeeded(schema.nodes.blockquote)} : {},
+							schema.nodes.blockquote? {"Shift-ctrl-u": unwrapFrom(schema.nodes.blockquote)} : {},
+							schema.nodes.paragraph? {"Mod-ctrl-0": setBlockType(schema.nodes.paragraph)} : {},
+							schema.nodes.paragraph? {"Shift-ctrl-0": setBlockType(schema.nodes.paragraph)} : {},
+							schema.nodes.list_item? {"Enter": splitListItem(schema.nodes.list_item)} : {},
+							schema.nodes.ordered_list || schema.nodes.bullet_list? {"Mod-(": liftListItem(schema.nodes.list_item)} : {},
+							schema.nodes.ordered_list || schema.nodes.bullet_list? {"Mod-[": liftListItem(schema.nodes.list_item)} : {},
+							schema.nodes.ordered_list || schema.nodes.bullet_list? {"Mod-)": sinkListItem(schema.nodes.list_item)} : {},
+							schema.nodes.ordered_list || schema.nodes.bullet_list? {"Mod-]": sinkListItem(schema.nodes.list_item)} : {}
+							)),
+						schema.nodes.heading ? headingsKeymap : null,
+						new Plugin({
+							filterTransaction: (t,state) => {
+								const parent = t.selection?.$to?.parent;
+								const regexp = parent?.type?.spec?.regexp;
+								if (!!regexp) {
+									return !parent?.textContent || !!parent.textContent.match(new RegExp(regexp))
+								}
+								return true
+							}
 						}),
-						headingsKeymap,
 						keymap(baseKeymap)
-					]
+					].filter(x => !!x).map(x => x as Plugin)
 				}),
 				dispatchTransaction: (tr) => {
 					this.view && this.view.updateState(this.view.state.apply(tr));

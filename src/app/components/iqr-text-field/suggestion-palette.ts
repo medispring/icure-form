@@ -77,8 +77,6 @@ export class SuggestionPalette {
 		return false
 	}
 
-
-
 	arrowUp() {
 		if (!this.hasFocus) return false
 		this.currentFocus && this.focusItem(this.currentFocus - 1)
@@ -104,7 +102,12 @@ export class SuggestionPalette {
 		}
 
 		let $pos = state.selection.$head
-		const text = state.doc.textBetween($pos.before()+1, $pos.pos)
+		if (lastState?.doc.textContent === state.doc.textContent) {
+			this.palette.style.display = "none"
+			return
+		}
+
+		const text = state.doc.textBetween($pos.pos ? $pos.before()+1 : 0, $pos.pos)
 
 		const words = text.split(/\s+/)
 		const terms = words.filter(x => x.length > 2 && !this.suggestionStopWordsProvider().has(x))

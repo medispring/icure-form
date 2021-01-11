@@ -1,1 +1,1 @@
-export * from './iqr-text-field'
+export * from './iqr-form'
