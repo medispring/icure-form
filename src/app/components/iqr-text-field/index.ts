@@ -282,6 +282,12 @@ class IqrTextField extends LitElement {
 								return true
 							}
 						}),
+						new Plugin({
+							filterTransaction: (t,state) => {
+								t.doc.textContent && t.doc.textContent.length ? (this.view?.dom as HTMLElement)?.classList.add('has-content') : (this.view?.dom as HTMLElement)?.classList.remove('has-content')
+								return true
+							}
+						}),
 						keymap(baseKeymap)
 					].filter(x => !!x).map(x => x as Plugin)
 				}),
