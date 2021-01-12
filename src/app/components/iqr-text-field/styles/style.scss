@@ -187,7 +187,7 @@ li.ProseMirror-selectednode:after {
 
 .ProseMirror p { margin-bottom: 1em }
 
-.iqr-form {
+.iqr-input {
   background: #EDF2F7;
   border-radius: 8px;
   border: none;
@@ -286,8 +286,8 @@ h3 {
 }
 
 .extra:hover .info {
-  opacity: 0;
-  z-index: 0;
+  opacity: 0!important;
+  z-index: 0!important;
 }
 
 .extra .buttons-container .btn {
@@ -301,6 +301,11 @@ h3 {
   width: 10px;
   margin-left: 4px;
   margin-right: 4px;
+	padding: 0;
+}
+
+.extra .buttons-container .menu-container:last-child .btn {
+	margin-right: 0;
 }
 
 .extra .buttons-container .btn svg path{
