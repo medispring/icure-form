@@ -45,6 +45,9 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		left: add-two($input-padding-x, $input-border-width);
 		transition: transform $floating-label-transition, color $floating-label-transition;
 		color: $color;
+		display:flex;
+		align-items: center;
+		height: 28px;
 	}
 	> .iqr-input {
 		flex: 1 1 auto;
@@ -72,6 +75,7 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		// sass-lint:enable indentation
 
 		font-weight: 500;
+		height: $floating-label-height;
 	}
 	.iqr-input {
 		border-radius: $border-radius;
