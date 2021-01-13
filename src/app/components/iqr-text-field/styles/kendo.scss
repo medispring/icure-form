@@ -45,9 +45,18 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		left: add-two($input-padding-x, $input-border-width);
 		transition: transform $floating-label-transition, color $floating-label-transition;
 		color: $color;
-		display:flex;
+		display: flex;
 		align-items: center;
 		height: 28px;
+		max-width: 55%;
+		min-width: 0;
+		> span {
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			padding-right: 8px;
+		}
 	}
 	> .iqr-input {
 		flex: 1 1 auto;
@@ -76,6 +85,7 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 
 		font-weight: 500;
 		height: $floating-label-height;
+		max-width: 100%;
 	}
 	.iqr-input {
 		border-radius: $border-radius;
