@@ -87,7 +87,7 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		height: $floating-label-height;
 		max-width: 100%;
 	}
-	.iqr-input {
+	.iqr-input, .input-container {
 		border-radius: $border-radius;
 		padding: $input-padding-y $input-padding-x;
 		width: $textbox-default-width;
@@ -112,12 +112,22 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		}
 		&:hover {
 			border-color: $input-hovered-border;
+			box-shadow: none;
+			&:focus, &:focus-within {
+				box-shadow: $textbox-shadow;
+			}
 		}
 		.ProseMirror {
 			padding: 0;
 			font-size: $textbox-font-size;
 			line-height: $textbox-line-height;
 			color: $color;
+		}
+		& > svg {
+			opacity: .5;
+			path {
+				fill: $accent;
+			}
 		}
 		.extra {
 			height: 20px;
