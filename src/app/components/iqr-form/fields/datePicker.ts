@@ -14,7 +14,7 @@ export class DatePicker extends LitElement {
 
 	render() {
 		return html`
-			<iqr-text-field label="${this.label}" textRegex="^([0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[/.-]?[0-9]?[0-9]?[0-9]?[0-9]?)$" schema="date" owner="Antoine Duchâteau" style="width: 100%"></iqr-text-field>`
+			<iqr-text-field label="${this.label}" schema="date" owner="Antoine Duchâteau" style="width: 100%"></iqr-text-field>`
 	}
 }
 
