@@ -1,26 +1,28 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement, property } from 'lit-element';
-import {EditorState, Plugin, TextSelection, Transaction} from 'prosemirror-state'
+import {EditorState, Plugin, Transaction} from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import {Node as ProsemirrorNode, ResolvedPos, Schema} from 'prosemirror-model'
+import {Node as ProsemirrorNode, Schema} from 'prosemirror-model'
 import { history, redo, undo } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap, chainCommands, exitCode, joinDown, joinUp, setBlockType, toggleMark } from "prosemirror-commands";
 import { liftListItem, sinkListItem, splitListItem, wrapInList } from "prosemirror-schema-list"
 
-import {createSchema, IqrTextFieldSchema as IqrTextFieldSchema_} from './markdown-schema'
+import {createSchema, IqrTextFieldSchema as IqrTextFieldSchema_} from './schema'
 import MarkdownIt from 'markdown-it'
 import {MarkdownParser} from 'prosemirror-markdown'
 import {unwrapFrom, wrapInIfNeeded} from "./prosemirror-commands";
 import {SelectionCompanion} from "./selection-companion";
 import {SuggestionPalette} from "./suggestion-palette";
-import {caretFixPlugin} from "./caret-fix-plugin";
+import {caretFixPlugin} from "./plugin/caret-fix-plugin";
 import {hasMark} from "./prosemirror-utils";
 
 // @ts-ignore
 import baseCss from './styles/style.scss';
 // @ts-ignore
 import kendoCss from './styles/kendo.scss';
+import {maskPlugin} from "./plugin/mask-plugin";
+import {hasContentClassPlugin} from "./plugin/has-content-class-plugin";
 
 export type IqrTextFieldSchema = IqrTextFieldSchema_
 
@@ -224,43 +226,6 @@ class IqrTextField extends LitElement {
 			return link && cmp.view!.state.tr.replaceWith(from, to, this.proseMirrorSchema!.text(sug.text, [this.proseMirrorSchema!.mark('link', link)])) || undefined
 		}
 
-		function maskText<S>($pos: ResolvedPos, text: string, mask: string, state: EditorState) : Transaction | undefined {
-			const textFromBeginning = $pos.parent.textBetween(0, $pos.parentOffset) + text
-			// @ts-ignore
-			const trailingText = $pos.parent.textBetween($pos.parentOffset, $pos.parent.content.size)
-
-			let t = textFromBeginning
-			let skip = 0
-			let completed = false
-			for (let i = 0; i < mask.length && i < t.length; i++) {
-				if (
-					mask[i] === '.' && t[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/\w|-/) ||
-					mask[i] === '-' && t[i].match(/\d/)
-				) {
-					//skip
-				} else {
-					if (mask[i] === t[i]) {
-						//skip
-					} else {
-						t = t.substring(0, i) + mask[i] + t.substring(i)
-						if (!completed) skip++
-					}
-				}
-				if (t.length == i + 1 && !completed) {
-					t += trailingText.substring(text.length + skip)
-					completed = true
-				}
-			}
-
-			let trail = t.length < mask.length ? mask.substring(t.length) : ''
-			if (t === textFromBeginning && trail === trailingText) {
-				return undefined
-			}
-
-			const tr = state.tr.insertText(t.substring(0, mask.length) + trail, $pos.pos - $pos.parentOffset, $pos.pos - $pos.parentOffset + $pos.parent.content.size)
-			return tr.setSelection(TextSelection.create(tr.doc, $pos.pos + text.length + skip))
-		}
-
 		if (this.container) {
 			let headingsKeymap = keymap([1,2,3,4,5,6].reduce((acc, idx) => {
 				return Object.assign(acc, {[`Mod-ctrl-${idx}`]: setBlockType(this.proseMirrorSchema!.nodes.heading, {level: ''+idx})});
@@ -310,91 +275,8 @@ class IqrTextField extends LitElement {
 							schema.nodes.ordered_list || schema.nodes.bullet_list? {"Mod-]": sinkListItem(schema.nodes.list_item)} : {}
 							)),
 						schema.nodes.heading ? headingsKeymap : null,
-						new Plugin({
-							filterTransaction: (t,state) => {
-								const parent = t.selection?.$to?.parent;
-								const regexp = parent?.type?.spec?.regexp;
-								const mask = parent?.type?.spec?.mask;
-								if (!!regexp) {
-									let tc = parent?.textContent
-									if (tc) {
-										let maskFragment = mask
-										while (tc.length>0 && tc[tc.length - 1] === maskFragment[maskFragment.length - 1]) {
-											tc = tc.substring(0, tc.length - 1)
-											maskFragment = maskFragment.substring(0, maskFragment.length - 1)
-										}
-										return !!tc.match(new RegExp(regexp))
-									}
-									return true
-								}
-								return true
-							}
-						}),
-						new Plugin({
-							view: (v:EditorView) => {
-								let tr = v.state.tr
-								let posMark = 0
-								//Scan nodes and add mask when needed
-								while (tr.doc && posMark<tr.doc.nodeSize-2) {
-									const node = tr.doc.nodeAt(posMark)
-									if (node && node.type.spec.mask) {
-										const mask = node.type.spec.mask
-										const text = node.textContent || ''
-										if (text.length<mask.length) {
-											tr = tr.insertText(mask.substring(text.length), posMark + 1 + text.length, posMark + 1 + text.length)
-										}
-										posMark+=1 + mask.length + 1
-									} else {
-										posMark++
-									}
-								}
-								v.updateState(v.state.apply(tr))
-								return {}
-							},
-							props: {
-								handleTextInput: (view, from, to, text) => {
-									if (view.composing) return false
-									const state = view.state
-									const $from = state.doc.resolve(from)
-									const mask = $from.parent.type.spec.mask;
-
-									if (!mask) return false
-
-									const tr = maskText($from, text, mask, state);
-									if (tr) {
-										view.dispatch(tr)
-										return true
-									}
-									return false
-								}
-							},
-							appendTransaction:(transactions: Array<Transaction>,
-																 oldState: EditorState,
-																 newState: EditorState) => {
-								const $from = newState.selection?.$from
-								const $to = newState.selection.$to
-								if ($from.pos - $to.pos !== 0) {
-									return null
-								}
-								const parent = $from?.parent
-								const mask = parent?.type?.spec?.mask
-
-								if (!!mask) {
-									return maskText($from, '', mask, newState)
-								}
-								return null
-							}
-						}),
-						new Plugin({
-							view: (v:EditorView) => {
-								v.state.doc.textContent && v.state.doc.textContent.length && (this.shadowRoot?.getElementById('root') as HTMLElement)?.classList?.add('has-content')
-								return {
-									update: (v: EditorView, s:EditorState) => {
-										v.state.doc.textContent && v.state.doc.textContent.length ? (this.shadowRoot?.getElementById('root') as HTMLElement)?.classList?.add('has-content') : (this.shadowRoot?.getElementById('root') as HTMLElement)?.classList?.remove('has-content')
-									}
-								}
-							}
-						}),
+						maskPlugin(),
+						hasContentClassPlugin(this.shadowRoot!!),
 						keymap(baseKeymap)
 					].filter(x => !!x).map(x => x as Plugin)
 				}),
