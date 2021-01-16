@@ -233,7 +233,10 @@ class IqrTextField extends LitElement {
 			let skip = 0
 			let completed = false
 			for (let i = 0; i < mask.length && i < t.length; i++) {
-				if (mask[i] === '.' || mask[i] === '-') {
+				if (
+					mask[i] === '.' && t[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/\w|-/) ||
+					mask[i] === '-' && t[i].match(/\d/)
+				) {
 					//skip
 				} else {
 					if (mask[i] === t[i]) {
@@ -388,7 +391,6 @@ class IqrTextField extends LitElement {
 								return {
 									update: (v: EditorView, s:EditorState) => {
 										v.state.doc.textContent && v.state.doc.textContent.length ? (this.shadowRoot?.getElementById('root') as HTMLElement)?.classList?.add('has-content') : (this.shadowRoot?.getElementById('root') as HTMLElement)?.classList?.remove('has-content')
-										console.log("Updated")
 									}
 								}
 							}
