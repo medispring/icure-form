@@ -45,6 +45,7 @@ class IqrForm extends LitElement {
 		}
 		const renderFieldOrGroup = function(fg: Field | Group, level: number) : TemplateResult {
 			return fg instanceof Group ? html`
+				<div class="group">
 					${h(level, html`${fg.group}`)}
 					${fg.fields?.map(f => renderFieldOrGroup(f, level+1))}` :
 				html`${
@@ -55,7 +56,8 @@ class IqrForm extends LitElement {
 										fg.type === 'time-picker' ? html`<iqr-form-time-picker label="${fg.field}"></iqr-form-time-picker>` : 
 											fg.type === 'date-time-picker' ? html`<iqr-form-date-time-picker label="${fg.field}"></iqr-form-date-time-picker>` : 
 												fg.type === 'multiple-choice' ? html`<iqr-form-multiple-choice label="${fg.field}"></iqr-form-multiple-choice>` : ''
-					}`
+					}
+					</div>`
 		}
 
 		return html`

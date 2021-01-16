@@ -83,7 +83,7 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 		<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}">${this.label}</label>
+				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra' + (this.displayOwnerMenu ? ' forced' : '') }>

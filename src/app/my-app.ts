@@ -76,8 +76,13 @@ class MyApp extends LitElement {
 		return css`
 			iqr-text-field {
 				display: block;
-				margin-top:24px;
-				margin-bottom:24px;
+			}
+			h2 {
+				width: 100%;
+				font-size: 2em;
+				margin-top: 1em;
+				margin-bottom: 0;
+				font-family: 'Roboto', Helvetica, sans-serif;	
 			}
 		`;
 	}

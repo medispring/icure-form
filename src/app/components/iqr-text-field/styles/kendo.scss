@@ -45,6 +45,18 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		left: add-two($input-padding-x, $input-border-width);
 		transition: transform $floating-label-transition, color $floating-label-transition;
 		color: $color;
+		display: flex;
+		align-items: center;
+		height: 28px;
+		max-width: 55%;
+		min-width: 0;
+		> span {
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			padding-right: 8px;
+		}
 	}
 	> .iqr-input {
 		flex: 1 1 auto;
@@ -72,8 +84,10 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		// sass-lint:enable indentation
 
 		font-weight: 500;
+		height: $floating-label-height;
+		max-width: 100%;
 	}
-	.iqr-input {
+	.iqr-input, .input-container {
 		border-radius: $border-radius;
 		padding: $input-padding-y $input-padding-x;
 		width: $textbox-default-width;
@@ -98,12 +112,22 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		}
 		&:hover {
 			border-color: $input-hovered-border;
+			box-shadow: none;
+			&:focus, &:focus-within {
+				box-shadow: $textbox-shadow;
+			}
 		}
 		.ProseMirror {
 			padding: 0;
 			font-size: $textbox-font-size;
 			line-height: $textbox-line-height;
 			color: $color;
+		}
+		& > svg {
+			opacity: .5;
+			path {
+				fill: $accent;
+			}
 		}
 		.extra {
 			height: 20px;
