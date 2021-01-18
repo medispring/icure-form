@@ -1,6 +1,7 @@
 import {SchemaSpec} from 'prosemirror-model';
 
 export type DateSchema = 'date'
+export type TimeSchema = 'time'
 export type DateTimeSchema = 'date-time'
 
 export function getDateSpec(): SchemaSpec {
@@ -30,6 +31,32 @@ export function getDateSpec(): SchemaSpec {
 	};
 }
 
+export function getTimeSpec(): SchemaSpec {
+	return {
+		topNode: 'paragraph',
+		nodes: {
+			paragraph: {
+				content: 'time',
+			},
+
+			time: {
+				content: 'inline*',
+				group: 'block',
+				parseDOM: [{tag: 'span'}],
+				toDOM() {
+					return ['span', {class:'time'}, 0]
+				},
+				regexp: '[0-9]',
+				mask: '--:--:--'
+			},
+
+			text: {
+				group: 'inline'
+			}
+		},
+		marks: {}
+	};
+}
 
 export function getDateTimeSpec(): SchemaSpec {
 	return {

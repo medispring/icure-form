@@ -13,7 +13,7 @@ export class TimePicker extends LitElement {
 
 	render() {
 		return html`
-		<iqr-text-field label="${this.label}"></iqr-text-field>
+		<iqr-text-field label="${this.label}" schema="time"></iqr-text-field>
 `
 	}
 }

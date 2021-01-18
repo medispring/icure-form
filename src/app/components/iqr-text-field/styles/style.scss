@@ -30,12 +30,6 @@
 }
 
 /* Make sure li selections wrap around markers */
-span.date {
-	background-color: lightgoldenrodyellow;
-	background-color: lightsteelblue;
-}
-
-
 li.ProseMirror-selectednode {
   outline: none;
 }
@@ -444,6 +438,10 @@ h3 {
 span {
 	position: relative;
 	z-index: 1;
+}
+
+span.time::before {
+	content: " ";
 }
 
 span[data-content]:hover::after {

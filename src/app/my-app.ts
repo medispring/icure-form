@@ -166,12 +166,13 @@ class MyApp extends LitElement {
 		const dateForm = new Form("Dates", [
 			new Section("Main", [
 				new DatePicker("This field is a DatePicker", "DatePicker"),
-				//new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
+				new TimePicker("This field is a TimePicker", "DatePicker"),
+				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
 			]),
 		], "Fill in the patient information inside the waiting room")
 
 		return html`
-<iqr-form .form="${dateForm}" skin="kendo" theme="bleublancrouge" renderer="cards"></iqr-form>
+<iqr-form .form="${form}" skin="kendo" theme="bleublancrouge" renderer="cards"></iqr-form>
 `
     }
 }

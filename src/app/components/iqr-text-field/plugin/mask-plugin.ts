@@ -1,16 +1,21 @@
 import {EditorState, Plugin, TextSelection, Transaction} from 'prosemirror-state';
-import {ResolvedPos} from "prosemirror-model";
+import {Node, ResolvedPos} from "prosemirror-model";
 import {EditorView} from "prosemirror-view";
 
 export const maskPlugin = () => {
-	const maskText = ($pos: ResolvedPos, text: string, mask: string, state: EditorState) => {
+	const maskText = ($pos: ResolvedPos, text: string, mask: string, tr: Transaction, setSelection: boolean = true) => {
 		const textFromBeginning = $pos.parent.textBetween(0, $pos.parentOffset) + text
-		// @ts-ignore
 		const trailingText = $pos.parent.textBetween($pos.parentOffset, $pos.parent.content.size)
 
 		let t = textFromBeginning
 		let skip = 0
 		let completed = false
+
+		if (t.length === 0) {
+			t += trailingText.substring(text.length + skip)
+			completed = true
+		}
+
 		for (let i = 0; i < mask.length && i < t.length; i++) {
 			if (
 				mask[i] === '.' && t[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/\w|-/) ||
@@ -25,39 +30,60 @@ export const maskPlugin = () => {
 					if (!completed) skip++
 				}
 			}
-			if (t.length == i + 1 && !completed) {
+			if (t.length === i + 1 && !completed) {
 				t += trailingText.substring(text.length + skip)
 				completed = true
 			}
 		}
+
+		const tail = t.length>mask.length ? t.substring(mask.length) : ''
+		t = t.substring(0, mask.length)
 
 		let trail = t.length < mask.length ? mask.substring(t.length) : ''
 		if (t === textFromBeginning && trail === trailingText) {
 			return undefined
 		}
 
-		const tr = state.tr.insertText(t.substring(0, mask.length) + trail, $pos.pos - $pos.parentOffset, $pos.pos - $pos.parentOffset + $pos.parent.content.size)
-		return tr.setSelection(TextSelection.create(tr.doc, $pos.pos + text.length + skip))
+		const currentSel = tr.selection
+
+		tr = tr.insertText(t + trail, $pos.pos - $pos.parentOffset, $pos.pos - $pos.parentOffset + $pos.parent.content.size)
+		if (setSelection) {
+			tr = tr.setSelection(TextSelection.create(tr.doc, Math.min($pos.pos + text.length + skip, tr.doc.content.size - 1)))
+		} else {
+			tr = tr.setSelection(TextSelection.create(tr.doc, Math.min(currentSel.$anchor.pos, tr.doc.content.size - 1), Math.min(currentSel.$head.pos, tr.doc.content.size - 1)))
+		}
+		tr.setMeta("tailText", tail)
+
+		return tr
 	}
+
+	function applyDocMasks(state: EditorState): Transaction | undefined {
+		let tr = undefined
+		let posMark = 0
+		//Scan nodes and add mask when needed
+		while ((tr || state).doc && posMark < (tr || state).doc.content.size) {
+			const $pos = (tr || state).doc.resolve(posMark)
+			const node: Node | undefined = $pos.node($pos.depth) || undefined
+			const mask: string | undefined = node?.type.spec.mask;
+			if (mask) {
+				tr = tr || state.tr
+				tr = maskText(tr.doc.resolve(posMark), '', mask, tr, false) || tr
+				const $newPos = tr.doc.resolve(posMark)
+				const newNode = $newPos.node($newPos.depth)
+				if (newNode) {
+					posMark += newNode.content.size + 1
+				} else posMark++
+			} else {
+				posMark++
+			}
+		}
+		return tr;
+	}
+
 	return new Plugin({
 		view: (v: EditorView) => {
-			let tr = v.state.tr
-			let posMark = 0
-			//Scan nodes and add mask when needed
-			while (tr.doc && posMark < tr.doc.nodeSize - 2) {
-				const node = tr.doc.nodeAt(posMark)
-				if (node && node.type.spec.mask) {
-					const mask = node.type.spec.mask
-					const text = node.textContent || ''
-					if (text.length < mask.length) {
-						tr = tr.insertText(mask.substring(text.length), posMark + 1 + text.length, posMark + 1 + text.length)
-					}
-					posMark += 1 + mask.length + 1
-				} else {
-					posMark++
-				}
-			}
-			v.updateState(v.state.apply(tr))
+			let tr = applyDocMasks(v.state);
+			if (tr) v.updateState(v.state.apply(tr))
 			return {}
 		},
 		props: {
@@ -71,8 +97,20 @@ export const maskPlugin = () => {
 
 				if (!mask) return false
 
-				const tr = maskText($from, regexp && regexp.length ? text.split('').filter(x => x.match(new RegExp(regexp))).join('') : text, mask, state);
+				const tr = maskText($from, regexp && regexp.length ? text.split('').filter(x => x.match(new RegExp(regexp))).join('') : text, mask, state.tr);
 				if (tr) {
+					const tail: string = tr.getMeta('tailText')
+					if (tail?.length) {
+						const nextPos = tr.selection.$to.pos < tr.doc.content.size ? tr.doc.resolve(tr.selection.$to.pos+1) : undefined
+					 	if (nextPos) {
+							const nextNode = nextPos.node(nextPos.depth)
+							if (nextNode && nextNode.type.spec.mask && nextNode.type.spec.mask.length) {
+								maskText(nextPos, tail, nextNode.type.spec.mask, tr)
+							} else if (nextNode && (nextNode.type.isText || nextNode.type.isTextblock)) {
+								tr.insertText(tail, nextPos.pos, nextPos.pos)
+							}
+					 	}
+					}
 					view.dispatch(tr)
 					return true
 				}
@@ -82,18 +120,7 @@ export const maskPlugin = () => {
 		appendTransaction: (transactions: Array<Transaction>,
 												oldState: EditorState,
 												newState: EditorState) => {
-			const $from = newState.selection?.$from
-			const $to = newState.selection.$to
-			if ($from.pos - $to.pos !== 0) {
-				return null
-			}
-			const parent = $from?.parent
-			const mask = parent?.type?.spec?.mask
-
-			if (!!mask) {
-				return maskText($from, '', mask, newState)
-			}
-			return null
+			return applyDocMasks(newState)
 		}
 	});
 }
