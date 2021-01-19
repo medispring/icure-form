@@ -172,7 +172,7 @@ class MyApp extends LitElement {
 		], "Fill in the patient information inside the waiting room")
 
 		return html`
-<iqr-form .form="${form}" skin="kendo" theme="bleublancrouge" renderer="cards"></iqr-form>
+<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 `
     }
 }

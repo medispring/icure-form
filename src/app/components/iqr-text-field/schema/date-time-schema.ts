@@ -44,7 +44,7 @@ export function getTimeSpec(): SchemaSpec {
 				group: 'block',
 				parseDOM: [{tag: 'span'}],
 				toDOM() {
-					return ['span', {class:'time'}, 0]
+					return ['span', 0]
 				},
 				regexp: '[0-9]',
 				mask: '--:--:--'

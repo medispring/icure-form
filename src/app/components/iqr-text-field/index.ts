@@ -23,6 +23,7 @@ import baseCss from './styles/style.scss';
 import kendoCss from './styles/kendo.scss';
 import {maskPlugin} from "./plugin/mask-plugin";
 import {hasContentClassPlugin} from "./plugin/has-content-class-plugin";
+import {regexpPlugin} from "./plugin/regexp-plugin";
 
 export type IqrTextFieldSchema = IqrTextFieldSchema_
 
@@ -39,7 +40,7 @@ class IqrTextField extends LitElement {
 	@property() codeContentProvider: (codes: {type: string, code: string}[]) => string = (codes) => codes.map(c=>c.code).join(',')
 	@property() schema: IqrTextFieldSchema_ = 'styled-text-with-codes'
 	@property() label: string = '';
-	@property() labelPosition: 'float' | 'side' | 'hidden' = 'float';
+	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float';
 	@property() placeholder: string = '';
 	@property() value: string = '';
 	@property() owner?: string;
@@ -276,6 +277,7 @@ class IqrTextField extends LitElement {
 							)),
 						schema.nodes.heading ? headingsKeymap : null,
 						maskPlugin(),
+						regexpPlugin(),
 						hasContentClassPlugin(this.shadowRoot!!),
 						keymap(baseKeymap)
 					].filter(x => !!x).map(x => x as Plugin)

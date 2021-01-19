@@ -1,6 +1,6 @@
 import {EditorState, Plugin, TextSelection, Transaction} from 'prosemirror-state';
 import {Node, ResolvedPos} from "prosemirror-model";
-import {EditorView} from "prosemirror-view";
+import {Decoration, DecorationSet, EditorView} from "prosemirror-view";
 
 export const maskPlugin = () => {
 	const maskText = ($pos: ResolvedPos, text: string, mask: string, tr: Transaction, setSelection: boolean = true) => {
@@ -87,6 +87,31 @@ export const maskPlugin = () => {
 			return {}
 		},
 		props: {
+			decorations(state) {
+				let $pos = state.doc.resolve(Math.min(state.selection.$from.pos, state.doc.content.size))
+				let node = $pos.parent
+				let start = $pos.pos - $pos.parentOffset
+
+				if (node.type.spec.mask) {
+					if (node.type.spec.mask.length === $pos.parentOffset && node.type.spec.mask.length === node.content.size) {
+						//Move to the next one
+						while($pos.pos < state.doc.content.size - 1) {
+							$pos = state.doc.resolve($pos.pos + 1)
+							node = $pos.parent
+
+							if (node && node.type.spec.mask) {
+								start = $pos.pos - $pos.parentOffset
+								break
+							}
+						}
+					}
+
+					return DecorationSet.create(state.doc, [
+						Decoration.node(start - 1, start - 1 + node.nodeSize, {class: "focused"})
+					])
+				}
+				return undefined
+			},
 			handleTextInput: (view, from, to, text) => {
 				if (view.composing) return false
 

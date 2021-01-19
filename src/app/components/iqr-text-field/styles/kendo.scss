@@ -9,6 +9,8 @@ $input-focused-text: #656565;
 $input-focused-border: rgba(0, 0, 0, 0.15);
 $input-hovered-border: rgba(0, 0, 0, 0.15);
 $accent: #656565;
+$highlight: rgba(0, 0, 0, 0.05);
+$highlight-contour: rgba(0, 0, 0, 0.10);
 $border-radius: 2px;
 
 $textbox-line-height: 1.4em!default;
@@ -67,6 +69,7 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		transform: translate( 0, 0 ) scale( 1 );
 	}
 
+	> .iqr-label.above,
 	&.has-content > .iqr-label,
 	&:focus > .iqr-label,
 	&:focus-within > .iqr-label{
@@ -122,6 +125,18 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 			font-size: $textbox-font-size;
 			line-height: $textbox-line-height;
 			color: $color;
+
+			.date {
+				padding: 1px;
+			}
+			.time {
+				padding: 1px;
+			}
+		}
+		.ProseMirror:focus .focused {
+			background-color: $highlight;
+			border-radius: 3px;
+			border-color: $highlight-contour;
 		}
 		& > svg {
 			opacity: .5;

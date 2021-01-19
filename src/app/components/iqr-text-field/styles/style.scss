@@ -440,9 +440,21 @@ span {
 	z-index: 1;
 }
 
-span.time::before {
-	content: " ";
+span.date {
+	margin-right: 1px;
 }
+span.time {
+	margin-left: 1px;
+}
+span.measure {
+	display: inline-block;
+	margin-right: 1px;
+}
+span.unit {
+	margin-left: 1px;
+	display: inline-block;
+}
+
 
 span[data-content]:hover::after {
 	position: absolute;

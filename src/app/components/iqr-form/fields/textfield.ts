@@ -6,6 +6,7 @@ class Textfield extends LitElement {
 	@property() multiline: boolean = false;
 	@property() rows: number = 1;
 	@property() grows: boolean = false;
+	@property() labelPosition?: string = undefined
 
 	static get styles() {
 		return [ css`
@@ -16,7 +17,7 @@ class Textfield extends LitElement {
 
 	render() {
 		return html`
-		<iqr-text-field ?multiline="${this.multiline}" label="${this.label}"></iqr-text-field>
+		<iqr-text-field labelPosition=${this.labelPosition} ?multiline="${this.multiline}" label="${this.label}"></iqr-text-field>
 `
 	}
 }

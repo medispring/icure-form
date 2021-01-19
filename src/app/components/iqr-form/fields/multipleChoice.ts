@@ -3,6 +3,7 @@ import '../../iqr-text-field';
 
 export class MultipleChoice extends LitElement {
 	@property() label: string = '';
+	@property() labelPosition?: string = undefined
 
 	static get styles() {
 		return [ css`
@@ -13,7 +14,7 @@ export class MultipleChoice extends LitElement {
 
 	render() {
 		return html`
-		<iqr-text-field label="${this.label}"></iqr-text-field>
+		<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}"></iqr-text-field>
 `
 	}
 }
