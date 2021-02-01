@@ -17,7 +17,8 @@ export const render: Renderer = (form: Form, props: any, state: any, setState: (
 					${h(level, html`${fg.group}`)}
 					${fg.fields?.map(f => renderFieldOrGroup(f, level+1))}` :
 			html`${
-				fg.type === 'textfield' ? html`<iqr-form-textfield labelPosition=${props.labelPosition} label="${fg.field}" multiline="${(fg.rows || 0)>1 || fg.grows}" rows="${fg.rows||1}" grows="${fg.grows||false}"></iqr-form-textfield>` :
+				fg.type === 'textfield' ? html`<iqr-form-textfield labelPosition=${props.labelPosition} label="${fg.field}" multiline="${(fg.rows || 0)>1 || fg.grows}" rows="${fg.rows||1}" grows="${fg.grows||false}"
+					.linksProvider=${fg.options?.linksProvider} .suggestionProvider=${fg.options?.suggestionProvider} .codeColorProvider=${fg.options?.codeColorProvider} .linkColorProvider=${fg.options?.linkColorProvider} .codeContentProvider=${fg.options?.codeContentProvider}></iqr-form-textfield>` :
 					fg.type === 'measure-field' ? html`<iqr-form-measure-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-measure-field>` :
 						fg.type === 'number-field' ? html`<iqr-form-number-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-number-field>` :
 							fg.type === 'date-picker' ? html`<iqr-form-date-picker labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-date-picker>` :

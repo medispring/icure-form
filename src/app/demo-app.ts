@@ -1,8 +1,8 @@
 import {css, html, LitElement} from 'lit-element';
 import {getRowsUsingPagination, IccCodeXApi} from '@icure/api';
 
-import './components/iqr-text-field';
-import './components/iqr-form';
+import '../components/iqr-text-field';
+import '../components/iqr-form';
 import MiniSearch from 'minisearch'
 import {
 	DatePicker,
@@ -13,7 +13,7 @@ import {
 	Section,
 	TextField,
 	TimePicker
-} from "./components/iqr-form/model";
+} from "../components/iqr-form/model";
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -61,7 +61,7 @@ const icpc2 = {
 
 const stopWords = new Set(['du','au','le','les','un','la','des','sur','de'])
 
-class MyApp extends LitElement {
+class DemoApp extends LitElement {
 	private api: IccCodeXApi = new IccCodeXApi("https://kraken.svc.icure.cloud/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
 
 	private miniSearch: MiniSearch = new MiniSearch({
@@ -163,18 +163,27 @@ class MyApp extends LitElement {
 		], "Fill in the patient information inside the waiting room")
 
 		//@ts-ignore
-		const dateForm = new Form("Dates", [
-			new Section("Main", [
+		const shortForm = new Form("Semantic example", [
+			new Section("Dates & Time", [
 				new DatePicker("This field is a DatePicker", "DatePicker"),
 				new TimePicker("This field is a TimePicker", "DatePicker"),
 				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
 			]),
+			new Section("Completion & Links", [
+				new TextField("This field is a TextField", "TextField", 3, true, "text-document", ['CD-ITEM|diagnosis|1'], [], {
+					codeColorProvider : this.codeColorProvider,
+					suggestionStopWords : this.codeColorProvider,
+					linksProvider : this.codeColorProvider,
+					suggestionProvider : this.codeColorProvider
+				})
+			]),
 		], "Fill in the patient information inside the waiting room")
 
 		return html`
-<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
+			<iqr-text-field .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
+			<iqr-form .form="${shortForm}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 `
     }
 }
 
-customElements.define('my-app', MyApp);
+customElements.define('demo-app', DemoApp);
