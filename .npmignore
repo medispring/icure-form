@@ -1,7 +1,13 @@
 src
+test
+app
+node_modules
 dist
 index.html
 tsconfig.json
 tslint.json
-webpack.config.json
+webpack.config.js
 yarn.lock
+.editorconfig
+.mocharc.json
+
