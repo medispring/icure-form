@@ -1,8 +1,10 @@
 import {css, html, LitElement} from 'lit-element';
 import {getRowsUsingPagination, IccCodeXApi} from '@icure/api';
 
-import '../components/iqr-text-field';
-import '../components/iqr-form';
+console.log("initialized")
+
+import '../src/components/iqr-text-field';
+import '../src/components/iqr-form';
 import MiniSearch from 'minisearch'
 import {
 	DatePicker,
@@ -13,7 +15,7 @@ import {
 	Section,
 	TextField,
 	TimePicker
-} from "../components/iqr-form/model";
+} from "../src/components/iqr-form/model";
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],

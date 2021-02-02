@@ -4,9 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = ({mode}) => {
 	return {
 		mode,
+		entry: './app/demo-app.ts',
 		plugins: [
 			new HtmlWebpackPlugin({
-				template: './index.html'
+				template: 'index.html'
 			}),
 			new CopyWebpackPlugin({
 				patterns: [
