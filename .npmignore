@@ -2,11 +2,13 @@
 src
 test
 app
+tmp
 dist
 index.html
 tsconfig.json
 tslint.json
 webpack.config.js
+lit-inject-scss.js
 yarn.lock
 .editorconfig
 .mocharc.json
