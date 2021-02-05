@@ -33,7 +33,7 @@ async function* getFiles(dir) {
 				return replacement
 			})
 			await writeFile(df, treated)
-		} else if (f.match(/.+(\.s?css)/)) {
+		} else if (!f.match(/.+(\.s?css)/)) {
 			await copyFile(f, df)
 		}
 	}
