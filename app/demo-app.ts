@@ -1,9 +1,9 @@
 import { css, html, LitElement } from 'lit-element'
-import { getRowsUsingPagination, IccCodeXApi } from '@icure/api'
+import { Code, getRowsUsingPagination, IccCodeXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
-import MiniSearch from 'minisearch'
+import MiniSearch, { SearchResult } from 'minisearch'
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -62,7 +62,7 @@ class DemoApp extends LitElement {
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
 		storeFields: ['code', 'text', 'links'], // fields to return with search results
-		processTerm: (term, _fieldName) =>
+		processTerm: (term) =>
 			term.length === 1 || stopWords.has(term)
 				? null
 				: term
@@ -87,7 +87,7 @@ class DemoApp extends LitElement {
 	}
 
 	async firstUpdated() {
-		const codes = await getRowsUsingPagination<any>((key, docId, limit) => {
+		const codes = await getRowsUsingPagination<Code>((key, docId) => {
 			return this.api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
 				rows: (x.rows || []).map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })),
 				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
@@ -109,7 +109,7 @@ class DemoApp extends LitElement {
 				.replace(/[\u0300-\u036f]/g, '')
 				.toLowerCase(),
 		)
-		const res: any[] = []
+		const res: (SearchResult & { terms: string[] })[] = []
 		if (this.miniSearch) {
 			while (normalisedTerms.length && res.length < 20) {
 				res.push(
@@ -144,6 +144,7 @@ class DemoApp extends LitElement {
 	}
 
 	render() {
+		// noinspection DuplicatedCode
 		const form = new Form(
 			'Waiting room GP',
 			[
