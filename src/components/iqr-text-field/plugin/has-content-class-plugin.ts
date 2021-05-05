@@ -1,14 +1,16 @@
-import {EditorState, Plugin} from 'prosemirror-state';
-import {EditorView} from "prosemirror-view";
+import { EditorState, Plugin } from 'prosemirror-state'
+import { EditorView } from 'prosemirror-view'
 export const hasContentClassPlugin = (root: DocumentFragment) => {
 	return new Plugin({
-		view: (v:EditorView) => {
+		view: (v: EditorView) => {
 			v.state.doc.textContent && v.state.doc.textContent.length && (root?.getElementById('root') as HTMLElement)?.classList?.add('has-content')
 			return {
-				update: (v: EditorView, s:EditorState) => {
-					v.state.doc.textContent && v.state.doc.textContent.length ? (root?.getElementById('root') as HTMLElement)?.classList?.add('has-content') : (root.getElementById('root') as HTMLElement)?.classList?.remove('has-content')
-				}
+				update: (v: EditorView, s: EditorState) => {
+					v.state.doc.textContent && v.state.doc.textContent.length
+						? (root?.getElementById('root') as HTMLElement)?.classList?.add('has-content')
+						: (root.getElementById('root') as HTMLElement)?.classList?.remove('has-content')
+				},
 			}
-		}
+		},
 	})
 }

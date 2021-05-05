@@ -1,22 +1,22 @@
-import {css, html, LitElement, property} from 'lit-element';
-import '../../iqr-text-field';
+import { css, html, LitElement, property } from 'lit-element'
+import '../../iqr-text-field'
 
 export class DateTimePicker extends LitElement {
-	@property() label: string = '';
+	@property() label = ''
 	@property() labelPosition?: string = undefined
 
 	static get styles() {
-		return [ css`
-:host {
-}
-` ];
+		return [
+			css`
+				:host {
+				}
+			`,
+		]
 	}
 
 	render() {
-		return html`
-			<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="date-time"></iqr-text-field>
-`
+		return html` <iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="date-time"></iqr-text-field> `
 	}
 }
 
-customElements.define('iqr-form-date-time-picker', DateTimePicker);
+customElements.define('iqr-form-date-time-picker', DateTimePicker)

@@ -1,4 +1,4 @@
-import {SchemaSpec} from 'prosemirror-model';
+import { SchemaSpec } from 'prosemirror-model'
 
 export type DateSchema = 'date'
 export type TimeSchema = 'time'
@@ -15,20 +15,20 @@ export function getDateSpec(): SchemaSpec {
 			date: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
 					return ['span', 0]
 				},
 				regexp: '[0-9]',
-				mask: '--/--/----'
+				mask: '--/--/----',
 			},
 
 			text: {
-				group: 'inline'
-			}
+				group: 'inline',
+			},
 		},
-		marks: {}
-	};
+		marks: {},
+	}
 }
 
 export function getTimeSpec(): SchemaSpec {
@@ -42,20 +42,20 @@ export function getTimeSpec(): SchemaSpec {
 			time: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
 					return ['span', 0]
 				},
 				regexp: '[0-9]',
-				mask: '--:--:--'
+				mask: '--:--:--',
 			},
 
 			text: {
-				group: 'inline'
-			}
+				group: 'inline',
+			},
 		},
-		marks: {}
-	};
+		marks: {},
+	}
 }
 
 export function getDateTimeSpec(): SchemaSpec {
@@ -69,29 +69,29 @@ export function getDateTimeSpec(): SchemaSpec {
 			date: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
-					return ['span', {class:'date'}, 0]
+					return ['span', { class: 'date' }, 0]
 				},
 				regexp: '[0-9]',
-				mask: '--/--/----'
+				mask: '--/--/----',
 			},
 
 			time: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
-					return ['span', {class:'time'}, 0]
+					return ['span', { class: 'time' }, 0]
 				},
 				regexp: '[0-9]',
-				mask: '--:--:--'
+				mask: '--:--:--',
 			},
 
 			text: {
-				group: 'inline'
-			}
+				group: 'inline',
+			},
 		},
-		marks: {}
-	};
+		marks: {},
+	}
 }

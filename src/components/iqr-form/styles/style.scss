@@ -9,13 +9,15 @@
 		font-size: 2em;
 		margin-top: 1em;
 	}
+
 	h3 {
 		width: 100%;
 		font-size: 1.2em;
 		font-weight: normal;
 		color: #282829;
-		margin: 0;
+		margin: 0 0 1em !important;
 	}
+
 	& > * {
 		margin: 0 24px 0 0;
 	}
@@ -44,9 +46,9 @@
 
 	.group {
 		background: #f6f6f6;
-		padding: 24px 0 24px 24px;
+		padding: 12px 0 12px 8px;
 		border-radius: 12px;
-		margin: 24px 0;
+		margin: 4px 0;
 		width: 100%;
 		display: flex;
 		flex-flow: row wrap;

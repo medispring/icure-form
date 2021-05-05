@@ -1,4 +1,4 @@
-import {SchemaSpec} from 'prosemirror-model';
+import { SchemaSpec } from 'prosemirror-model'
 
 export type DecimalSchema = 'decimal'
 
@@ -13,17 +13,17 @@ export function getDecimalSpec(): SchemaSpec {
 			decimal: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
 					return ['span', 0]
 				},
-				regexp: '[,. 0-9-]'
+				regexp: '[,. 0-9-]',
 			},
 
 			text: {
-				group: 'inline'
-			}
+				group: 'inline',
+			},
 		},
-		marks: {}
-	};
+		marks: {},
+	}
 }

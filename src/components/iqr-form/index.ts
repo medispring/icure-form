@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
-import {html, LitElement, property } from 'lit-element';
-import { Form } from "./model";
+import { html, LitElement, property } from 'lit-element'
+import { Form } from './model'
 
 import './fields/textfield'
 import './fields/measureField'
@@ -10,25 +10,25 @@ import './fields/timePicker'
 import './fields/dateTimePicker'
 import './fields/multipleChoice'
 // @ts-ignore
-import baseCss from './styles/style.scss';
+import baseCss from './styles/style.scss'
 // @ts-ignore
-import kendoCss from './styles/kendo.scss';
-import {Renderer} from "./renderer";
+import kendoCss from './styles/kendo.scss'
+import { Renderer } from './renderer'
 
-import { render as renderAsCard } from "./renderer/cards";
-import { render as renderAsForm } from "./renderer/form";
+import { render as renderAsCard } from './renderer/cards'
+import { render as renderAsForm } from './renderer/form'
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {
 	@property() form?: Form
-	@property() skin: string = "material"
-	@property() theme: string = "default"
-	@property() renderer: string = "form"
+	@property() skin = 'material'
+	@property() theme = 'default'
+	@property() renderer = 'form'
 	@property() labelPosition?: string = undefined
 	@property() state: any = {}
 
 	constructor() {
-		super();
+		super()
 	}
 
 	connectedCallback() {
@@ -40,19 +40,23 @@ class IqrForm extends LitElement {
 	}
 
 	static get styles() {
-		return [ baseCss, kendoCss ];
+		return [baseCss, kendoCss]
 	}
 
 	render() {
-		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm :
-			this.renderer === 'form' ? renderAsCard : undefined
+		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
-		return (renderer && this.form ? renderer(this.form, {labelPosition: this.labelPosition}, this.state, (newState:any) => this.state = newState) : this.form ? html`<p>unknown renderer</p>` : html`<p>missing form</p>`)
+		return renderer && this.form
+			? renderer(this.form, { labelPosition: this.labelPosition }, this.state, (newState: any) => (this.state = newState))
+			: this.form
+			? html`<p>unknown renderer</p>`
+			: html`<p>missing form</p>`
 	}
 
 	firstUpdated() {
+		//Do nothing
 	}
 }
 
 // Register the new element with the browser.
-customElements.define('iqr-form', IqrForm);
+customElements.define('iqr-form', IqrForm)

@@ -1,4 +1,4 @@
-import {Plugin, TextSelection} from 'prosemirror-state';
+import { Plugin, TextSelection } from 'prosemirror-state'
 
 export const regexpPlugin = () => {
 	return new Plugin({
@@ -8,12 +8,15 @@ export const regexpPlugin = () => {
 
 				const state = view.state
 				const $from = state.doc.resolve(from)
-				const mask = $from.parent.type.spec.mask;
-				const regexp = $from.parent.type.spec.regexp;
+				const mask = $from.parent.type.spec.mask
+				const regexp = $from.parent.type.spec.regexp
 
 				if (mask || !regexp) return false // Will be handled by mask plugin
 
-				const allowedCharacters = text.split('').filter(x => x.match(new RegExp(regexp))).join('')
+				const allowedCharacters = text
+					.split('')
+					.filter((x) => x.match(new RegExp(regexp)))
+					.join('')
 				if (allowedCharacters === text) return false
 
 				let tr = state.tr
@@ -41,7 +44,7 @@ export const regexpPlugin = () => {
 				view.dispatch(tr)
 
 				return true
-			}
-		}
+			},
+		},
 	})
 }

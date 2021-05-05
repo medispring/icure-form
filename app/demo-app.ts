@@ -1,21 +1,14 @@
-import {css, html, LitElement} from 'lit-element';
-import {getRowsUsingPagination, IccCodeXApi} from '@icure/api';
-
-console.log("initialized")
-
-import '../src/components/iqr-text-field';
-import '../src/components/iqr-form';
+import { css, html, LitElement } from 'lit-element'
+import { getRowsUsingPagination, IccCodeXApi } from '@icure/api'
+import * as YAML from 'yaml'
+import '../src/components/iqr-text-field'
+import '../src/components/iqr-form'
 import MiniSearch from 'minisearch'
-import {
-	DatePicker,
-	DateTimePicker,
-	Form, Group,
-	MeasureField, MultipleChoice,
-	NumberField,
-	Section,
-	TextField,
-	TimePicker
-} from "../src/components/iqr-form/model";
+import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import yamlForm from './form.yaml'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -39,39 +32,43 @@ const icd10 = [
 	['XIX', new RegExp('^[ST][0–9]')],
 	['XX', new RegExp('^[VY][0–9]')],
 	['XXI', new RegExp('^Z[0–9]')],
-	['XXII', new RegExp('^U[0–9]')]
+	['XXII', new RegExp('^U[0–9]')],
 ]
 
 const icpc2 = {
-	'B': 'XX',
-	'D': 'XI',
-	'F': 'VI',
-	'H': 'VII',
-	'K': 'IX',
-	'L': 'XIII',
-	'N': 'VI',
-	'P': 'V',
-	'R': 'X',
-	'S': 'XII',
-	'T': 'VI',
-	'U': 'XIV',
-	'W': 'XV',
-	'X': 'XVI',
-	'Y': 'XVIII',
-	'Z': 'XXI'
+	B: 'XX',
+	D: 'XI',
+	F: 'VI',
+	H: 'VII',
+	K: 'IX',
+	L: 'XIII',
+	N: 'VI',
+	P: 'V',
+	R: 'X',
+	S: 'XII',
+	T: 'VI',
+	U: 'XIV',
+	W: 'XV',
+	X: 'XVI',
+	Y: 'XVIII',
+	Z: 'XXI',
 }
 
-const stopWords = new Set(['du','au','le','les','un','la','des','sur','de'])
+const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
 class DemoApp extends LitElement {
-	private api: IccCodeXApi = new IccCodeXApi("https://kraken.svc.icure.cloud/rest/v1",{ Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ=='})
+	private api: IccCodeXApi = new IccCodeXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
 		storeFields: ['code', 'text', 'links'], // fields to return with search results
 		processTerm: (term, _fieldName) =>
-			term.length === 1 || stopWords.has(term) ?
-				null : term.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+			term.length === 1 || stopWords.has(term)
+				? null
+				: term
+						.normalize('NFD')
+						.replace(/[\u0300-\u036f]/g, '')
+						.toLowerCase(),
 	})
 
 	static get styles() {
@@ -84,41 +81,54 @@ class DemoApp extends LitElement {
 				font-size: 2em;
 				margin-top: 1em;
 				margin-bottom: 0;
-				font-family: 'Roboto', Helvetica, sans-serif;	
+				font-family: 'Roboto', Helvetica, sans-serif;
 			}
-		`;
+		`
 	}
 
 	async firstUpdated() {
 		const codes = await getRowsUsingPagination<any>((key, docId, limit) => {
-			return this.api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then(x => ({
-				rows: (x.rows || []).map(x => ({id: x.id, code: x.code, text: x.label?.fr, links:x.links})),
+			return this.api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
+				rows: (x.rows || []).map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })),
 				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
 				nextDocId: x.nextKeyPair?.startKeyDocId,
-				done: (x.rows || []).length < 10000
+				done: (x.rows || []).length < 10000,
 			}))
 		})
 		codes && this.miniSearch.addAll(codes)
 	}
 
 	codeColorProvider(type: string, code: string) {
-		return type === 'ICD' ? (icd10.find(x => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0,1)] || 'XXII'
+		return type === 'ICD' ? (icd10.find((x) => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0, 1)] || 'XXII'
 	}
 
 	suggestionProvider(terms: string[]) {
-		let normalisedTerms = terms.map(x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase());
+		let normalisedTerms = terms.map((x) =>
+			x
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.toLowerCase(),
+		)
 		const res: any[] = []
 		if (this.miniSearch) {
-			while(normalisedTerms.length && res.length<20) {
-				res.push(...this.miniSearch.search(normalisedTerms.join(' '))
-					.filter(x => {
-						return normalisedTerms.every(t => x.terms.includes(t))
-					})
-					.map(s => Object.assign(s, {terms}))
-					.filter(t => !res.some(x => x.text === t.text)))
-				res.length<20 && res.push(...this.miniSearch.search(normalisedTerms.join(' '), {prefix: true})
-					.filter(x => normalisedTerms.every(t => x.terms.some(mt => mt.startsWith(t))))
-					.map(s => Object.assign(s, {terms})).filter(t => !res.some(x => x.text === t.text)))
+			while (normalisedTerms.length && res.length < 20) {
+				res.push(
+					...this.miniSearch
+						.search(normalisedTerms.join(' '))
+						.filter((x) => {
+							return normalisedTerms.every((t) => x.terms.includes(t))
+						})
+						.map((s) => Object.assign(s, { terms }))
+						.filter((t) => !res.some((x) => x.text === t.text)),
+				)
+				res.length < 20 &&
+					res.push(
+						...this.miniSearch
+							.search(normalisedTerms.join(' '), { prefix: true })
+							.filter((x) => normalisedTerms.every((t) => x.terms.some((mt) => mt.startsWith(t))))
+							.map((s) => Object.assign(s, { terms }))
+							.filter((t) => !res.some((x) => x.text === t.text)),
+					)
 				normalisedTerms = normalisedTerms.slice(1)
 				terms = terms.slice(1)
 			}
@@ -126,66 +136,85 @@ class DemoApp extends LitElement {
 		return res
 	}
 
-	async linksProvider(sug: { id: string, code: string, text: string, terms: string[], links: string[] }) {
-		const links = (await Promise.all((sug.links || []).map(id => this.api.getCode(id)))).map(c => ({id:c.id, code:c.code, text:c.label?.fr, type:c.type}))
-			.concat([Object.assign({type: sug.id.split('|')[0]}, sug)])
-		return {href: links.map(c => `c-${c.type}://${c.code}`).join(','), title: links.map(c => c.text).join('; ')}
+	async linksProvider(sug: { id: string; code: string; text: string; terms: string[]; links: string[] }) {
+		const links = (await Promise.all((sug.links || []).map((id) => this.api.getCode(id))))
+			.map((c) => ({ id: c.id, code: c.code, text: c.label?.fr, type: c.type }))
+			.concat([Object.assign({ type: sug.id.split('|')[0] }, sug)])
+		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
 	}
 
-
 	render() {
-		//@ts-ignore
-		const form = new Form("Waiting room GP", [
-			new Section("All fields", [
-				new TextField("This field is a TextField", "TextField"),
-				new NumberField("This field is a NumberField", "NumberField"),
-				new MeasureField("This field is a MeasureField", "MeasureField"),
-				new DatePicker("This field is a DatePicker", "DatePicker"),
-				new TimePicker("This field is a TimePicker", "TimePicker"),
-				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
-				new MultipleChoice("This field is a MultipleChoice", "MultipleChoice"),
-			]),
-			new Section("Grouped fields", [
-				new Group("You can group fields together", [
-					new TextField("This field is a TextField", "TextField"),
-					new NumberField("This field is a NumberField", "NumberField"),
-					new MeasureField("This field is a MeasureField", "MeasureField"),
-					new DatePicker("This field is a DatePicker", "DatePicker"),
-					new TimePicker("This field is a TimePicker", "TimePicker"),
-					new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
-					new MultipleChoice("This field is a MultipleChoice", "MultipleChoice"),
+		const form = new Form(
+			'Waiting room GP',
+			[
+				new Section('All fields', [
+					new TextField('This field is a TextField', 'TextField'),
+					new NumberField('This field is a NumberField', 'NumberField'),
+					new MeasureField('This field is a MeasureField', 'MeasureField'),
+					new DatePicker('This field is a DatePicker', 'DatePicker'),
+					new TimePicker('This field is a TimePicker', 'TimePicker'),
+					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
+					new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
 				]),
-				new Group("And you can add tags and codes", [
-					new TextField("This field is a TextField", "TextField", 3, true, "text-document", ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS','ICD10'], {option: "blink"}),
-					new NumberField("This field is a NumberField", "NumberField", ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], {option: "bang"}),
-					new MeasureField("This field is a MeasureField", "MeasureField", ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], {unit: "bpm"}),
-					new MultipleChoice("This field is a MultipleChoice", "MultipleChoice", 4, 4, [], ['KATZ'], {many:"no"}),
-				])
-			]),
-		], "Fill in the patient information inside the waiting room")
+				new Section('Grouped fields', [
+					new Group('You can group fields together', [
+						new TextField('This field is a TextField', 'TextField'),
+						new NumberField('This field is a NumberField', 'NumberField'),
+						new MeasureField('This field is a MeasureField', 'MeasureField'),
+						new DatePicker('This field is a DatePicker', 'DatePicker'),
+						new TimePicker('This field is a TimePicker', 'TimePicker'),
+						new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
+						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
+					]),
+					new Group('And you can add tags and codes', [
+						new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], { option: 'blink' }),
+						new NumberField('This field is a NumberField', 'NumberField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
+						new MeasureField('This field is a MeasureField', 'MeasureField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
+						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
+					]),
+				]),
+			],
+			'Fill in the patient information inside the waiting room',
+		)
 
-		//@ts-ignore
-		const shortForm = new Form("Semantic example", [
-			new Section("Dates & Time", [
-				new DatePicker("This field is a DatePicker", "DatePicker"),
-				new TimePicker("This field is a TimePicker", "DatePicker"),
-				new DateTimePicker("This field is a DateTimePicker", "DateTimePicker"),
-			]),
-			new Section("Completion & Links", [
-				new TextField("This field is a TextField", "TextField", 3, true, "text-document", ['CD-ITEM|diagnosis|1'], [], {
-					codeColorProvider : this.codeColorProvider,
-					suggestionStopWords : this.codeColorProvider,
-					linksProvider : this.codeColorProvider,
-					suggestionProvider : this.codeColorProvider
-				})
-			]),
-		], "Fill in the patient information inside the waiting room")
+		const shortForm = new Form(
+			'Semantic example',
+			[
+				new Section('Dates & Time', [
+					new DatePicker('This field is a DatePicker', 'DatePicker'),
+					new TimePicker('This field is a TimePicker', 'DatePicker'),
+					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
+				]),
+				new Section('Completion & Links', [
+					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
+						codeColorProvider: this.codeColorProvider,
+						suggestionStopWords: this.codeColorProvider,
+						linksProvider: this.codeColorProvider,
+						suggestionProvider: this.codeColorProvider,
+					}),
+				]),
+			],
+			'Fill in the patient information inside the waiting room',
+		)
 
 		return html`
-			<iqr-text-field .codeColorProvider="${this.codeColorProvider}" .suggestionStopWords="${stopWords}" .linksProvider="${this.linksProvider.bind(this)}" .suggestionProvider="${this.suggestionProvider.bind(this)}" value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)" owner="M. Mennechet"></iqr-text-field>
+			<iqr-text-field
+				suggestions
+				.codeColorProvider="${this.codeColorProvider}"
+				.suggestionStopWords="${stopWords}"
+				.linksProvider="${this.linksProvider.bind(this)}"
+				.suggestionProvider="${this.suggestionProvider.bind(this)}"
+				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"
+				owner="M. Mennechet"
+			></iqr-text-field>
 			<iqr-form .form="${shortForm}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
-`
-    }
+			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
+			<h3>A Yaml syntax is also available</h3>
+			<pre>${yamlForm}</pre>
+			<h3>is interpreted as</h3>
+			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
+		`
+	}
 }
 
-customElements.define('demo-app', DemoApp);
+customElements.define('demo-app', DemoApp)

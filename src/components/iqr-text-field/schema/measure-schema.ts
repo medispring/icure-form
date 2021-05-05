@@ -1,4 +1,4 @@
-import {SchemaSpec} from 'prosemirror-model';
+import { SchemaSpec } from 'prosemirror-model'
 
 export type MeasureSchema = 'measure'
 
@@ -13,26 +13,26 @@ export function getMeasureSpec(): SchemaSpec {
 			decimal: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
-					return ['span', {class:'measure'}, 0]
+					return ['span', { class: 'measure' }, 0]
 				},
-				regexp: '[,.0-9-]'
+				regexp: '[,.0-9-]',
 			},
 
 			unit: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{tag: 'span'}],
+				parseDOM: [{ tag: 'span' }],
 				toDOM() {
-					return ['span', {class:'unit'}, 0]
-				}
+					return ['span', { class: 'unit' }, 0]
+				},
 			},
 
 			text: {
-				group: 'inline'
-			}
+				group: 'inline',
+			},
 		},
-		marks: {}
-	};
+		marks: {},
+	}
 }

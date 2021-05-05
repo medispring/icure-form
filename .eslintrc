@@ -1,0 +1,26 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {}
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends":[
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "semi": ["error", "never", { "beforeStatementContinuationChars": "never"}],
+        "max-len": ["error", {"code": 190, "ignoreStrings": true, "ignoreTemplateLiterals": true}],
+        "jsx-a11y/no-static-element-interactions": 0,
+				"@typescript-eslint/ban-ts-comment": 0
+    }
+}
