@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement, property } from 'lit-element'
-import { EditorState, Plugin } from 'prosemirror-state'
+import { EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model'
 import { history, redo, undo } from 'prosemirror-history'
@@ -180,12 +180,7 @@ class IqrTextField extends LitElement {
 	}
 
 	firstUpdated() {
-		const shadowRoot = this.shadowRoot
-		const view = this.view
-		if (!shadowRoot || !view) {
-			return
-		}
-		const proseMirrorSchema: Schema = (this.proseMirrorSchema = createSchema(
+		const pms: Schema = (this.proseMirrorSchema = createSchema(
 			this.schema,
 			(t, c, isC) => (isC ? this.codeColorProvider(t, c) : this.linkColorProvider(t, c)),
 			this.codeContentProvider,
@@ -194,7 +189,7 @@ class IqrTextField extends LitElement {
 		this.parser =
 			this.schema === 'date'
 				? {
-						parse: (value: string) => proseMirrorSchema.node('paragraph', {}, [proseMirrorSchema.node('date', {}, value ? [proseMirrorSchema.text(value)] : [])]),
+						parse: (value: string) => pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(value)] : [])]),
 				  }
 				: this.schema === 'date-time'
 				? {
@@ -202,14 +197,14 @@ class IqrTextField extends LitElement {
 							const date = value ? value.split(' ')[0] : ''
 							const time = value ? value.split(' ')[1] : ''
 
-							return proseMirrorSchema.node('paragraph', {}, [
-								proseMirrorSchema.node('date', {}, date && date.length ? [proseMirrorSchema.text(date)] : [proseMirrorSchema.text(' ')]),
-								proseMirrorSchema.node('time', {}, time && time.length ? [proseMirrorSchema.text(time)] : [proseMirrorSchema.text(' ')]),
+							return pms.node('paragraph', {}, [
+								pms.node('date', {}, date && date.length ? [pms.text(date)] : [pms.text(' ')]),
+								pms.node('time', {}, time && time.length ? [pms.text(time)] : [pms.text(' ')]),
 							])
 						},
 				  }
 				: this.schema === 'text-document'
-				? new MarkdownParser(proseMirrorSchema, MarkdownIt('commonmark', { html: false }), {
+				? new MarkdownParser(pms, MarkdownIt('commonmark', { html: false }), {
 						blockquote: { block: 'blockquote' },
 						paragraph: { block: 'paragraph' },
 						list_item: { block: 'list_item' },
@@ -227,9 +222,9 @@ class IqrTextField extends LitElement {
 						},
 						hardbreak: { node: 'hard_break' },
 
-						em: hasMark(proseMirrorSchema.spec.marks, 'em') ? { mark: 'em' } : { ignore: true },
-						strong: hasMark(proseMirrorSchema.spec.marks, 'strong') ? { mark: 'strong' } : { ignore: true },
-						link: hasMark(proseMirrorSchema.spec.marks, 'link')
+						em: hasMark(pms.spec.marks, 'em') ? { mark: 'em' } : { ignore: true },
+						strong: hasMark(pms.spec.marks, 'strong') ? { mark: 'strong' } : { ignore: true },
+						link: hasMark(pms.spec.marks, 'link')
 							? {
 									mark: 'link',
 									getAttrs: (tok) => ({
@@ -240,16 +235,16 @@ class IqrTextField extends LitElement {
 							: { ignore: true },
 				  })
 				: new MarkdownParser(
-						proseMirrorSchema,
+						pms,
 						{
 							parse: (src: string, env: unknown): unknown[] => {
 								return tokenizer.parse(src, env).filter((t) => !t.type.startsWith('paragraph_'))
 							},
 						} as MarkdownIt,
 						{
-							em: hasMark(proseMirrorSchema.spec.marks, 'em') ? { mark: 'em' } : { ignore: true },
-							strong: hasMark(proseMirrorSchema.spec.marks, 'strong') ? { mark: 'strong' } : { ignore: true },
-							link: hasMark(proseMirrorSchema.spec.marks, 'link')
+							em: hasMark(pms.spec.marks, 'em') ? { mark: 'em' } : { ignore: true },
+							strong: hasMark(pms.spec.marks, 'strong') ? { mark: 'strong' } : { ignore: true },
+							link: hasMark(pms.spec.marks, 'link')
 								? {
 										mark: 'link',
 										getAttrs: (tok) => ({
@@ -265,7 +260,7 @@ class IqrTextField extends LitElement {
 		const cmp = this
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
-		const br = proseMirrorSchema.nodes.hard_break
+		const br = pms.nodes.hard_break
 		const hardBreak = chainCommands(exitCode, (state, dispatch) => {
 			dispatch && dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView())
 			return true
@@ -273,13 +268,13 @@ class IqrTextField extends LitElement {
 
 		const replaceRangeWithSuggestion = async (from: number, to: number, sug: { id: string; code: string; text: string; terms: string[] }) => {
 			const link = await this.linksProvider(sug)
-			return (link && cmp.view && cmp.view.state.tr.replaceWith(from, to, proseMirrorSchema.text(sug.text, [proseMirrorSchema.mark('link', link)]))) || undefined
+			return (link && cmp.view!.state.tr.replaceWith(from, to, this.proseMirrorSchema!.text(sug.text, [this.proseMirrorSchema!.mark('link', link)]))) || undefined
 		}
 
 		if (this.container) {
 			const headingsKeymap = keymap(
 				[1, 2, 3, 4, 5, 6].reduce((acc, idx) => {
-					return Object.assign(acc, { [`Mod-ctrl-${idx}`]: setBlockType(proseMirrorSchema.nodes.heading, { level: '' + idx }) })
+					return Object.assign(acc, { [`Mod-ctrl-${idx}`]: setBlockType(this.proseMirrorSchema!.nodes.heading, { level: '' + idx }) })
 				}, {}),
 			)
 
@@ -311,17 +306,17 @@ class IqrTextField extends LitElement {
 							: null,
 						this.suggestions
 							? keymap({
-									Tab: () => {
-										return (cmp.suggestionPalette && cmp.suggestionPalette.focusOrInsert(view, replaceRangeWithSuggestion)) || false
+									Tab: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+										return (cmp.suggestionPalette && cmp.suggestionPalette.focusOrInsert(this.view!, replaceRangeWithSuggestion)) || false
 									},
-									ArrowUp: () => {
+									ArrowUp: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 										return (cmp.suggestionPalette && cmp.suggestionPalette.arrowUp()) || false
 									},
-									ArrowDown: () => {
+									ArrowDown: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 										return (cmp.suggestionPalette && cmp.suggestionPalette.arrowDown()) || false
 									},
-									Enter: () => {
-										return (cmp.suggestionPalette && cmp.suggestionPalette.insert(view, replaceRangeWithSuggestion)) || false
+									Enter: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+										return (cmp.suggestionPalette && cmp.suggestionPalette.insert(this.view!, replaceRangeWithSuggestion)) || false
 									},
 							  })
 							: null,
@@ -329,29 +324,29 @@ class IqrTextField extends LitElement {
 						keymap(
 							Object.assign(
 								{},
-								proseMirrorSchema.marks.strong ? { 'Mod-b': toggleMark(proseMirrorSchema.marks.strong) } : {},
-								proseMirrorSchema.marks.em ? { 'Mod-i': toggleMark(proseMirrorSchema.marks.em) } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Alt-ArrowUp': joinUp } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Alt-ArrowDown': joinDown } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Alt-Enter': hardBreak } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Shift-Enter': hardBreak } : {},
-								proseMirrorSchema.nodes.ordered_list ? { 'Shift-ctrl-1': wrapInList(proseMirrorSchema.nodes.ordered_list) } : {},
-								proseMirrorSchema.nodes.bullet_list ? { 'Shift-ctrl-*': wrapInList(proseMirrorSchema.nodes.bullet_list) } : {},
-								proseMirrorSchema.nodes.blockquote ? { 'Shift-ctrl-w': wrapInIfNeeded(proseMirrorSchema.nodes.blockquote) } : {},
-								proseMirrorSchema.nodes.blockquote ? { 'Shift-ctrl-u': unwrapFrom(proseMirrorSchema.nodes.blockquote) } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Mod-ctrl-0': setBlockType(proseMirrorSchema.nodes.paragraph) } : {},
-								proseMirrorSchema.nodes.paragraph ? { 'Shift-ctrl-0': setBlockType(proseMirrorSchema.nodes.paragraph) } : {},
-								proseMirrorSchema.nodes.list_item ? { Enter: splitListItem(proseMirrorSchema.nodes.list_item) } : {},
-								proseMirrorSchema.nodes.ordered_list || proseMirrorSchema.nodes.bullet_list ? { 'Mod-(': liftListItem(proseMirrorSchema.nodes.list_item) } : {},
-								proseMirrorSchema.nodes.ordered_list || proseMirrorSchema.nodes.bullet_list ? { 'Mod-[': liftListItem(proseMirrorSchema.nodes.list_item) } : {},
-								proseMirrorSchema.nodes.ordered_list || proseMirrorSchema.nodes.bullet_list ? { 'Mod-)': sinkListItem(proseMirrorSchema.nodes.list_item) } : {},
-								proseMirrorSchema.nodes.ordered_list || proseMirrorSchema.nodes.bullet_list ? { 'Mod-]': sinkListItem(proseMirrorSchema.nodes.list_item) } : {},
+								pms.marks.strong ? { 'Mod-b': toggleMark(pms.marks.strong) } : {},
+								pms.marks.em ? { 'Mod-i': toggleMark(pms.marks.em) } : {},
+								pms.nodes.paragraph ? { 'Alt-ArrowUp': joinUp } : {},
+								pms.nodes.paragraph ? { 'Alt-ArrowDown': joinDown } : {},
+								pms.nodes.paragraph ? { 'Alt-Enter': hardBreak } : {},
+								pms.nodes.paragraph ? { 'Shift-Enter': hardBreak } : {},
+								pms.nodes.ordered_list ? { 'Shift-ctrl-1': wrapInList(pms.nodes.ordered_list) } : {},
+								pms.nodes.bullet_list ? { 'Shift-ctrl-*': wrapInList(pms.nodes.bullet_list) } : {},
+								pms.nodes.blockquote ? { 'Shift-ctrl-w': wrapInIfNeeded(pms.nodes.blockquote) } : {},
+								pms.nodes.blockquote ? { 'Shift-ctrl-u': unwrapFrom(pms.nodes.blockquote) } : {},
+								pms.nodes.paragraph ? { 'Mod-ctrl-0': setBlockType(pms.nodes.paragraph) } : {},
+								pms.nodes.paragraph ? { 'Shift-ctrl-0': setBlockType(pms.nodes.paragraph) } : {},
+								pms.nodes.list_item ? { Enter: splitListItem(pms.nodes.list_item) } : {},
+								pms.nodes.ordered_list || pms.nodes.bullet_list ? { 'Mod-(': liftListItem(pms.nodes.list_item) } : {},
+								pms.nodes.ordered_list || pms.nodes.bullet_list ? { 'Mod-[': liftListItem(pms.nodes.list_item) } : {},
+								pms.nodes.ordered_list || pms.nodes.bullet_list ? { 'Mod-)': sinkListItem(pms.nodes.list_item) } : {},
+								pms.nodes.ordered_list || pms.nodes.bullet_list ? { 'Mod-]': sinkListItem(pms.nodes.list_item) } : {},
 							),
 						),
-						proseMirrorSchema.nodes.heading ? headingsKeymap : null,
+						pms.nodes.heading ? headingsKeymap : null,
 						maskPlugin(),
 						regexpPlugin(),
-						hasContentClassPlugin(shadowRoot),
+						hasContentClassPlugin(this.shadowRoot!),
 						keymap(baseKeymap),
 					]
 						.filter((x) => !!x)
