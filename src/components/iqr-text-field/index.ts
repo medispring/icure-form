@@ -346,7 +346,7 @@ class IqrTextField extends LitElement {
 						pms.nodes.heading ? headingsKeymap : null,
 						maskPlugin(),
 						regexpPlugin(),
-						hasContentClassPlugin(this.shadowRoot),
+						hasContentClassPlugin(this.shadowRoot || undefined),
 						keymap(baseKeymap),
 					]
 						.filter((x) => !!x)
