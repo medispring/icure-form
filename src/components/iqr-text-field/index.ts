@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement, property } from 'lit-element'
-import { EditorState, Plugin, Transaction } from 'prosemirror-state'
+import { EditorState, Plugin } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model'
 import { history, redo, undo } from 'prosemirror-history'
@@ -268,13 +268,13 @@ class IqrTextField extends LitElement {
 
 		const replaceRangeWithSuggestion = async (from: number, to: number, sug: { id: string; code: string; text: string; terms: string[] }) => {
 			const link = await this.linksProvider(sug)
-			return (link && cmp.view!.state.tr.replaceWith(from, to, this.proseMirrorSchema!.text(sug.text, [this.proseMirrorSchema!.mark('link', link)]))) || undefined
+			return (link && cmp.view && cmp.view.state.tr.replaceWith(from, to, pms.text(sug.text, [pms.mark('link', link)]))) || undefined
 		}
 
 		if (this.container) {
 			const headingsKeymap = keymap(
 				[1, 2, 3, 4, 5, 6].reduce((acc, idx) => {
-					return Object.assign(acc, { [`Mod-ctrl-${idx}`]: setBlockType(this.proseMirrorSchema!.nodes.heading, { level: '' + idx }) })
+					return Object.assign(acc, { [`Mod-ctrl-${idx}`]: setBlockType(pms.nodes.heading, { level: '' + idx }) })
 				}, {}),
 			)
 
@@ -306,17 +306,17 @@ class IqrTextField extends LitElement {
 							: null,
 						this.suggestions
 							? keymap({
-									Tab: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-										return (cmp.suggestionPalette && cmp.suggestionPalette.focusOrInsert(this.view!, replaceRangeWithSuggestion)) || false
+									Tab: () => {
+										return (cmp.suggestionPalette && this.view && cmp.suggestionPalette.focusOrInsert(this.view, replaceRangeWithSuggestion)) || false
 									},
-									ArrowUp: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+									ArrowUp: () => {
 										return (cmp.suggestionPalette && cmp.suggestionPalette.arrowUp()) || false
 									},
-									ArrowDown: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+									ArrowDown: () => {
 										return (cmp.suggestionPalette && cmp.suggestionPalette.arrowDown()) || false
 									},
-									Enter: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-										return (cmp.suggestionPalette && cmp.suggestionPalette.insert(this.view!, replaceRangeWithSuggestion)) || false
+									Enter: () => {
+										return (cmp.suggestionPalette && this.view && cmp.suggestionPalette.insert(this.view, replaceRangeWithSuggestion)) || false
 									},
 							  })
 							: null,
@@ -346,7 +346,7 @@ class IqrTextField extends LitElement {
 						pms.nodes.heading ? headingsKeymap : null,
 						maskPlugin(),
 						regexpPlugin(),
-						hasContentClassPlugin(this.shadowRoot!),
+						hasContentClassPlugin(this.shadowRoot),
 						keymap(baseKeymap),
 					]
 						.filter((x) => !!x)
