@@ -17,7 +17,7 @@ export class SelectionCompanion {
 		this.update(view, undefined)
 	}
 
-	update(view: EditorView, lastState?: EditorState) {
+	update(view: EditorView, lastState?: EditorState): void {
 		const state = view.state
 		// Don't do anything if the document/selection didn't change
 		if (lastState && lastState.doc.eq(state.doc) && lastState.selection.eq(state.selection)) {
@@ -53,7 +53,7 @@ export class SelectionCompanion {
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		this.companion.remove()
 	}
 }

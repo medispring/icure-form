@@ -1,5 +1,5 @@
 import { Plugin } from 'prosemirror-state'
-export const caretFixPlugin = () => {
+export const caretFixPlugin = function (): Plugin {
 	let focusing = false
 	return new Plugin({
 		props: {

@@ -80,7 +80,7 @@ export function getMarks(
 
 					const classes = (refs.some((x) => x.category === 'x') ? ['ext-link'] : []).concat(codes.length ? [`code-count-${codes.length}`] : [])
 
-					const dataAttributes = (codes.length ? [{ 'data-content': contentProvider(codes) } as any] : []).concat(
+					const dataAttributes = (codes.length ? [{ 'data-content': contentProvider(codes) } as { [key: string]: string }] : []).concat(
 						ilinks.map((c, idx) => ({ [`data-link-color-${idx}`]: colorProvider(c.type, c.code, false) })),
 					)
 

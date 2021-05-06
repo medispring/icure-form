@@ -11,7 +11,7 @@ export abstract class Field {
 	schema?: IqrTextFieldSchema
 	tags?: string[]
 	codifications?: string[]
-	options?: { [key: string]: any }
+	options?: { [key: string]: unknown }
 
 	protected constructor(
 		type: FieldType,
@@ -23,7 +23,7 @@ export abstract class Field {
 		schema?: IqrTextFieldSchema,
 		tags?: string[],
 		codifications?: string[],
-		options?: { [key: string]: any },
+		options?: { [key: string]: unknown },
 	) {
 		this.field = label
 		this.type = type
@@ -37,8 +37,8 @@ export abstract class Field {
 		this.options = options
 	}
 
-	static parse(json: any) {
-		switch (json.type) {
+	static parse(json: Field): Field {
+		switch (json.type as string) {
 			case 'textfield':
 				return new TextField(json.field, json.shortLabel, json.rows, json.grows, json.schema, json.tags, json.codifications, json.options)
 			case 'measure-field':
@@ -68,44 +68,44 @@ export class TextField extends Field {
 		schema?: IqrTextFieldSchema,
 		tags?: string[],
 		codifications?: string[],
-		options?: { [key: string]: any },
+		options?: { [key: string]: unknown },
 	) {
 		super('textfield', label, shortLabel, rows, undefined, grows, schema || 'styled-text-with-codes', tags, codifications, options)
 	}
 }
 
 export class MeasureField extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('measure-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
 export class NumberField extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('number-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
 export class DatePicker extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('date-picker', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
 export class TimePicker extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('time-picker', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
 export class DateTimePicker extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('date-time-picker', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
 export class MultipleChoice extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: any }) {
+	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('multiple-choice', label, shortLabel, rows, columns, undefined, undefined, tags, codifications, options)
 	}
 }
@@ -119,10 +119,10 @@ export class Group {
 		this.fields = fields
 	}
 
-	static parse(json: any) {
+	static parse(json: { group: string; fields?: Array<Field | Group> }): Group {
 		return new Group(
 			json.group,
-			json.fields.map((s: any) => (s.group ? Group.parse(s) : Field.parse(s))),
+			(json.fields || []).map((s: Field | Group) => (s['group'] ? Group.parse(s as Group) : Field.parse(s as Field))),
 		)
 	}
 }
@@ -140,10 +140,17 @@ export class Section {
 		this.keywords = keywords
 	}
 
-	static parse(json: any) {
+	static parse(json: {
+		section: string
+		fields?: Array<Field | Group>
+		groups?: Array<Field | Group>
+		sections?: Array<Field | Group>
+		description?: string
+		keywords?: string[]
+	}): Section {
 		return new Section(
 			json.section,
-			(json.fields || json.groups || json.sections || []).map((s: any) => (s.group ? Group.parse(s) : Field.parse(s))),
+			(json.fields || json.groups || json.sections || []).map((s: Field | Group) => (s['group'] ? Group.parse(s as Group) : Field.parse(s as Field))),
 			json.description,
 			json.keywords,
 		)
@@ -163,10 +170,10 @@ export class Form {
 		this.sections = sections
 	}
 
-	static parse(json: any) {
+	static parse(json: { form: string; sections: Section[]; description?: string; keywords?: string[] }): Form {
 		return new Form(
 			json.form,
-			(json.sections || []).map((s: any) => Section.parse(s)),
+			(json.sections || []).map((s: Section) => Section.parse(s)),
 			json.description,
 			json.keywords,
 		)

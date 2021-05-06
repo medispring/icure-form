@@ -2,7 +2,7 @@ import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-sta
 import { Node, ResolvedPos } from 'prosemirror-model'
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view'
 
-export const maskPlugin = () => {
+export const maskPlugin = function (): Plugin {
 	const maskText = ($pos: ResolvedPos, text: string, mask: string, tr: Transaction, setSelection = true) => {
 		const textFromBeginning = $pos.parent.textBetween(0, $pos.parentOffset) + text
 		const trailingText = $pos.parent.textBetween($pos.parentOffset, $pos.parent.content.size)

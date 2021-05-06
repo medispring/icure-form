@@ -99,6 +99,9 @@ class DemoApp extends LitElement {
 	}
 
 	codeColorProvider(type: string, code: string) {
+		if (!code) {
+			return 'XXII'
+		}
 		return type === 'ICD' ? (icd10.find((x) => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0, 1)] || 'XXII'
 	}
 
@@ -189,9 +192,9 @@ class DemoApp extends LitElement {
 				new Section('Completion & Links', [
 					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
-						suggestionStopWords: this.codeColorProvider,
-						linksProvider: this.codeColorProvider,
-						suggestionProvider: this.codeColorProvider,
+						suggestionStopWords: stopWords,
+						linksProvider: this.linksProvider.bind(this),
+						suggestionProvider: this.suggestionProvider.bind(this),
 					}),
 				]),
 			],
@@ -201,7 +204,7 @@ class DemoApp extends LitElement {
 		return html`
 			<iqr-text-field
 				suggestions
-				.codeColorProvider="${this.codeColorProvider}"
+				.codeColorProvider="${this.codeColorProvider.bind(this)}"
 				.suggestionStopWords="${stopWords}"
 				.linksProvider="${this.linksProvider.bind(this)}"
 				.suggestionProvider="${this.suggestionProvider.bind(this)}"

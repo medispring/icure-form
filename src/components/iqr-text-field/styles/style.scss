@@ -567,18 +567,17 @@ span[data-content]::before {
 	justify-content: space-between;
 	border-radius: 4px;
 	color: rgb(39, 71, 104);
+	svg {
+		height: 12px;
+		width: 12px;
+		border-radius: 4px;
+		transform-origin: center center;
+		path {
+			fill: rgb(128, 154, 180);
+		}
+	}
 }
 
-.suggestion-palette ul li svg {
-	height: 12px;
-	width: 12px;
-	border-radius: 4px;
-	transform-origin: center center;
-}
-
-.suggestion-palette ul li svg path {
-	fill: rgb(128, 154, 180);
-}
 
 .suggestion-palette ul li:not(:first-child) svg.tab-icn, .suggestion-palette ul li:not(.focused) svg.return-icn, .suggestion-palette ul.focused li:first-child svg.tab-icn {
 	height: 0;

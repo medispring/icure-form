@@ -1,6 +1,6 @@
 import { Plugin, TextSelection } from 'prosemirror-state'
 
-export const regexpPlugin = () => {
+export const regexpPlugin = function (): Plugin {
 	return new Plugin({
 		props: {
 			handleTextInput: (view, from, to, text) => {

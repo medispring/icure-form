@@ -5,8 +5,8 @@ import { EditorState, NodeSelection, Transaction } from 'prosemirror-state'
 // :: (NodeType, ?Object) → (state: EditorState, dispatch: ?(tr: Transaction)) → bool
 // Wrap the selection in a node of the given type with the given
 // attributes.
-export function wrapInIfNeeded(nodeType: NodeType, attrs?: any) {
-	return function (state: EditorState, dispatch?: (tr: Transaction) => void) {
+export function wrapInIfNeeded(nodeType: NodeType, attrs?: { [key: string]: unknown }) {
+	return function (state: EditorState, dispatch?: (tr: Transaction) => void): boolean {
 		const { $from, $to, to } = state.selection
 		const range = $from.blockRange($to)
 		if (!range) {
@@ -21,8 +21,8 @@ export function wrapInIfNeeded(nodeType: NodeType, attrs?: any) {
 		}
 
 		const wrapping = range && findWrapping(range, nodeType, attrs)
-		if (!wrapping) return false
-		if (dispatch) dispatch(state.tr.wrap(range!, wrapping).scrollIntoView())
+		if (!wrapping || !range) return false
+		if (dispatch) dispatch(state.tr.wrap(range, wrapping).scrollIntoView())
 		return true
 	}
 }
@@ -30,8 +30,9 @@ export function wrapInIfNeeded(nodeType: NodeType, attrs?: any) {
 // :: (NodeType, ?Object) → (state: EditorState, dispatch: ?(tr: Transaction)) → bool
 // Wrap the selection in a node of the given type with the given
 // attributes.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function unwrapFrom(nodeType: NodeType) {
-	return function (state: EditorState, dispatch?: (tr: Transaction) => void) {
+	return function (state: EditorState, dispatch?: (tr: Transaction) => void): boolean {
 		const { $from, $to } = state.selection
 		const range = $from.blockRange($to)
 		const depth = range && liftTarget(range)

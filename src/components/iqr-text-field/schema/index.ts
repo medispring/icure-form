@@ -11,7 +11,7 @@ export function createSchema(
 	type: IqrTextFieldSchema,
 	colorProvider: (type: string, code: string, isCode: boolean) => string,
 	contentProvider: (codes: { type: string; code: string }[]) => string,
-) {
+): Schema {
 	return new Schema(
 		type === 'decimal'
 			? getDecimalSpec()

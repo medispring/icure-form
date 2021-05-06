@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-element'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 
-export const render: Renderer = (form: Form, props: any, state: any, setState: (newState: any) => void) => {
+export const render: Renderer = (form: Form) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1>${content}</h1>`

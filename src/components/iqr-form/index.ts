@@ -25,7 +25,6 @@ class IqrForm extends LitElement {
 	@property() theme = 'default'
 	@property() renderer = 'form'
 	@property() labelPosition?: string = undefined
-	@property() state: any = {}
 
 	constructor() {
 		super()
@@ -46,11 +45,7 @@ class IqrForm extends LitElement {
 	render() {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
-		return renderer && this.form
-			? renderer(this.form, { labelPosition: this.labelPosition }, this.state, (newState: any) => (this.state = newState))
-			: this.form
-			? html`<p>unknown renderer</p>`
-			: html`<p>missing form</p>`
+		return renderer && this.form ? renderer(this.form, { labelPosition: this.labelPosition }) : this.form ? html`<p>unknown renderer</p>` : html`<p>missing form</p>`
 	}
 
 	firstUpdated() {

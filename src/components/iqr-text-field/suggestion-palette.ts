@@ -3,19 +3,21 @@ import equal from 'fast-deep-equal'
 import { EditorView } from 'prosemirror-view'
 import { EditorState, Transaction } from 'prosemirror-state'
 
+export type Suggestion = { id: string; code: string; text: string; terms: string[] }
+
 export class SuggestionPalette {
 	private readonly palette: HTMLDivElement
 	private delay: () => boolean = () => false
 	private lastTime = 0
-	private suggestionProvider: (terms: string[]) => any[]
+	private suggestionProvider: (terms: string[]) => Suggestion[]
 	private previousFingerprint?: string
 
 	private suggestionStopWordsProvider: () => Set<string>
 	private currentFocus?: number
 	private hasFocus = false
-	private suggestions: { id: string; code: string; text: string; terms: string[] }[] = []
+	private suggestions: Suggestion[] = []
 
-	constructor(view: EditorView, suggestionProvider: (terms: string[]) => any[], suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
+	constructor(view: EditorView, suggestionProvider: (terms: string[]) => Suggestion[], suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
 		this.suggestionStopWordsProvider = suggestionStopWordsProvider
 		this.suggestionProvider = suggestionProvider
 		this.palette = document.createElement('div')
@@ -28,7 +30,7 @@ export class SuggestionPalette {
 		this.update(view, undefined)
 	}
 
-	focusItem(idx?: number) {
+	focusItem(idx?: number): void {
 		const ul = this.palette.getElementsByTagName('ul')[0]
 		if (ul) {
 			ul.classList.add('focused')
@@ -40,22 +42,19 @@ export class SuggestionPalette {
 		}
 	}
 
-	focus() {
+	focus(): boolean {
 		if (this.palette.style.display === 'none') return false
 		this.hasFocus = true
 		this.focusItem(0)
 		return true
 	}
 
-	focusOrInsert(
-		view: EditorView,
-		transactionProvider: (from: number, to: number, sug: { id: string; code: string; text: string; terms: string[] }) => Promise<Transaction | undefined>,
-	) {
+	focusOrInsert(view: EditorView, transactionProvider: (from: number, to: number, sug: Suggestion) => Promise<Transaction | undefined>): boolean {
 		if (this.palette.style.display === 'none') return false
 		return this.hasFocus ? this.insert(view, transactionProvider) : this.focus()
 	}
 
-	insert(view: EditorView, transactionProvider: (from: number, to: number, sug: { id: string; code: string; text: string; terms: string[] }) => Promise<Transaction | undefined>) {
+	insert(view: EditorView, transactionProvider: (from: number, to: number, sug: Suggestion) => Promise<Transaction | undefined>): boolean {
 		if (this.palette.style.display === 'none' || !this.hasFocus || this.currentFocus === undefined) return false
 		const sug = this.suggestions[this.currentFocus]
 		if (sug) {
@@ -89,19 +88,19 @@ export class SuggestionPalette {
 		return false
 	}
 
-	arrowUp() {
+	arrowUp(): boolean {
 		if (!this.hasFocus) return false
 		this.currentFocus && this.focusItem(this.currentFocus - 1)
 		return true
 	}
 
-	arrowDown() {
+	arrowDown(): boolean {
 		if (!this.hasFocus) return false
 		this.currentFocus !== undefined && this.currentFocus < this.palette.getElementsByTagName('ul')[0].childElementCount - 1 && this.focusItem(this.currentFocus + 1)
 		return true
 	}
 
-	update(view: EditorView, lastState?: EditorState) {
+	update(view: EditorView, lastState?: EditorState): void {
 		const state = view.state
 
 		// Hide the palette if the selection is not empty
@@ -153,7 +152,7 @@ export class SuggestionPalette {
 		}
 	}
 
-	private display(pos: { left: number; right: number; top: number; bottom: number }, time: number) {
+	private display(pos: { left: number; right: number; top: number; bottom: number }, time: number): void {
 		if (time !== this.lastTime) return
 		if (this.delay()) {
 			setTimeout(() => this.display(pos, time), 100)
@@ -164,11 +163,11 @@ export class SuggestionPalette {
 		const palBox = this.palette.getBoundingClientRect()
 		if (box) {
 			this.palette.style.left = Math.max(0, Math.min(pos.left - box.left - 12, box.width - palBox.width)) + 'px'
-			this.palette.style.top = pos.bottom - box.top + 2 + 'px'
+			this.palette.style.top = pos.bottom - box.top + 4 + 'px'
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		this.palette.remove()
 	}
 }
