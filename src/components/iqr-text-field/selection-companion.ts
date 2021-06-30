@@ -46,9 +46,9 @@ export class SelectionCompanion {
 		this.companion.style.display = ''
 		const box = this.companion.offsetParent?.getBoundingClientRect()
 		if (box) {
-			this.companion.style.left = pos.right + 'px'
-			this.companion.style.top = pos.top + box.top - 20 + 'px'
-			this.companion.style.height = pos.bottom - pos.top + 'px'
+			this.companion.style.left = pos.right - box.left + 'px'
+			this.companion.style.top = pos.top - box.top - 2 + 'px'
+			this.companion.style.height = pos.bottom - pos.top + 2 + 'px'
 			this.companion.textContent = '+'
 		}
 	}

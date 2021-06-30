@@ -204,6 +204,7 @@ class DemoApp extends LitElement {
 		return html`
 			<iqr-text-field
 				suggestions
+				links
 				.codeColorProvider="${this.codeColorProvider.bind(this)}"
 				.suggestionStopWords="${stopWords}"
 				.linksProvider="${this.linksProvider.bind(this)}"
