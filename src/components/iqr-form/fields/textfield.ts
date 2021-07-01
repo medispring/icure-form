@@ -1,4 +1,6 @@
-import { css, html, LitElement, property } from 'lit-element'
+import { css, html, LitElement } from 'lit'
+import { property } from 'lit/decorators'
+
 import '../../iqr-text-field'
 import { Suggestion } from '../../iqr-text-field'
 

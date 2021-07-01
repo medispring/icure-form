@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit-element'
+import { css, html, LitElement } from 'lit'
 import { Code, getRowsUsingPagination, IccCodeXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'

@@ -28,7 +28,7 @@ async function* getFiles(dir) {
 			const treated = txt.replaceAll(/import\s+(.+)\s+from\s('(.+?\.s?css)'|"(.+?\.s?css)").*/g, (_, varName, g, sQuotedPath, dQuotedPath) => {
 				const scss = join(dirname(f), sQuotedPath || dQuotedPath)
 				const { css } = sass.renderSync({ file: scss })
-				const replacement = `${isFirst ? "import { css } from 'lit-element';\n" : ''}const ${varName} = css\`${css.toString()}\` `
+				const replacement = `${isFirst ? "import { css } from 'lit';\n" : ''}const ${varName} = css\`${css.toString()}\` `
 				isFirst = false
 				return replacement
 			})

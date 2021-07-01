@@ -1,5 +1,6 @@
 // Import the LitElement base class and html helper function
-import { html, LitElement, property } from 'lit-element'
+import { html, LitElement } from 'lit'
+import { property } from 'lit/decorators'
 import { EditorState, Plugin } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model'

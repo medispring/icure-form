@@ -5,7 +5,7 @@
 	"main": "lib/index.js",
 	"scripts": {
 		"start": "node lit-inject-scss.js src tmp && webpack-dev-server --env.mode development",
-		"build": "node lit-inject-scss.js src tmp && tsc && rm -rf tmp",
+		"build": "node lit-inject-scss.js src tmp && tsc && rimraf tmp",
 		"dist": "webpack --env.mode production",
 		"prepare": "rimraf lib && yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
 		"publish": "yarn run prepare && cd lib && npm publish && cd ..",
@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@webcomponents/webcomponentsjs": "^2.5.0",
 		"fast-deep-equal": "^3.1.3",
-		"lit-element": "^2.5.0",
+		"lit": "^2.0.0-rc.2",
 		"prosemirror-commands": "^1.1.7",
 		"prosemirror-history": "^1.1.3",
 		"prosemirror-keymap": "^1.1.4",
@@ -72,7 +72,7 @@
 		"html-webpack-plugin": "^4.5.0",
 		"husky": "^2.4.0",
 		"lint-staged": "^8.2.0",
-		"lit-scss-loader": "^1.0.1",
+		"lit-scss-loader": "1.1.0",
 		"minisearch": "^3.0.2",
 		"mocha": "^8.2.1",
 		"prettier": "^2.2.1",

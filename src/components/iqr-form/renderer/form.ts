@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit-element'
+import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 

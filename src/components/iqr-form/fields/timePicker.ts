@@ -1,11 +1,13 @@
-import { css, CSSResult, html, LitElement, property, TemplateResult } from 'lit-element'
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
+import { property } from 'lit/decorators'
+
 import '../../iqr-text-field'
 
 export class TimePicker extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
 
-	static get styles(): CSSResult[] {
+	static get styles(): CSSResultGroup[] {
 		return [
 			css`
 				:host {
