@@ -1,5 +1,5 @@
 import parse from 'date-fns/parse'
-import { Content, Service } from '@icure/api'
+import { Code, Content, Service } from '@icure/api'
 
 export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	if (!epochOrLongCalendar && epochOrLongCalendar !== 0) {
@@ -14,8 +14,26 @@ export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	}
 }
 
+export function isCodeEqual(c1: Code, c2: Code) {
+	const idParts1 = c1.id?.split('|')
+	const idParts2 = c2.id?.split('|')
+	const type1 = c1.type || idParts1?.[0]
+	const type2 = c2.type || idParts2?.[0]
+	const code1 = c1.code || idParts1?.[1]
+	const code2 = c2.code || idParts2?.[1]
+	const version1 = c1.version || idParts1?.[2]
+	const version2 = c2.version || idParts2?.[2]
+	return type1 === type2 && code1 === code2 && version1 === version2
+}
+
 export function isServiceEqual(service1: Service, service2: Service): boolean {
-	return true
+	return (
+		service1.id === service2.id &&
+		service1.valueDate === service2.valueDate &&
+		(service1.codes || []).every((c1) => service2.codes?.some((c2) => isCodeEqual(c1, c2)) || false) &&
+		(service2.codes || []).every((c2) => service1.codes?.some((c1) => isCodeEqual(c1, c2)) || false) &&
+		isServiceContentEqual(service1.content || {}, service2.content || {})
+	)
 }
 
 export function isContentEqual(content1: Content, content2: Content): boolean {
