@@ -21,6 +21,7 @@ import { hasMark } from './prosemirror-utils'
 import baseCss from './styles/style.scss'
 // @ts-ignore
 import kendoCss from './styles/kendo.scss'
+
 import { maskPlugin } from './plugin/mask-plugin'
 import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'

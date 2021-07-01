@@ -128,10 +128,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@icure/api@^4.0.36":
-  version "4.0.36"
-  resolved "https://registry.yarnpkg.com/@icure/api/-/api-4.0.36.tgz#97b11dc63ec7edf057ecb24ed783a5de09321b65"
-  integrity sha512-EKEQpwVg1RWhL73LCwYme3bvvctI928iA83GgJYQrxz2zrmZswri2EsItRFPJHWB/5nRA+NfBUvKz5joJPYKcg==
+"@icure/api@^4.0.60":
+  version "4.0.60"
+  resolved "https://registry.npmjs.org/@icure/api/-/api-4.0.60.tgz#598c50bba0e61109d895706425a276a2f61fd048"
+  integrity sha512-HUiJmMYk9EX+uO/DweXvvmeGYqH+nqnhoaUhGCHfnLnZ/hP96WoCH7jpV1sTzjAwKuftHhiYDNj7PICaWd0DTA==
   dependencies:
     date-fns "^2.21.1"
     libphonenumber-js "^1.7.18"
