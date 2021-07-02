@@ -2,7 +2,7 @@ import { strictEqual } from 'assert'
 import YAML from 'yaml'
 import { Form, Section, Group, TextField, NumberField, DatePicker, TimePicker, DateTimePicker, MultipleChoice, MeasureField } from '../../src/components/iqr-form/model'
 
-describe('Typescript usage suite', () => {
+describe('Form parsing tests', () => {
 	it('should Render simple form', () => {
 		const text = YAML.stringify(
 			JSON.parse(

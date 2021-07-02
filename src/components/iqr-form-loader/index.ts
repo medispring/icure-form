@@ -1,4 +1,4 @@
-import { Contact, Content, Form, Service } from '@icure/api'
+import { CodeStub, Contact, Content, Form, Service } from '@icure/api'
 import { groupBy, sortBy } from '../../utils/no-lodash'
 import { fuzzyDate, isServiceContentEqual } from '../../utils/icure-utils'
 
@@ -17,9 +17,16 @@ export interface ServiceWithContact {
 	contact: Contact
 }
 
-export const withLabel = (label: string) => (svc: Service) => svc.label === label
-export const setServices = (ctc: Contact, newServices: Service[], modifiedServices: Service[]) =>
-	new Contact({ ...ctc, services: newServices.concat(ctc.services?.map((s) => modifiedServices.find((r) => r.id === s.id) || s) || []) })
+export function withLabel(label: string): (svc: Service) => boolean {
+	return (svc: Service) => svc.label === label
+}
+
+export function setServices(ctc: Contact, newServices: Service[], modifiedServices: Service[]): Contact {
+	return new Contact({
+		...ctc,
+		services: newServices.concat(ctc.services?.map((s) => modifiedServices.find((r) => r.id === s.id) || s) || []),
+	})
+}
 
 export class FormValuesContainer {
 	currentContact: Contact //The contact of the day, used to record modifications
@@ -48,7 +55,47 @@ export class FormValuesContainer {
 		)
 	}
 
-	setValue(serviceId: string, language: string, content: Content): FormValuesContainer {
+	private setServiceProperty<K>(serviceId: string, newValue: K, getter: (svc: Service) => K, setter: (svc: Service, value: K) => Service): FormValuesContainer {
+		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
+		if (swcs.length) {
+			if (newValue !== getter(swcs[0].service)) {
+				return new FormValuesContainer(setServices(this.currentContact, [], [setter(swcs[0].service, newValue)]), this.contact, this.contactsHistory, this.serviceFactory)
+			} else {
+				return this
+			}
+		} else {
+			return this
+		}
+	}
+
+	setValueDate(serviceId: string, fuzzyDate: number): FormValuesContainer {
+		return this.setServiceProperty(
+			serviceId,
+			fuzzyDate,
+			(s) => s.valueDate,
+			(s) => new Service({ ...s, valueDate: fuzzyDate }),
+		)
+	}
+
+	setAuthor(serviceId: string, author: string): FormValuesContainer {
+		return this.setServiceProperty(
+			serviceId,
+			author,
+			(s) => s.author,
+			(s) => new Service({ ...s, author }),
+		)
+	}
+
+	setResponsible(serviceId: string, responsible: string): FormValuesContainer {
+		return this.setServiceProperty(
+			serviceId,
+			responsible,
+			(s) => s.author,
+			(s) => new Service({ ...s, responsible }),
+		)
+	}
+
+	setValue(serviceId: string, language: string, content: Content, codes: CodeStub[]): FormValuesContainer {
 		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
 		if (swcs.length) {
 			const previousContent = swcs[0].service.content
@@ -59,6 +106,7 @@ export class FormValuesContainer {
 				const { endOfLife, ...modifiedServiceValues } = {
 					...swcs[0].service,
 					content: { ...previousContent, [language]: content },
+					codes: codes,
 					modified: +new Date(),
 				}
 				return new FormValuesContainer(setServices(this.currentContact, [], [new Service(modifiedServiceValues)]), this.contact, this.contactsHistory, this.serviceFactory)
@@ -70,7 +118,7 @@ export class FormValuesContainer {
 		}
 	}
 
-	deleteValue(serviceId: string): FormValuesContainer {
+	delete(serviceId: string): FormValuesContainer {
 		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
 		if (swcs.length) {
 			//Omit end of life
