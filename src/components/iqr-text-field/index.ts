@@ -36,6 +36,22 @@ type FullSchema = Schema<
 >
 type DateTimeSchema = Schema<'paragraph' | 'date' | 'time' | 'text'>
 
+export interface Meta {
+	valueDate: number
+	owner: { id: string; descr: string }
+}
+
+export interface Version {
+	revision: string
+	modified: number
+	value: { [language: string]: string }
+}
+
+export interface VersionedValue {
+	id: string
+	versions: Version[]
+}
+
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
 	@property() suggestionStopWords: Set<string> = new Set<string>()
@@ -49,8 +65,14 @@ class IqrTextField extends LitElement {
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() placeholder = ''
+
 	@property() value = ''
 	@property() owner?: string
+
+	@property() valueProvider?: () => VersionedValue[] = undefined
+	@property() metaProvider?: () => Meta = undefined
+	@property() setValueCallback?: (id: string, value: string) => void = undefined
+
 	@property({ type: Boolean }) displayOwnerMenu = false
 	@property({ type: Boolean }) suggestions = false
 	@property({ type: Boolean }) links = false
@@ -280,7 +302,7 @@ class IqrTextField extends LitElement {
 				}, {}),
 			)
 
-			const parsedDoc = this.parser.parse(this.value)
+			const parsedDoc = this.parser.parse(this.valueProvider ? this.valueProvider()?.[0]?.versions?.[0]?.value['fr'] || '' : this.value)
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
 					doc: parsedDoc,

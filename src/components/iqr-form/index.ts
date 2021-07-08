@@ -19,6 +19,7 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
+import { FormValuesContainer } from '../iqr-form-loader'
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {
@@ -27,6 +28,7 @@ class IqrForm extends LitElement {
 	@property() theme = 'default'
 	@property() renderer = 'form'
 	@property() labelPosition?: string = undefined
+	@property() formValuesContainer?: FormValuesContainer = undefined
 
 	constructor() {
 		super()
@@ -47,7 +49,11 @@ class IqrForm extends LitElement {
 	render() {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
-		return renderer && this.form ? renderer(this.form, { labelPosition: this.labelPosition }) : this.form ? html`<p>unknown renderer</p>` : html`<p>missing form</p>`
+		return renderer && this.form
+			? renderer(this.form, { labelPosition: this.labelPosition }, this.formValuesContainer)
+			: this.form
+			? html`<p>unknown renderer</p>`
+			: html`<p>missing form</p>`
 	}
 
 	firstUpdated() {

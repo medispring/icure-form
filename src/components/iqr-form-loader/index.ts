@@ -2,7 +2,7 @@ import { CodeStub, Contact, Content, Form, Service } from '@icure/api'
 import { groupBy, sortBy } from '../../utils/no-lodash'
 import { fuzzyDate, isServiceContentEqual } from '../../utils/icure-utils'
 
-type ServicesHistory = {
+export type ServicesHistory = {
 	[id: string]: ServiceWithContact[] //All services in a service history have the same id as id
 }
 
@@ -36,7 +36,7 @@ export class FormValuesContainer {
 	serviceFactory: (language: string, content: Content) => Service
 
 	constructor(currentContact: Contact, contact: Contact, contactsHistory: Contact[], serviceFactory: (language: string, content: Content) => Service) {
-		if (!contactsHistory.includes(contact)) {
+		if (!contactsHistory.includes(contact) && contact !== currentContact) {
 			throw new Error('Illegal argument, the history must contain the contact')
 		}
 		if (contactsHistory.includes(currentContact)) {

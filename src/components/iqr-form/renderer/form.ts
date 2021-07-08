@@ -1,8 +1,33 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
+import { FormValuesContainer, ServicesHistory } from '../../iqr-form-loader'
+import { Content, normalizeCode } from '@icure/api'
+import { VersionedValue } from '../../iqr-text-field'
 
-export const render: Renderer = (form: Form, props: { [key: string]: unknown }) => {
+export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
+	function getVersions(field: Field) {
+		return (
+			formsValueContainer?.getVersions((svc) => (field.tags ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label())) ||
+			{}
+		)
+	}
+
+	function convertServicesToVersionedValues(versions: ServicesHistory, extractValueFromContent: (content: Content) => string) {
+		return Object.entries(versions).map(([key, value]) => ({
+			id: key,
+			versions: value.map((s) => ({
+				revision: '' + s.service?.modified,
+				modified: s.service?.modified || 0,
+				value: Object.entries(s.service?.content || {}).reduce((acc, [lng, content]) => ({ ...acc, [lng]: extractValueFromContent(content) }), {}),
+			})),
+		}))
+	}
+
+	function textFieldValuesProvider(field: Field): () => VersionedValue[] {
+		return () => convertServicesToVersionedValues(getVersions(field), (content: Content) => content.stringValue || '')
+	}
+
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1>${content}</h1>`
@@ -17,7 +42,7 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }) 
 			: html`<h6>${content}</h6>`
 	}
 	const renderFieldOrGroup = function (fg: Field | Group, level: number): TemplateResult {
-		return fg instanceof Group
+		return fg.clazz === 'group'
 			? html` <div class="group">${h(level, html`${fg.group}`)} ${fg.fields?.map((f) => renderFieldOrGroup(f, level + 1))}</div>`
 			: html`${
 					fg.type === 'textfield'
@@ -32,6 +57,7 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }) 
 								.codeColorProvider=${fg.options?.codeColorProvider}
 								.linkColorProvider=${fg.options?.linkColorProvider}
 								.codeContentProvider=${fg.options?.codeContentProvider}
+								.valueProvider="${textFieldValuesProvider(fg)}"
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'
 						? html`<iqr-form-measure-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-measure-field>`

@@ -2,6 +2,7 @@ import { IqrTextFieldSchema } from '../../iqr-text-field'
 type FieldType = 'textfield' | 'measure-field' | 'number-field' | 'date-picker' | 'time-picker' | 'date-time-picker' | 'multiple-choice'
 
 export abstract class Field {
+	clazz: 'field' = 'field'
 	field: string
 	type: FieldType
 	shortLabel?: string
@@ -12,6 +13,10 @@ export abstract class Field {
 	tags?: string[]
 	codifications?: string[]
 	options?: { [key: string]: unknown }
+
+	label(): string {
+		return this.field
+	}
 
 	protected constructor(
 		type: FieldType,
@@ -111,6 +116,7 @@ export class MultipleChoice extends Field {
 }
 
 export class Group {
+	clazz: 'group' = 'group'
 	group: string
 	fields?: Array<Field | Group>
 

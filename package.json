@@ -41,7 +41,7 @@
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
-		"@icure/api": "^4.0.60",
+		"@icure/api": "^4.0.62",
 		"@types/mocha": "^8.2.0",
 		"@types/prosemirror-commands": "^1.0.4",
 		"@types/prosemirror-history": "^1.0.2",

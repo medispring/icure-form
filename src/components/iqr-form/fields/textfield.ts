@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit'
 import { property } from 'lit/decorators'
 
 import '../../iqr-text-field'
-import { Suggestion } from '../../iqr-text-field'
+import { Meta, Suggestion, VersionedValue } from '../../iqr-text-field'
 
 class Textfield extends LitElement {
 	@property() label = ''
@@ -17,6 +17,10 @@ class Textfield extends LitElement {
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
+
+	@property() valueProvider?: () => VersionedValue[] = undefined
+	@property() metaProvider?: () => Meta = undefined
+	@property() setValueCallback?: (id: string, value: string) => void = undefined
 
 	static get styles() {
 		return [
@@ -40,6 +44,9 @@ class Textfield extends LitElement {
 				.codeColorProvider=${this.codeColorProvider}
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}
+				.valueProvider=${this.valueProvider}
+				.metaProvider=${this.metaProvider}
+				.setValueCallback=${this.setValueCallback}
 			></iqr-text-field>
 		`
 	}

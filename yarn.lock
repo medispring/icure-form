@@ -128,12 +128,12 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@icure/api@^4.0.60":
-  version "4.0.60"
-  resolved "https://registry.npmjs.org/@icure/api/-/api-4.0.60.tgz#598c50bba0e61109d895706425a276a2f61fd048"
-  integrity sha512-HUiJmMYk9EX+uO/DweXvvmeGYqH+nqnhoaUhGCHfnLnZ/hP96WoCH7jpV1sTzjAwKuftHhiYDNj7PICaWd0DTA==
+"@icure/api@^4.0.62":
+  version "4.0.62"
+  resolved "https://registry.npmjs.org/@icure/api/-/api-4.0.62.tgz#f52ec951adb265f63690d3a026fd67a1a803b01e"
+  integrity sha512-TfxAwsmL4uSiIzTwDkAkN85F5W7BsJ3rJHw9EwOJaaVViI60Rwg5Mi+GxDajeK0ZQjiBDA0bOcpji7xDn54iiw==
   dependencies:
-    date-fns "^2.21.1"
+    date-fns "^2.22.1"
     libphonenumber-js "^1.7.18"
     lodash "^4.17.20"
     moment "^2.22.1"
@@ -2369,10 +2369,10 @@ date-fns@^1.27.2:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-date-fns@^2.21.1:
-  version "2.21.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.21.1.tgz#679a4ccaa584c0706ea70b3fa92262ac3009d2b0"
-  integrity sha512-m1WR0xGiC6j6jNFAyW4Nvh4WxAi4JF4w9jRJwSI8nBmNcyZXPcP9VUQG+6gHQXAmqaGEKDKhOqAtENDC941UkA==
+date-fns@^2.22.1:
+  version "2.22.1"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
+  integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
