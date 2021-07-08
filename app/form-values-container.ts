@@ -10,7 +10,7 @@ export const makeFormValuesContainer = () => {
 		id: 'c1',
 		services: [
 			{ id: 's1', tags: [{ id: 'CD-ITEM|diagnosis|1' }], content: { fr: { stringValue: 'Hello field' } } },
-			{ id: 's2', tags: [], content: { fr: { fuzzyDateValue: 19920307 } } },
+			{ id: 's2', label: 'The Date', tags: [], content: { fr: { fuzzyDateValue: 19920307 } } },
 		],
 	})
 	const now = +new Date()

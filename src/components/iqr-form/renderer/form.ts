@@ -8,8 +8,9 @@ import { VersionedValue } from '../../iqr-text-field'
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
 	function getVersions(field: Field) {
 		return (
-			formsValueContainer?.getVersions((svc) => (field.tags ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label())) ||
-			{}
+			formsValueContainer?.getVersions((svc) =>
+				field.tags?.length ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label(),
+			) || {}
 		)
 	}
 
@@ -26,6 +27,10 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 
 	function textFieldValuesProvider(field: Field): () => VersionedValue[] {
 		return () => convertServicesToVersionedValues(getVersions(field), (content: Content) => content.stringValue || '')
+	}
+
+	function dateFieldValuesProvider(field: Field): () => VersionedValue[] {
+		return () => convertServicesToVersionedValues(getVersions(field), (content: Content) => `${content.fuzzyDateValue}`.replace(/(....)(..)(..)/, '$3$2$1') || '')
 	}
 
 	const h = function (level: number, content: TemplateResult): TemplateResult {
@@ -64,9 +69,9 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 						: fg.type === 'number-field'
 						? html`<iqr-form-number-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-number-field>`
 						: fg.type === 'date-picker'
-						? html`<iqr-form-date-picker labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-date-picker>`
+						? html`<iqr-form-date-picker labelPosition=${props.labelPosition} label="${fg.field}" .valueProvider="${dateFieldValuesProvider(fg)}"></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
-						? html`<iqr-form-time-picker labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-time-picker>`
+						? html`<iqr-form-time-picker labelPosition=${props.labelPosition} label="${fg.field}""></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
 						? html`<iqr-form-date-time-picker labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
