@@ -215,6 +215,22 @@ class IqrTextField extends LitElement {
 				? {
 						parse: (value: string) => pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(value)] : [])]),
 				  }
+				: this.schema === 'time'
+				? {
+						parse: (value: string) => pms.node('paragraph', {}, [pms.node('time', {}, value ? [pms.text(value)] : [])]),
+				  }
+				: this.schema === 'measure'
+				? {
+						parse: (value: string) => {
+							const decimal = value ? value.split(' ')[0] : ''
+							const unit = value ? value.split(' ')[1] : ''
+
+							return pms.node('paragraph', {}, [
+								pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [pms.text(' ')]),
+								pms.node('unit', {}, unit && unit.length ? [pms.text(unit)] : [pms.text(' ')]),
+							])
+						},
+				  }
 				: this.schema === 'date-time'
 				? {
 						parse: (value: string) => {

@@ -1,38 +1,17 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
-import { FormValuesContainer, ServicesHistory } from '../../iqr-form-loader'
-import { Content, normalizeCode } from '@icure/api'
-import { VersionedValue } from '../../iqr-text-field'
+import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
+import {
+	dateFieldValuesProvider,
+	dateTimeFieldValuesProvider,
+	measureFieldValuesProvider,
+	numberFieldValuesProvider,
+	textFieldValuesProvider,
+	timeFieldValuesProvider,
+} from '../../iqr-form-loader'
 
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
-	function getVersions(field: Field) {
-		return (
-			formsValueContainer?.getVersions((svc) =>
-				field.tags?.length ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label(),
-			) || {}
-		)
-	}
-
-	function convertServicesToVersionedValues(versions: ServicesHistory, extractValueFromContent: (content: Content) => string) {
-		return Object.entries(versions).map(([key, value]) => ({
-			id: key,
-			versions: value.map((s) => ({
-				revision: '' + s.service?.modified,
-				modified: s.service?.modified || 0,
-				value: Object.entries(s.service?.content || {}).reduce((acc, [lng, content]) => ({ ...acc, [lng]: extractValueFromContent(content) }), {}),
-			})),
-		}))
-	}
-
-	function textFieldValuesProvider(field: Field): () => VersionedValue[] {
-		return () => convertServicesToVersionedValues(getVersions(field), (content: Content) => content.stringValue || '')
-	}
-
-	function dateFieldValuesProvider(field: Field): () => VersionedValue[] {
-		return () => convertServicesToVersionedValues(getVersions(field), (content: Content) => `${content.fuzzyDateValue}`.replace(/(....)(..)(..)/, '$3$2$1') || '')
-	}
-
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1>${content}</h1>`
@@ -62,18 +41,38 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 								.codeColorProvider=${fg.options?.codeColorProvider}
 								.linkColorProvider=${fg.options?.linkColorProvider}
 								.codeContentProvider=${fg.options?.codeContentProvider}
-								.valueProvider="${textFieldValuesProvider(fg)}"
+								.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'
-						? html`<iqr-form-measure-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-measure-field>`
+						? html`<iqr-form-measure-field
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.valueProvider="${formsValueContainer && measureFieldValuesProvider(formsValueContainer, fg)}"
+						  ></iqr-form-measure-field>`
 						: fg.type === 'number-field'
-						? html`<iqr-form-number-field labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-number-field>`
+						? html`<iqr-form-number-field
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.valueProvider="${formsValueContainer && numberFieldValuesProvider(formsValueContainer, fg)}"
+						  ></iqr-form-number-field>`
 						: fg.type === 'date-picker'
-						? html`<iqr-form-date-picker labelPosition=${props.labelPosition} label="${fg.field}" .valueProvider="${dateFieldValuesProvider(fg)}"></iqr-form-date-picker>`
+						? html`<iqr-form-date-picker
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.valueProvider="${formsValueContainer && dateFieldValuesProvider(formsValueContainer, fg)}"
+						  ></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
-						? html`<iqr-form-time-picker labelPosition=${props.labelPosition} label="${fg.field}""></iqr-form-time-picker>`
+						? html`<iqr-form-time-picker
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.valueProvider="${formsValueContainer && timeFieldValuesProvider(formsValueContainer, fg)}"
+						  ></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
-						? html`<iqr-form-date-time-picker labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-date-time-picker>`
+						? html`<iqr-form-date-time-picker
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.valueProvider="${formsValueContainer && dateTimeFieldValuesProvider(formsValueContainer, fg)}"
+						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
 						: ''

@@ -1,5 +1,5 @@
 import { Form } from '../model'
 import { TemplateResult } from 'lit'
-import { FormValuesContainer } from '../../iqr-form-loader'
+import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
 
 export type Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => TemplateResult

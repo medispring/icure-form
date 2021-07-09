@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
-import { FormValuesContainer } from '../../iqr-form-loader'
+import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
 
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {

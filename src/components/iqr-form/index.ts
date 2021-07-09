@@ -19,7 +19,7 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
-import { FormValuesContainer } from '../iqr-form-loader'
+import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {

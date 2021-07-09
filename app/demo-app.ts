@@ -185,11 +185,7 @@ class DemoApp extends LitElement {
 		const shortForm = new Form(
 			'Semantic example',
 			[
-				new Section('Dates & Time', [
-					new DatePicker('The Date', 'DatePicker'),
-					new TimePicker('This field is a TimePicker', 'DatePicker'),
-					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
-				]),
+				new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new DateTimePicker('DateTime', 'DateTimePicker')]),
 				new Section('Completion & Links', [
 					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
