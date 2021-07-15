@@ -9,7 +9,7 @@ export class SuggestionPalette {
 	private readonly palette: HTMLDivElement
 	private delay: () => boolean = () => false
 	private lastTime = 0
-	private suggestionProvider: (terms: string[]) => Suggestion[]
+	private suggestionProvider: (terms: string[]) => Promise<Suggestion[]>
 	private previousFingerprint?: string
 
 	private suggestionStopWordsProvider: () => Set<string>
@@ -17,7 +17,7 @@ export class SuggestionPalette {
 	private hasFocus = false
 	private suggestions: Suggestion[] = []
 
-	constructor(view: EditorView, suggestionProvider: (terms: string[]) => Suggestion[], suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
+	constructor(view: EditorView, suggestionProvider: (terms: string[]) => Promise<Suggestion[]>, suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
 		this.suggestionStopWordsProvider = suggestionStopWordsProvider
 		this.suggestionProvider = suggestionProvider
 		this.palette = document.createElement('div')
@@ -129,9 +129,9 @@ export class SuggestionPalette {
 
 		if (this.previousFingerprint !== fingerprint) {
 			this.previousFingerprint = fingerprint
-			setTimeout(() => {
+			setTimeout(async () => {
 				if (this.previousFingerprint !== fingerprint) return
-				const res = this.suggestionProvider(lastTerms)
+				const res = await this.suggestionProvider(lastTerms)
 				this.suggestions = res
 				if (res.length) {
 					this.palette.innerHTML = `<ul>${res

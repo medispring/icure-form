@@ -1,6 +1,6 @@
 import { Contact, Service } from '@icure/api'
 import { Api } from '@icure/api'
-import { FormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 
 const { cryptoApi } = Api('https://kraken.svc.icure.cloud/rest/v1', 'user', 'password')
 
@@ -16,5 +16,10 @@ export const makeFormValuesContainer = () => {
 		],
 	})
 	const now = +new Date()
-	return new FormValuesContainer(cc, ctc, [ctc], (language, content) => new Service({ id: cryptoApi.randomUuid(), created: now, modified: now, content: { [language]: content } }))
+	return new ICureFormValuesContainer(
+		cc,
+		ctc,
+		[ctc],
+		(language, content) => new Service({ id: cryptoApi.randomUuid(), created: now, modified: now, content: { [language]: content } }),
+	)
 }

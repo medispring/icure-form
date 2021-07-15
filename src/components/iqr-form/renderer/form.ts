@@ -1,15 +1,21 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
-import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
+import { FormValuesContainer } from '../../iqr-form-loader'
 import {
 	dateFieldValuesProvider,
 	dateTimeFieldValuesProvider,
+	handleMetaChangedProvider,
+	handleTextFieldValueChangedProvider,
 	measureFieldValuesProvider,
+	metaProvider,
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 } from '../../iqr-form-loader'
+import { VersionedValue } from '../../iqr-text-field'
+
+const valueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
 
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
@@ -38,40 +44,44 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 								grows="${fg.grows || false}"
 								.linksProvider=${fg.options?.linksProvider}
 								.suggestionProvider=${fg.options?.suggestionProvider}
+								.ownersProvider=${fg.options?.ownersProvider}
 								.codeColorProvider=${fg.options?.codeColorProvider}
 								.linkColorProvider=${fg.options?.linkColorProvider}
 								.codeContentProvider=${fg.options?.codeContentProvider}
-								.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
+								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+								.handleValueChanged=${formsValueContainer && handleTextFieldValueChangedProvider(formsValueContainer)}
+								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'
 						? html`<iqr-form-measure-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && measureFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-measure-field>`
 						: fg.type === 'number-field'
 						? html`<iqr-form-number-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && numberFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-number-field>`
 						: fg.type === 'date-picker'
 						? html`<iqr-form-date-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && dateFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
 						? html`<iqr-form-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && timeFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
 						? html`<iqr-form-date-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && dateTimeFieldValuesProvider(formsValueContainer, fg)}"
+								.valueProvider="${formsValueContainer && valueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`

@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { Code, getRowsUsingPagination, IccCodeXApi } from '@icure/api'
+import { Code, getRowsUsingPagination, IccCodeXApi, IccHcpartyXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
@@ -58,7 +58,8 @@ const icpc2 = {
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
 class DemoApp extends LitElement {
-	private api: IccCodeXApi = new IccCodeXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
+	private codeApi: IccCodeXApi = new IccCodeXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
+	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
@@ -89,7 +90,7 @@ class DemoApp extends LitElement {
 
 	async firstUpdated() {
 		const codes = await getRowsUsingPagination<Code>((key, docId) => {
-			return this.api.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
+			return this.codeApi.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
 				rows: (x.rows || []).map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })),
 				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
 				nextDocId: x.nextKeyPair?.startKeyDocId,
@@ -106,7 +107,7 @@ class DemoApp extends LitElement {
 		return type === 'ICD' ? (icd10.find((x) => code.match(x[1])) || [])[0] || 'XXII' : icpc2[code.substring(0, 1)] || 'XXII'
 	}
 
-	suggestionProvider(terms: string[]) {
+	async suggestionProvider(terms: string[]) {
 		let normalisedTerms = terms.map((x) =>
 			x
 				.normalize('NFD')
@@ -141,10 +142,16 @@ class DemoApp extends LitElement {
 	}
 
 	async linksProvider(sug: { id: string; code: string; text: string; terms: string[]; links: string[] }) {
-		const links = (await Promise.all((sug.links || []).map((id) => this.api.getCode(id))))
+		const links = (await Promise.all((sug.links || []).map((id) => this.codeApi.getCode(id))))
 			.map((c) => ({ id: c.id, code: c.code, text: c.label?.fr, type: c.type }))
 			.concat([Object.assign({ type: sug.id.split('|')[0] }, sug)])
 		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
+	}
+
+	async ownersProvider(terms: string[]) {
+		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
+		const candidates = await this.hcpApi.findByName(longestTerm)
+		return (candidates.rows || []).map((x) => ({ id: x.id, text: [x.firstName, x.lastName].filter((x) => x?.length).join(' ') }))
 	}
 
 	render() {
@@ -190,6 +197,7 @@ class DemoApp extends LitElement {
 					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
 						suggestionStopWords: stopWords,
+						ownersProvider: this.ownersProvider.bind(this),
 						linksProvider: this.linksProvider.bind(this),
 						suggestionProvider: this.suggestionProvider.bind(this),
 					}),
@@ -206,6 +214,7 @@ class DemoApp extends LitElement {
 				links
 				.codeColorProvider="${this.codeColorProvider.bind(this)}"
 				.suggestionStopWords="${stopWords}"
+				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.linksProvider="${this.linksProvider.bind(this)}"
 				.suggestionProvider="${this.suggestionProvider.bind(this)}"
 				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"

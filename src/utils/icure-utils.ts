@@ -1,8 +1,9 @@
 import parse from 'date-fns/parse'
 import { CodeStub, Contact, Content, normalizeCode, Service } from '@icure/api'
 import { Field } from '../components/iqr-form/model'
-import { ServicesHistory } from '../components/iqr-form-loader/models'
-import { FormValuesContainer } from '../components/iqr-form-loader/formValuesContainer'
+import { ServicesHistory } from '../components/iqr-form-loader'
+import { FormValuesContainer } from '../components/iqr-form-loader'
+import { VersionedMeta, VersionedValue } from '../components'
 
 export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	if (!epochOrLongCalendar && epochOrLongCalendar !== 0) {
@@ -17,7 +18,7 @@ export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	}
 }
 
-export function isCodeEqual(c1: CodeStub, c2: CodeStub) {
+export function isCodeEqual(c1: CodeStub, c2: CodeStub): boolean {
 	const idParts1 = c1.id?.split('|')
 	const idParts2 = c2.id?.split('|')
 	const type1 = c1.type || idParts1?.[0]
@@ -63,7 +64,7 @@ export function isServiceContentEqual(content1: { [language: string]: Content },
 	return Object.keys(content1).reduce((isEqual, lng) => isEqual && isContentEqual(content1[lng], content2[lng]), true as boolean)
 }
 
-export function convertServicesToVersionedValues(versions: ServicesHistory, extractValueFromContent: (content: Content) => string) {
+export function convertServicesToVersionedValues(versions: ServicesHistory, extractValueFromContent: (content: Content) => string): VersionedValue[] {
 	return Object.entries(versions).map(([key, value]) => ({
 		id: key,
 		versions: value.map((s) => ({
@@ -74,7 +75,19 @@ export function convertServicesToVersionedValues(versions: ServicesHistory, extr
 	}))
 }
 
-export function getVersions(formsValueContainer: FormValuesContainer, field: Field) {
+export function convertServicesToVersionedMetas(versions: ServicesHistory): VersionedMeta[] {
+	return Object.entries(versions).map(([key, value]) => ({
+		id: key,
+		metas: value.map((s) => ({
+			revision: '' + s.service?.modified,
+			modified: s.service?.modified || 0,
+			valueDate: s.service?.valueDate,
+			owner: s.service?.responsible ? { id: s.service?.responsible } : undefined,
+		})),
+	}))
+}
+
+export function getVersions(formsValueContainer: FormValuesContainer, field: Field): ServicesHistory {
 	return (
 		formsValueContainer?.getVersions((svc) =>
 			field.tags?.length ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label(),

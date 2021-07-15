@@ -1,5 +1,5 @@
 import { CodeStub, Contact, Content, Service } from '@icure/api'
-import { groupBy, sortBy } from '../../utils/no-lodash'
+import { groupBy, sortedBy } from '../../utils/no-lodash'
 import { fuzzyDate, isServiceContentEqual, setServices } from '../../utils/icure-utils'
 import { ServicesHistory, ServiceWithContact } from './models'
 
@@ -7,7 +7,17 @@ export function withLabel(label: string): (svc: Service) => boolean {
 	return (svc: Service) => svc.label === label
 }
 
-export class FormValuesContainer {
+export interface FormValuesContainer {
+	copy(currentContact: Contact): FormValuesContainer
+	getVersions(selector: (svc: Service) => boolean): ServicesHistory
+	setValue(serviceId: string, language: string, content: Content, codes: CodeStub[]): FormValuesContainer
+	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer
+	setAuthor(serviceId: string, author: string | null): FormValuesContainer
+	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
+	delete(serviceId: string): FormValuesContainer
+}
+
+export class ICureFormValuesContainer implements FormValuesContainer {
 	currentContact: Contact //The contact of the day, used to record modifications
 	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)
@@ -23,8 +33,12 @@ export class FormValuesContainer {
 		}
 		this.currentContact = currentContact
 		this.contact = contact
-		this.contactsHistory = sortBy(contactsHistory, 'created', 'desc')
+		this.contactsHistory = sortedBy(contactsHistory, 'created', 'desc')
 		this.serviceFactory = serviceFactory
+	}
+
+	copy(currentContact: Contact): ICureFormValuesContainer {
+		return new ICureFormValuesContainer(currentContact, this.contact, this.contactsHistory, this.serviceFactory)
 	}
 
 	getVersions(selector: (svc: Service) => boolean): ServicesHistory {
@@ -38,7 +52,7 @@ export class FormValuesContainer {
 		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
 		if (swcs.length) {
 			if (newValue !== getter(swcs[0].service)) {
-				return new FormValuesContainer(setServices(this.currentContact, [], [setter(swcs[0].service, newValue)]), this.contact, this.contactsHistory, this.serviceFactory)
+				return this.copy(setServices(this.currentContact, [], [setter(swcs[0].service, newValue)]))
 			} else {
 				return this
 			}
@@ -47,7 +61,7 @@ export class FormValuesContainer {
 		}
 	}
 
-	setValueDate(serviceId: string, fuzzyDate: number): FormValuesContainer {
+	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer {
 		return this.setServiceProperty(
 			serviceId,
 			fuzzyDate,
@@ -56,7 +70,7 @@ export class FormValuesContainer {
 		)
 	}
 
-	setAuthor(serviceId: string, author: string): FormValuesContainer {
+	setAuthor(serviceId: string, author: string | null): FormValuesContainer {
 		return this.setServiceProperty(
 			serviceId,
 			author,
@@ -65,7 +79,7 @@ export class FormValuesContainer {
 		)
 	}
 
-	setResponsible(serviceId: string, responsible: string): FormValuesContainer {
+	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer {
 		return this.setServiceProperty(
 			serviceId,
 			responsible,
@@ -88,12 +102,12 @@ export class FormValuesContainer {
 					codes: codes,
 					modified: +new Date(),
 				}
-				return new FormValuesContainer(setServices(this.currentContact, [], [new Service(modifiedServiceValues)]), this.contact, this.contactsHistory, this.serviceFactory)
+				return this.copy(setServices(this.currentContact, [], [new Service(modifiedServiceValues)]))
 			} else {
 				return this
 			}
 		} else {
-			return new FormValuesContainer(setServices(this.currentContact, [this.serviceFactory(language, content)], []), this.contact, this.contactsHistory, this.serviceFactory)
+			return this.copy(setServices(this.currentContact, [this.serviceFactory(language, content)], []))
 		}
 	}
 
@@ -102,7 +116,7 @@ export class FormValuesContainer {
 		if (swcs.length) {
 			//Omit end of life
 			const now = +new Date()
-			return new FormValuesContainer(
+			return this.copy(
 				setServices(
 					this.currentContact,
 					[],
@@ -115,9 +129,6 @@ export class FormValuesContainer {
 						}),
 					],
 				),
-				this.contact,
-				this.contactsHistory,
-				this.serviceFactory,
 			)
 		} else {
 			return this

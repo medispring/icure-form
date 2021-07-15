@@ -11,6 +11,10 @@ export function groupBy<K, I extends string | number>(
 	}, {})
 }
 
-export function sortBy<K>(items: K[], key: string, direction = 'asc'): K[] {
+export function sortedBy<K>(items: K[], key: string, direction = 'asc'): K[] {
 	return items.concat().sort(direction === 'asc' ? (a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0) : (a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0))
+}
+
+export function sorted<K>(items: K[], direction = 'asc'): K[] {
+	return items.concat().sort(direction === 'asc' ? (a, b) => (a > b ? 1 : b > a ? -1 : 0) : (a, b) => (a < b ? 1 : b < a ? -1 : 0))
 }
