@@ -1,0 +1,45 @@
+form: GP consultation
+description: Basic SOAP scheme for a GP consultation
+sections:
+  - section: SOAP
+    fields:
+      - field: Reason for visit
+        type: textfield
+        columns: 5
+        rows: 3
+        grows: true
+        schema: text-document
+        tags:
+          - CD-ITEM|diagnosis|1
+        codifications:
+          - BE-THESAURUS
+          - ICD10
+        options:
+          option: blink
+      - field: Anamnese
+        type: number-field
+        shortLabel: NumberField
+        tags:
+          - CD-ITEM|parameter|1
+          - CD-PARAMETER|bmi|1
+        codifications: []
+        options:
+          option: bang
+      - field: Diagnosis
+        type: measure-field
+        shortLabel: MeasureField
+        tags:
+          - CD-ITEM|diagnosis|1
+        codifications: [ SNOMED-CT ]
+        options:
+          unit: bpm
+      - field: Treatment
+        type: multiple-choice
+        shortLabel: MultipleChoice
+        rows: 4
+        columns: 4
+        tags: []
+        codifications:
+          - KATZ
+        options:
+          many: no

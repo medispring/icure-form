@@ -65,6 +65,9 @@ export interface VersionedValue {
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
 	@property() suggestionStopWords: Set<string> = new Set<string>()
+	@property({ type: Boolean }) displayOwnerMenu = false
+	@property({ type: Boolean }) suggestions = false
+	@property({ type: Boolean }) links = false
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
@@ -95,8 +98,6 @@ class IqrTextField extends LitElement {
 	@state() protected languageInputValue = ''
 
 	@state() protected displayVersionsMenu = false
-	@state() protected suggestions = false
-	@state() protected links = false
 
 	@state() protected displayedLanguage = this.defaultLanguage
 	@state() protected displayedVersion = '0'
@@ -147,12 +148,14 @@ class IqrTextField extends LitElement {
 						<div class="info">~${this.owner}</div>
 						<div class="buttons-container">
 							<div class="menu-container">
-								<button data-content="${this.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
+								<button data-content="${this.metaProvider ? this.metaProvider()?.owner?.descr : this.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">
+									${ownerPicto}
+								</button>
 								${this.displayOwnersMenu
 									? html`
 											<div id="menu" class="menu">
 												<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-												${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text} @</button>`)}
+												${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
 											</div>
 									  `
 									: ''}
@@ -200,6 +203,7 @@ class IqrTextField extends LitElement {
 
 	handleOwnerButtonClicked(id: string) {
 		this.handleMetaChanged && this.serviceId && this.handleMetaChanged(this.serviceId, { revision: this.displayedVersion, owner: { id } })
+		this.displayOwnersMenu = false
 	}
 
 	toggleLanguageMenu() {
@@ -278,6 +282,7 @@ class IqrTextField extends LitElement {
 							? new Plugin({
 									view(editorView) {
 										return (cmp.suggestionPalette = new SuggestionPalette(
+											pms,
 											editorView,
 											(terms: string[]) => cmp.suggestionProvider(terms),
 											() => cmp.suggestionStopWords,

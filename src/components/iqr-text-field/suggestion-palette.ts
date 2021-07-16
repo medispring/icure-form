@@ -2,6 +2,7 @@ import equal from 'fast-deep-equal'
 
 import { EditorView } from 'prosemirror-view'
 import { EditorState, Transaction } from 'prosemirror-state'
+import { Schema } from 'prosemirror-model'
 
 export type Suggestion = { id: string; code: string; text: string; terms: string[] }
 
@@ -16,8 +17,16 @@ export class SuggestionPalette {
 	private currentFocus?: number
 	private hasFocus = false
 	private suggestions: Suggestion[] = []
+	private schema: Schema
 
-	constructor(view: EditorView, suggestionProvider: (terms: string[]) => Promise<Suggestion[]>, suggestionStopWordsProvider: () => Set<string>, delay?: () => boolean) {
+	constructor(
+		schema: Schema,
+		view: EditorView,
+		suggestionProvider: (terms: string[]) => Promise<Suggestion[]>,
+		suggestionStopWordsProvider: () => Set<string>,
+		delay?: () => boolean,
+	) {
+		this.schema = schema
 		this.suggestionStopWordsProvider = suggestionStopWordsProvider
 		this.suggestionProvider = suggestionProvider
 		this.palette = document.createElement('div')
@@ -83,6 +92,7 @@ export class SuggestionPalette {
 			if (length <= sel.to) {
 				transactionProvider(sel.to - length, sel.to, sug).then((tr) => tr && view.dispatch(tr.scrollIntoView()))
 			}
+			this.palette.style.display = 'none'
 			return true
 		}
 		return false
@@ -121,6 +131,20 @@ export class SuggestionPalette {
 		const text = state.doc.textBetween($pos.pos && $pos.depth ? $pos.before() + 1 : 0, $pos.pos)
 
 		const words = text.split(/\s+/)
+		const lastWordDelta = Math.min(
+			words
+				.concat()
+				.reverse()
+				.reduce((d, w) => (d < 0 ? d : w.length ? -d - w.length : d + 1), 0),
+			-1,
+		)
+		console.log('lwd', lastWordDelta)
+		if ($pos.pos > 1 && state.doc.rangeHasMark($pos.pos + lastWordDelta, $pos.pos, this.schema.marks['link'])) {
+			console.log('Skip suggestion')
+			this.palette.style.display = 'none'
+			return
+		}
+
 		const terms = words.filter((x) => x.length > 2 && !this.suggestionStopWordsProvider().has(x))
 		const lastTerms = terms.length > 3 ? terms.slice(length - 3) : terms
 		const fingerprint = lastTerms.join(' ')
