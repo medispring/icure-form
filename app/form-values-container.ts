@@ -5,7 +5,10 @@ import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/form
 const { cryptoApi } = Api('https://kraken.svc.icure.cloud/rest/v1', 'user', 'password')
 
 export const makeFormValuesContainer = () => {
-	const cc = new Contact({ id: 'c2', services: [{ id: 's1', tags: [{ id: 'CD-ITEM|diagnosis|1' }], content: { fr: { stringValue: 'Hello field modified' } } }] })
+	const cc = new Contact({
+		id: 'c2',
+		services: [{ id: 's1', valueDate: 20181012, tags: [{ id: 'CD-ITEM|diagnosis|1' }], content: { fr: { stringValue: 'Hello field modified' } } }],
+	})
 	const ctc = new Contact({
 		id: 'c1',
 		services: [

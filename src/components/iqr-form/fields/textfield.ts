@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit'
 import { property } from 'lit/decorators'
 
 import '../../iqr-text-field'
-import { Meta, Suggestion, VersionedValue } from '../../iqr-text-field'
+import { Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
 
 class Textfield extends LitElement {
 	@property() label = ''
@@ -20,7 +20,7 @@ class Textfield extends LitElement {
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 
 	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() metaProvider?: () => Meta = undefined
+	@property() metaProvider?: () => VersionedMeta = undefined
 	@property() handleValueChanged?: (id: string, value: string) => void = undefined
 	@property() handleMetaChanged?: (id: string, value: string) => void = undefined
 

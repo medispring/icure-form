@@ -86,7 +86,7 @@ class IqrTextField extends LitElement {
 	@property() owner?: string
 
 	@property() valueProvider?: () => VersionedValue = undefined
-	@property() metaProvider?: () => Meta = undefined
+	@property() metaProvider?: () => VersionedMeta = undefined
 	@property() handleValueChanged?: (value: string) => void = undefined
 	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
@@ -148,9 +148,7 @@ class IqrTextField extends LitElement {
 						<div class="info">~${this.owner}</div>
 						<div class="buttons-container">
 							<div class="menu-container">
-								<button data-content="${this.metaProvider ? this.metaProvider()?.owner?.descr : this.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">
-									${ownerPicto}
-								</button>
+								<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
 								${this.displayOwnersMenu
 									? html`
 											<div id="menu" class="menu">
@@ -161,7 +159,7 @@ class IqrTextField extends LitElement {
 									: ''}
 							</div>
 							<div class="menu-container">
-								<button data-content="01/02/20" class="btn date">${datePicto}</button>
+								<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
 							</div>
 							<div class="menu-container">
 								<button data-content="1.0" class="btn version">${versionPicto}</button>
@@ -254,6 +252,7 @@ class IqrTextField extends LitElement {
 			)
 
 			const providedValue = this.valueProvider && this.valueProvider()
+			this.displayedVersion = providedValue?.versions?.[0]?.revision || '0'
 			const displayedVersionedValue = providedValue?.versions?.[0]?.value
 			this.serviceId = providedValue?.id
 
@@ -433,6 +432,10 @@ class IqrTextField extends LitElement {
 							: { ignore: true },
 					},
 			  )
+	}
+
+	private getMeta(): Meta | undefined {
+		return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
 	}
 }
 

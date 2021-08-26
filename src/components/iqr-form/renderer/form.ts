@@ -13,9 +13,10 @@ import {
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 } from '../../iqr-form-loader'
-import { VersionedValue } from '../../iqr-text-field'
+import { VersionedMeta, VersionedValue } from '../../iqr-text-field'
 
-const valueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
+const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
+const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
 
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
@@ -48,8 +49,8 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 								.codeColorProvider=${fg.options?.codeColorProvider}
 								.linkColorProvider=${fg.options?.linkColorProvider}
 								.codeContentProvider=${fg.options?.codeContentProvider}
-								.valueProvider="${formsValueContainer && valueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
-								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+								.valueProvider="${formsValueContainer && firstItemValueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
+								.metaProvider=${formsValueContainer && firstItemMetaProvider(metaProvider(formsValueContainer, fg))}
 								.handleValueChanged=${formsValueContainer && handleTextFieldValueChangedProvider(formsValueContainer)}
 								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 						  ></iqr-form-textfield>`
@@ -57,31 +58,31 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 						? html`<iqr-form-measure-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && valueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
+								.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-measure-field>`
 						: fg.type === 'number-field'
 						? html`<iqr-form-number-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && valueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
+								.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-number-field>`
 						: fg.type === 'date-picker'
 						? html`<iqr-form-date-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && valueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
+								.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
 						? html`<iqr-form-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && valueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
+								.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
 						? html`<iqr-form-date-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
-								.valueProvider="${formsValueContainer && valueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
+								.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
