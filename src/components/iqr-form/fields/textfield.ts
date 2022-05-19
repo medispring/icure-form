@@ -35,7 +35,7 @@ class Textfield extends LitElement {
 
 	render() {
 		return html`
-			${(this.valueProvider?.() ?? [undefined]).map((versionedValue, idx) => {
+			${(this.valueProvider?.length ? this.valueProvider() : [undefined]).map((versionedValue, idx) => {
 				return html`<iqr-text-field
 					labelPosition=${this.labelPosition}
 					?multiline="${this.multiline}"
