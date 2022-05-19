@@ -128,12 +128,12 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@icure/api@^4.0.62":
-  version "4.0.62"
-  resolved "https://registry.npmjs.org/@icure/api/-/api-4.0.62.tgz#f52ec951adb265f63690d3a026fd67a1a803b01e"
-  integrity sha512-TfxAwsmL4uSiIzTwDkAkN85F5W7BsJ3rJHw9EwOJaaVViI60Rwg5Mi+GxDajeK0ZQjiBDA0bOcpji7xDn54iiw==
+"@icure/api@^4.0.65":
+  version "4.0.65"
+  resolved "https://registry.npmjs.org/@icure/api/-/api-4.0.65.tgz#f66b151e3dfa9f7c2bcf0f14df32fa17eca9132d"
+  integrity sha512-Bj88qHxeHTxycsSuqyCYUxlftTZ+ZG3Tz+ueJkUxFX8BkD3SAY9IgzJW+jqwLvRlol7thB3s9UQ4lJCA83ZifA==
   dependencies:
-    date-fns "^2.22.1"
+    date-fns "^2.23.0"
     libphonenumber-js "^1.7.18"
     lodash "^4.17.20"
     moment "^2.22.1"
@@ -2369,10 +2369,10 @@ date-fns@^1.27.2:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-date-fns@^2.22.1:
-  version "2.22.1"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
-  integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
+date-fns@^2.23.0:
+  version "2.23.0"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
+  integrity sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -6761,6 +6761,11 @@ simple-git@^1.85.0:
   integrity sha512-xauHm1YqCTom1sC9eOjfq3/9RKiUA9iPnxBbrY2DdL8l4ADMu0jjM5l5lphQP5YWNqAL2aXC/OeuQ76vHtW5fg==
   dependencies:
     debug "^4.0.1"
+
+simple-statistics@^7.7.0:
+  version "7.7.0"
+  resolved "https://registry.npmjs.org/simple-statistics/-/simple-statistics-7.7.0.tgz#cfef964473c940f2adfec85ffde8591a5a933a46"
+  integrity sha512-TAsZRUJ7FD/yCnm5UBgyWU7bP1gOPsw9n/dVrE8hQ+BF1zJPgDJ5X/MOnxG+HE/7nejSpJLJLdmTh7bkfsFkRw==
 
 slash@^1.0.0:
   version "1.0.0"

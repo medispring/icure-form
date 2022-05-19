@@ -341,6 +341,7 @@ class IqrTextField extends LitElement {
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
+					this.view && this.handleValueChanged && this.handleValueChanged(this.view.state.doc.text ?? '')
 				},
 			})
 		}

@@ -21,6 +21,7 @@
         "semi": ["error", "never", { "beforeStatementContinuationChars": "never"}],
         "max-len": ["error", {"code": 190, "ignoreStrings": true, "ignoreTemplateLiterals": true}],
         "jsx-a11y/no-static-element-interactions": 0,
-				"@typescript-eslint/ban-ts-comment": 0
+				"@typescript-eslint/ban-ts-comment": 0,
+			"@typescript-eslint/no-namespace": 0
     }
 }
