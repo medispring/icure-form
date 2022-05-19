@@ -1,6 +1,6 @@
 {
 	"include": [
-		"tmp"
+		"tmp", "src"
 	],
 	"compilerOptions": {
 		"outDir": "lib",
@@ -12,6 +12,7 @@
 		"rootDirs": ["tmp"],
 		"baseUrl": "tmp",
 		"experimentalDecorators": true,
+		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,

@@ -13,10 +13,10 @@ import {
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 } from '../../iqr-form-loader'
-import { VersionedMeta, VersionedValue } from '../../iqr-text-field'
+import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
-const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
+//const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
 
 export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
@@ -49,8 +49,8 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 								.codeColorProvider=${fg.options?.codeColorProvider}
 								.linkColorProvider=${fg.options?.linkColorProvider}
 								.codeContentProvider=${fg.options?.codeContentProvider}
-								.valueProvider="${formsValueContainer && firstItemValueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
-								.metaProvider=${formsValueContainer && firstItemMetaProvider(metaProvider(formsValueContainer, fg))}
+								.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
+								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 								.handleValueChanged=${formsValueContainer && handleTextFieldValueChangedProvider(formsValueContainer)}
 								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 						  ></iqr-form-textfield>`

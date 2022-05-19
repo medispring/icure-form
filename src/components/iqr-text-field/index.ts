@@ -11,7 +11,7 @@ import { liftListItem, sinkListItem, splitListItem, wrapInList } from 'prosemirr
 
 import { createSchema, IqrTextFieldSchema } from './schema'
 import MarkdownIt from 'markdown-it'
-import { MarkdownParser } from 'prosemirror-markdown'
+import { MarkdownParser, MarkdownSerializer } from 'prosemirror-markdown'
 import { unwrapFrom, wrapInIfNeeded } from './prosemirror-commands'
 import { SelectionCompanion } from './selection-companion'
 import { Suggestion, SuggestionPalette } from './suggestion-palette'
@@ -85,9 +85,9 @@ class IqrTextField extends LitElement {
 	@property() defaultLanguage = 'en'
 	@property() owner?: string
 
-	@property() valueProvider?: () => VersionedValue = undefined
-	@property() metaProvider?: () => VersionedMeta = undefined
-	@property() handleValueChanged?: (value: string) => void = undefined
+	@property() valueProvider?: () => VersionedValue | undefined = undefined
+	@property() metaProvider?: () => VersionedMeta | undefined = undefined
+	@property() handleValueChanged?: (language: string, value: string) => void = undefined
 	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
 	@state() protected displayOwnersMenu = false
@@ -106,6 +106,7 @@ class IqrTextField extends LitElement {
 
 	private proseMirrorSchema?: Schema
 	private parser?: MarkdownParser<FullSchema> | { parse: (value: string) => ProsemirrorNode<DateTimeSchema> }
+	private serializer?: MarkdownSerializer<FullSchema>
 
 	private view?: EditorView
 	private container?: HTMLElement
@@ -341,7 +342,9 @@ class IqrTextField extends LitElement {
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
-					this.view && this.handleValueChanged && this.handleValueChanged(this.view.state.doc.text ?? '')
+					this.view &&
+						this.handleValueChanged &&
+						this.handleValueChanged(this.displayedLanguage, this.serializer?.serialize(this.view.state.doc) ?? this.view.state.doc.textContent)
 				},
 			})
 		}
