@@ -10,6 +10,7 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 // @ts-ignore
 import yamlForm from './form.yaml'
 import { makeFormValuesContainer } from './form-values-container'
+import { FormValuesContainer } from '../src/components/iqr-form-loader'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -206,7 +207,7 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 
-		const formValuesContainer = makeFormValuesContainer()
+		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
 			<iqr-text-field
@@ -220,7 +221,17 @@ class DemoApp extends LitElement {
 				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"
 				owner="M. Mennechet"
 			></iqr-text-field>
-			<iqr-form .form="${shortForm}" labelPosition="above" skin="kendo" theme="gray" renderer="form" .formValuesContainer="${formValuesContainer}"></iqr-form>
+			<iqr-form
+				.form="${shortForm}"
+				labelPosition="above"
+				skin="kendo"
+				theme="gray"
+				renderer="form"
+				.formValuesContainer="${formValuesContainer}"
+				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
+					formValuesContainer = newVal
+				}}"
+			></iqr-form>
 			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>

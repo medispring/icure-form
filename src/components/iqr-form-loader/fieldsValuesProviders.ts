@@ -43,10 +43,12 @@ export function metaProvider(formValuesContainer: FormValuesContainer, field: Fi
 	return () => convertServicesToVersionedMetas(getVersions(formValuesContainer, field))
 }
 
-export function handleTextFieldValueChangedProvider(formValuesContainer: FormValuesContainer): (serviceId: string, language: string, content: string, codes: CodeStub[]) => void {
+export function handleTextFieldValueChangedProvider(
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string, language: string, content: string, codes: CodeStub[]) => void {
 	return (serviceId: string, language: string, content: string, codes: CodeStub[]) => {
-		console.log('Value changed to ->', content)
-		return formValuesContainer.setValue(serviceId, language, new Content({ stringValue: content }), codes)
+		formValuesContainerChanged(formValuesContainer.setValue(serviceId, language, new Content({ stringValue: content }), codes))
 	}
 }
 

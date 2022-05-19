@@ -3,7 +3,12 @@ import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
 
-export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
+export const render: Renderer = (
+	form: Form,
+	props: { [key: string]: unknown },
+	formsValueContainer?: FormValuesContainer,
+	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1>${content}</h1>`

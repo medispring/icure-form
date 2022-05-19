@@ -18,7 +18,12 @@ import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
 
-export const render: Renderer = (form: Form, props: { [key: string]: unknown }, formsValueContainer?: FormValuesContainer) => {
+export const render: Renderer = (
+	form: Form,
+	props: { [key: string]: unknown },
+	formsValueContainer?: FormValuesContainer,
+	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1>${content}</h1>`
@@ -51,7 +56,7 @@ export const render: Renderer = (form: Form, props: { [key: string]: unknown }, 
 								.codeContentProvider=${fg.options?.codeContentProvider}
 								.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
 								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-								.handleValueChanged=${formsValueContainer && handleTextFieldValueChangedProvider(formsValueContainer)}
+								.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(formsValueContainer, formValuesContainerChanged)}
 								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'
