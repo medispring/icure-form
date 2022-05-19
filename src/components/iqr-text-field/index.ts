@@ -1,7 +1,7 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement } from 'lit'
 import { property, state, query } from 'lit/decorators'
-import { EditorState, Plugin } from 'prosemirror-state'
+import { EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model'
 import { history, redo, undo } from 'prosemirror-history'
@@ -114,6 +114,7 @@ class IqrTextField extends LitElement {
 	private suggestionPalette?: SuggestionPalette
 	private mouseCount = 0
 	private serviceId?: string = undefined
+	private trToSave?: Transaction = undefined
 
 	constructor() {
 		super()
@@ -342,9 +343,10 @@ class IqrTextField extends LitElement {
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
-					this.view &&
-						this.handleValueChanged &&
-						this.handleValueChanged(this.displayedLanguage, this.serializer?.serialize(this.view.state.doc) ?? this.view.state.doc.textContent)
+					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
+						this.trToSave = tr
+						setTimeout(() => this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, this.serializer?.serialize(tr.doc) ?? tr.doc.textContent), 800)
+					}
 				},
 			})
 		}
