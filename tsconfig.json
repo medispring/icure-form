@@ -1,6 +1,6 @@
 {
 	"include": [
-		"tmp"
+		"src"
 	],
 	"compilerOptions": {
 		"outDir": "lib",
