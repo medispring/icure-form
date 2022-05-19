@@ -1,6 +1,6 @@
 {
 	"name": "@icure/form",
-	"version": "1.0.19",
+	"version": "1.1.0",
 	"description": "",
 	"main": "lib/index.js",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json && rimraf tmp",
 		"dist": "webpack --env.mode production",
 		"prepare": "rimraf lib && yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
-		"publish": "yarn version && yarn run prepare && cd lib && npm publish && cd ..",
+		"publish": "yarn version patch && yarn run prepare && cd lib && npm publish && cd ..",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
