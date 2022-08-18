@@ -208,7 +208,7 @@ class DemoApp extends LitElement {
 		)
 
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
-		const editable = false
+		const editable = true
 		return html`
 			<iqr-text-field
 				suggestions
