@@ -33,12 +33,6 @@ import { languageName } from '../../utils/languages'
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
 
-type FullSchema = Schema<
-	'doc' | 'paragraph' | 'list_item' | 'image' | 'blockquote' | 'bullet_list' | 'hard_break' | 'heading' | 'horizontal_rule' | 'ordered_list' | 'text',
-	'strong' | 'em' | 'link'
->
-type DateTimeSchema = Schema<'paragraph' | 'date' | 'time' | 'text'>
-
 export interface Meta {
 	revision: string
 	modified?: number
@@ -105,8 +99,8 @@ class IqrTextField extends LitElement {
 	@state() protected availableLanguages = [this.displayedLanguage]
 
 	private proseMirrorSchema?: Schema
-	private parser?: MarkdownParser<FullSchema> | { parse: (value: string) => ProsemirrorNode<DateTimeSchema> }
-	private serializer?: MarkdownSerializer<FullSchema>
+	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
+	private serializer?: MarkdownSerializer
 
 	private view?: EditorView
 	private container?: HTMLElement
@@ -267,7 +261,7 @@ class IqrTextField extends LitElement {
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
-					doc: parsedDoc,
+					doc: parsedDoc ?? undefined,
 					schema: this.proseMirrorSchema,
 					plugins: [
 						caretFixPlugin(),

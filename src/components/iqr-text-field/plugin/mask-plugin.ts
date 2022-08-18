@@ -154,7 +154,7 @@ export const maskPlugin = function (): Plugin {
 				return false
 			},
 		},
-		appendTransaction: (transactions: Array<Transaction>, oldState: EditorState, newState: EditorState) => {
+		appendTransaction: (transactions: readonly Transaction[], oldState: EditorState, newState: EditorState) => {
 			return applyDocMasks(newState)
 		},
 	})
