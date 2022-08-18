@@ -208,6 +208,7 @@ class DemoApp extends LitElement {
 		)
 
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
+		const editable = false
 		return html`
 			<iqr-text-field
 				suggestions
@@ -226,12 +227,13 @@ class DemoApp extends LitElement {
 				skin="kendo"
 				theme="gray"
 				renderer="form"
+				.editable="${editable}"
 				.formValuesContainer="${formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
 					formValuesContainer = newVal
 				}}"
 			></iqr-form>
-			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
+			<iqr-form .form="${form}" .editable="${editable}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>

@@ -58,6 +58,7 @@ export const render: Renderer = (
 								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 								.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(formsValueContainer, formValuesContainerChanged)}
 								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+								.editable="${props.editable}"
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'
 						? html`<iqr-form-measure-field
@@ -95,7 +96,7 @@ export const render: Renderer = (
 								.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
-						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
+						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}" .editable="${props.editable}"></iqr-form-multiple-choice>`
 						: ''
 			  }
 					</div>`
