@@ -8,6 +8,7 @@ export class TimePicker extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
 	@property() valueProvider?: () => VersionedValue[] = undefined
+	@property({ type: Boolean }) editable = true
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -19,7 +20,9 @@ export class TimePicker extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html` <iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="time" .valueProvider=${this.valueProvider}></iqr-text-field> `
+		return html`
+			<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="time" .valueProvider=${this.valueProvider} .editable="${this.editable}"></iqr-text-field>
+		`
 	}
 }
 

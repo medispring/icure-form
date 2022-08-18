@@ -62,6 +62,7 @@ class IqrTextField extends LitElement {
 	@property({ type: Boolean }) displayOwnerMenu = false
 	@property({ type: Boolean }) suggestions = false
 	@property({ type: Boolean }) links = false
+	@property({ type: Boolean }) editable = true
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
@@ -266,7 +267,7 @@ class IqrTextField extends LitElement {
 					plugins: [
 						caretFixPlugin(),
 						history(),
-						this.links
+						this.links && this.editable
 							? new Plugin({
 									view(editorView) {
 										return new SelectionCompanion(editorView, () => cmp.mouseCount > 0)
@@ -342,6 +343,7 @@ class IqrTextField extends LitElement {
 						setTimeout(() => this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, this.serializer?.serialize(tr.doc) ?? tr.doc.textContent), 800)
 					}
 				},
+				editable: () => this.editable,
 			})
 		}
 	}

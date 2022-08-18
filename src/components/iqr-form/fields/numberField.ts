@@ -6,6 +6,7 @@ import '../../iqr-text-field'
 export class NumberField extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
+	@property({ type: Boolean }) editable = true
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -17,7 +18,7 @@ export class NumberField extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="decimal"></iqr-text-field> `
+		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" .editable="${this.editable}" schema="decimal"></iqr-text-field> `
 	}
 }
 

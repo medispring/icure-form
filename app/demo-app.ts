@@ -208,7 +208,6 @@ class DemoApp extends LitElement {
 		)
 
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
-
 		return html`
 			<iqr-text-field
 				suggestions

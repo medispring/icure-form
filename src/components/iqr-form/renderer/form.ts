@@ -63,30 +63,35 @@ export const render: Renderer = (
 						? html`<iqr-form-measure-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.editable="${props.editable}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-measure-field>`
 						: fg.type === 'number-field'
 						? html`<iqr-form-number-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.editable="${props.editable}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-number-field>`
 						: fg.type === 'date-picker'
 						? html`<iqr-form-date-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.editable="${props.editable}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
 						? html`<iqr-form-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.editable="${props.editable}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
 						? html`<iqr-form-date-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.editable="${props.editable}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'

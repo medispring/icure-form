@@ -7,6 +7,7 @@ import { VersionedValue } from '../../iqr-text-field'
 export class DateTimePicker extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
+	@property({ type: Boolean }) editable = true
 	@property() valueProvider?: () => VersionedValue[] = undefined
 
 	static get styles(): CSSResultGroup[] {
@@ -19,7 +20,15 @@ export class DateTimePicker extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html` <iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="date-time" .valueProvider=${this.valueProvider}></iqr-text-field> `
+		return html`
+			<iqr-text-field
+				labelPosition=${this.labelPosition}
+				label="${this.label}"
+				schema="date-time"
+				.valueProvider=${this.valueProvider}
+				.editable="${this.editable}"
+			></iqr-text-field>
+		`
 	}
 }
 

@@ -10,6 +10,7 @@ class Textfield extends LitElement {
 	@property() rows = 1
 	@property() grows = false
 	@property() labelPosition?: string = undefined
+	@property({ type: Boolean }) editable = true
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
 		Promise.resolve(undefined)
@@ -53,6 +54,7 @@ class Textfield extends LitElement {
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}
 					.handleValueChanged=${(language: string, value: string) => versionedValue?.id && this.handleValueChanged?.(versionedValue.id, language, value)}
 					.handleMetaChanged=${this.handleMetaChanged}
+					.editable="${this.editable}"
 				></iqr-text-field>`
 			})}
 		`
