@@ -8,7 +8,8 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import yamlForm from './form.yaml'
+//import yamlForm from './form.yaml'
+import yamlForm from './4919.yaml'
 import { makeFormValuesContainer } from './form-values-container'
 import { FormValuesContainer } from '../src/components/iqr-form-loader'
 
