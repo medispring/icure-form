@@ -171,6 +171,9 @@ class IqrTextField extends LitElement {
 									  `
 									: ''}
 							</div>
+							<div>
+								<slot></slot>
+							</div>
 						</div>
 					</div>
 				</div>

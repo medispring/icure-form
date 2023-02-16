@@ -210,6 +210,9 @@ class DemoApp extends LitElement {
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
+			<iqr-form-measure-field label="Form"></iqr-form-measure-field>
+			<iqr-form-dropdown-field label="Form"></iqr-form-dropdown-field>
+
 			<iqr-text-field
 				suggestions
 				links

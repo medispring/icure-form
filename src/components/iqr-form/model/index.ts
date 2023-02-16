@@ -1,5 +1,5 @@
 import { IqrTextFieldSchema } from '../../iqr-text-field'
-type FieldType = 'textfield' | 'measure-field' | 'number-field' | 'date-picker' | 'time-picker' | 'date-time-picker' | 'multiple-choice'
+type FieldType = 'textfield' | 'measure-field' | 'number-field' | 'date-picker' | 'time-picker' | 'date-time-picker' | 'multiple-choice' | 'dropdown-field'
 
 export abstract class Field {
 	clazz: 'field' = 'field'
@@ -112,6 +112,12 @@ export class DateTimePicker extends Field {
 export class MultipleChoice extends Field {
 	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('multiple-choice', label, shortLabel, rows, columns, undefined, undefined, tags, codifications, options)
+	}
+}
+
+export class DropdownField extends Field {
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
+		super('dropdown-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
 	}
 }
 
