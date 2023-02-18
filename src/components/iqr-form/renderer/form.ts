@@ -56,7 +56,7 @@ export const render: Renderer = (
 								.codeContentProvider=${fg.options?.codeContentProvider}
 								.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
 								.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-								.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(formsValueContainer, formValuesContainerChanged)}
+								.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 								.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 						  ></iqr-form-textfield>`
 						: fg.type === 'measure-field'

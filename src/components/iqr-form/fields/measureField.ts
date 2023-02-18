@@ -16,7 +16,7 @@ export class MeasureField extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html` <iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="measure"></iqr-text-field> `
+		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="measure"></iqr-text-field>`
 	}
 }
 
