@@ -1,64 +1,144 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property, state } from 'lit/decorators'
 
 import '../../iqr-text-field'
+// @ts-ignore
+import baseCss from '../../iqr-text-field/styles/style.scss'
+// @ts-ignore
+import kendoCss from '../../iqr-text-field/styles/kendo.scss'
+import { Schema, DOMParser } from 'prosemirror-model'
+import { EditorView } from 'prosemirror-view'
+import { createSchema, IqrTextFieldSchema } from '../../iqr-text-field/schema'
+import { EditorState, Plugin, Transaction } from 'prosemirror-state'
+import { VersionedValue } from '../../iqr-text-field'
+import { history, redo, undo } from 'prosemirror-history'
+import { versionPicto } from '../../iqr-text-field/styles/paths'
+import { keymap } from 'prosemirror-keymap'
+import { hasContentClassPlugin } from '../../iqr-text-field/plugin/has-content-class-plugin'
+import { Keymap } from 'prosemirror-commands'
 
 export class DropdownField extends LitElement {
 	@property() label = ''
-	@property() labelPosition?: string = undefined
+	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 
-	@property() options?: { id: string; text: string }[] = [
-		{
-			id: '1',
-			text: 'Option 1',
-		},
-		{
-			id: '2',
-			text: 'Option 2',
-		},
-		{
-			id: '3',
-			text: 'Option 3',
-		},
-	]
+	@property() options?: { id: string; text: string }[] = []
 
-	@state() @property({ type: String }) value = ''
+	@property() placeholder = ''
+
+	@property() schema: IqrTextFieldSchema = 'dropdown'
+
+	@property() codeProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((x) => x.code).join(' ')
+
+	@property() valueProvider?: () => VersionedValue | undefined = undefined
+
+	@property({ type: String }) value = ''
+
+	@property({ type: Boolean }) isMultipleChoice = false
+
 	@state() protected displayMenu = false
+
+	private container?: HTMLElement
+
+	private proseMirrorSchema?: Schema
+
+	private view?: EditorView
+
 	static get styles(): CSSResultGroup[] {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
+		return [baseCss, kendoCss]
 	}
 
-	togglePopup() {
-		console.log('togglePopup')
+	togglePopup(): void {
 		this.displayMenu = !this.displayMenu
 	}
 
-	handleOptionButtonClicked(id: string) {
+	handleOptionButtonClicked(id: string): (e: Event) => boolean {
 		return (e: Event) => {
-			console.log('handleOwnerButtonClicked', id)
-			this.value = this.options?.find((x) => x.id === id)?.text ?? ''
-			this.displayMenu = false
+			e.preventDefault()
+			if (this.view) {
+				this.dispatcher(this.view.state, this.view.dispatch, id)
+				this.displayMenu = false
+				return true
+			}
+			return false
 		}
+	}
+
+	public dispatcher(state: EditorState, dispatch: (tr: Transaction) => void, id: string): boolean {
+		if (!state || !dispatch) return false
+		const tr = state.tr
+		if (!this.isMultipleChoice) {
+			tr.delete(0, state.doc.nodeSize - 2)
+		}
+		tr.insertText(this.options?.find((x) => x.id === id)?.text || '')
+		dispatch(tr)
+		return true
+	}
+
+	public constructKeyMap(): Keymap {
+		return (this.options ?? []).reduce((acc, x, index) => {
+			// @ts-ignore
+			acc['Shift-' + (index + 1)] = (state, dispatch) => {
+				if (state && dispatch) return this.dispatcher(state, dispatch, x.id)
+				return false
+			}
+			return acc
+		}, {})
 	}
 
 	render(): TemplateResult {
 		return html`
-			<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" value="${this.value}" schema="dropdown">
-				<button @click="${this.togglePopup}" class="btn menu-trigger author"></button>
-				${this.displayMenu
-					? html`
-							<div id="menu" class="menu">
-								${this.options?.map((x) => html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
+				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
+				<div class="iqr-input">
+					<div id="editor"></div>
+					<div id="extra" class=${'extra forced'}>
+						<div class="buttons-container">
+							<div class="menu-container">
+								<button @click="${this.togglePopup}" class="btn menu-trigger">${versionPicto}</button>
+								${this.displayMenu
+									? html`
+											<div id="menu" class="menu">
+												${this.options?.map((x) => html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+											</div>
+									  `
+									: ''}
 							</div>
-					  `
-					: ''}
-			</iqr-text-field>
+						</div>
+					</div>
+				</div>
+			</div>
 		`
+	}
+
+	public firstUpdated(): void {
+		this.proseMirrorSchema = createSchema(this.schema, () => '', this.codeProvider)
+		this.container = this.shadowRoot?.getElementById('editor') || undefined
+
+		const keyMapOptions = this.constructKeyMap()
+
+		if (this.container) {
+			this.view = new EditorView(this.container, {
+				state: EditorState.create({
+					schema: this.proseMirrorSchema,
+					doc: DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
+					plugins: [
+						history(),
+						keymap({ 'Mod-z': undo, 'Mod-y': redo }),
+						this.options ? keymap(keyMapOptions) : null,
+						hasContentClassPlugin(this.shadowRoot || undefined),
+						/*this.optionsProvider
+							? new Plugin({
+								view(editorView) {
+									component.optionsProvider
+								}
+							})
+							: null,*/
+					]
+						.filter((x) => !!x)
+						.map((x) => x as Plugin),
+				}),
+			})
+		}
 	}
 }
 

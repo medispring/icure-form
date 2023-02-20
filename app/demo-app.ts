@@ -207,11 +207,17 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 
+		const options = [
+			{ id: '1', text: 'Form 1' },
+			{ id: '2', text: 'Form 2' },
+			{ id: '3', text: 'Form 3' },
+		]
+
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
-			<iqr-form-measure-field label="Form"></iqr-form-measure-field>
-			<iqr-form-dropdown-field label="Form"></iqr-form-dropdown-field>
+			<iqr-text-field label="Form"></iqr-text-field>
+			<iqr-form-dropdown-field label="Form" .options="${options}"></iqr-form-dropdown-field>
 
 			<iqr-text-field
 				suggestions
