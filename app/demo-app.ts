@@ -89,6 +89,20 @@ class DemoApp extends LitElement {
 		`
 	}
 
+	public options = [
+		{ id: '1', code: '1', text: 'Form 1', terms: ['Form', '1'] },
+		{ id: '2', code: '2', text: 'Form 2', terms: ['Form', '2'] },
+		{ id: '3', code: '3', text: 'Form 3', terms: ['Form', '3'] },
+		{ id: '4', code: '4', text: 'Form 4', terms: ['Form', '4'] },
+		{ id: '5', code: '5', text: 'Form 5', terms: ['Form', '5'] },
+	]
+
+	async optionProvider(terms: string[], limit?: number) {
+		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
+		const options = this.options.filter((x) => x.text.toLowerCase().includes(longestTerm.toLowerCase()))
+		return Promise.resolve(limit && limit > 0 ? options.slice(0, limit) : options)
+	}
+
 	async firstUpdated() {
 		const codes = await getRowsUsingPagination<Code>((key, docId) => {
 			return this.codeApi.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
@@ -207,17 +221,11 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 
-		const options = [
-			{ id: '1', text: 'Form 1' },
-			{ id: '2', text: 'Form 2' },
-			{ id: '3', text: 'Form 3' },
-		]
-
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
-			<iqr-text-field label="Form"></iqr-text-field>
-			<iqr-form-dropdown-field label="Form" .options="${options}"></iqr-form-dropdown-field>
+			<iqr-form-date-time-picker label="Form"></iqr-form-date-time-picker>
+			<iqr-form-dropdown-field label="Form" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
 
 			<iqr-text-field
 				suggestions

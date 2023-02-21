@@ -8,26 +8,27 @@ import baseCss from '../../iqr-text-field/styles/style.scss'
 import kendoCss from '../../iqr-text-field/styles/kendo.scss'
 import { Schema, DOMParser } from 'prosemirror-model'
 import { EditorView } from 'prosemirror-view'
-import { createSchema, IqrTextFieldSchema } from '../../iqr-text-field/schema'
 import { EditorState, Plugin, Transaction } from 'prosemirror-state'
-import { VersionedValue } from '../../iqr-text-field'
+import { Suggestion, VersionedValue } from '../../iqr-text-field'
 import { history, redo, undo } from 'prosemirror-history'
 import { versionPicto } from '../../iqr-text-field/styles/paths'
 import { keymap } from 'prosemirror-keymap'
 import { hasContentClassPlugin } from '../../iqr-text-field/plugin/has-content-class-plugin'
 import { Keymap } from 'prosemirror-commands'
+import { getDropdownSpec } from '../../iqr-text-field/schema/dropdown-schema'
+import { schema } from 'prosemirror-schema-basic'
 
 export class DropdownField extends LitElement {
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 
-	@property() options?: { id: string; text: string }[] = []
+	@property() options?: Suggestion[] = []
 
 	@property() placeholder = ''
 
-	@property() schema: IqrTextFieldSchema = 'dropdown'
+	//@property() schema: IqrTextFieldSchema = 'dropdown'
 
-	@property() codeProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((x) => x.code).join(' ')
+	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
 
 	@property() valueProvider?: () => VersionedValue | undefined = undefined
 
@@ -35,11 +36,15 @@ export class DropdownField extends LitElement {
 
 	@property({ type: Boolean }) isMultipleChoice = false
 
+	@property({ type: Boolean }) preload = true
+
+	@property({ type: Number }) limitResultProvider = 0
+
 	@state() protected displayMenu = false
 
 	private container?: HTMLElement
 
-	private proseMirrorSchema?: Schema
+	private proseMirrorSchema
 
 	private view?: EditorView
 
@@ -110,8 +115,15 @@ export class DropdownField extends LitElement {
 		`
 	}
 
-	public firstUpdated(): void {
-		this.proseMirrorSchema = createSchema(this.schema, () => '', this.codeProvider)
+	public async firstUpdated(): Promise<void> {
+		if (this.preload && (this.options === undefined || this.options.length === 0)) {
+			this.options = await this.optionProvider([''], this.limitResultProvider)
+		}
+
+		this.proseMirrorSchema = new Schema({
+			nodes: Object.assign(getDropdownSpec(), schema.spec.nodes),
+			marks: schema.spec.marks,
+		})
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
 		const keyMapOptions = this.constructKeyMap()

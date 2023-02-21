@@ -4,19 +4,8 @@ import { DateSchema, DateTimeSchema, getDateSpec, getDateTimeSpec, getTimeSpec, 
 import { getTokensSpec, TokensSchema } from './token-schema'
 import { getMeasureSpec, MeasureSchema } from './measure-schema'
 import { DecimalSchema, getDecimalSpec } from './decimal-schema'
-import { DropdownSchema, getDropdownSpec } from './dropdown-schema'
 
-export type IqrTextFieldSchema =
-	| DocumentSchema
-	| TokensSchema
-	| StyledSchema
-	| InlineSchema
-	| DateSchema
-	| TimeSchema
-	| DateTimeSchema
-	| DecimalSchema
-	| MeasureSchema
-	| DropdownSchema
+export type IqrTextFieldSchema = DocumentSchema | TokensSchema | StyledSchema | InlineSchema | DateSchema | TimeSchema | DateTimeSchema | DecimalSchema | MeasureSchema
 
 export function createSchema(
 	type: IqrTextFieldSchema,
@@ -34,8 +23,6 @@ export function createSchema(
 			? getTimeSpec()
 			: type === 'date-time'
 			? getDateTimeSpec()
-			: type === 'dropdown'
-			? getDropdownSpec(contentProvider)
 			: type === 'tokens-list' || type === 'styled-tokens-list' || type === 'tokens-list-with-codes' || type === 'styled-tokens-list-with-codes'
 			? getTokensSpec(type, contentProvider, colorProvider)
 			: getMarkdownSpec(type, contentProvider, colorProvider),
