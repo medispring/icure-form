@@ -58,6 +58,8 @@ export abstract class Field {
 				return new DateTimePicker(json.field, json.shortLabel, json.tags, json.codifications, json.options)
 			case 'multiple-choice':
 				return new MultipleChoice(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
+			case 'dropdown':
+				return new DropdownField(json.field, json.shortLabel, json.tags, json.codifications, json.options)
 			default:
 				throw Error('Invalid field type ' + json.type)
 		}

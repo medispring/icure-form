@@ -4,12 +4,12 @@ sections:
   - section:
     fields:
       - field: contactType
-        type: multiple-choice
+        type: dropdown
         shortLabel: Type de consultation
         options:
-          - option: Sur place
-          - option: Visioconférence
-          - option: Téléphone
+          - option1: Sur place
+          - option2: Visioconférence
+          - option3: Téléphone
         rows: 1
         columns: 1
         required: true
@@ -52,28 +52,28 @@ sections:
         rows: 3
         columns: 3
       - field : PersonFollowerType
-        type: multiple-choice
+        type: dropdown
         shortLabel: Personnes Accompagnants
         options:
-          - option: Partenaire
-          - option: Mère
-          - option: Amie
-          - option: Éducateur
-          - option: Père
+          - option1: Partenaire
+          - option2: Mère
+          - option3: Amie
+          - option4: Éducateur
+          - option5: Père
         rows: 4
         columns: 1
         required: false
         tags:
           - CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1
       - field : PatientProfession
-        type: multiple-choice
+        type: dropdown
         shortLabel: Profession de la patiente
         options:
-          - option: Employé
-          - option: Ouvrier
-          - option: Indépendant
-          - option: Sans travail
-          - option: Ne veut pas dire
+          - option1: Employé
+          - option2: Ouvrier
+          - option3: Indépendant
+          - option4: Sans travail
+          - option5: Ne veut pas dire
         rows: 5
         columns: 1
         required: false
@@ -136,16 +136,16 @@ sections:
         tags :
           -  CD-CUSTOM-IVG|DECISION-PROCESSUS|1
       - field : firstChoice
-        type: multiple-choice
+        type: dropdown
         shortLabel: Première décision de la patiente
         rows: 13
         columns: 1
         required: true
         options:
-          - option: oui par curretage
-          - option: ne sait pas
-          - option: oui par médication
-          - option: non
+          - option1: oui par curretage
+          - option2: ne sait pas
+          - option3: oui par médication
+          - option4: non
         tags:
           - CD-CUSTOM-IVG|FIRST-CHOICE|1
       - field : notes

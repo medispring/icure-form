@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { Code, getRowsUsingPagination, IccCodeXApi, IccHcpartyXApi } from '@icure/api'
+import { IccHcpartyXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
@@ -216,7 +216,6 @@ class DemoApp extends LitElement {
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
-			<iqr-form-date-time-picker label="Form"></iqr-form-date-time-picker>
 			<iqr-form-dropdown-field label="Form" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
 
 			<iqr-text-field

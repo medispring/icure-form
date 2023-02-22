@@ -27,13 +27,13 @@ export function getDropdownSpec(): SchemaSpec {
 				parseDOM: [{ tag: 'span' }],
 			},
 
-			dropdownMenu: {
-				content: 'dropdownOption*',
-				group: 'block',
-				toDOM() {
-					return ['div', { class: 'dropdown-menu' }, 0]
-				},
-			},
+			//dropdownMenu: {
+			//	content: 'dropdownOption*',
+			//	group: 'block',
+			//	toDOM() {
+			//		return ['div', { class: 'dropdown-menu' }, 0]
+			//	},
+			//},
 
 			text: {
 				group: 'inline',
