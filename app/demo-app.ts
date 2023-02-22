@@ -5,6 +5,7 @@ import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
+import { codes } from './codes'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -60,7 +61,6 @@ const icpc2 = {
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
 class DemoApp extends LitElement {
-	private codeApi: IccCodeXApi = new IccCodeXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 
 	private miniSearch: MiniSearch = new MiniSearch({
@@ -91,17 +91,8 @@ class DemoApp extends LitElement {
 	}
 
 	async firstUpdated() {
-		const codes = await getRowsUsingPagination<Code>((key, docId) => {
-			return this.codeApi.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
-				rows: (x.rows || []).map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })),
-				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
-				nextDocId: x.nextKeyPair?.startKeyDocId,
-				done: (x.rows || []).length < 10000,
-			}))
-		})
-		codes && this.miniSearch.addAll(codes)
+		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}
-
 	codeColorProvider(type: string, code: string) {
 		if (!code) {
 			return 'XXII'
@@ -144,8 +135,8 @@ class DemoApp extends LitElement {
 	}
 
 	async linksProvider(sug: { id: string; code: string; text: string; terms: string[]; links: string[] }) {
-		const links = (await Promise.all((sug.links || []).map((id) => this.codeApi.getCode(id))))
-			.map((c) => ({ id: c.id, code: c.code, text: c.label?.fr, type: c.type }))
+		const links = (await Promise.all((sug.links || []).map((id) => codes.find((c) => c.id === id))))
+			.map((c) => ({ id: c?.id, code: c?.code, text: c?.label?.fr, type: c?.type }))
 			.concat([Object.assign({ type: sug.id.split('|')[0] }, sug)])
 		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
 	}
