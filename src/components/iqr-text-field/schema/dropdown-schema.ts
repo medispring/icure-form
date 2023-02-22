@@ -1,36 +1,44 @@
+import { SchemaSpec } from 'prosemirror-model'
+
 export type DropdownSchema = 'dropdown'
 
-const options = [
-	{ id: '1', code: '1', text: 'Form 1', terms: ['Form', '1'] },
-	{ id: '2', code: '2', text: 'Form 2', terms: ['Form', '2'] },
-	{ id: '3', code: '3', text: 'Form 3', terms: ['Form', '3'] },
-	{ id: '4', code: '4', text: 'Form 4', terms: ['Form', '4'] },
-	{ id: '5', code: '5', text: 'Form 5', terms: ['Form', '5'] },
-]
-export function getDropdownSpec() {
+export function getDropdownSpec(): SchemaSpec {
 	return {
-		selectedOption: {
-			attrs: {
-				option: { default: '' },
+		topNode: 'paragraph',
+		nodes: {
+			paragraph: {
+				content: 'selectedOptionGroup*',
 			},
-			inline: true,
-			group: 'inline',
-			toDOM: (node: any) => [
-				'span',
-				{
-					option: node.attrs.option,
-					class: 'dropdown',
+
+			selectedOptionGroup: {
+				content: 'selectedOption*',
+				group: 'block',
+				toDOM() {
+					return ['div', 0]
 				},
-			],
-			parseDOM: [
-				{
-					tag: 'span[option]',
-					getAttrs: (dom: any) => {
-						const comparator = dom?.getAttribute('text')
-						return options.some((option) => option.id === comparator) ? { comparator } : false
-					},
+			},
+
+			selectedOption: {
+				content: 'inline*',
+				group: 'block',
+				toDOM() {
+					return ['span', { class: 'selected-option' }, 0]
 				},
-			],
+				parseDOM: [{ tag: 'span' }],
+			},
+
+			dropdownMenu: {
+				content: 'dropdownOption*',
+				group: 'block',
+				toDOM() {
+					return ['div', { class: 'dropdown-menu' }, 0]
+				},
+			},
+
+			text: {
+				group: 'inline',
+			},
 		},
+		marks: {},
 	}
 }

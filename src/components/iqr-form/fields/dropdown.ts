@@ -15,8 +15,17 @@ import { versionPicto } from '../../iqr-text-field/styles/paths'
 import { keymap } from 'prosemirror-keymap'
 import { hasContentClassPlugin } from '../../iqr-text-field/plugin/has-content-class-plugin'
 import { Keymap } from 'prosemirror-commands'
+
 import { getDropdownSpec } from '../../iqr-text-field/schema/dropdown-schema'
-import { schema } from 'prosemirror-schema-basic'
+
+// @ts-ignore
+const options = [
+	{ id: '1', code: '1', text: 'Form 1', terms: ['Form', '1'] },
+	{ id: '2', code: '2', text: 'Form 2', terms: ['Form', '2'] },
+	{ id: '3', code: '3', text: 'Form 3', terms: ['Form', '3'] },
+	{ id: '4', code: '4', text: 'Form 4', terms: ['Form', '4'] },
+	{ id: '5', code: '5', text: 'Form 5', terms: ['Form', '5'] },
+]
 
 export class DropdownField extends LitElement {
 	@property() label = ''
@@ -25,8 +34,6 @@ export class DropdownField extends LitElement {
 	@property() options?: Suggestion[] = []
 
 	@property() placeholder = ''
-
-	//@property() schema: IqrTextFieldSchema = 'dropdown'
 
 	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
 
@@ -44,7 +51,7 @@ export class DropdownField extends LitElement {
 
 	private container?: HTMLElement
 
-	private proseMirrorSchema
+	private proseMirrorSchema?: Schema
 
 	private view?: EditorView
 
@@ -70,11 +77,18 @@ export class DropdownField extends LitElement {
 
 	public dispatcher(state: EditorState, dispatch: (tr: Transaction) => void, id: string): boolean {
 		if (!state || !dispatch) return false
+		const selectedOption = this.proseMirrorSchema?.nodes.selectedOption
+		if (!selectedOption) return false
+		// @ts-ignore
+		const { $from } = state.selection,
+			index = $from.index()
 		const tr = state.tr
 		if (!this.isMultipleChoice) {
 			tr.delete(0, state.doc.nodeSize - 2)
 		}
-		tr.insertText(this.options?.find((x) => x.id === id)?.text || '')
+		const text = this.options?.find((x) => x.id === id)?.text || ''
+		tr.replaceSelectionWith(selectedOption.create())
+		tr.insertText(text)
 		dispatch(tr)
 		return true
 	}
@@ -120,10 +134,7 @@ export class DropdownField extends LitElement {
 			this.options = await this.optionProvider([''], this.limitResultProvider)
 		}
 
-		this.proseMirrorSchema = new Schema({
-			nodes: Object.assign(getDropdownSpec(), schema.spec.nodes),
-			marks: schema.spec.marks,
-		})
+		this.proseMirrorSchema = new Schema(getDropdownSpec())
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
 		const keyMapOptions = this.constructKeyMap()
@@ -133,23 +144,19 @@ export class DropdownField extends LitElement {
 				state: EditorState.create({
 					schema: this.proseMirrorSchema,
 					doc: DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
-					plugins: [
-						history(),
-						keymap({ 'Mod-z': undo, 'Mod-y': redo }),
-						this.options ? keymap(keyMapOptions) : null,
-						hasContentClassPlugin(this.shadowRoot || undefined),
-						/*this.optionsProvider
-							? new Plugin({
-								view(editorView) {
-									component.optionsProvider
-								}
-							})
-							: null,*/
-					]
+					plugins: [history(), keymap({ 'Mod-z': undo, 'Mod-y': redo }), this.options ? keymap(keyMapOptions) : null, hasContentClassPlugin(this.shadowRoot || undefined)]
 						.filter((x) => !!x)
 						.map((x) => x as Plugin),
 				}),
 			})
+		}
+	}
+
+	public makeParser(schema: Schema) {
+		return {
+			parse: (value: string) => {
+				return value
+			},
 		}
 	}
 }
