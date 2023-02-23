@@ -11,6 +11,7 @@ import './fields/datePicker'
 import './fields/timePicker'
 import './fields/dateTimePicker'
 import './fields/multipleChoice'
+import './fields/radioButton'
 // @ts-ignore
 import baseCss from './styles/style.scss'
 // @ts-ignore

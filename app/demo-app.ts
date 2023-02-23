@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { Code, getRowsUsingPagination, IccCodeXApi, IccHcpartyXApi } from '@icure/api'
+import { IccHcpartyXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
@@ -11,8 +11,6 @@ import { codes } from './codes'
 // @ts-ignore
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
-import { makeFormValuesContainer } from './form-values-container'
-import { FormValuesContainer } from '../src/components/iqr-form-loader'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -141,6 +139,20 @@ class DemoApp extends LitElement {
 		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
 	}
 
+	public options = [
+		{ id: '1', code: '1', text: 'Form 1', terms: ['Form', '1'] },
+		{ id: '2', code: '2', text: 'Form 2', terms: ['Form', '2'] },
+		{ id: '3', code: '3', text: 'Form 3', terms: ['Form', '3'] },
+		{ id: '4', code: '4', text: 'Form 4', terms: ['Form', '4'] },
+		{ id: '5', code: '5', text: 'Form 5', terms: ['Form', '5'] },
+	]
+
+	async optionProvider(terms: string[], limit?: number) {
+		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
+		const options = this.options.filter((x) => x.text.toLowerCase().includes(longestTerm.toLowerCase()))
+		return Promise.resolve(limit && limit > 0 ? options.slice(0, limit) : options)
+	}
+
 	async ownersProvider(terms: string[]) {
 		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
 		const candidates = await this.hcpApi.findByName(longestTerm)
@@ -187,7 +199,7 @@ class DemoApp extends LitElement {
 			[
 				new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new DateTimePicker('DateTime', 'DateTimePicker')]),
 				new Section('Completion & Links', [
-					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
+					new TextField('This field is a TextField', 'TextField', 3, true, 'styled-text-with-codes', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
 						suggestionStopWords: stopWords,
 						ownersProvider: this.ownersProvider.bind(this),
@@ -198,8 +210,6 @@ class DemoApp extends LitElement {
 			],
 			'Fill in the patient information inside the waiting room',
 		)
-
-		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
 			<iqr-text-field
@@ -213,17 +223,8 @@ class DemoApp extends LitElement {
 				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"
 				owner="M. Mennechet"
 			></iqr-text-field>
-			<iqr-form
-				.form="${shortForm}"
-				labelPosition="above"
-				skin="kendo"
-				theme="gray"
-				renderer="form"
-				.formValuesContainer="${formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
-					formValuesContainer = newVal
-				}}"
-			></iqr-form>
+			<iqr-radio-button-group-field .optionProvider="${this.optionProvider.bind(this)}"></iqr-radio-button-group-field>
+			<iqr-form .form="${shortForm}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>

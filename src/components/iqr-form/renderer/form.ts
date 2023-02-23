@@ -91,6 +91,8 @@ export const render: Renderer = (
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
+						: fg.type === 'radio-button'
+						? html`<iqr-form-radio-button labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-radio-button>`
 						: ''
 			  }
 					</div>`

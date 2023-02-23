@@ -40,6 +40,8 @@ export const render: Renderer = (
 						? html`<iqr-form-date-time-picker label="${fg.field}"></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice label="${fg.field}"></iqr-form-multiple-choice>`
+						: fg.type === 'radio-button'
+						? html`<iqr-form-radio-button label="${fg.field}"></iqr-form-radio-button>`
 						: ''
 			  }
 					</div>`
