@@ -90,6 +90,16 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		height: $floating-label-height;
 		max-width: 100%;
 	}
+
+	> iqr-label.sideLeft {
+		float: left;
+	}
+
+	> iqr-label.sideRight {
+		float: right;
+	}
+
+
 	.iqr-input, .input-container {
 		border-radius: $border-radius;
 		padding: $input-padding-y $input-padding-x;

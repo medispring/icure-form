@@ -9,7 +9,7 @@ import kendoCss from '../../iqr-text-field/styles/kendo.scss'
 import { Schema, DOMParser, Node as ProsemirrorNode } from 'prosemirror-model'
 import { EditorView } from 'prosemirror-view'
 import { EditorState, Plugin, Transaction } from 'prosemirror-state'
-import { Suggestion, VersionedValue } from '../../iqr-text-field'
+import { LabelPosition, Labels, Suggestion, VersionedValue } from '../../iqr-text-field'
 import { history, redo, undo } from 'prosemirror-history'
 import { versionPicto } from '../../iqr-text-field/styles/paths'
 import { keymap } from 'prosemirror-keymap'
@@ -28,8 +28,9 @@ const options = [
 ]
 
 export class DropdownField extends LitElement {
-	@property() label = ''
-	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
+	@property() labels: Labels = {
+		[LabelPosition.float]: '',
+	}
 
 	@property() options?: Suggestion[] = []
 
@@ -106,7 +107,7 @@ export class DropdownField extends LitElement {
 	render(): TemplateResult {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
+				${Object.keys(this.labels).map((position) => html` <label class="iqr-label ${position}"><span>${this.labels[position]}</span></label> `)}
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra forced'}>
