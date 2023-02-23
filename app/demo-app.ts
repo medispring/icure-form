@@ -11,8 +11,6 @@ import { codes } from './codes'
 // @ts-ignore
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
-import { makeFormValuesContainer } from './form-values-container'
-import { FormValuesContainer } from '../src/components/iqr-form-loader'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -201,7 +199,7 @@ class DemoApp extends LitElement {
 			[
 				new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new DateTimePicker('DateTime', 'DateTimePicker')]),
 				new Section('Completion & Links', [
-					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
+					new TextField('This field is a TextField', 'TextField', 3, true, 'styled-text-with-codes', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
 						suggestionStopWords: stopWords,
 						ownersProvider: this.ownersProvider.bind(this),
@@ -212,8 +210,6 @@ class DemoApp extends LitElement {
 			],
 			'Fill in the patient information inside the waiting room',
 		)
-
-		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
 			<iqr-form-dropdown-field label="Form" value="Form 1" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
@@ -229,17 +225,8 @@ class DemoApp extends LitElement {
 				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"
 				owner="M. Mennechet"
 			></iqr-text-field>
-			<iqr-form
-				.form="${shortForm}"
-				labelPosition="above"
-				skin="kendo"
-				theme="gray"
-				renderer="form"
-				.formValuesContainer="${formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
-					formValuesContainer = newVal
-				}}"
-			></iqr-form>
+			<iqr-radio-button-group-field .optionProvider="${this.optionProvider.bind(this)}"></iqr-radio-button-group-field>
+			<iqr-form .form="${shortForm}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>

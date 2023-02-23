@@ -17,9 +17,24 @@ sections:
           - MS-IVG-CONTACT-TYPE
         tags:
           - MS-IVG|CONTACT-TYPE|1
+      - field: Test radio button
+        type: radio-button
+        shortLabel: radioButton
+        options:
+          option1: radiobutton
+          option2: Visioconférence
+          option3: Téléphone
+        rows: 1
+        columns: 1
+        required: true
+        codifications :
+          - MS-IVG-CONTACT-TYPE
+        tags:
+          - MS-IVG|CONTACT-TYPE|1
+          
       - field : Accompagné de
         type: textfield
-        shortLabel: Accompagné de
+        shortLabel: Accompagnzefefzezafzeafde
         rows: 2
         columns: 1
       - field : waitingRoomFollowersNumber

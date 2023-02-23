@@ -42,6 +42,8 @@ export const render: Renderer = (
 						? html`<iqr-form-multiple-choice label="${fg.field}"></iqr-form-multiple-choice>`
 						: fg.type === 'dropdown-field'
 						? html`<iqr-form-dropdown-field label="${fg.field}"></iqr-form-dropdown-field>`
+						: fg.type === 'radio-button'
+						? html`<iqr-form-radio-button label="${fg.field}"></iqr-form-radio-button>`
 						: ''
 			  }
 					</div>`

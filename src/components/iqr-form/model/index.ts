@@ -1,5 +1,5 @@
 import { IqrTextFieldSchema } from '../../iqr-text-field'
-type FieldType = 'textfield' | 'measure-field' | 'number-field' | 'date-picker' | 'time-picker' | 'date-time-picker' | 'multiple-choice' | 'dropdown-field'
+type FieldType = 'textfield' | 'measure-field' | 'number-field' | 'date-picker' | 'time-picker' | 'date-time-picker' | 'multiple-choice' | 'dropdown-field' | 'radio-button'
 
 export abstract class Field {
 	clazz: 'field' = 'field'
@@ -60,6 +60,8 @@ export abstract class Field {
 				return new MultipleChoice(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
 			case 'dropdown':
 				return new DropdownField(json.field, json.shortLabel, json.tags, json.codifications, json.options)
+			case 'radio-button':
+				return new RadioButton(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
 			default:
 				throw Error('Invalid field type ' + json.type)
 		}
@@ -123,6 +125,11 @@ export class DropdownField extends Field {
 	}
 }
 
+export class RadioButton extends Field {
+	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
+		super('radio-button', label, shortLabel, rows, columns, undefined, undefined, tags, codifications, options)
+	}
+}
 export class Group {
 	clazz: 'group' = 'group'
 	group: string
