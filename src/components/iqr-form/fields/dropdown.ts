@@ -6,7 +6,7 @@ import '../../iqr-text-field'
 import baseCss from '../../iqr-text-field/styles/style.scss'
 // @ts-ignore
 import kendoCss from '../../iqr-text-field/styles/kendo.scss'
-import { Schema, DOMParser } from 'prosemirror-model'
+import { Schema, DOMParser, Node as ProsemirrorNode } from 'prosemirror-model'
 import { EditorView } from 'prosemirror-view'
 import { EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { Suggestion, VersionedValue } from '../../iqr-text-field'
@@ -55,6 +55,8 @@ export class DropdownField extends LitElement {
 
 	private view?: EditorView
 
+	private parser?: { parse: (value: string) => ProsemirrorNode }
+
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
 	}
@@ -79,9 +81,6 @@ export class DropdownField extends LitElement {
 		if (!state || !dispatch) return false
 		const selectedOption = this.proseMirrorSchema?.nodes.selectedOption
 		if (!selectedOption) return false
-		// @ts-ignore
-		const { $from } = state.selection,
-			index = $from.index()
 		const tr = state.tr
 		if (!this.isMultipleChoice) {
 			tr.delete(0, state.doc.nodeSize - 2)
@@ -135,15 +134,18 @@ export class DropdownField extends LitElement {
 		}
 
 		this.proseMirrorSchema = new Schema(getDropdownSpec())
+		this.parser = this.makeParser(this.proseMirrorSchema)
+
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
 		const keyMapOptions = this.constructKeyMap()
 
+		const parsedDoc = this.parser.parse(this.value)
 		if (this.container) {
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
 					schema: this.proseMirrorSchema,
-					doc: DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
+					doc: parsedDoc ?? DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
 					plugins: [history(), keymap({ 'Mod-z': undo, 'Mod-y': redo }), this.options ? keymap(keyMapOptions) : null, hasContentClassPlugin(this.shadowRoot || undefined)]
 						.filter((x) => !!x)
 						.map((x) => x as Plugin),
@@ -155,7 +157,7 @@ export class DropdownField extends LitElement {
 	public makeParser(schema: Schema) {
 		return {
 			parse: (value: string) => {
-				return value
+				return schema.node('paragraph', {}, value ? [schema.node('selectedOptionGroup', {}, [schema.node('selectedOption', {}, [schema.text(value)])])] : [])
 			},
 		}
 	}

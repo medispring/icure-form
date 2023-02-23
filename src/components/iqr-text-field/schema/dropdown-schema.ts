@@ -1,7 +1,5 @@
 import { SchemaSpec } from 'prosemirror-model'
 
-export type DropdownSchema = 'dropdown'
-
 export function getDropdownSpec(): SchemaSpec {
 	return {
 		topNode: 'paragraph',
