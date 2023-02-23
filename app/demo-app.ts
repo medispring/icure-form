@@ -1,5 +1,6 @@
 import { css, html, LitElement } from 'lit'
 import { IccHcpartyXApi } from '@icure/api'
+// @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
@@ -12,7 +13,7 @@ import { codes } from './codes'
 // @ts-ignore
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
-import { LabelPosition, Labels } from '../src'
+import { VersionedValue } from '../src'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -161,19 +162,36 @@ class DemoApp extends LitElement {
 		return (candidates.rows || []).map((x) => ({ id: x.id, text: [x.firstName, x.lastName].filter((x) => x?.length).join(' ') }))
 	}
 
-	render() {
-		const labelsTest: Labels = {
-			[LabelPosition.sideLeft]: 'Side Left',
-			[LabelPosition.sideRight]: 'Side Right',
+	public provide(): VersionedValue {
+		return {
+			id: '1',
+			versions: [
+				{
+					revision: '1',
+					modified: 20230101000000,
+					value: {
+						fr: '100 kg',
+					},
+				},
+				{
+					revision: '2',
+					modified: 20230102000000,
+					value: {
+						fr: '110 kg',
+					},
+				},
+			],
 		}
-		return html`
-			<iqr-form-dropdown-field .labels="${labelsTest}" value="Form 1" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
+	}
 
+	render() {
+		return html`
+			<iqr-form-measure-field .valueProvider="${this.provide}" label="Form"></iqr-form-measure-field>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
-			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 		`
+		//<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 	}
 }
 

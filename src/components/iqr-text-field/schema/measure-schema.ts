@@ -17,7 +17,7 @@ export function getMeasureSpec(): SchemaSpec {
 				toDOM() {
 					return ['span', { class: 'measure' }, 0]
 				},
-				regexp: '[,.0-9-]',
+				regexp: '[\\>\\<,. 0-9-]',
 			},
 
 			unit: {
