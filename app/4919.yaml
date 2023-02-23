@@ -3,18 +3,20 @@ description: Entretien préliminaire Psycho Social
 sections:
   - section:
     fields:
-      - field: contactType
+      - field: Type de consultation
         type: dropdown
-        shortLabel: Type de consultation
+        shortLabel: contactType
         options:
-          - option1: Sur place
-          - option2: Visioconférence
-          - option3: Téléphone
+          option1: Sur place
+          option2: Visioconférence
+          option3: Téléphone
         rows: 1
         columns: 1
         required: true
+        codifications :
+          - MS-IVG-CONTACT-TYPE
         tags:
-          - CD-CUSTOM-IVG|CONTACT-TYPE|1
+          - MS-IVG|CONTACT-TYPE|1
       - field : Accompagné de
         type: textfield
         shortLabel: Accompagné de
@@ -55,11 +57,11 @@ sections:
         type: dropdown
         shortLabel: Personnes Accompagnants
         options:
-          - option1: Partenaire
-          - option2: Mère
-          - option3: Amie
-          - option4: Éducateur
-          - option5: Père
+          option1: Partenaire
+          option2: Mère
+          option3: Amie
+          option4: Éducateur
+          option5: Père
         rows: 4
         columns: 1
         required: false
@@ -69,11 +71,11 @@ sections:
         type: dropdown
         shortLabel: Profession de la patiente
         options:
-          - option1: Employé
-          - option2: Ouvrier
-          - option3: Indépendant
-          - option4: Sans travail
-          - option5: Ne veut pas dire
+          option1: Employé
+          option2: Ouvrier
+          option3: Indépendant
+          option4: Sans travail
+          option5: Ne veut pas dire
         rows: 5
         columns: 1
         required: false
@@ -142,10 +144,10 @@ sections:
         columns: 1
         required: true
         options:
-          - option1: oui par curretage
-          - option2: ne sait pas
-          - option3: oui par médication
-          - option4: non
+          option1: oui par curretage
+          option2: ne sait pas
+          option3: oui par médication
+          option4: non
         tags:
           - CD-CUSTOM-IVG|FIRST-CHOICE|1
       - field : notes

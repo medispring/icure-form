@@ -14,6 +14,7 @@ import {
 	timeFieldValuesProvider,
 } from '../../iqr-form-loader'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
+import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -91,6 +92,8 @@ export const render: Renderer = (
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
+						: fg.type === 'dropdown-field'
+						? html`<iqr-form-dropdown-field labelPosition=${props.labelPosition} label="${fg.label()}" .options="${dropdownOptionMapper(fg)}"></iqr-form-dropdown-field>`
 						: ''
 			  }
 					</div>`

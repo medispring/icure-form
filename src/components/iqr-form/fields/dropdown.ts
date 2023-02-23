@@ -145,7 +145,7 @@ export class DropdownField extends LitElement {
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
 					schema: this.proseMirrorSchema,
-					doc: parsedDoc ?? DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
+					doc: this.value && parsedDoc ? parsedDoc : DOMParser.fromSchema(this.proseMirrorSchema).parse(this.container),
 					plugins: [history(), keymap({ 'Mod-z': undo, 'Mod-y': redo }), this.options ? keymap(keyMapOptions) : null, hasContentClassPlugin(this.shadowRoot || undefined)]
 						.filter((x) => !!x)
 						.map((x) => x as Plugin),

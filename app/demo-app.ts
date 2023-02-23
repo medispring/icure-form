@@ -216,7 +216,7 @@ class DemoApp extends LitElement {
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 
 		return html`
-			<iqr-form-dropdown-field label="Form" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
+			<iqr-form-dropdown-field label="Form" value="Form 1" .optionProvider="${this.optionProvider.bind(this)}"></iqr-form-dropdown-field>
 
 			<iqr-text-field
 				suggestions
