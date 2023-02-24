@@ -11,6 +11,7 @@ import { codes } from './codes'
 // @ts-ignore
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
+//import yamlForm from './4920.yaml'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
