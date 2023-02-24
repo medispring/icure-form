@@ -4,7 +4,7 @@ sections:
   - section:
     fields:
       - field: Déclaration faite par la femme concernant la contraception - avez-vous utilisé une méthode contraceptive ?
-        type: radio-button
+        type: checkbox
         shortLabel: non
         options:
           option1: 01 aucune sans désir de grossesse

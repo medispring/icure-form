@@ -54,7 +54,7 @@ class IqrRadioButtonGroupField extends LitElement {
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
 	@property() options?: Suggestion[] = []
-	@property() schema: RadioButtonSchema = 'radio-button-group'
+	@property() schema: RadioButtonSchema = 'radio'
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() placeholder = ''
@@ -113,7 +113,7 @@ class IqrRadioButtonGroupField extends LitElement {
 		const providedOptions = this.options || []
 		const test = []
 		for (const option of providedOptions) {
-			test.push(pms.node('radioButton', { id: option.id, type: 'checkbox', name: 'option' }, []))
+			test.push(pms.node('radioButton', { id: option.id, type: this.schema, name: 'option' }, []))
 			test.push(pms.node('label', { for: option.id }, [pms.text(option.text)]))
 		}
 		this.parser = this.makeParser(pms)

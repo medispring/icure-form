@@ -1,6 +1,6 @@
 import { SchemaSpec } from 'prosemirror-model'
 
-export type RadioButtonSchema = 'radio-button-group' | 'radio-button-group' | 'checkbox'
+export type RadioButtonSchema = 'radio' | 'checkbox'
 
 export function getRadioButtonGroupSpec(): SchemaSpec {
 	return {

@@ -4,7 +4,7 @@ import { Suggestion } from '../../iqr-radio-button-group/suggestion-palette'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
 
-export class RadioButton extends LitElement {
+export class CheckBox extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
 	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
@@ -23,9 +23,9 @@ export class RadioButton extends LitElement {
 
 	render(): TemplateResult {
 		return html`
-			<iqr-radio-button-group-field schema="radio" labelPosition="${this.labelPosition}" label="${this.label}" .options="${this.options}"></iqr-radio-button-group-field>
+			<iqr-radio-button-group-field schema="checkbox" labelPosition="${this.labelPosition}" label="${this.label}" .options="${this.options}"></iqr-radio-button-group-field>
 		`
 	}
 }
 
-customElements.define('iqr-form-radio-button', RadioButton)
+customElements.define('iqr-form-checkbox', CheckBox)
