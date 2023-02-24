@@ -17,21 +17,6 @@ sections:
           - MS-IVG-CONTACT-TYPE
         tags:
           - MS-IVG|CONTACT-TYPE|1
-      - field: Test radio button
-        type: radio-button
-        shortLabel: radioButton
-        options:
-          option1: radiobutton
-          option2: Visioconférence
-          option3: Téléphone
-        rows: 1
-        columns: 1
-        required: true
-        codifications :
-          - MS-IVG-CONTACT-TYPE
-        tags:
-          - MS-IVG|CONTACT-TYPE|1
-          
       - field : Accompagné de
         type: textfield
         shortLabel: AccompagneDe
@@ -69,7 +54,7 @@ sections:
         rows: 3
         columns: 3
       - field : PersonFollowerType
-        type: dropdown
+        type: checkbox
         shortLabel: Personnes Accompagnants
         options:
           option1: Partenaire
@@ -83,7 +68,7 @@ sections:
         tags:
           - CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1
       - field : PatientProfession
-        type: dropdown
+        type: radio-button
         shortLabel: Profession de la patiente
         options:
           option1: Employé
@@ -153,16 +138,16 @@ sections:
         tags :
           -  CD-CUSTOM-IVG|DECISION-PROCESSUS|1
       - field : firstChoice
-        type: dropdown
+        type: radio-button
         shortLabel: Première décision de la patiente
         rows: 13
         columns: 1
         required: true
         options:
-          option1: oui par curretage
-          option2: ne sait pas
-          option3: oui par médication
-          option4: non
+          option1: Oui par curretage
+          option2: Ne sait pas
+          option3: Oui par médication
+          option4: Non
         tags:
           - CD-CUSTOM-IVG|FIRST-CHOICE|1
       - field : notes
