@@ -92,9 +92,14 @@ class IqrRadioButtonGroupField extends LitElement {
 	constructor() {
 		super()
 	}
+
+	static get styles() {
+		return [baseCss, kendoCss]
+	}
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
+				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
 				<div class="iqr-input">
 					<div id="editor"></div>
 				</div>
