@@ -34,7 +34,7 @@ sections:
           
       - field : Accompagné de
         type: textfield
-        shortLabel: Accompagnzefefzezafzeafde
+        shortLabel: AccompagneDe
         rows: 2
         columns: 1
       - field : waitingRoomFollowersNumber

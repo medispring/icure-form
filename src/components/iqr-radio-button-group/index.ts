@@ -114,7 +114,7 @@ class IqrRadioButtonGroupField extends LitElement {
 		const test = []
 		for (const option of providedOptions) {
 			test.push(pms.node('radioButton', { id: option.id, type: 'checkbox', name: 'option' }, []))
-			test.push(pms.node('label', { for: option.id }, [pms.text(option.id)]))
+			test.push(pms.node('label', { for: option.id }, [pms.text(option.text)]))
 		}
 		this.parser = this.makeParser(pms)
 		const parsedDoc = this.parser.parse(test)
