@@ -1,4 +1,4 @@
-import { IqrTextFieldSchema } from '../../iqr-text-field'
+import { IqrTextFieldSchema, Labels } from '../../iqr-text-field'
 type FieldType =
 	| 'textfield'
 	| 'measure-field'
@@ -23,6 +23,7 @@ export abstract class Field {
 	tags?: string[]
 	codifications?: string[]
 	options?: { [key: string]: unknown }
+	labels?: Labels
 
 	label(): string {
 		return this.field
@@ -39,6 +40,7 @@ export abstract class Field {
 		tags?: string[],
 		codifications?: string[],
 		options?: { [key: string]: unknown },
+		labels?: Labels,
 	) {
 		this.field = label
 		this.type = type
@@ -50,6 +52,7 @@ export abstract class Field {
 		this.tags = tags
 		this.codifications = codifications
 		this.options = options
+		this.labels = labels
 	}
 
 	static parse(json: Field): Field {
@@ -69,7 +72,7 @@ export abstract class Field {
 			case 'multiple-choice':
 				return new MultipleChoice(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
 			case 'dropdown':
-				return new DropdownField(json.field, json.shortLabel, json.tags, json.codifications, json.options)
+				return new DropdownField(json.field, json.shortLabel, json.tags, json.codifications, json.options, json.labels)
 			case 'radio-button':
 				return new RadioButton(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
 			case 'checkbox':
@@ -132,8 +135,8 @@ export class MultipleChoice extends Field {
 }
 
 export class DropdownField extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('dropdown-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }, labels?: Labels) {
+		super('dropdown-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options, labels)
 	}
 }
 
