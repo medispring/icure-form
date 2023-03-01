@@ -17,7 +17,7 @@ export class NumberField extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="decimal"></iqr-text-field> `
+		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="decimal"></iqr-text-field>`
 	}
 }
 

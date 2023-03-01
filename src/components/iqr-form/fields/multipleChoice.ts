@@ -17,7 +17,7 @@ export class MultipleChoice extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html` <iqr-text-field labelPosition=${this.labelPosition} label="${this.label}"></iqr-text-field> `
+		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}"></iqr-text-field>`
 	}
 }
 

@@ -10,7 +10,7 @@ export function withLabel(label: string): (svc: Service) => boolean {
 export interface FormValuesContainer {
 	copy(currentContact: Contact): FormValuesContainer
 	getVersions(selector: (svc: Service) => boolean): ServicesHistory
-	setValue(serviceId: string, language: string, content: Content, codes: CodeStub[]): FormValuesContainer
+	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): FormValuesContainer
 	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer
 	setAuthor(serviceId: string, author: string | null): FormValuesContainer
 	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
@@ -22,9 +22,14 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)
 
-	serviceFactory: (language: string, content: Content) => Service
+	serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service
 
-	constructor(currentContact: Contact, contact: Contact, contactsHistory: Contact[], serviceFactory: (language: string, content: Content) => Service) {
+	constructor(
+		currentContact: Contact,
+		contact: Contact,
+		contactsHistory: Contact[],
+		serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service,
+	) {
 		if (!contactsHistory.includes(contact) && contact !== currentContact) {
 			throw new Error('Illegal argument, the history must contain the contact')
 		}
@@ -88,7 +93,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		)
 	}
 
-	setValue(serviceId: string, language: string, content: Content, codes: CodeStub[]): FormValuesContainer {
+	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): FormValuesContainer {
 		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
 		if (swcs.length) {
 			const previousContent = swcs[0].service.content
@@ -107,7 +112,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 				return this
 			}
 		} else {
-			return this.copy(setServices(this.currentContact, [this.serviceFactory(language, content)], []))
+			return this.copy(setServices(this.currentContact, [this.serviceFactory(label, serviceId, language, content, codes, tags)], []))
 		}
 	}
 

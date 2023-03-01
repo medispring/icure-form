@@ -21,7 +21,7 @@ class Textfield extends LitElement {
 
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() metaProvider?: () => VersionedMeta[] = undefined
-	@property() handleValueChanged?: (id: string, language: string, value: string) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: string) => void = undefined
 
 	static get styles() {
@@ -35,27 +35,25 @@ class Textfield extends LitElement {
 
 	render() {
 		const versionedValues = this.valueProvider?.()
-		return html`
-			${(versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
-				return html`<iqr-text-field
-					labelPosition=${this.labelPosition}
-					?multiline="${this.multiline}"
-					label="${this.label}"
-					?suggestions=${!!this.suggestionProvider}
-					?links=${!!this.linksProvider}
-					.linksProvider=${this.linksProvider}
-					.suggestionProvider=${this.suggestionProvider}
-					.ownersProvider=${this.ownersProvider}
-					.codeColorProvider=${this.codeColorProvider}
-					.linkColorProvider=${this.linkColorProvider}
-					.codeContentProvider=${this.codeContentProvider}
-					.valueProvider=${() => versionedValue}
-					.metaProvider=${() => this.metaProvider?.()?.[idx]}
-					.handleValueChanged=${(language: string, value: string) => versionedValue?.id && this.handleValueChanged?.(versionedValue.id, language, value)}
-					.handleMetaChanged=${this.handleMetaChanged}
-				></iqr-text-field>`
-			})}
-		`
+		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
+			return html`<iqr-text-field
+				labelPosition=${this.labelPosition}
+				?multiline="${this.multiline}"
+				label="${this.label}"
+				?suggestions=${!!this.suggestionProvider}
+				?links=${!!this.linksProvider}
+				.linksProvider=${this.linksProvider}
+				.suggestionProvider=${this.suggestionProvider}
+				.ownersProvider=${this.ownersProvider}
+				.codeColorProvider=${this.codeColorProvider}
+				.linkColorProvider=${this.linkColorProvider}
+				.codeContentProvider=${this.codeContentProvider}
+				.valueProvider=${() => versionedValue}
+				.metaProvider=${() => this.metaProvider?.()?.[idx]}
+				.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.handleMetaChanged=${this.handleMetaChanged}
+			></iqr-text-field>`
+		})
 	}
 }
 

@@ -3,6 +3,7 @@ import { Meta, VersionedMeta, VersionedValue } from '../iqr-text-field'
 import { convertServicesToVersionedMetas, convertServicesToVersionedValues, getVersions } from '../../utils/icure-utils'
 import { CodeStub, Content } from '@icure/api'
 import { FormValuesContainer } from './formValuesContainer'
+import { v4 as uuid } from 'uuid'
 
 export function numberFieldValuesProvider(formValuesContainer: FormValuesContainer, field: Field): () => VersionedValue[] {
 	return () =>
@@ -44,11 +45,25 @@ export function metaProvider(formValuesContainer: FormValuesContainer, field: Fi
 }
 
 export function handleTextFieldValueChangedProvider(
+	field: Field,
 	formValuesContainer: FormValuesContainer,
 	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
-): (serviceId: string, language: string, content: string, codes: CodeStub[]) => void {
-	return (serviceId: string, language: string, content: string, codes: CodeStub[]) => {
-		formValuesContainerChanged(formValuesContainer.setValue(serviceId, language, new Content({ stringValue: content }), codes))
+): (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				new Content({ stringValue: content }),
+				codes,
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
 	}
 }
 
