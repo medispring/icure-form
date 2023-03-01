@@ -14,6 +14,8 @@ import { codes } from './codes'
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
 import { VersionedValue } from '../src'
+//import yamlForm from './4920.yaml'
+import { LabelPosition, Labels } from '../src'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
