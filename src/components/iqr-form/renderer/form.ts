@@ -14,6 +14,7 @@ import {
 	timeFieldValuesProvider,
 } from '../../iqr-form-loader'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
+import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -37,6 +38,7 @@ export const render: Renderer = (
 			? html`<h5>${content}</h5>`
 			: html`<h6>${content}</h6>`
 	}
+
 	const renderFieldOrGroup = function (fg: Field | Group, level: number): TemplateResult {
 		return fg.clazz === 'group'
 			? html` <div class="group">${h(level, html`${fg.group}`)} ${fg.fields?.map((f) => renderFieldOrGroup(f, level + 1))}</div>`
@@ -91,6 +93,12 @@ export const render: Renderer = (
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
+						: fg.type === 'dropdown-field'
+						? html`<iqr-form-dropdown-field labelPosition=${props.labelPosition} .labels="${fg.labels}" .options="${dropdownOptionMapper(fg)}"></iqr-form-dropdown-field>`
+						: fg.type === 'radio-button'
+						? html`<iqr-form-radio-button labelPosition=${props.labelPosition} label="${fg.field}" .options="${dropdownOptionMapper(fg)}"></iqr-form-radio-button>`
+						: fg.type === 'checkbox'
+						? html`<iqr-form-checkbox labelPosition=${props.labelPosition} label="${fg.field}" .options="${dropdownOptionMapper(fg)}"></iqr-form-checkbox>`
 						: ''
 			  }
 					</div>`

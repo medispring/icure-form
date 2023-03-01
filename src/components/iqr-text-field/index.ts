@@ -56,6 +56,17 @@ export interface VersionedValue {
 	versions: Version[]
 }
 
+export enum LabelPosition {
+	float = 'float',
+	sideRight = 'sideRight',
+	sideLeft = 'sideLeft',
+	above = 'above',
+	hidden = 'hidden',
+}
+
+export interface Labels {
+	[position: string]: string
+}
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
 	@property() suggestionStopWords: Set<string> = new Set<string>()
@@ -170,6 +181,9 @@ class IqrTextField extends LitElement {
 											</div>
 									  `
 									: ''}
+							</div>
+							<div class="menu-container">
+								<slot></slot>
 							</div>
 						</div>
 					</div>
