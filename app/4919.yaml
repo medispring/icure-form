@@ -9,9 +9,9 @@ sections:
           float : Type de consultation
         shortLabel: contactType
         options:
-          option1: Sur place
-          option2: Visioconférence
-          option3: Téléphone
+          home: Sur place
+          visio: Visioconférence
+          call: Téléphone
         rows: 1
         columns: 1
         required: true
@@ -19,42 +19,28 @@ sections:
           - MS-IVG-CONTACT-TYPE
         tags:
           - MS-IVG|CONTACT-TYPE|1
-      - field : Accompagné de
-        type: textfield
-        shortLabel: AccompagneDe
-        rows: 2
-        columns: 1
       - field : waitingRoomFollowersNumber
         type: number-field
-        shortLabel: Nombre de personnes
+        shortLabel: waitingRoomFollowersNumber
+        labels:
+          sideLeft: Accompagné de
+          sideRight: personne(s) (salle d'attente)
         rows: 2
         columns: 2
         required: true
         tags :
           - CD-CUSTOM-IVG|WAITING-ROOM-FOLLOWERS-NUMBER|1
-      - field : personnes(s) (salle d’attente)
-        type: textfield
-        shortLabel: personnes(s) (salle d’attente)
-        rows: 2
-        columns: 3
-      - field : Accompagné de
-        type: textfield
-        shortLabel: none
-        rows: 3
-        columns: 1
-      - field : Nombre de personnes
+      - field : consultationFollowersNumber
         type: number-field
         shortLabel: consultationFollowersNumber
+        labels:
+          sideLeft: Accompagné de
+          sideRight: personne(s) (entretien préliminaire)
         rows: 3
         columns: 2
         required: true
         tags :
           - CD-CUSTOM-IVG|CONSULTATION-FOLLOWERS-NUMBER|1
-      - field : personnes(s) (entretien préliminaire)
-        type: textfield
-        shortLabel: none
-        rows: 3
-        columns: 3
       - field : Personnes Accompagnants
         type: checkbox
         shortLabel: PersonFollowerType

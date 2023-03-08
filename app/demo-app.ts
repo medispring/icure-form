@@ -6,7 +6,7 @@ import '../src/components/iqr-text-field'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
-import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
+import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker, DropdownField } from '../src/components/iqr-form/model'
 import { codes } from './codes'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -14,8 +14,9 @@ import { codes } from './codes'
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
 import { VersionedValue } from '../src'
+// @ts-ignore
+import { OptionCode } from '../src/components/iqr-dropdown'
 //import yamlForm from './4920.yaml'
-import { LabelPosition, Labels } from '../src'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -187,14 +188,21 @@ class DemoApp extends LitElement {
 	}
 
 	render() {
+		const options: OptionCode[] = [
+			{ id: 'option1', text: 'Option 1' },
+			{ id: 'option2', text: 'Option 2' },
+			{ id: 'option3', text: 'Option 3' },
+			{ id: 'option4', text: 'Option 4' },
+		]
+
 		return html`
-			<iqr-form-measure-field .valueProvider="${this.provide}" label="Form"></iqr-form-measure-field>
+			<iqr-dropdown-field label="Form" .options="${options}"></iqr-dropdown-field>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
 		`
-		//<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 	}
+	//<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 }
 
 customElements.define('demo-app', DemoApp)
