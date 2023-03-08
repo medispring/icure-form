@@ -15,6 +15,7 @@ import { codes } from './codes'
 import yamlForm from './4919.yaml'
 import { VersionedValue } from '../src'
 //import yamlForm from './4920.yaml'
+// @ts-ignore
 import { LabelPosition, Labels } from '../src'
 
 const icd10 = [
@@ -192,8 +193,8 @@ class DemoApp extends LitElement {
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
+			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 		`
-		//<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 	}
 }
 
