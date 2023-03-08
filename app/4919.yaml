@@ -2,161 +2,166 @@ form: Entretien préliminaire Psycho Social
 description: Entretien préliminaire Psycho Social
 sections:
   - section:
-    fields:
-      - field: Type de consultation
-        type: dropdown
-        labels:
-          float : Type de consultation
-        shortLabel: contactType
-        options:
-          option1: Sur place
-          option2: Visioconférence
-          option3: Téléphone
-        rows: 1
-        columns: 1
-        required: true
-        codifications :
-          - MS-IVG-CONTACT-TYPE
-        tags:
-          - MS-IVG|CONTACT-TYPE|1
-      - field : Accompagné de
-        type: textfield
-        shortLabel: AccompagneDe
-        rows: 2
-        columns: 1
-      - field : waitingRoomFollowersNumber
-        type: number-field
-        shortLabel: Nombre de personnes
-        rows: 2
-        columns: 2
-        required: true
-        tags :
-          - CD-CUSTOM-IVG|WAITING-ROOM-FOLLOWERS-NUMBER|1
-      - field : personnes(s) (salle d’attente)
-        type: textfield
-        shortLabel: personnes(s) (salle d’attente)
-        rows: 2
-        columns: 3
-      - field : Accompagné de
-        type: textfield
-        shortLabel: none
-        rows: 3
-        columns: 1
-      - field : Nombre de personnes
-        type: number-field
-        shortLabel: consultationFollowersNumber
-        rows: 3
-        columns: 2
-        required: true
-        tags :
-          - CD-CUSTOM-IVG|CONSULTATION-FOLLOWERS-NUMBER|1
-      - field : personnes(s) (entretien préliminaire)
-        type: textfield
-        shortLabel: none
-        rows: 3
-        columns: 3
-      - field : Personnes Accompagnants
-        type: checkbox
-        shortLabel: PersonFollowerType
-        options:
-          option1: Partenaire
-          option2: Mère
-          option3: Amie
-          option4: Éducateur
-          option5: Père
-        rows: 4
-        columns: 1
-        required: false
-        tags:
-          - CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1
-      - field : Profession de la patiente
-        type: radio-button
-        shortLabel: PatientProfession
-        options:
-          option1: Employé
-          option2: Ouvrier
-          option3: Indépendant
-          option4: Sans travail
-          option5: Ne veut pas dire
-        rows: 5
-        columns: 1
-        required: false
-        tags:
-          - CD-CUSTOM-IVG|PATIENT-PROFESSION|1
-      - field : Nombre d’enfants
-        type: number-field
-        shortLabel: ChildNumber
-        rows: 6
-        columns: 1
-        required: true
-        tags:
-          - CD-CUSTOM-IVG|CHILD-NUMBER|1
-      - field : Nombre d’enfants à charge
-        type: number-field
-        shortLabel: ChildInChargeNumber
-        rows: 7
-        columns: 1
-        required: true
-        tags:
-          - CD-CUSTOM-IVG|CHILD-IN-CHARGE-NUMBER|1
-      - field : Nombre de minutes de suivi
-        type: number-field
-        shortLabel: minutesTrackingNumber
-        rows: 8
-        columns: 1
-        required: true
-        tags:
-          - CD-CUSTOM-IVG|MINUTES-TRACKING-NUMBER|1
-      - field : Nombre de minutes de contraception
-        type: number-field
-        shortLabel: minutesContraceptionNumber
-        rows: 9
-        columns: 1
-        required: true
-        tags:
-          - CD-CUSTOM-IVG|MINUTES-CONTRACEPTION-NUMBER|1
-      - field : Historique/Situation
-        type: textfield
-        shortLabel: History
-        rows: 10
-        columns: 1
-        required: false
-        tags:
-          - CD-CUSTOM-IVG|HISTORY|1
-      - field : Position du partenaire pendant la grossesse
-        type: textfield
-        shortLabel: SexualPosition
-        rows: 11
-        columns: 1
-        required: false
-        tags:
-          - CD-CUSTOM-IVG|SEXUAL-POSITION|1
-      - field : Processus de prise de décision / choix / attitude par rapport à l'avortement (le cas échéant)
-        type: textfield
-        shortLabel: decisionProcessus
-        rows: 12
-        columns: 1
-        required: false
-        tags :
-          -  CD-CUSTOM-IVG|DECISION-PROCESSUS|1
-      - field : Première décision de la patiente
-        type: radio-button
-        shortLabel: firstChoice
-        rows: 13
-        columns: 1
-        required: true
-        options:
-          option1: Oui par curretage
-          option2: Ne sait pas
-          option3: Oui par médication
-          option4: Non
-        tags:
-          - CD-CUSTOM-IVG|FIRST-CHOICE|1
-      - field : Notes
-        type: textfield
-        shortLabel: notes
-        rows: 14
-        columns: 1
-        required: false
-        tags:
-          - CD-CUSTOM-IVG|NOTES|1
+    groups:
+      - group: You can group fields together
+        fields:
+          - field: Type de consultation
+            type: dropdown
+            labels:
+              sideLeft: Type de consultation
+              sideRight: Type de consultation2
+            shortLabel: contactType
+            options:
+              option1: Sur place
+              option2: Visioconférence
+              option3: Téléphone
+            rows: 1
+            columns: 1
+            required: true
+            codifications :
+              - MS-IVG-CONTACT-TYPE
+            tags:
+              - MS-IVG|CONTACT-TYPE|1
+          - field : Accompagné de
+            type: textfield
+            shortLabel: AccompagneDe
+            rows: 2
+            columns: 1
+      - group: You can group fields together
+        fields:
+          - field : waitingRoomFollowersNumber
+            type: number-field
+            shortLabel: Nombre de personnes
+            rows: 2
+            columns: 2
+            required: true
+            tags :
+              - CD-CUSTOM-IVG|WAITING-ROOM-FOLLOWERS-NUMBER|1
+          - field : personnes(s) (salle d’attente)
+            type: textfield
+            shortLabel: personnes(s) (salle d’attente)
+            rows: 2
+            columns: 3
+          - field : Accompagné de
+            type: textfield
+            shortLabel: none
+            rows: 3
+            columns: 1
+          - field : Nombre de personnes
+            type: number-field
+            shortLabel: consultationFollowersNumber
+            rows: 3
+            columns: 2
+            required: true
+            tags :
+              - CD-CUSTOM-IVG|CONSULTATION-FOLLOWERS-NUMBER|1
+          - field : personnes(s) (entretien préliminaire)
+            type: textfield
+            shortLabel: none
+            rows: 3
+            columns: 3
+          - field : Personnes Accompagnants
+            type: checkbox
+            shortLabel: PersonFollowerType
+            options:
+              option1: Partenaire
+              option2: Mère
+              option3: Amie
+              option4: Éducateur
+              option5: Père
+            rows: 4
+            columns: 1
+            required: false
+            tags:
+              - CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1
+          - field : Profession de la patiente
+            type: radio-button
+            shortLabel: PatientProfession
+            options:
+              option1: Employé
+              option2: Ouvrier
+              option3: Indépendant
+              option4: Sans travail
+              option5: Ne veut pas dire
+            rows: 5
+            columns: 1
+            required: false
+            tags:
+              - CD-CUSTOM-IVG|PATIENT-PROFESSION|1
+          - field : Nombre d’enfants
+            type: number-field
+            shortLabel: ChildNumber
+            rows: 6
+            columns: 1
+            required: true
+            tags:
+              - CD-CUSTOM-IVG|CHILD-NUMBER|1
+          - field : Nombre d’enfants à charge
+            type: number-field
+            shortLabel: ChildInChargeNumber
+            rows: 7
+            columns: 1
+            required: true
+            tags:
+              - CD-CUSTOM-IVG|CHILD-IN-CHARGE-NUMBER|1
+          - field : Nombre de minutes de suivi
+            type: number-field
+            shortLabel: minutesTrackingNumber
+            rows: 8
+            columns: 1
+            required: true
+            tags:
+              - CD-CUSTOM-IVG|MINUTES-TRACKING-NUMBER|1
+          - field : Nombre de minutes de contraception
+            type: number-field
+            shortLabel: minutesContraceptionNumber
+            rows: 9
+            columns: 1
+            required: true
+            tags:
+              - CD-CUSTOM-IVG|MINUTES-CONTRACEPTION-NUMBER|1
+          - field : Historique/Situation
+            type: textfield
+            shortLabel: History
+            rows: 10
+            columns: 1
+            required: false
+            tags:
+              - CD-CUSTOM-IVG|HISTORY|1
+          - field : Position du partenaire pendant la grossesse
+            type: textfield
+            shortLabel: SexualPosition
+            rows: 11
+            columns: 1
+            required: false
+            tags:
+              - CD-CUSTOM-IVG|SEXUAL-POSITION|1
+          - field : Processus de prise de décision / choix / attitude par rapport à l'avortement (le cas échéant)
+            type: textfield
+            shortLabel: decisionProcessus
+            rows: 12
+            columns: 1
+            required: false
+            tags :
+              -  CD-CUSTOM-IVG|DECISION-PROCESSUS|1
+          - field : Première décision de la patiente
+            type: radio-button
+            shortLabel: firstChoice
+            rows: 13
+            columns: 1
+            required: true
+            options:
+              option1: Oui par curretage
+              option2: Ne sait pas
+              option3: Oui par médication
+              option4: Non
+            tags:
+              - CD-CUSTOM-IVG|FIRST-CHOICE|1
+          - field : Notes
+            type: textfield
+            shortLabel: notes
+            rows: 14
+            columns: 1
+            required: false
+            tags:
+              - CD-CUSTOM-IVG|NOTES|1
