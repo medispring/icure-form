@@ -2,10 +2,12 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property } from 'lit/decorators'
 
 import '../../iqr-text-field'
+import { Labels } from '../../iqr-text-field'
 
 export class MultipleChoice extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
+	@property() labels?: Labels = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -17,7 +19,7 @@ export class MultipleChoice extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}"></iqr-text-field>`
+		return html`<iqr-text-field .labels="${this.labels}" labelPosition=${this.labelPosition} label="${this.label}"></iqr-text-field>`
 	}
 }
 

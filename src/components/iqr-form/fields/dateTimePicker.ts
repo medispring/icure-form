@@ -2,12 +2,13 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property } from 'lit/decorators'
 
 import '../../iqr-text-field'
-import { VersionedValue } from '../../iqr-text-field'
+import { Labels, VersionedValue } from '../../iqr-text-field'
 
 export class DateTimePicker extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
 	@property() valueProvider?: () => VersionedValue[] = undefined
+	@property() labels?: Labels = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -19,7 +20,13 @@ export class DateTimePicker extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="date-time" .valueProvider=${this.valueProvider}></iqr-text-field>`
+		return html`<iqr-text-field
+			.labels="${this.labels}"
+			labelPosition=${this.labelPosition}
+			label="${this.label}"
+			schema="date-time"
+			.valueProvider=${this.valueProvider}
+		></iqr-text-field>`
 	}
 }
 

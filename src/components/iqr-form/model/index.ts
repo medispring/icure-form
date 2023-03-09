@@ -10,6 +10,7 @@ type FieldType =
 	| 'dropdown-field'
 	| 'radio-button'
 	| 'checkbox'
+	| 'label'
 
 export abstract class Field {
 	clazz: 'field' = 'field'
@@ -62,7 +63,7 @@ export abstract class Field {
 			case 'measure-field':
 				return new MeasureField(json.field, json.shortLabel, json.tags, json.codifications, json.options)
 			case 'number-field':
-				return new NumberField(json.field, json.shortLabel, json.tags, json.codifications, json.options)
+				return new NumberField(json.field, json.shortLabel, json.tags, json.codifications, json.options, json.labels)
 			case 'date-picker':
 				return new DatePicker(json.field, json.shortLabel, json.tags, json.codifications, json.options)
 			case 'time-picker':
@@ -77,6 +78,8 @@ export abstract class Field {
 				return new RadioButton(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
 			case 'checkbox':
 				return new CheckBox(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
+			case 'label':
+				return new Label(json.field, json.shortLabel, json.rows, json.columns)
 			default:
 				throw Error('Invalid field type ' + json.type)
 		}
@@ -105,8 +108,8 @@ export class MeasureField extends Field {
 }
 
 export class NumberField extends Field {
-	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('number-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options)
+	constructor(label: string, shortLabel?: string, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }, labels?: Labels) {
+		super('number-field', label, shortLabel, undefined, undefined, undefined, undefined, tags, codifications, options, labels)
 	}
 }
 
@@ -149,6 +152,11 @@ export class RadioButton extends Field {
 export class CheckBox extends Field {
 	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
 		super('checkbox', label, shortLabel, rows, columns, undefined, undefined, tags, codifications, options)
+	}
+}
+export class Label extends Field {
+	constructor(label: string, shortLabel?: string, rows?: number, columns?: number) {
+		super('label', label, shortLabel, rows, columns)
 	}
 }
 export class Group {

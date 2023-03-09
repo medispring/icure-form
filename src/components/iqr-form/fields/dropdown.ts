@@ -17,6 +17,7 @@ import { hasContentClassPlugin } from '../../iqr-text-field/plugin/has-content-c
 import { Keymap } from 'prosemirror-commands'
 
 import { getDropdownSpec } from '../../iqr-text-field/schema/dropdown-schema'
+import { generateLabels } from '../../iqr-label/utils'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -98,7 +99,7 @@ export class DropdownField extends LitElement {
 	render(): TemplateResult {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				${Object.keys(this.labels).map((position) => html` <label class="iqr-label ${position}"><span>${this.labels[position]}</span></label> `)}
+				${this.labels ? generateLabels(this.labels) : ''}
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra forced'}>

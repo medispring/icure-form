@@ -47,6 +47,7 @@ export const render: Renderer = (
 						? html`<iqr-form-textfield
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								multiline="${(fg.rows || 0) > 1 || fg.grows}"
 								rows="${fg.rows || 1}"
 								grows="${fg.grows || false}"
@@ -65,40 +66,52 @@ export const render: Renderer = (
 						? html`<iqr-form-measure-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-measure-field>`
 						: fg.type === 'number-field'
 						? html`<iqr-form-number-field
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-number-field>`
 						: fg.type === 'date-picker'
 						? html`<iqr-form-date-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-picker>`
 						: fg.type === 'time-picker'
 						? html`<iqr-form-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-time-picker>`
 						: fg.type === 'date-time-picker'
 						? html`<iqr-form-date-time-picker
 								labelPosition=${props.labelPosition}
 								label="${fg.field}"
+								.labels="${fg.labels}"
 								.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						  ></iqr-form-date-time-picker>`
 						: fg.type === 'multiple-choice'
-						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
+						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}" .labels="${fg.labels}"></iqr-form-multiple-choice>`
 						: fg.type === 'dropdown-field'
 						? html`<iqr-form-dropdown-field labelPosition=${props.labelPosition} .labels="${fg.labels}" .options="${dropdownOptionMapper(fg)}"></iqr-form-dropdown-field>`
 						: fg.type === 'radio-button'
-						? html`<iqr-form-radio-button labelPosition=${props.labelPosition} label="${fg.field}" .options="${dropdownOptionMapper(fg)}"></iqr-form-radio-button>`
+						? html`<iqr-form-radio-button
+								labelPosition=${props.labelPosition}
+								label="${fg.field}"
+								.labels="${fg.labels}"
+								.options="${dropdownOptionMapper(fg)}"
+						  ></iqr-form-radio-button>`
 						: fg.type === 'checkbox'
-						? html`<iqr-form-checkbox labelPosition=${props.labelPosition} label="${fg.field}" .options="${dropdownOptionMapper(fg)}"></iqr-form-checkbox>`
+						? html`<iqr-form-checkbox labelPosition=${props.labelPosition} label="${fg.field}" .labels="${fg.labels}" .options="${dropdownOptionMapper(fg)}"></iqr-form-checkbox>`
+						: fg.type === 'label'
+						? html`<iqr-form-label labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-label>`
 						: ''
 			  }
 					</div>`

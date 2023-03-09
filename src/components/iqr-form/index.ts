@@ -14,6 +14,7 @@ import './fields/multipleChoice'
 import './fields/dropdown'
 import './fields/radioButton'
 import './fields/checkbox'
+import './fields/label'
 // @ts-ignore
 import baseCss from './styles/style.scss'
 // @ts-ignore

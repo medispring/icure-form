@@ -29,6 +29,7 @@ import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../utils/no-lodash'
 import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { languageName } from '../../utils/languages'
+import { generateLabel, generateLabels } from '../iqr-label/utils'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -85,6 +86,7 @@ class IqrTextField extends LitElement {
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() placeholder = ''
 	@property() textRegex = ''
+	@property() labels: Labels = {}
 
 	@property() value = ''
 	@property() defaultLanguage = 'en'
@@ -148,7 +150,7 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
+				${this.labels ? generateLabels(this.labels) : generateLabel(this.label, this.labelPosition)}
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
