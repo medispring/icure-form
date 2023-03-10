@@ -15,7 +15,7 @@ export interface OptionCode {
 	text: string
 }
 
-export class IqrDropdownField extends LitElement {
+class IqrDropdownField extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
 
 	@property() placeholder = ''

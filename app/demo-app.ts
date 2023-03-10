@@ -16,7 +16,8 @@ import { codes } from './codes'
 import yamlForm from './4919.yaml'
 import { VersionedValue } from '../src'
 // @ts-ignore
-import { OptionCode } from '../src/components/iqr-dropdown'
+import { OptionCode } from '../src'
+
 //import yamlForm from './4920.yaml'
 
 const icd10 = [
@@ -210,23 +211,13 @@ class DemoApp extends LitElement {
 	}
 
 	render() {
-		const options: OptionCode[] = [
-			{ id: 'option1', text: 'Option 1' },
-			{ id: 'option2', text: 'Option 2' },
-			{ id: 'option3', text: 'Option 3' },
-			{ id: 'option4', text: 'Option 4' },
-		]
-
 		return html`
-			<iqr-dropdown-field label="Form test" .options="${this.options}"></iqr-dropdown-field>
-			<iqr-form-dropdown-field label="Form" .options="${options}" .valueProvider="${this.provide}"></iqr-form-dropdown-field>
-			<!--<iqr-form-textfield label="Form" .valueProvider="${this.provide}"></iqr-form-textfield>-->
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
+			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 		`
 	}
-	//<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
 }
 
 customElements.define('demo-app', DemoApp)

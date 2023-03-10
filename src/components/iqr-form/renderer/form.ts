@@ -16,6 +16,8 @@ import {
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
 
+import '../fields/dropdown'
+
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0]
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
 
@@ -94,7 +96,7 @@ export const render: Renderer = (
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
 						: fg.type === 'dropdown-field'
-						? html` <iqr-form-dropdown-field
+						? html`<iqr-form-dropdown-field
 								labelPosition=${props.labelPosition}
 								.labels="${fg.labels}"
 								.options="${dropdownOptionMapper(fg)}"
