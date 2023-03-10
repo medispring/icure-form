@@ -3,6 +3,7 @@ import { Meta, VersionedMeta, VersionedValue } from '../iqr-text-field'
 import { convertServicesToVersionedMetas, convertServicesToVersionedValues, getVersions } from '../../utils/icure-utils'
 import { CodeStub, Content } from '@icure/api'
 import { FormValuesContainer } from './formValuesContainer'
+// @ts-ignore
 import { v4 as uuid } from 'uuid'
 
 export function numberFieldValuesProvider(formValuesContainer: FormValuesContainer, field: Field): () => VersionedValue[] {

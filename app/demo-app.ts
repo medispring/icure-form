@@ -3,6 +3,7 @@ import { IccHcpartyXApi } from '@icure/api'
 // @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
+import '../src/components/iqr-dropdown'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
@@ -165,26 +166,47 @@ class DemoApp extends LitElement {
 		return (candidates.rows || []).map((x) => ({ id: x.id, text: [x.firstName, x.lastName].filter((x) => x?.length).join(' ') }))
 	}
 
-	public provide(): VersionedValue {
-		return {
-			id: '1',
-			versions: [
-				{
-					revision: '1',
-					modified: 20230101000000,
-					value: {
-						fr: '100 kg',
+	public provide(): VersionedValue[] {
+		return [
+			{
+				id: '1',
+				versions: [
+					{
+						revision: '1',
+						modified: 20230101000000,
+						value: {
+							fr: 'Option 1',
+						},
 					},
-				},
-				{
-					revision: '2',
-					modified: 20230102000000,
-					value: {
-						fr: '110 kg',
+					{
+						revision: '2',
+						modified: 20230102000000,
+						value: {
+							fr: 'Option 2',
+						},
 					},
-				},
-			],
-		}
+				],
+			},
+			{
+				id: '2',
+				versions: [
+					{
+						revision: '1',
+						modified: 20230101000000,
+						value: {
+							fr: 'Option 3',
+						},
+					},
+					{
+						revision: '2',
+						modified: 20230102000000,
+						value: {
+							fr: 'Option 4',
+						},
+					},
+				],
+			},
+		]
 	}
 
 	render() {
@@ -196,7 +218,9 @@ class DemoApp extends LitElement {
 		]
 
 		return html`
-			<iqr-dropdown-field label="Form" .options="${options}"></iqr-dropdown-field>
+			<iqr-dropdown-field label="Form test" .options="${this.options}"></iqr-dropdown-field>
+			<iqr-form-dropdown-field label="Form" .options="${options}" .valueProvider="${this.provide}"></iqr-form-dropdown-field>
+			<!--<iqr-form-textfield label="Form" .valueProvider="${this.provide}"></iqr-form-textfield>-->
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>

@@ -1,4 +1,4 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
+import { CSSResultGroup, html, LitElement } from 'lit'
 import { property } from 'lit/decorators'
 
 // @ts-ignore
@@ -8,7 +8,9 @@ import kendoCss from '../../iqr-text-field/styles/kendo.scss'
 
 import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
+// @ts-ignore
 import { OptionCode } from '../../iqr-dropdown'
+import { CodeStub } from '@icure/api'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -21,17 +23,23 @@ export class DropdownField extends LitElement {
 
 	@property() optionProvider: () => Promise<OptionCode[]> = async () => this.options || []
 
-	@property() valueProvider?: () => VersionedValue | undefined = undefined
+	@property() valueProvider?: () => VersionedValue[] = undefined
 
 	@property({ type: String }) value = ''
+
+	@property() handleValueChanged?: (id: string, language: string, value: string, codes: CodeStub) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
 	}
 
-	render(): TemplateResult {
-		return html` <iqr-dropdown-field label="Form" .options="${this.options}"></iqr-dropdown-field> `
+	render() {
+		const versionedValues = this.valueProvider?.()
+		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
+			html` <iqr-dropdown-field label="Form ${idx}" .options="${this.options}" .valueProvider=${() => versionedValue}></iqr-dropdown-field> `
+		})
 	}
+	//.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {

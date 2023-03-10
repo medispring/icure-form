@@ -94,7 +94,12 @@ export const render: Renderer = (
 						: fg.type === 'multiple-choice'
 						? html`<iqr-form-multiple-choice labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-multiple-choice>`
 						: fg.type === 'dropdown-field'
-						? html`<iqr-form-dropdown-field labelPosition=${props.labelPosition} .labels="${fg.labels}" .options="${dropdownOptionMapper(fg)}"></iqr-form-dropdown-field>`
+						? html` <iqr-form-dropdown-field
+								labelPosition=${props.labelPosition}
+								.labels="${fg.labels}"
+								.options="${dropdownOptionMapper(fg)}"
+								.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						  ></iqr-form-dropdown-field>`
 						: fg.type === 'radio-button'
 						? html`<iqr-form-radio-button labelPosition=${props.labelPosition} label="${fg.field}" .options="${dropdownOptionMapper(fg)}"></iqr-form-radio-button>`
 						: fg.type === 'checkbox'
