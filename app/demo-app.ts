@@ -3,10 +3,11 @@ import { IccHcpartyXApi } from '@icure/api'
 // @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
+import '../src/components/iqr-dropdown'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
-import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
+import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker, DropdownField } from '../src/components/iqr-form/model'
 import { codes } from './codes'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -14,9 +15,10 @@ import { codes } from './codes'
 //import yamlForm from './form.yaml'
 import yamlForm from './4919.yaml'
 import { VersionedValue } from '../src'
-//import yamlForm from './4920.yaml'
 // @ts-ignore
-import { LabelPosition, Labels } from '../src'
+import { OptionCode } from '../src'
+
+//import yamlForm from './4920.yaml'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -165,31 +167,51 @@ class DemoApp extends LitElement {
 		return (candidates.rows || []).map((x) => ({ id: x.id, text: [x.firstName, x.lastName].filter((x) => x?.length).join(' ') }))
 	}
 
-	public provide(): VersionedValue {
-		return {
-			id: '1',
-			versions: [
-				{
-					revision: '1',
-					modified: 20230101000000,
-					value: {
-						fr: '100 kg',
+	public provide(): VersionedValue[] {
+		return [
+			{
+				id: '1',
+				versions: [
+					{
+						revision: '1',
+						modified: 20230101000000,
+						value: {
+							fr: 'Option 1',
+						},
 					},
-				},
-				{
-					revision: '2',
-					modified: 20230102000000,
-					value: {
-						fr: '110 kg',
+					{
+						revision: '2',
+						modified: 20230102000000,
+						value: {
+							fr: 'Option 2',
+						},
 					},
-				},
-			],
-		}
+				],
+			},
+			{
+				id: '2',
+				versions: [
+					{
+						revision: '1',
+						modified: 20230101000000,
+						value: {
+							fr: 'Option 3',
+						},
+					},
+					{
+						revision: '2',
+						modified: 20230102000000,
+						value: {
+							fr: 'Option 4',
+						},
+					},
+				],
+			},
+		]
 	}
 
 	render() {
 		return html`
-			<iqr-form-measure-field .valueProvider="${this.provide}" label="Form"></iqr-form-measure-field>
 			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
