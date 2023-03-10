@@ -1,4 +1,4 @@
-import { CSSResultGroup, html, LitElement } from 'lit'
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property } from 'lit/decorators'
 
 // @ts-ignore
@@ -33,11 +33,11 @@ export class DropdownField extends LitElement {
 		return [baseCss, kendoCss]
 	}
 
-	render() {
+	render(): TemplateResult[] {
 		const versionedValues = this.valueProvider?.()
-		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
-			html`laaa2 <iqr-dropdown-field label="Form ${idx}" .options="${this.options}" .valueProvider=${() => versionedValue}></iqr-dropdown-field> `
-		})
+		return (versionedValues?.length ? versionedValues : [undefined]).map(
+			(versionedValue, idx) => html` <iqr-dropdown-field label="Form ${idx}" .options="${this.options}" .valueProvider="${() => versionedValue}"></iqr-dropdown-field> `,
+		)
 	}
 	//.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
