@@ -25,6 +25,33 @@ sections:
       - field: This field is a MultipleChoice
         type: multiple-choice
         shortLabel: MultipleChoice
+      - field : This field has multiple labels
+        type: number-field
+        shortLabel: waitingRoomFollowersNumber
+        labels:
+          left: Left label
+          right: Right label
+      - field : This field is a checkbox
+        type: checkbox
+        shortLabel: PersonFollowerType
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
+      - field : This field is a radio button group
+        type: radio-button
+        shortLabel: PatientProfession
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
+      - field: This field is a dropdown
+        type: dropdown
+        shortLabel: contactType
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
   - section: Grouped fields
     groups:
       - group: You can group fields together

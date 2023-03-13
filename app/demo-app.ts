@@ -14,8 +14,6 @@ import yamlForm from './form.yaml'
 import { FormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
 
-//import yamlForm from './4920.yaml'
-
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
 	['II', new RegExp('^C[0-9]–D[0-4]')],
@@ -225,11 +223,7 @@ class DemoApp extends LitElement {
 				}}"
 			></iqr-form>
 			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
-
-			const shortForm = new Form( 'Semantic example', [ new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new
-			DateTimePicker('DateTime', 'DateTimePicker')]), new Section('Completion & Links', [ new TextField('This field is a TextField', 'TextField', 3, true, 'text-document',
-			['CD-ITEM|diagnosis|1'], [], { codeColorProvider: this.codeColorProvider, suggestionStopWords: stopWords, ownersProvider: this.ownersProvider.bind(this), linksProvider:
-			this.linksProvider.bind(this), suggestionProvider: this.suggestionProvider.bind(this), }), ]), ], 'Fill in the patient information inside the waiting room', )
+			<h3>A Yaml syntax is also available</h3>
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
 			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>

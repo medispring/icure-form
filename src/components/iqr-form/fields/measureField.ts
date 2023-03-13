@@ -25,7 +25,7 @@ export class MeasureField extends LitElement {
 		return html`
 			<iqr-text-field
 				labelPosition=${this.labelPosition}
-				.labels="^${this.labels}"
+				.labels="${this.labels}"
 				label="${this.label}"
 				schema="measure"
 				value="${this.value}"
