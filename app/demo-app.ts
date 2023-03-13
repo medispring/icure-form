@@ -9,14 +9,10 @@ import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker, DropdownField } from '../src/components/iqr-form/model'
 import { codes } from './codes'
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-//import yamlForm from './form.yaml'
-import yamlForm from './4919.yaml'
-import { VersionedValue } from '../src'
-// @ts-ignore
-import { OptionCode } from '../src'
+import yamlForm from './form.yaml'
+import { FormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import { makeFormValuesContainer } from './form-values-container'
 
 //import yamlForm from './4920.yaml'
 
@@ -96,23 +92,10 @@ class DemoApp extends LitElement {
 		`
 	}
 
-	public options = [
-		{ id: '1', code: '1', text: 'Form 1', terms: ['Form', '1'] },
-		{ id: '2', code: '2', text: 'Form 2', terms: ['Form', '2'] },
-		{ id: '3', code: '3', text: 'Form 3', terms: ['Form', '3'] },
-		{ id: '4', code: '4', text: 'Form 4', terms: ['Form', '4'] },
-		{ id: '5', code: '5', text: 'Form 5', terms: ['Form', '5'] },
-	]
-
-	async optionProvider(terms: string[], limit?: number) {
-		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
-		const options = this.options.filter((x) => x.text.toLowerCase().includes(longestTerm.toLowerCase()))
-		return Promise.resolve(limit && limit > 0 ? options.slice(0, limit) : options)
-	}
-
 	async firstUpdated() {
 		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}
+
 	codeColorProvider(type: string, code: string) {
 		if (!code) {
 			return 'XXII'
@@ -167,52 +150,86 @@ class DemoApp extends LitElement {
 		return (candidates.rows || []).map((x) => ({ id: x.id, text: [x.firstName, x.lastName].filter((x) => x?.length).join(' ') }))
 	}
 
-	public provide(): VersionedValue[] {
-		return [
-			{
-				id: '1',
-				versions: [
-					{
-						revision: '1',
-						modified: 20230101000000,
-						value: {
-							fr: 'Option 1',
-						},
-					},
-					{
-						revision: '2',
-						modified: 20230102000000,
-						value: {
-							fr: 'Option 2',
-						},
-					},
-				],
-			},
-			{
-				id: '2',
-				versions: [
-					{
-						revision: '1',
-						modified: 20230101000000,
-						value: {
-							fr: 'Option 3',
-						},
-					},
-					{
-						revision: '2',
-						modified: 20230102000000,
-						value: {
-							fr: 'Option 4',
-						},
-					},
-				],
-			},
-		]
-	}
-
 	render() {
+		// noinspection DuplicatedCode
+		const form = new Form(
+			'Waiting room GP',
+			[
+				new Section('All fields', [
+					new TextField('This field is a TextField', 'TextField'),
+					new NumberField('This field is a NumberField', 'NumberField'),
+					new MeasureField('This field is a MeasureField', 'MeasureField'),
+					new DatePicker('This field is a DatePicker', 'DatePicker'),
+					new TimePicker('This field is a TimePicker', 'TimePicker'),
+					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
+					new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
+				]),
+				new Section('Grouped fields', [
+					new Group('You can group fields together', [
+						new TextField('This field is a TextField', 'TextField', undefined, undefined, undefined, ['CD-ITEM|diagnosis|1']),
+						new NumberField('This field is a NumberField', 'NumberField'),
+						new MeasureField('This field is a MeasureField', 'MeasureField'),
+						new DatePicker('This field is a DatePicker', 'DatePicker'),
+						new TimePicker('This field is a TimePicker', 'TimePicker'),
+						new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
+						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
+					]),
+					new Group('And you can add tags and codes', [
+						new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], { option: 'blink' }),
+						new NumberField('This field is a NumberField', 'NumberField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
+						new MeasureField('This field is a MeasureField', 'MeasureField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
+						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
+					]),
+				]),
+			],
+			'Fill in the patient information inside the waiting room',
+		)
+		const shortForm = new Form(
+			'Semantic example',
+			[
+				new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new DateTimePicker('DateTime', 'DateTimePicker')]),
+				new Section('Completion & Links', [
+					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
+						codeColorProvider: this.codeColorProvider,
+						suggestionStopWords: stopWords,
+						ownersProvider: this.ownersProvider.bind(this),
+						linksProvider: this.linksProvider.bind(this),
+						suggestionProvider: this.suggestionProvider.bind(this),
+					}),
+				]),
+			],
+			'Fill in the patient information inside the waiting room',
+		)
+		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
 		return html`
-			<h3>A Yaml syntax is also available</h3>
+			<iqr-text-field
+				suggestions
+				links
+				.codeColorProvider="${this.codeColorProvider.bind(this)}"
+				.suggestionStopWords="${stopWords}"
+				.ownersProvider="${this.ownersProvider.bind(this)}"
+				.linksProvider="${this.linksProvider.bind(this)}"
+				.suggestionProvider="${this.suggestionProvider.bind(this)}"
+				value="[Céphalée de tension](c-ICPC://N01,c-ICD://G05.8,i-he://1234) persistante avec [migraine ophtalmique](c-ICPC://N02) associée. [Grosse fatigue](c-ICPC://K56). A suivi un [protocole de relaxation](x-doc://5678)"
+				owner="M. Mennechet"
+			></iqr-text-field>
+			<iqr-form
+				.form="${shortForm}"
+				labelPosition="above"
+				skin="kendo"
+				theme="gray"
+				renderer="form"
+				.formValuesContainer="${formValuesContainer}"
+				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
+					formValuesContainer = newVal
+				}}"
+			></iqr-form>
+			<iqr-form .form="${form}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
+
+			const shortForm = new Form( 'Semantic example', [ new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new
+			DateTimePicker('DateTime', 'DateTimePicker')]), new Section('Completion & Links', [ new TextField('This field is a TextField', 'TextField', 3, true, 'text-document',
+			['CD-ITEM|diagnosis|1'], [], { codeColorProvider: this.codeColorProvider, suggestionStopWords: stopWords, ownersProvider: this.ownersProvider.bind(this), linksProvider:
+			this.linksProvider.bind(this), suggestionProvider: this.suggestionProvider.bind(this), }), ]), ], 'Fill in the patient information inside the waiting room', )
 			<pre>${yamlForm}</pre>
 			<h3>is interpreted as</h3>
 			<iqr-form .form="${Form.parse(YAML.parse(yamlForm))}" labelPosition="above" skin="kendo" theme="gray" renderer="form"></iqr-form>
