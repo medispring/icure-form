@@ -7,15 +7,23 @@ sections:
         type: textfield
         shortLabel: TextField
         schema: styled-text-with-codes
+        rows: 3
+        columns: 1
       - field: This field is a NumberField
         type: number-field
         shortLabel: NumberField
+        rows: 2
+        columns: 1
       - field: This field is a MeasureField
         type: measure-field
         shortLabel: MeasureField
+        rows: 3
+        columns: 2
       - field: This field is a DatePicker
         type: date-picker
         shortLabel: DatePicker
+        rows: 2
+        columns: 2
       - field: This field is a TimePicker
         type: time-picker
         shortLabel: TimePicker
@@ -25,9 +33,38 @@ sections:
       - field: This field is a MultipleChoice
         type: multiple-choice
         shortLabel: MultipleChoice
+      - field : This field has multiple labels
+        type: number-field
+        shortLabel: waitingRoomFollowersNumber
+        labels:
+          left: Left label
+          right: Right label
+      - field : This field is a checkbox
+        type: checkbox
+        shortLabel: PersonFollowerType
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
+      - field : This field is a radio button group
+        type: radio-button
+        shortLabel: PatientProfession
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
+      - field: This field is a dropdown
+        type: dropdown
+        shortLabel: contactType
+        options:
+          option1: Option1
+          option2: Option2
+          option3: Option3
   - section: Grouped fields
     groups:
       - group: You can group fields together
+        columns: 1
+        rows: 1
         fields:
           - field: This field is a TextField
             type: textfield
@@ -52,6 +89,8 @@ sections:
             type: multiple-choice
             shortLabel: MultipleChoice
       - group: And you can add tags and codes
+        columns: 1
+        rows: 1
         fields:
           - field: This field is a TextField
             type: textfield

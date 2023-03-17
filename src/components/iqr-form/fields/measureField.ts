@@ -1,10 +1,16 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property } from 'lit/decorators'
 import '../../iqr-text-field'
+import { Labels, VersionedValue } from '../../iqr-text-field'
 
 export class MeasureField extends LitElement {
-	@property() label = ''
-	@property() labelPosition?: string = undefined
+	@property() label?: string = ''
+	@property() labelPosition?: 'float' | 'side' | 'above' | 'hidden' = 'float'
+	@property() labels?: Labels = undefined
+
+	@property({ type: String }) value = ''
+
+	@property() valueProvider?: () => VersionedValue | undefined = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -16,7 +22,16 @@ export class MeasureField extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" schema="measure"></iqr-text-field>`
+		return html`
+			<iqr-text-field
+				labelPosition=${this.labelPosition}
+				.labels="${this.labels}"
+				label="${this.label}"
+				schema="measure"
+				value="${this.value}"
+				.valueProvider="${this.valueProvider}"
+			></iqr-text-field>
+		`
 	}
 }
 

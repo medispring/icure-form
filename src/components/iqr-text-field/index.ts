@@ -29,15 +29,10 @@ import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../utils/no-lodash'
 import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { languageName } from '../../utils/languages'
+import { generateLabel, generateLabels } from '../iqr-label/utils'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
-
-type FullSchema = Schema<
-	'doc' | 'paragraph' | 'list_item' | 'image' | 'blockquote' | 'bullet_list' | 'hard_break' | 'heading' | 'horizontal_rule' | 'ordered_list' | 'text',
-	'strong' | 'em' | 'link'
->
-type DateTimeSchema = Schema<'paragraph' | 'date' | 'time' | 'text'>
 
 export interface Meta {
 	revision: string
@@ -62,6 +57,17 @@ export interface VersionedValue {
 	versions: Version[]
 }
 
+export enum LabelPosition {
+	float = 'float',
+	sideRight = 'sideRight',
+	sideLeft = 'sideLeft',
+	above = 'above',
+	hidden = 'hidden',
+}
+
+export interface Labels {
+	[position: string]: string
+}
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
 	@property() suggestionStopWords: Set<string> = new Set<string>()
@@ -80,6 +86,7 @@ class IqrTextField extends LitElement {
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() placeholder = ''
 	@property() textRegex = ''
+	@property() labels: Labels = {}
 
 	@property() value = ''
 	@property() defaultLanguage = 'en'
@@ -105,8 +112,8 @@ class IqrTextField extends LitElement {
 	@state() protected availableLanguages = [this.displayedLanguage]
 
 	private proseMirrorSchema?: Schema
-	private parser?: MarkdownParser<FullSchema> | { parse: (value: string) => ProsemirrorNode<DateTimeSchema> }
-	private serializer?: MarkdownSerializer<FullSchema>
+	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
+	private serializer?: MarkdownSerializer
 
 	private view?: EditorView
 	private container?: HTMLElement
@@ -143,7 +150,7 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
+				${this.labels ? generateLabels(this.labels) : generateLabel(this.label, this.labelPosition)}
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
@@ -176,6 +183,9 @@ class IqrTextField extends LitElement {
 											</div>
 									  `
 									: ''}
+							</div>
+							<div class="menu-container">
+								<slot></slot>
 							</div>
 						</div>
 					</div>
@@ -267,7 +277,7 @@ class IqrTextField extends LitElement {
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
-					doc: parsedDoc,
+					doc: parsedDoc ?? undefined,
 					schema: this.proseMirrorSchema,
 					plugins: [
 						caretFixPlugin(),

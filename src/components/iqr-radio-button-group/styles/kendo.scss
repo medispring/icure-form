@@ -32,9 +32,8 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 	padding-top: $floating-label-height;
 	display: inline-flex;
 	width: $textbox-default-width;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: stretch;
-	align-items: center;
 
 
 	> .iqr-label {
@@ -69,6 +68,7 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 	> .iqr-label {
 		transform: translate( 0, 0 ) scale( 1 );
 	}
+
 	> .iqr-label.above,
 	&.has-content > .iqr-label,
 	&:focus > .iqr-label,
@@ -90,15 +90,15 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		height: $floating-label-height;
 		max-width: 100%;
 	}
-	> .iqr-label.side{
-		position: relative;
+
+	> iqr-label.sideLeft {
+		float: left;
 	}
-	> .iqr-label.side.left {
-		order: -1;
+
+	> iqr-label.sideRight {
+		float: right;
 	}
-	> .iqr-label.side.right {
-		order: 1;
-	}
+
 
 	.iqr-input, .input-container {
 		border-radius: $border-radius;

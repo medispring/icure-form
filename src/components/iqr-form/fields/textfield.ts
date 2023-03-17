@@ -2,10 +2,11 @@ import { css, html, LitElement } from 'lit'
 import { property } from 'lit/decorators'
 
 import '../../iqr-text-field'
-import { Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
+import { Labels, Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
 
 class Textfield extends LitElement {
 	@property() label = ''
+	@property() labels?: Labels = undefined
 	@property() multiline = false
 	@property() rows = 1
 	@property() grows = false
@@ -40,6 +41,7 @@ class Textfield extends LitElement {
 				labelPosition=${this.labelPosition}
 				?multiline="${this.multiline}"
 				label="${this.label}"
+				labels="${this.labels}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}

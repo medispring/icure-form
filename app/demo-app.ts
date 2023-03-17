@@ -1,16 +1,18 @@
 import { css, html, LitElement } from 'lit'
-import { Code, getRowsUsingPagination, IccCodeXApi, IccHcpartyXApi } from '@icure/api'
+import { IccHcpartyXApi } from '@icure/api'
+// @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
+import '../src/components/iqr-dropdown'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
+//@ts-ignore
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './form.yaml'
+import { FormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
-import { FormValuesContainer } from '../src/components/iqr-form-loader'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -59,7 +61,6 @@ const icpc2 = {
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
 class DemoApp extends LitElement {
-	private codeApi: IccCodeXApi = new IccCodeXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 
 	private miniSearch: MiniSearch = new MiniSearch({
@@ -90,15 +91,7 @@ class DemoApp extends LitElement {
 	}
 
 	async firstUpdated() {
-		const codes = await getRowsUsingPagination<Code>((key, docId) => {
-			return this.codeApi.findPaginatedCodes('be', 'BE-THESAURUS', undefined, undefined, key, docId || undefined, 10000).then((x) => ({
-				rows: (x.rows || []).map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })),
-				nextKey: x.nextKeyPair?.startKey && JSON.stringify(x.nextKeyPair?.startKey),
-				nextDocId: x.nextKeyPair?.startKeyDocId,
-				done: (x.rows || []).length < 10000,
-			}))
-		})
-		codes && this.miniSearch.addAll(codes)
+		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}
 
 	codeColorProvider(type: string, code: string) {
@@ -143,8 +136,8 @@ class DemoApp extends LitElement {
 	}
 
 	async linksProvider(sug: { id: string; code: string; text: string; terms: string[]; links: string[] }) {
-		const links = (await Promise.all((sug.links || []).map((id) => this.codeApi.getCode(id))))
-			.map((c) => ({ id: c.id, code: c.code, text: c.label?.fr, type: c.type }))
+		const links = (await Promise.all((sug.links || []).map((id) => codes.find((c) => c.id === id))))
+			.map((c) => ({ id: c?.id, code: c?.code, text: c?.label?.fr, type: c?.type }))
 			.concat([Object.assign({ type: sug.id.split('|')[0] }, sug)])
 		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
 	}
@@ -161,41 +154,51 @@ class DemoApp extends LitElement {
 			'Waiting room GP',
 			[
 				new Section('All fields', [
-					new TextField('This field is a TextField', 'TextField'),
-					new NumberField('This field is a NumberField', 'NumberField'),
-					new MeasureField('This field is a MeasureField', 'MeasureField'),
-					new DatePicker('This field is a DatePicker', 'DatePicker'),
-					new TimePicker('This field is a TimePicker', 'TimePicker'),
-					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
-					new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
+					new TextField('This field is a TextField', 'TextField', 1, 1),
+					new NumberField('This field is a NumberField', 'NumberField', 1, 1),
+					new MeasureField('This field is a MeasureField', 'MeasureField', 1, 1),
+					new DatePicker('This field is a DatePicker', 'DatePicker', 2, 1),
+					new TimePicker('This field is a TimePicker', 'TimePicker', 2, 1),
+					new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker', 3, 1),
+					new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 3, 1),
 				]),
 				new Section('Grouped fields', [
-					new Group('You can group fields together', [
-						new TextField('This field is a TextField', 'TextField', undefined, undefined, undefined, ['CD-ITEM|diagnosis|1']),
-						new NumberField('This field is a NumberField', 'NumberField'),
-						new MeasureField('This field is a MeasureField', 'MeasureField'),
-						new DatePicker('This field is a DatePicker', 'DatePicker'),
-						new TimePicker('This field is a TimePicker', 'TimePicker'),
-						new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker'),
-						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
-					]),
-					new Group('And you can add tags and codes', [
-						new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], { option: 'blink' }),
-						new NumberField('This field is a NumberField', 'NumberField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
-						new MeasureField('This field is a MeasureField', 'MeasureField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
-						new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
-					]),
+					new Group(
+						'You can group fields together',
+						[
+							new TextField('This field is a TextField', 'TextField', 1, 2, undefined, undefined, ['CD-ITEM|diagnosis|1']),
+							new NumberField('This field is a NumberField', 'NumberField', 1, 2),
+							new MeasureField('This field is a MeasureField', 'MeasureField', 2, 1),
+							new DatePicker('This field is a DatePicker', 'DatePicker', 3, 2),
+							new TimePicker('This field is a TimePicker', 'TimePicker', 3, 2),
+							new DateTimePicker('This field is a DateTimePicker', 'DateTimePicker', 3, 2),
+							new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 2),
+						],
+						1,
+						1,
+					),
+					new Group(
+						'And you can add tags and codes',
+						[
+							new TextField('This field is a TextField with rows and columns', 'TextField', 1, 1, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], {
+								option: 'blink',
+							}),
+							new NumberField('This field is a NumberField', 'NumberField', 1, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
+							new MeasureField('This field is a MeasureField', 'MeasureField', 1, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
+							new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
+						],
+						1,
+						1,
+					),
 				]),
 			],
 			'Fill in the patient information inside the waiting room',
 		)
-
 		const shortForm = new Form(
 			'Semantic example',
 			[
-				new Section('Dates & Time', [new DatePicker('The Date', 'DatePicker'), new TimePicker('A TimePicker', 'DatePicker'), new DateTimePicker('DateTime', 'DateTimePicker')]),
 				new Section('Completion & Links', [
-					new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
+					new TextField('This field is a TextField', 'TextField', 1, 1, 'text-document', ['CD-ITEM|diagnosis|1'], [], {
 						codeColorProvider: this.codeColorProvider,
 						suggestionStopWords: stopWords,
 						ownersProvider: this.ownersProvider.bind(this),
@@ -206,9 +209,7 @@ class DemoApp extends LitElement {
 			],
 			'Fill in the patient information inside the waiting room',
 		)
-
 		let formValuesContainer: FormValuesContainer = makeFormValuesContainer()
-
 		return html`
 			<iqr-text-field
 				suggestions
