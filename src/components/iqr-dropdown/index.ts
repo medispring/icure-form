@@ -11,7 +11,6 @@ import { CodeStub } from '@icure/api'
 
 export interface OptionCode {
 	id: string
-
 	text: string
 }
 

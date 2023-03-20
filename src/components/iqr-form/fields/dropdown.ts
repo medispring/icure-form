@@ -16,7 +16,8 @@ export class DropdownField extends LitElement {
 	@property() labels: Labels = {
 		[LabelPosition.float]: '',
 	}
-
+	@property() label = ''
+	@property() labelPosition?: string = undefined
 	@property() options?: OptionCode[] = []
 
 	@property() placeholder = ''
@@ -36,7 +37,10 @@ export class DropdownField extends LitElement {
 	render(): TemplateResult[] {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map(
-			(versionedValue, idx) => html` <iqr-dropdown-field label="Form ${idx}" .options="${this.options}" .valueProvider="${() => versionedValue}"></iqr-dropdown-field> `,
+			(versionedValue, idx) =>
+				html`
+					<iqr-dropdown-field label="${this.label}" .options="${this.options}" .valueProvider="${() => versionedValue}" labelPosition=${this.labelPosition}></iqr-dropdown-field>
+				`,
 		)
 	}
 	//.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}

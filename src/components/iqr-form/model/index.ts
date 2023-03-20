@@ -25,6 +25,8 @@ export abstract class Field {
 	codifications?: string[]
 	options?: { [key: string]: unknown }
 	labels?: Labels
+	value?: string
+	unit?: string
 
 	label(): string {
 		return this.field
@@ -41,6 +43,8 @@ export abstract class Field {
 		codifications?: string[],
 		options?: { [key: string]: unknown },
 		labels?: Labels,
+		value?: string,
+		unit?: string,
 	) {
 		this.field = label
 		this.type = type
@@ -52,6 +56,8 @@ export abstract class Field {
 		this.codifications = codifications
 		this.options = options
 		this.labels = labels
+		this.value = value
+		this.unit = unit
 	}
 
 	static parse(json: Field): Field {
@@ -59,7 +65,7 @@ export abstract class Field {
 			case 'textfield':
 				return new TextField(json.field, json.shortLabel, json.rows, json.columns, json.schema, json.tags, json.codifications, json.options)
 			case 'measure-field':
-				return new MeasureField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options)
+				return new MeasureField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value, json.unit)
 			case 'number-field':
 				return new NumberField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels)
 			case 'date-picker':
@@ -94,14 +100,28 @@ export class TextField extends Field {
 		tags?: string[],
 		codifications?: string[],
 		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
 	) {
-		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options)
+		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options, labels, value, unit)
 	}
 }
 
 export class MeasureField extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('measure-field', label, shortLabel, rows, columns, undefined, tags, codifications, options)
+	constructor(
+		label: string,
+		shortLabel?: string,
+		rows?: number,
+		columns?: number,
+		tags?: string[],
+		codifications?: string[],
+		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
+	) {
+		super('measure-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 
@@ -115,32 +135,78 @@ export class NumberField extends Field {
 		codifications?: string[],
 		options?: { [key: string]: unknown },
 		labels?: Labels,
+		value?: string,
+		unit?: string,
 	) {
-		super('number-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels)
+		super('number-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 
 export class DatePicker extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options)
+	constructor(
+		label: string,
+		shortLabel?: string,
+		rows?: number,
+		columns?: number,
+		tags?: string[],
+		codifications?: string[],
+		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
+	) {
+		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 
 export class TimePicker extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options)
+	constructor(
+		label: string,
+		shortLabel?: string,
+		rows?: number,
+		columns?: number,
+		tags?: string[],
+		codifications?: string[],
+		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
+	) {
+		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 
 export class DateTimePicker extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options)
+	constructor(
+		label: string,
+		shortLabel?: string,
+		rows?: number,
+		columns?: number,
+		tags?: string[],
+		codifications?: string[],
+		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
+	) {
+		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 
 export class MultipleChoice extends Field {
-	constructor(label: string, shortLabel?: string, rows?: number, columns?: number, tags?: string[], codifications?: string[], options?: { [key: string]: unknown }) {
-		super('multiple-choice', label, shortLabel, rows, columns, undefined, tags, codifications, options)
+	constructor(
+		label: string,
+		shortLabel?: string,
+		rows?: number,
+		columns?: number,
+		tags?: string[],
+		codifications?: string[],
+		options?: { [key: string]: unknown },
+		labels?: Labels,
+		value?: string,
+		unit?: string,
+	) {
+		super('multiple-choice', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
 	}
 }
 

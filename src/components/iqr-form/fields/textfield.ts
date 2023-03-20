@@ -10,6 +10,8 @@ class Textfield extends LitElement {
 	@property() multiline = false
 	@property() rows = 1
 	@property() grows = false
+	@property() value?: string = ''
+	@property() unit?: string = ''
 	@property() labelPosition?: string = undefined
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
@@ -42,6 +44,7 @@ class Textfield extends LitElement {
 				?multiline="${this.multiline}"
 				label="${this.label}"
 				labels="${this.labels}"
+				value="${this.value} ${this.unit}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}

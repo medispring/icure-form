@@ -80,6 +80,8 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
+						unit="${fg.unit}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
@@ -125,6 +127,7 @@ export const render: Renderer = (
 				? html`<iqr-form-dropdown-field
 						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
+						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
