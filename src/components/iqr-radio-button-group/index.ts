@@ -1,149 +1,90 @@
-// Import the LitElement base class and html helper function
-import { html, LitElement } from 'lit'
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
 import { property, state } from 'lit/decorators'
+
 // @ts-ignore
-import baseCss from './styles/style.scss'
+import baseCss from '../iqr-radio-button-group/styles/style.scss'
 // @ts-ignore
-import kendoCss from './styles/kendo.scss'
-import { Suggestion } from './suggestion-palette'
-import { Schema } from 'prosemirror-model'
-export { Suggestion } from './suggestion-palette'
-import { RadioButtonSchema } from './schema/radio-button-group-schema'
-import { createSchema } from './schema'
-import { EditorView } from 'prosemirror-view'
-import { EditorState } from 'prosemirror-state'
-import { schema } from 'prosemirror-schema-basic'
-import { MarkdownParser } from 'prosemirror-markdown'
-import { Node as ProsemirrorNode } from 'prosemirror-model'
+import kendoCss from '../iqr-radio-button-group/styles/kendo.scss'
+import { VersionedValue } from '../iqr-text-field'
+import { CodeStub } from '@icure/api'
+import { generateLabel } from '../iqr-label/utils'
 
-export interface Meta {
-	revision: string
-	modified?: number
-	valueDate?: number | null
-	owner?: { id: string; descr?: string } | null
-}
-
-export interface Version {
-	revision: string
-	modified?: number
-	value: { [language: string]: string }
-}
-
-export interface VersionedMeta {
+export interface OptionCode {
 	id: string
-	metas: Meta[]
+	text: string
 }
 
-export interface VersionedValue {
-	id: string
-	versions: Version[]
-}
+class IqrRadioButtonGroup extends LitElement {
+	@property() options?: (OptionCode | CodeStub)[] = []
 
-// Extend the LitElement base class
-class IqrRadioButtonGroupField extends LitElement {
-	@property() suggestionStopWords: Set<string> = new Set<string>()
-	@property({ type: Boolean }) displayOwnerMenu = false
-	@property({ type: Boolean }) suggestions = false
-	@property({ type: Boolean }) links = false
-	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
-		Promise.resolve(undefined)
-	//@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	//@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
-	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
-	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
-	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
-	@property() options?: Suggestion[] = []
-	@property() schema: RadioButtonSchema = 'radio'
-	@property() label = ''
-	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() placeholder = ''
-	@property() textRegex = ''
-
-	@property() value = ''
-	@property() defaultLanguage = 'en'
-	@property() owner?: string
 
 	@property() valueProvider?: () => VersionedValue | undefined = undefined
-	@property() metaProvider?: () => VersionedMeta | undefined = undefined
-	@property() handleValueChanged?: (language: string, value: string) => void = undefined
-	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
-	@state() protected displayOwnersMenu = false
-	@state() protected ownerInputValue = ''
-	@state() protected availableOptions: Suggestion[] = []
+	@property() codifications = ''
+	@property() type: 'radio' | 'checkbox' = 'radio'
 
-	@state() protected displayLanguagesMenu = false
-	@state() protected languageInputValue = ''
+	@property() value = ''
 
-	@state() protected displayVersionsMenu = false
+	@property() label = ''
+	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
 
-	@state() protected displayedLanguage = this.defaultLanguage
-	@state() protected displayedVersion = '0'
+	@state() protected displayMenu = false
 
-	@state() protected availableLanguages = [this.displayedLanguage]
+	@state() protected inputValue = ''
 
-	private proseMirrorSchema?: Schema
-	private view?: EditorView
-	private container?: HTMLElement
-	private parser?: MarkdownParser | { parse: (options: ProsemirrorNode<Schema<any, any>>[]) => ProsemirrorNode }
-	//private trToSave?: Transaction = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: string, codes: CodeStub) => void = undefined
 
-	constructor() {
-		super()
-	}
-
-	static get styles() {
+	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
 	}
-	render() {
+
+	togglePopup(): void {
+		this.displayMenu = !this.displayMenu
+	}
+
+	handleOptionButtonClicked(id: string | undefined): (e: Event) => boolean {
+		return (e: Event) => {
+			e.preventDefault()
+			e.stopPropagation()
+			if (id) {
+				const option = (this.options || []).find((option) => option.id === id)
+				this.value = id
+				this.inputValue = (!(option instanceof CodeStub) ? option?.text : option?.label?.['fr']) ?? ''
+				this.displayMenu = false
+				//this.handleValueChanged()
+				return true
+			}
+			return false
+		}
+	}
+
+	render(): TemplateResult {
 		return html`
-			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
-				<div class="iqr-input">
-					<div id="editor"></div>
+			<div class="iqr-text-field">
+				${generateLabel(this.label, this.labelPosition)}
+				<div>
+					${this.options?.map(
+						(x) => html`<input type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}"></input>
+				<label class="iqr-radio-button-label" for="${x.id}"><span>${!(x instanceof CodeStub) ? x?.text : x?.label?.['fr']}</span></label>`,
+					)}
 				</div>
 			</div>
 		`
 	}
 
-	public async firstUpdated() {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		//const cmp = this
-
-		this.proseMirrorSchema = schema
-		const pms: Schema = (this.proseMirrorSchema = createSchema())
-
-		this.container = this.shadowRoot?.getElementById('editor') || undefined
-		const providedOptions = this.options || []
-		const test = []
-		for (const option of providedOptions) {
-			test.push(pms.node('radioButton', { id: option.id, type: this.schema, name: 'option' }, []))
-			test.push(pms.node('label', { for: option.id }, [pms.text(option.text)]))
+	public async firstUpdated(): Promise<void> {
+		const providedValue = this.valueProvider && this.valueProvider()
+		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
+		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
+			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
+			this.value =
+				this.options?.find((option) => {
+					return !(option instanceof CodeStub) ? option.text === this.inputValue : option?.label?.['fr'] === this.inputValue
+				})?.id ?? ''
 		}
-		this.parser = this.makeParser(pms)
-		const parsedDoc = this.parser.parse(test)
-
-		this.view = new EditorView(this.container, {
-			state: EditorState.create({
-				doc: parsedDoc,
-				schema: this.proseMirrorSchema,
-			}),
-			dispatchTransaction: (tr) => {
-				this.view && this.view.updateState(this.view.state.apply(tr))
-				//current state as json in text area
-				//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
-			},
-		})
-	}
-
-	private makeParser(pms: Schema) {
-		return {
-			parse: (options: ProsemirrorNode<Schema<any, any>>[]) => {
-				return pms.node('paragraph', {}, [pms.node('radioButtonGroup', {}, options)])
-			},
-		}
+		return
 	}
 }
-// Register the new element with the browser.
-customElements.define('iqr-radio-button-group-field', IqrRadioButtonGroupField)
+
+customElements.define('iqr-form-radio-button', IqrRadioButtonGroup)
