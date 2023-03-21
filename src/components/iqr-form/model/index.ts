@@ -27,6 +27,7 @@ export abstract class Field {
 	labels?: Labels
 	value?: string
 	unit?: string
+	multiline?: boolean
 
 	label(): string {
 		return this.field
@@ -45,6 +46,7 @@ export abstract class Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		multiline?: boolean,
 	) {
 		this.field = label
 		this.type = type
@@ -58,12 +60,26 @@ export abstract class Field {
 		this.labels = labels
 		this.value = value
 		this.unit = unit
+		this.multiline = multiline
 	}
 
 	static parse(json: Field): Field {
 		switch (json.type as string) {
 			case 'textfield':
-				return new TextField(json.field, json.shortLabel, json.rows, json.columns, json.schema, json.tags, json.codifications, json.options)
+				return new TextField(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.schema,
+					json.tags,
+					json.codifications,
+					json.options,
+					undefined,
+					undefined,
+					undefined,
+					json.multiline,
+				)
 			case 'measure-field':
 				return new MeasureField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value, json.unit)
 			case 'number-field':
@@ -103,8 +119,9 @@ export class TextField extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		multiline?: boolean,
 	) {
-		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options, labels, value, unit)
+		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options, labels, value, unit, multiline)
 	}
 }
 

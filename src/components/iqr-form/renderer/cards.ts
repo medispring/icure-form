@@ -30,7 +30,7 @@ export const render: Renderer = (
 						? html`<iqr-form-textfield
 								label="${fg.field}"
 								.labels="${fg.labels}"
-								multiline="${(fg.rows || 0) > 1 || fg.grows}"
+								multiline="${fg.multiline}"
 								rows="${fg.rows || 1}"
 								grows="${fg.grows || false}"
 						  ></iqr-form-textfield>`
