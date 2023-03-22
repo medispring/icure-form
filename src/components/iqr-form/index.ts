@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement } from 'lit'
-import { property } from 'lit/decorators'
+import { property } from 'lit/decorators.js'
 
 import { Form } from './model'
 

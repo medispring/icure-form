@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { property } from 'lit/decorators'
+import { property } from 'lit/decorators.js'
 
 import '../../iqr-text-field'
 import { Labels, Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'

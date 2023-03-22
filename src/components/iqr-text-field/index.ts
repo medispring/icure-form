@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement } from 'lit'
-import { property, state, query } from 'lit/decorators'
+import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model'
@@ -70,6 +70,9 @@ export interface Labels {
 }
 // Extend the LitElement base class
 class IqrTextField extends LitElement {
+	get _ownerSearch(): HTMLInputElement | null {
+		return this.renderRoot.querySelector('#ownerSearch')
+	}
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property({ type: Boolean }) displayOwnerMenu = false
 	@property({ type: Boolean }) suggestions = false
@@ -146,7 +149,6 @@ class IqrTextField extends LitElement {
 		return [baseCss, kendoCss]
 	}
 
-	@query('#ownerSearch') _ownerSearch!: HTMLInputElement
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
@@ -201,7 +203,7 @@ class IqrTextField extends LitElement {
 	searchOwner(e: InputEvent) {
 		const text = (e.target as HTMLInputElement).value
 		setTimeout(async () => {
-			if (this._ownerSearch.value === text) {
+			if (this._ownerSearch?.value === text) {
 				if (this.ownersProvider) {
 					const availableOwners = await this.ownersProvider(text.split(' '))
 					console.log(availableOwners)
@@ -273,7 +275,7 @@ class IqrTextField extends LitElement {
 				this.displayedLanguage = this.availableLanguages[0]
 			}
 
-			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || '' : this.value)
+			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || '' : this.value) ?? undefined
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({

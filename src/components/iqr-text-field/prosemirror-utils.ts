@@ -1,5 +1,5 @@
 import { MarkSpec } from 'prosemirror-model'
-import OrderedMap = require('orderedmap')
+import OrderedMap from 'orderedmap'
 
 export function hasMark(ms: { [key: string]: MarkSpec } | OrderedMap<MarkSpec> | null | undefined, mark: string): boolean {
 	if (!ms) {

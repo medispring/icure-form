@@ -15,7 +15,7 @@ module.exports = ({ mode }) => {
 				patterns: [{ context: 'node_modules/@webcomponents/webcomponentsjs', from: '**/*.js', to: 'webcomponents' }],
 			}),
 		],
-		devtool: mode === 'development' ? 'source-map' : 'none',
+		devtool: mode === 'source-map',
 		module: {
 			rules: [
 				{
@@ -29,7 +29,7 @@ module.exports = ({ mode }) => {
 					exclude: /node_modules/,
 				},
 				{
-					test: /\.css|\.s(c|a)ss$/,
+					test: /\.css|\.s([ca])ss$/,
 					use: [
 						{
 							loader: 'lit-scss-loader',

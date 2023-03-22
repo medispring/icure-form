@@ -15,12 +15,15 @@ export interface FormValuesContainer {
 	setAuthor(serviceId: string, author: string | null): FormValuesContainer
 	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
 	delete(serviceId: string): FormValuesContainer
+	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox: S): T
 }
 
 export class ICureFormValuesContainer implements FormValuesContainer {
 	currentContact: Contact //The contact of the day, used to record modifications
 	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)
+	sandboxProxies = new WeakMap()
+	codeSnippets = new Map<string, any>()
 
 	serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service
 
@@ -138,6 +141,48 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		} else {
 			return this
 		}
+	}
+
+	compute<T, S extends { [key: string | symbol]: unknown }>(
+		formula: string,
+		sandbox: S = new Proxy({} as S, {
+			has: (target: S, key: string | symbol) => Object.keys(this.getVersions((s) => s.label === key) ?? {}).length > 0,
+			get: (target: S, key: string | symbol) => Object.values(this.getVersions((s) => s.label === key)),
+		}),
+	): T {
+		const sb = this.sandboxProxies
+		const cs = this.codeSnippets
+		function compileCode(src: string) {
+			if (cs.has(src)) {
+				return cs.get(src)
+			}
+
+			src = 'with (sandbox) {' + src + '}'
+			const code = new Function('sandbox', src)
+
+			const result = function (sandbox: S) {
+				if (!sb.has(sandbox)) {
+					const sandboxProxy = new Proxy<S>(sandbox, { has, get })
+					sb.set(sandbox, sandboxProxy)
+				}
+				return code(sb.get(sandbox))
+			}
+
+			cs.set(src, result)
+
+			return result
+		}
+
+		function has() {
+			return true
+		}
+
+		function get(target: S, key: string | symbol) {
+			if (key === Symbol.unscopables) return undefined
+			return target[key]
+		}
+
+		return compileCode(formula)(sandbox)
 	}
 
 	/** returns all services in history that match a selector
