@@ -9,6 +9,7 @@ export class DateTimePicker extends LitElement {
 	@property() labelPosition?: string = undefined
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() labels?: Labels = undefined
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -25,6 +26,7 @@ export class DateTimePicker extends LitElement {
 			labelPosition=${this.labelPosition}
 			label="${this.label}"
 			schema="date-time"
+			value=${this.value}
 			.valueProvider=${this.valueProvider}
 		></iqr-text-field>`
 	}

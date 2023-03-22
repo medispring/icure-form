@@ -8,7 +8,8 @@ export class MeasureField extends LitElement {
 	@property() labelPosition?: 'float' | 'side' | 'above' | 'hidden' = 'float'
 	@property() labels?: Labels = undefined
 
-	@property({ type: String }) value = ''
+	@property() value?: string = ''
+	@property() unit?: string = ''
 
 	@property() valueProvider?: () => VersionedValue | undefined = undefined
 
@@ -28,7 +29,7 @@ export class MeasureField extends LitElement {
 				.labels="${this.labels}"
 				label="${this.label}"
 				schema="measure"
-				value="${this.value}"
+				value="${this.value} ${this.unit}"
 				.valueProvider="${this.valueProvider}"
 			></iqr-text-field>
 		`

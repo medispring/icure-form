@@ -384,6 +384,12 @@ class IqrTextField extends LitElement {
 						])
 					},
 			  }
+			: this.schema === 'decimal'
+			? {
+					parse: (value: string) => {
+						return pms.node('paragraph', {}, [pms.node('decimal', {}, value && value.length ? [pms.text(value)] : [pms.text(' ')])])
+					},
+			  }
 			: this.schema === 'date-time'
 			? {
 					parse: (value: string) => {

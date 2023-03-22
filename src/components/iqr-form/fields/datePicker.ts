@@ -8,6 +8,7 @@ export class DatePicker extends LitElement {
 	@property() labelPosition?: string = undefined
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() labels?: Labels = undefined
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -27,6 +28,7 @@ export class DatePicker extends LitElement {
 			schema="date"
 			owner="Antoine Duchâteau"
 			style="width: 100%"
+			value=${this.value}
 			.valueProvider=${this.valueProvider}
 		></iqr-text-field>`
 	}

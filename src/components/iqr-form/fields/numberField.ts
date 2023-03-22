@@ -8,6 +8,7 @@ export class NumberField extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
 	@property() labels?: Labels = undefined
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -19,7 +20,7 @@ export class NumberField extends LitElement {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" .labels="${this.labels}" schema="decimal"></iqr-text-field>`
+		return html`<iqr-text-field labelPosition=${this.labelPosition} label="${this.label}" .labels="${this.labels}" value="${this.value}" schema="decimal"></iqr-text-field>`
 	}
 }
 

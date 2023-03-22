@@ -55,10 +55,8 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 		min-width: 0;
 		> span {
 			display: block;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
-			padding-right: 8px;
+			word-wrap: break-word;
+			overflow: auto;
 		}
 	}
 	> .iqr-input {
@@ -95,9 +93,11 @@ $floating-label-height: $textbox-line-height * $floating-label-scale;
 	}
 	> .iqr-label.side.left {
 		order: -1;
+		margin-right: 1em;
 	}
 	> .iqr-label.side.right {
 		order: 1;
+		margin-left: 1em;
 	}
 
 	.iqr-input, .input-container {

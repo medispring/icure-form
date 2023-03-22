@@ -7,9 +7,12 @@ import { Labels, Suggestion, VersionedMeta, VersionedValue } from '../../iqr-tex
 class Textfield extends LitElement {
 	@property() label = ''
 	@property() labels?: Labels = undefined
-	@property() multiline = false
+	//Boolean value is parsed as text, so we also need to use string type
+	@property() multiline: boolean | string = false
 	@property() rows = 1
 	@property() grows = false
+	@property() value?: string = ''
+	@property() unit?: string = ''
 	@property() labelPosition?: string = undefined
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
@@ -39,9 +42,10 @@ class Textfield extends LitElement {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-text-field
 				labelPosition=${this.labelPosition}
-				?multiline="${this.multiline}"
 				label="${this.label}"
 				labels="${this.labels}"
+				value="${this.value} ${this.unit}"
+				schema="${this.multiline === 'true' ? 'text-document' : 'styled-text-with-codes'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}

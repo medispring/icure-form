@@ -1,18 +1,16 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property, state } from 'lit/decorators'
-import { Suggestion } from '../../iqr-radio-button-group/suggestion-palette'
+import { property } from 'lit/decorators'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
 import { Labels } from '../../iqr-text-field'
+import { OptionCode } from '../../iqr-dropdown'
 
 export class CheckBox extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
-	@property() optionProvider: (terms: string[], limit: number) => Promise<Suggestion[]> = async () => this.options || []
-	@property() options?: Suggestion[] = []
 	@property() labels?: Labels = undefined
-
-	@state() protected availableOptions: Suggestion[] = []
+	@property() options?: OptionCode[] = []
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -25,13 +23,14 @@ export class CheckBox extends LitElement {
 
 	render(): TemplateResult {
 		return html`
-			<iqr-radio-button-group-field
-				schema="checkbox"
+			<iqr-form-radio-button
+				type="checkbox"
 				.labels="${this.labels}"
 				labelPosition="${this.labelPosition}"
 				label="${this.label}"
 				.options="${this.options}"
-			></iqr-radio-button-group-field>
+				value="${this.value}"
+			></iqr-form-radio-button>
 		`
 	}
 }

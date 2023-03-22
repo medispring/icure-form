@@ -61,7 +61,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						multiline="${(fg.rows || 0) > 1 || fg.grows}"
+						multiline="${fg.multiline || false}"
 						grows="${fg.grows || false}"
 						.linksProvider=${fg.options?.linksProvider}
 						.suggestionProvider=${fg.options?.suggestionProvider}
@@ -80,6 +80,8 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
+						unit="${fg.unit}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
@@ -88,6 +90,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
@@ -96,6 +99,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
@@ -104,6 +108,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
@@ -112,6 +117,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'
@@ -120,11 +126,13 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						value="${fg.value}"
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
 						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
+						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
@@ -136,6 +144,7 @@ export const render: Renderer = (
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
+						value="${fg.value}"
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
@@ -144,6 +153,7 @@ export const render: Renderer = (
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
+						value="${fg.value}"
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
 				? html`<iqr-form-label style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}" labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-label>`
