@@ -26,7 +26,7 @@ export class DropdownField extends LitElement {
 
 	@property() valueProvider?: () => VersionedValue[] = undefined
 
-	@property({ type: String }) value = ''
+	@property() value = ''
 
 	@property() handleValueChanged?: (id: string, language: string, value: string, codes: CodeStub) => void = undefined
 

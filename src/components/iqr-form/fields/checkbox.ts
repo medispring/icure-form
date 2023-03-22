@@ -10,6 +10,7 @@ export class CheckBox extends LitElement {
 	@property() labelPosition?: string = undefined
 	@property() labels?: Labels = undefined
 	@property() options?: OptionCode[] = []
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -28,6 +29,7 @@ export class CheckBox extends LitElement {
 				labelPosition="${this.labelPosition}"
 				label="${this.label}"
 				.options="${this.options}"
+				value="${this.value}"
 			></iqr-form-radio-button>
 		`
 	}

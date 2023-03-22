@@ -10,6 +10,7 @@ export class RadioButton extends LitElement {
 	@property() labelPosition?: string = undefined
 	@property() labels?: Labels = undefined
 	@property() options?: OptionCode[] = []
+	@property() value?: string = ''
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -22,7 +23,14 @@ export class RadioButton extends LitElement {
 
 	render(): TemplateResult {
 		return html`
-			<iqr-form-radio-button type="radio" .labels="${this.labels}" labelPosition="${this.labelPosition}" label="${this.label}" .options="${this.options}"></iqr-form-radio-button>
+			<iqr-form-radio-button
+				type="radio"
+				.labels="${this.labels}"
+				labelPosition="${this.labelPosition}"
+				label="${this.label}"
+				.options="${this.options}"
+				value="${this.value}"
+			></iqr-form-radio-button>
 		`
 	}
 }

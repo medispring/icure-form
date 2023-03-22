@@ -65,7 +65,7 @@ class IqrRadioButtonGroup extends LitElement {
 				${generateLabel(this.label, this.labelPosition)}
 				<div>
 					${this.options?.map(
-						(x) => html`<input type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}"></input>
+						(x) => html`<input type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${x.id === this.value}></input>
 				<label class="iqr-radio-button-label" for="${x.id}"><span>${!(x instanceof CodeStub) ? x?.text : x?.label?.['fr']}</span></label>`,
 					)}
 				</div>
