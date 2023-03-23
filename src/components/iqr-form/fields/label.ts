@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property } from 'lit/decorators'
+import { property, state } from 'lit/decorators.js'
 import '../../iqr-label'
 
 export class Label extends LitElement {

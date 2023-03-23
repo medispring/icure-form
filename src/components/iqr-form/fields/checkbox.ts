@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property } from 'lit/decorators'
+import { property } from 'lit/decorators.js'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
 import { Labels } from '../../iqr-text-field'

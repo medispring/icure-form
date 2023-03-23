@@ -103,7 +103,7 @@ input[type='radio'] {
 	&:focus > .iqr-label,
 	&:focus-within > .iqr-label {
 		// persist alignment after scaling
-		$half-scale-percent: ((1 - $floating-label-scale) * 100% / 2);
+		$half-scale-percent: calc((1 - $floating-label-scale) * 100% / 2);
 
 		// sass-lint:disable indentation
 		// transform position to top-left corner of the textbox-container

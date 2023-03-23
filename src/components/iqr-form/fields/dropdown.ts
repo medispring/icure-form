@@ -1,6 +1,5 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property } from 'lit/decorators'
-
+import { property } from 'lit/decorators.js'
 // @ts-ignore
 import baseCss from '../../iqr-text-field/styles/style.scss'
 // @ts-ignore
