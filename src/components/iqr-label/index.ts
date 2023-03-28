@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit'
-import { property } from 'lit/decorators'
+import { property } from 'lit/decorators.js'
 
 import { generateLabel } from './utils'
 

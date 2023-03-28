@@ -1,5 +1,5 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property, state } from 'lit/decorators'
+import { property, state } from 'lit/decorators.js'
 
 // @ts-ignore
 import baseCss from '../iqr-radio-button-group/styles/style.scss'
