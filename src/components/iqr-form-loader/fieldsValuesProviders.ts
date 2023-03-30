@@ -45,19 +45,19 @@ export function metaProvider(formValuesContainer: FormValuesContainer, field: Fi
 	return () => convertServicesToVersionedMetas(getVersions(formValuesContainer, field))
 }
 
-export function handleTextFieldValueChangedProvider(
+export function handleFieldValueChangedProvider(
 	field: Field,
 	formValuesContainer: FormValuesContainer,
 	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
-): (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => void {
-	return (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => {
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
 		const sId = serviceId ?? uuid()
 		formValuesContainerChanged(
 			formValuesContainer.setValue(
 				field.shortLabel ?? field.label(),
 				sId,
 				language,
-				new Content({ stringValue: content }),
+				content.value ?? new Content({ stringValue: content.asString }),
 				codes,
 				(field.tags ?? []).map((s) => {
 					const parts = s.split('|')

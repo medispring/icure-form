@@ -30,6 +30,8 @@ import { sorted } from '../../utils/no-lodash'
 import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { languageName } from '../../utils/languages'
 import { generateLabel, generateLabels } from '../iqr-label/utils'
+import { Content, Measure } from '@icure/api'
+import { parse, format } from 'date-fns'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -97,7 +99,7 @@ class IqrTextField extends LitElement {
 
 	@property() valueProvider?: () => VersionedValue | undefined = undefined
 	@property() metaProvider?: () => VersionedMeta | undefined = undefined
-	@property() handleValueChanged?: (language: string, value: string) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
 	@state() protected displayOwnersMenu = false
@@ -116,7 +118,8 @@ class IqrTextField extends LitElement {
 
 	private proseMirrorSchema?: Schema
 	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
-	private serializer?: MarkdownSerializer
+	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = { serialize: (content: ProsemirrorNode) => content.textContent }
+	private contentMaker: (doc?: ProsemirrorNode) => Content = () => ({})
 
 	private view?: EditorView
 	private container?: HTMLElement
@@ -245,6 +248,8 @@ class IqrTextField extends LitElement {
 		))
 
 		this.parser = this.makeParser(pms)
+		this.contentMaker = this.makeContentMaker(pms)
+
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
 		if (this.container) {
@@ -354,10 +359,15 @@ class IqrTextField extends LitElement {
 				dispatchTransaction: (tr) => {
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
-					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
+					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
-						setTimeout(() => this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, this.serializer?.serialize(tr.doc) ?? tr.doc.textContent), 800)
+						setTimeout(
+							() =>
+								// eslint-disable-next-line max-len
+								this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, { asString: this.serializer.serialize(tr.doc), value: this.contentMaker?.(tr.doc) }),
+							800,
+						)
 					}
 				},
 			})
@@ -458,6 +468,35 @@ class IqrTextField extends LitElement {
 			  )
 	}
 
+	private makeContentMaker(pms: Schema) {
+		return this.schema === 'date'
+			? (doc?: ProsemirrorNode) =>
+					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd-MM-YYYY', new Date()), 'YYYYMMdd') : undefined })
+			: this.schema === 'time'
+			? (doc?: ProsemirrorNode) =>
+					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'HH:mm:ss', new Date()), 'HHmmss') : undefined })
+			: this.schema === 'measure'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						measureValue: new Measure({ value: doc?.firstChild?.textContent ? parseFloat(doc?.firstChild?.textContent) : undefined, unit: doc?.child(1)?.textContent }),
+					})
+			: this.schema === 'decimal'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						numberValue: doc?.firstChild?.textContent ? parseFloat(doc?.firstChild?.textContent?.replace(/,/g, '.')) : undefined,
+					})
+			: this.schema === 'date-time'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd-MM-YYYY HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
+					})
+			: this.schema === 'text-document'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						stringValue: doc?.textContent,
+					})
+			: () => new Content({})
+	}
 	private getMeta(): Meta | undefined {
 		return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
 	}

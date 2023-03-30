@@ -6,13 +6,9 @@ import baseCss from '../iqr-radio-button-group/styles/style.scss'
 // @ts-ignore
 import kendoCss from '../iqr-radio-button-group/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
-import { CodeStub } from '@icure/api'
+import { CodeStub, Content } from '@icure/api'
 import { generateLabel } from '../iqr-label/utils'
-
-export interface OptionCode {
-	id: string
-	text: string
-}
+import { OptionCode } from '../common'
 
 class IqrRadioButtonGroup extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
@@ -33,7 +29,7 @@ class IqrRadioButtonGroup extends LitElement {
 
 	@state() protected inputValue = ''
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]

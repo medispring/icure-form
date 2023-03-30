@@ -9,7 +9,7 @@ import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
 // @ts-ignore
 import { OptionCode } from '../../iqr-dropdown'
-import { CodeStub } from '@icure/api'
+import { CodeStub, Content } from '@icure/api'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -27,7 +27,7 @@ export class DropdownField extends LitElement {
 
 	@property() value = ''
 
-	@property() handleValueChanged?: (id: string, language: string, value: string, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (id: string, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -42,7 +42,7 @@ export class DropdownField extends LitElement {
 				`,
 		)
 	}
-	//.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+	//.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {

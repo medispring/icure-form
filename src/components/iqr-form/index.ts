@@ -55,7 +55,7 @@ class IqrForm extends LitElement {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
 		return renderer && this.form
-			? renderer(this.form, { labelPosition: this.labelPosition }, this.formValuesContainer, this.formValuesContainerChanged)
+			? renderer(this.form, { labelPosition: this.labelPosition }, this.formValuesContainer, (newValue) => this.formValuesContainerChanged?.(newValue))
 			: this.form
 			? html`<p>unknown renderer</p>`
 			: html`<p>missing form</p>`

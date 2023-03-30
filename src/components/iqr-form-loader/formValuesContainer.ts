@@ -15,7 +15,7 @@ export interface FormValuesContainer {
 	setAuthor(serviceId: string, author: string | null): FormValuesContainer
 	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
 	delete(serviceId: string): FormValuesContainer
-	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox: S): T
+	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined
 }
 
 export class ICureFormValuesContainer implements FormValuesContainer {
@@ -149,7 +149,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 			has: (target: S, key: string | symbol) => Object.keys(this.getVersions((s) => s.label === key) ?? {}).length > 0,
 			get: (target: S, key: string | symbol) => Object.values(this.getVersions((s) => s.label === key)),
 		}),
-	): T {
+	): T | undefined {
 		const sb = this.sandboxProxies
 		const cs = this.codeSnippets
 		function compileCode(src: string) {
@@ -182,7 +182,20 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 			return target[key]
 		}
 
-		return compileCode(formula)(sandbox)
+		let compiledCode: any
+		try {
+			compiledCode = compileCode(formula)
+		} catch (e) {
+			console.info('Invalid Formula: ' + formula)
+			return undefined
+		}
+		try {
+			const result = compiledCode(sandbox)
+			return result
+		} catch (e) {
+			console.info('Error while executing formula: ' + formula, e)
+			return undefined
+		}
 	}
 
 	/** returns all services in history that match a selector

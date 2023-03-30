@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
 import { Labels } from '../../iqr-text-field'
-import { OptionCode } from '../../iqr-dropdown'
+import { OptionCode } from '../../common'
 
 export class CheckBox extends LitElement {
 	@property() label = ''

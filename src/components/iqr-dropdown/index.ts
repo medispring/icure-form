@@ -7,12 +7,8 @@ import baseCss from '../iqr-text-field/styles/style.scss'
 import kendoCss from '../iqr-text-field/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
 import { versionPicto } from '../iqr-text-field/styles/paths'
-import { CodeStub } from '@icure/api'
-
-export interface OptionCode {
-	id: string
-	text: string
-}
+import { CodeStub, Content } from '@icure/api'
+import { OptionCode } from '../common'
 
 class IqrDropdownField extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
@@ -32,7 +28,7 @@ class IqrDropdownField extends LitElement {
 
 	@state() protected inputValue = ''
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]

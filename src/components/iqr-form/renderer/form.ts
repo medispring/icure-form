@@ -1,12 +1,12 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
-import { FormValuesContainer } from '../../iqr-form-loader'
 import {
+	FormValuesContainer,
+	handleFieldValueChangedProvider,
 	dateFieldValuesProvider,
 	dateTimeFieldValuesProvider,
 	handleMetaChangedProvider,
-	handleTextFieldValueChangedProvider,
 	measureFieldValuesProvider,
 	metaProvider,
 	numberFieldValuesProvider,
@@ -41,10 +41,17 @@ export const render: Renderer = (
 			: html`<h6>${content}</h6>`
 	}
 	const renderFieldOrGroup = function (fg: Field | Group, level: number, fieldsInRow = 1): TemplateResult | TemplateResult[] {
-		fg.columns = fg.columns || 1
+		const fgColumns = fg.columns ?? 1
+		if (fg.hideCondition) {
+			const hideCondition = fg.hideCondition
+			const hideConditionResult = formsValueContainer?.compute(hideCondition)
+			if (hideConditionResult) {
+				return html``
+			}
+		}
 		if (fg.clazz === 'group' && fg.fields) {
 			const fieldsOrGroupByRows = groupFieldsOrGroupByRows(fg.fields)
-			return html`<div class="group" style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}">
+			return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}">
 				${h(level, html`${fg.group}`)}
 				${fieldsOrGroupByRows.map((fieldsOrGroupRow) => fieldsOrGroupRow.map((fieldOrGroup) => renderFieldOrGroup(fieldOrGroup, level + 1, sumColumnsOfFields(fieldsOrGroupRow))))}
 			</div>`
@@ -57,7 +64,7 @@ export const render: Renderer = (
 			return html`${fg.type === 'textfield'
 				? html`<iqr-form-textfield
 						class="iqr-form-field"
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -71,58 +78,73 @@ export const render: Renderer = (
 						.codeContentProvider=${fg.options?.codeContentProvider}
 						.valueProvider="${formsValueContainer && textFieldValuesProvider(formsValueContainer, fg)}"
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-textfield>`
 				: fg.type === 'measure-field'
 				? html`<iqr-form-measure-field
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						unit="${fg.unit}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
+						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
 				? html`<iqr-form-number-field
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
+						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
 				? html`<iqr-form-date-picker
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
+						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
 				? html`<iqr-form-time-picker
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
+						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
 				? html`<iqr-form-date-time-picker
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
+						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'
 				? html`<iqr-form-multiple-choice
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -130,16 +152,16 @@ export const render: Renderer = (
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -148,7 +170,7 @@ export const render: Renderer = (
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
-						style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -156,7 +178,7 @@ export const render: Renderer = (
 						value="${fg.value}"
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
-				? html`<iqr-form-label style="${calculateFieldOrGroupWidth(fg.columns, fieldsInRow)}" labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-label>`
+				? html`<iqr-form-label style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}" labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-label>`
 				: ''}`
 		}
 		return html``
