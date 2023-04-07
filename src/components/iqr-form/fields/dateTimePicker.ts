@@ -33,7 +33,6 @@ export class DateTimePicker extends LitElement {
 				label="${this.label}"
 				schema="date-time"
 				value=${this.value}
-				.valueProvider=${this.valueProvider}
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}

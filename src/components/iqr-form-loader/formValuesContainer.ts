@@ -110,7 +110,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 					codes: codes,
 					modified: +new Date(),
 				}
-				return this.copy(setServices(this.currentContact, [], [new Service(modifiedServiceValues)]))
+				return this.copy(setServices({ ...this.currentContact, services: this.currentContact.services }, [], [new Service(modifiedServiceValues)]))
 			} else {
 				return this
 			}

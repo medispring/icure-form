@@ -35,7 +35,6 @@ export class DatePicker extends LitElement {
 				owner="Antoine Duchâteau"
 				style="width: 100%"
 				value=${this.value}
-				.valueProvider=${this.valueProvider}
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}

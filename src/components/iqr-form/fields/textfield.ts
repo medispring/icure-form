@@ -55,7 +55,7 @@ class Textfield extends LitElement {
 				.codeColorProvider=${this.codeColorProvider}
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}
-				.valueProvider=${() => versionedValue}
+				.valueProvider="${this.valueProvider}"
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				.handleMetaChanged=${this.handleMetaChanged}
@@ -63,5 +63,6 @@ class Textfield extends LitElement {
 		})
 	}
 }
+//.valueProvider=${() => versionedValue}
 
 customElements.define('iqr-form-textfield', Textfield)

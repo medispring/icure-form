@@ -38,7 +38,14 @@ export class DropdownField extends LitElement {
 		return (versionedValues?.length ? versionedValues : [undefined]).map(
 			(versionedValue, idx) =>
 				html`
-					<iqr-dropdown-field label="${this.label}" .options="${this.options}" .valueProvider="${() => versionedValue}" labelPosition=${this.labelPosition}></iqr-dropdown-field>
+					<iqr-dropdown-field
+						label="${this.label}"
+						.options="${this.options}"
+						.valueProvider="${this.valueProvider}"
+						.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+						.labelPosition=${this.labelPosition}
+						.optionProvider=${this.optionProvider}
+					></iqr-dropdown-field>
 				`,
 		)
 	}

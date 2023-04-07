@@ -10,8 +10,8 @@ import MiniSearch, { SearchResult } from 'minisearch'
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
 import { codes } from './codes'
 // @ts-ignore
-import yamlForm from './form.yaml'
-import { FormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import yamlForm from './gp.yaml'
+import { FormValuesContainer, ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
 import { property } from 'lit/decorators.js'
 
@@ -76,6 +76,8 @@ class DemoApp extends LitElement {
 						.replace(/[\u0300-\u036f]/g, '')
 						.toLowerCase(),
 	})
+
+	private icureFormValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
 
 	static get styles() {
 		return css`
@@ -212,6 +214,18 @@ class DemoApp extends LitElement {
 				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
 					setTimeout(() => (this.formValuesContainer = newVal), 0)
 				}}"
+			></iqr-form>
+			<iqr-form
+				.form="${Form.parse(YAML.parse(yamlForm))}"
+				labelPosition="above"
+				skin="kendo"
+				theme="gray"
+				renderer="form"
+				.formValuesContainer="${this.icureFormValuesContainer}"
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+					this.icureFormValuesContainer = newVal
+				}}"
+				.ownersProvider="${this.ownersProvider.bind(this)}"
 			></iqr-form>
 		`
 	}

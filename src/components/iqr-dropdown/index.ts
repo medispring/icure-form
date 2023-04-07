@@ -30,6 +30,8 @@ class IqrDropdownField extends LitElement {
 
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
 
+	@property() optionProvider: () => Promise<OptionCode[]> = async () => []
+
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
 	}
@@ -84,7 +86,7 @@ class IqrDropdownField extends LitElement {
 		`
 	}
 
-	public async firstUpdated(): Promise<void> {
+	public firstUpdated(): void {
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
@@ -93,8 +95,13 @@ class IqrDropdownField extends LitElement {
 				this.options?.find((option) => {
 					return !(option instanceof CodeStub) ? option.text === this.inputValue : option?.label?.['fr'] === this.inputValue
 				})?.id ?? ''
+		} else if (this.value) this.inputValue = this.value
+	}
+
+	public updated() {
+		if (this.handleValueChanged) {
+			this.handleValueChanged?.('en', this.inputValue)
 		}
-		return
 	}
 }
 
