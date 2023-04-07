@@ -14,6 +14,8 @@ import {
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
+	handleRadioButtonFieldValueChangedProvider,
+	handleDropdownFieldValueChangedProvider,
 } from '../../iqr-form-loader'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
@@ -152,7 +154,7 @@ export const render: Renderer = (
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTextFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
@@ -161,7 +163,8 @@ export const render: Renderer = (
 						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDropdownFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button

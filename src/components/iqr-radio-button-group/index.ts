@@ -29,7 +29,7 @@ class IqrRadioButtonGroup extends LitElement {
 
 	@state() protected inputValues: string[] = []
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -76,7 +76,13 @@ class IqrRadioButtonGroup extends LitElement {
 	public checkboxChange() {
 		const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 		if (this.handleValueChanged) {
-			this.handleValueChanged?.('en', inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join('|'))
+			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join('|')
+			this.handleValueChanged?.('en', {
+				asString: value,
+				value: new Content({
+					stringValue: value,
+				}),
+			})
 		}
 	}
 }

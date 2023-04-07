@@ -28,7 +28,7 @@ class IqrDropdownField extends LitElement {
 
 	@state() protected inputValue = ''
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 
 	@property() optionProvider: () => Promise<OptionCode[]> = async () => []
 
@@ -100,7 +100,12 @@ class IqrDropdownField extends LitElement {
 
 	public updated() {
 		if (this.handleValueChanged) {
-			this.handleValueChanged?.('en', this.inputValue)
+			this.handleValueChanged?.('en', {
+				asString: this.inputValue,
+				value: new Content({
+					stringValue: this.inputValue,
+				}),
+			})
 		}
 	}
 }
