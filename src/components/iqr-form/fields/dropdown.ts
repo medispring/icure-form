@@ -41,7 +41,7 @@ export class DropdownField extends LitElement {
 					<iqr-dropdown-field
 						label="${this.label}"
 						.options="${this.options}"
-						.valueProvider="${this.valueProvider}"
+						.valueProvider=${() => versionedValue}
 						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 						.labelPosition=${this.labelPosition}
 						.optionProvider=${this.optionProvider}

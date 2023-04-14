@@ -36,7 +36,6 @@ export class MeasureField extends LitElement {
 					label="${this.label}"
 					schema="measure"
 					value="${this.value} ${this.unit}"
-					.valueProvider="${this.valueProvider}"
 					.valueProvider=${() => versionedValue}
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}
 					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}

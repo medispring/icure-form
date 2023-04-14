@@ -280,7 +280,7 @@ class IqrTextField extends LitElement {
 				this.displayedLanguage = this.availableLanguages[0]
 			}
 
-			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || '' : this.value) ?? undefined
+			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || this.value || '' : this.value) ?? undefined
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
@@ -471,7 +471,7 @@ class IqrTextField extends LitElement {
 	private makeContentMaker(pms: Schema) {
 		return this.schema === 'date'
 			? (doc?: ProsemirrorNode) =>
-					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd-MM-YYYY', new Date()), 'YYYYMMdd') : undefined })
+					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy', new Date()), 'yyyyMMdd') : undefined })
 			: this.schema === 'time'
 			? (doc?: ProsemirrorNode) =>
 					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'HH:mm:ss', new Date()), 'HHmmss') : undefined })
@@ -488,7 +488,7 @@ class IqrTextField extends LitElement {
 			: this.schema === 'date-time'
 			? (doc?: ProsemirrorNode) =>
 					new Content({
-						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd-MM-YYYY HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
+						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
 					})
 			: this.schema === 'text-document'
 			? (doc?: ProsemirrorNode) =>

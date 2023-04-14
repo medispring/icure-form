@@ -11,7 +11,7 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import { FormValuesContainer, ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
 import { property } from 'lit/decorators.js'
 
@@ -63,7 +63,7 @@ const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'd
 
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
-	@property() formValuesContainer: FormValuesContainer = makeFormValuesContainer()
+	@property() formValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
 
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
@@ -76,8 +76,6 @@ class DemoApp extends LitElement {
 						.replace(/[\u0300-\u036f]/g, '')
 						.toLowerCase(),
 	})
-
-	private icureFormValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
 
 	static get styles() {
 		return css`
@@ -197,7 +195,7 @@ class DemoApp extends LitElement {
 						],
 						1,
 						1,
-						'return groupNumberField[0][0].service.content.en.numberValue > 100',
+						'',
 					),
 				]),
 			],
@@ -211,8 +209,8 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: FormValuesContainer) => {
-					setTimeout(() => (this.formValuesContainer = newVal), 0)
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+					this.formValuesContainer = newVal
 				}}"
 			></iqr-form>
 			<iqr-form
@@ -221,9 +219,9 @@ class DemoApp extends LitElement {
 				skin="kendo"
 				theme="gray"
 				renderer="form"
-				.formValuesContainer="${this.icureFormValuesContainer}"
+				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.icureFormValuesContainer = newVal
+					this.formValuesContainer = newVal
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 			></iqr-form>

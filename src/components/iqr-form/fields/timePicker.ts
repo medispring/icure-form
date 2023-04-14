@@ -30,7 +30,7 @@ export class TimePicker extends LitElement {
 					labelPosition=${this.labelPosition}
 					label="${this.label}"
 					schema="time"
-					.valueProvider=${this.valueProvider}
+					.valueProvider=${() => versionedValue}
 					value="${this.value}"
 					.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				></iqr-text-field>

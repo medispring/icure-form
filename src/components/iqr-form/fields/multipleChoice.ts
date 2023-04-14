@@ -29,7 +29,7 @@ export class MultipleChoice extends LitElement {
 				value="${this.value}"
 				labelPosition=${this.labelPosition}
 				label="${this.label}"
-				.valueProvider="${this.valueProvider}"
+				.valueProvider=${() => versionedValue}
 				.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 			></iqr-text-field>`
 		})

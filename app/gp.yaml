@@ -1,4 +1,4 @@
-form: Moment du rendez-vous
+    form: Moment du rendez-vous
     description: Moment du rendez-vous
     sections:
       - section:
@@ -13,7 +13,7 @@ form: Moment du rendez-vous
             columns: 1
             required: true
             tags:
-              - MS-ABORTION-ITEM|accompaniedBy|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|accompaniedBy|1
           - field : Moyen de contact
             type: checkbox
             shortLabel: wayOfContact
@@ -25,7 +25,7 @@ form: Moment du rendez-vous
             columns: 1
             required: true
             tags:
-              - MS-ABORTION-ITEM|wayOfContact|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
           - field : Date de rendez-vous
             type: date-picker
             shortLabel: appointmentDate
@@ -33,7 +33,7 @@ form: Moment du rendez-vous
             columns: 1
             required: true
             tags:
-              - MS-ABORTION-ITEM|appointmentDate|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
           - field : Commentaire
             type: textfield
             shortLabel: commentary
@@ -42,7 +42,7 @@ form: Moment du rendez-vous
             multiline: true
             required: true
             tags:
-              - MS-ABORTION-ITEM|commentary|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
           - field : Mise en contact via
             type: dropdown
             shortLabel: contactVia
@@ -54,7 +54,7 @@ form: Moment du rendez-vous
             columns: 1
             required: true
             tags:
-              - MS-ABORTION-ITEM|contactVia|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|contactVia|1
           - field : Patient adressé par
             type: dropdown
             shortLabel: patientAdressedBy
@@ -64,12 +64,13 @@ form: Moment du rendez-vous
               - HCP-LIST
             required: true
             tags:
-              - MS-ABORTION-ITEM|patientReferedBy|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
           - field : Nombre de minutes de suivi
+            value: 10
             type: number-field
             shortLabel: ChildInChargeNumber
             rows: 7
             columns: 1
             required: true
             tags:
-              - MS-ABORTION-ITEM|followUp|1
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1s

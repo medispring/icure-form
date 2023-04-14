@@ -45,8 +45,8 @@ class Textfield extends LitElement {
 				labelPosition=${this.labelPosition}
 				label="${this.label}"
 				labels="${this.labels}"
-				value="${this.value} ${this.unit}"
-				schema="${this.multiline === 'true' ? 'text-document' : 'styled-text-with-codes'}"
+				value="${this.value}"
+				schema="${'text-document'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}
@@ -55,7 +55,7 @@ class Textfield extends LitElement {
 				.codeColorProvider=${this.codeColorProvider}
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}
-				.valueProvider="${this.valueProvider}"
+				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				.handleMetaChanged=${this.handleMetaChanged}

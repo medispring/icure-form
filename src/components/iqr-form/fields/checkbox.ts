@@ -34,7 +34,7 @@ export class CheckBox extends LitElement {
 					label="${this.label}"
 					.options="${this.options}"
 					value="${this.value}"
-					.valueProvider="${this.valueProvider}"
+					.valueProvider=${() => versionedValue}
 					.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				></iqr-form-radio-button>
 			`

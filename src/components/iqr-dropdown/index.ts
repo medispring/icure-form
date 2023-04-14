@@ -49,7 +49,14 @@ class IqrDropdownField extends LitElement {
 				this.value = id
 				this.inputValue = (!(option instanceof CodeStub) ? option?.text : option?.label?.['fr']) ?? ''
 				this.displayMenu = false
-				//this.handleValueChanged()
+				if (this.handleValueChanged) {
+					this.handleValueChanged?.('en', {
+						asString: this.inputValue,
+						value: new Content({
+							stringValue: this.inputValue,
+						}),
+					})
+				}
 				return true
 			}
 			return false
@@ -96,17 +103,6 @@ class IqrDropdownField extends LitElement {
 					return !(option instanceof CodeStub) ? option.text === this.inputValue : option?.label?.['fr'] === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) this.inputValue = this.value
-	}
-
-	public updated() {
-		if (this.handleValueChanged) {
-			this.handleValueChanged?.('en', {
-				asString: this.inputValue,
-				value: new Content({
-					stringValue: this.inputValue,
-				}),
-			})
-		}
 	}
 }
 
