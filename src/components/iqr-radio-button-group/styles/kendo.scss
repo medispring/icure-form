@@ -25,9 +25,14 @@ $floating-label-transition: 0.2s ease-out !default;
 $floating-label-scale: 1 !default;
 $floating-label-height: $textbox-line-height * $floating-label-scale;
 
-input[type='radio'] {
+
+input[type=radio] {
 	margin-top: -1px;
 	vertical-align: middle;
+}
+
+.iqr-checkbox:checked { 
+	accent-color: #06a070;
 }
 
 .iqr-text-field {

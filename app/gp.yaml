@@ -1,45 +1,76 @@
-form: GP consultation
-description: Basic SOAP scheme for a GP consultation
-sections:
-  - section: SOAP
-    fields:
-      - field: Reason for visit
-        type: textfield
-        columns: 5
-        rows: 3
-        grows: true
-        schema: text-document
-        tags:
-          - CD-ITEM|diagnosis|1
-        codifications:
-          - BE-THESAURUS
-          - ICD10
-        options:
-          option: blink
-      - field: Anamnese
-        type: number-field
-        shortLabel: NumberField
-        tags:
-          - CD-ITEM|parameter|1
-          - CD-PARAMETER|bmi|1
-        codifications: []
-        options:
-          option: bang
-      - field: Diagnosis
-        type: measure-field
-        shortLabel: MeasureField
-        tags:
-          - CD-ITEM|diagnosis|1
-        codifications: [ SNOMED-CT ]
-        options:
-          unit: bpm
-      - field: Treatment
-        type: multiple-choice
-        shortLabel: MultipleChoice
-        rows: 4
-        columns: 4
-        tags: []
-        codifications:
-          - KATZ
-        options:
-          many: no
+    form: Moment du rendez-vous
+    description: Moment du rendez-vous
+    sections:
+      - section:
+        fields:
+          - field: Accompagnée de
+            type: number-field
+            labels:
+              above : Accompagnée de
+              right : personne(s) (salle d'attente)
+            shortLabel: accompaniedBy
+            rows: 1
+            columns: 1
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|accompaniedBy|1
+          - field : Moyen de contact
+            type: checkbox
+            shortLabel: wayOfContact
+            options:
+              phone: Téléphone
+              reception: Accueil
+              internet: Internet
+            rows: 2
+            columns: 1
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
+          - field : Date de rendez-vous
+            type: date-picker
+            shortLabel: appointmentDate
+            rows: 3
+            columns: 1
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
+          - field : Commentaire
+            type: textfield
+            shortLabel: commentary
+            rows: 4
+            columns: 1
+            multiline: true
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
+          - field : Mise en contact via
+            type: dropdown
+            shortLabel: contactVia
+            options:
+              physician: Médecin
+              internet: Internet
+              other: Autre
+            rows: 5
+            columns: 1
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|contactVia|1
+          - field : Patient adressé par
+            type: dropdown
+            shortLabel: patientAdressedBy
+            rows: 6
+            columns: 1
+            codifications:
+              - HCP-LIST
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
+          - field : Nombre de minutes de suivi
+            value: 10
+            type: number-field
+            shortLabel: ChildInChargeNumber
+            rows: 7
+            columns: 1
+            required: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1s

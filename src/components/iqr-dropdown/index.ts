@@ -7,12 +7,8 @@ import baseCss from '../iqr-text-field/styles/style.scss'
 import kendoCss from '../iqr-text-field/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
 import { versionPicto } from '../iqr-text-field/styles/paths'
-import { CodeStub } from '@icure/api'
-
-export interface OptionCode {
-	id: string
-	text: string
-}
+import { CodeStub, Content } from '@icure/api'
+import { OptionCode } from '../common'
 
 class IqrDropdownField extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
@@ -32,7 +28,9 @@ class IqrDropdownField extends LitElement {
 
 	@state() protected inputValue = ''
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
+
+	@property() optionProvider: () => Promise<OptionCode[]> = async () => []
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -51,7 +49,14 @@ class IqrDropdownField extends LitElement {
 				this.value = id
 				this.inputValue = (!(option instanceof CodeStub) ? option?.text : option?.label?.['fr']) ?? ''
 				this.displayMenu = false
-				//this.handleValueChanged()
+				if (this.handleValueChanged) {
+					this.handleValueChanged?.('en', {
+						asString: this.inputValue,
+						value: new Content({
+							stringValue: this.inputValue,
+						}),
+					})
+				}
 				return true
 			}
 			return false
@@ -88,7 +93,7 @@ class IqrDropdownField extends LitElement {
 		`
 	}
 
-	public async firstUpdated(): Promise<void> {
+	public firstUpdated(): void {
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
@@ -97,8 +102,7 @@ class IqrDropdownField extends LitElement {
 				this.options?.find((option) => {
 					return !(option instanceof CodeStub) ? option.text === this.inputValue : option?.label?.['fr'] === this.inputValue
 				})?.id ?? ''
-		}
-		return
+		} else if (this.value) this.inputValue = this.value
 	}
 }
 

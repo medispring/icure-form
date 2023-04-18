@@ -13,7 +13,7 @@ type FieldType =
 	| 'label'
 
 export abstract class Field {
-	clazz: 'field' = 'field'
+	clazz = 'field' as const
 	field: string
 	type: FieldType
 	shortLabel?: string
@@ -28,6 +28,7 @@ export abstract class Field {
 	value?: string
 	unit?: string
 	multiline?: boolean
+	hideCondition?: string
 
 	label(): string {
 		return this.field
@@ -47,6 +48,7 @@ export abstract class Field {
 		value?: string,
 		unit?: string,
 		multiline?: boolean,
+		hideCondition?: string,
 	) {
 		this.field = label
 		this.type = type
@@ -61,6 +63,7 @@ export abstract class Field {
 		this.value = value
 		this.unit = unit
 		this.multiline = multiline
+		this.hideCondition = hideCondition
 	}
 
 	static parse(json: Field): Field {
@@ -79,25 +82,98 @@ export abstract class Field {
 					json.value,
 					undefined,
 					json.multiline,
+					json.hideCondition,
 				)
 			case 'measure-field':
-				return new MeasureField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value, json.unit)
+				return new MeasureField(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					json.unit,
+					json.hideCondition,
+				)
 			case 'number-field':
-				return new NumberField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new NumberField(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					undefined,
+					json.hideCondition,
+				)
 			case 'date-picker':
-				return new DatePicker(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new DatePicker(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					undefined,
+					json.hideCondition,
+				)
 			case 'time-picker':
-				return new TimePicker(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new TimePicker(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					undefined,
+					json.hideCondition,
+				)
 			case 'date-time-picker':
-				return new DateTimePicker(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new DateTimePicker(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					undefined,
+					json.hideCondition,
+				)
 			case 'multiple-choice':
-				return new MultipleChoice(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new MultipleChoice(
+					json.field,
+					json.shortLabel,
+					json.rows,
+					json.columns,
+					json.tags,
+					json.codifications,
+					json.options,
+					json.labels,
+					json.value,
+					undefined,
+					json.hideCondition,
+				)
 			case 'dropdown':
-				return new DropdownField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value)
+				return new DropdownField(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.labels, json.value, json.hideCondition)
 			case 'radio-button':
-				return new RadioButton(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.value)
+				return new RadioButton(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.value, json.hideCondition)
 			case 'checkbox':
-				return new CheckBox(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.value)
+				return new CheckBox(json.field, json.shortLabel, json.rows, json.columns, json.tags, json.codifications, json.options, json.value, json.hideCondition)
 			case 'label':
 				return new Label(json.field, json.shortLabel, json.rows, json.columns)
 			default:
@@ -120,8 +196,9 @@ export class TextField extends Field {
 		value?: string,
 		unit?: string,
 		multiline?: boolean,
+		hideCondition?: string,
 	) {
-		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options, labels, value, unit, multiline)
+		super('textfield', label, shortLabel, rows, columns, schema || 'styled-text-with-codes', tags, codifications, options, labels, value, unit, multiline, hideCondition)
 	}
 }
 
@@ -137,8 +214,9 @@ export class MeasureField extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('measure-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('measure-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -154,8 +232,9 @@ export class NumberField extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('number-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('number-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -171,8 +250,9 @@ export class DatePicker extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -188,8 +268,9 @@ export class TimePicker extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -205,8 +286,9 @@ export class DateTimePicker extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -222,8 +304,9 @@ export class MultipleChoice extends Field {
 		labels?: Labels,
 		value?: string,
 		unit?: string,
+		hideCondition?: string,
 	) {
-		super('multiple-choice', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit)
+		super('multiple-choice', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
 	}
 }
 
@@ -238,8 +321,9 @@ export class DropdownField extends Field {
 		options?: { [key: string]: unknown },
 		labels?: Labels,
 		value?: string,
+		hideCondition?: string,
 	) {
-		super('dropdown-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value)
+		super('dropdown-field', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, undefined, false, hideCondition)
 	}
 }
 
@@ -253,8 +337,9 @@ export class RadioButton extends Field {
 		codifications?: string[],
 		options?: { [key: string]: unknown },
 		value?: string,
+		hideCondition?: string,
 	) {
-		super('radio-button', label, shortLabel, rows, columns, undefined, tags, codifications, options, undefined, value)
+		super('radio-button', label, shortLabel, rows, columns, undefined, tags, codifications, options, undefined, value, undefined, false, hideCondition)
 	}
 }
 
@@ -268,8 +353,9 @@ export class CheckBox extends Field {
 		codifications?: string[],
 		options?: { [key: string]: unknown },
 		value?: string,
+		hideCondition?: string,
 	) {
-		super('checkbox', label, shortLabel, rows, columns, undefined, tags, codifications, options, undefined, value)
+		super('checkbox', label, shortLabel, rows, columns, undefined, tags, codifications, options, undefined, value, undefined, false, hideCondition)
 	}
 }
 export class Label extends Field {
@@ -278,23 +364,28 @@ export class Label extends Field {
 	}
 }
 export class Group {
-	clazz: 'group' = 'group'
+	clazz = 'group' as const
 	group: string
 	fields?: Array<Field | Group>
 	rows?: number
 	columns?: number
+	hideCondition?: string
 
-	constructor(title: string, fields: Array<Field | Group>, rows?: number, columns?: number) {
+	constructor(title: string, fields: Array<Field | Group>, rows?: number, columns?: number, hideCondition?: string) {
 		this.group = title
 		this.fields = fields
 		this.rows = rows
 		this.columns = columns
+		this.hideCondition = hideCondition
 	}
 
-	static parse(json: { group: string; fields?: Array<Field | Group> }): Group {
+	static parse(json: { group: string; fields?: Array<Field | Group>; rows?: number; columns?: number; hideCondition?: string }): Group {
 		return new Group(
 			json.group,
 			(json.fields || []).map((s: Field | Group) => (s['group'] ? Group.parse(s as Group) : Field.parse(s as Field))),
+			json.rows,
+			json.columns,
+			json.hideCondition,
 		)
 	}
 }

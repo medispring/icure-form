@@ -9,7 +9,7 @@ import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
 // @ts-ignore
 import { OptionCode } from '../../iqr-dropdown'
-import { CodeStub } from '@icure/api'
+import { Content } from '@icure/api'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -27,7 +27,7 @@ export class DropdownField extends LitElement {
 
 	@property() value = ''
 
-	@property() handleValueChanged?: (id: string, language: string, value: string, codes: CodeStub) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -38,11 +38,18 @@ export class DropdownField extends LitElement {
 		return (versionedValues?.length ? versionedValues : [undefined]).map(
 			(versionedValue, idx) =>
 				html`
-					<iqr-dropdown-field label="${this.label}" .options="${this.options}" .valueProvider="${() => versionedValue}" labelPosition=${this.labelPosition}></iqr-dropdown-field>
+					<iqr-dropdown-field
+						label="${this.label}"
+						.options="${this.options}"
+						.valueProvider=${() => versionedValue}
+						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+						.labelPosition=${this.labelPosition}
+						.optionProvider=${this.optionProvider}
+					></iqr-dropdown-field>
 				`,
 		)
 	}
-	//.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+	//.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {
