@@ -74,8 +74,8 @@ class IqrRadioButtonGroup extends LitElement {
 	}
 
 	public checkboxChange() {
-		const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 		if (this.handleValueChanged) {
+			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join('|')
 			this.handleValueChanged?.('en', {
 				asString: value,
@@ -87,4 +87,4 @@ class IqrRadioButtonGroup extends LitElement {
 	}
 }
 
-customElements.define('iqr-form-radio-button', IqrRadioButtonGroup)
+customElements.define('iqr-radio-button', IqrRadioButtonGroup)
