@@ -7,4 +7,5 @@ export type Renderer = (
 	props: { [p: string]: unknown },
 	formsValueContainer?: FormValuesContainer,
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+	translationProvider?: (text: string) => string,
 ) => TemplateResult

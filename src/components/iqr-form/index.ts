@@ -34,6 +34,7 @@ class IqrForm extends LitElement {
 	@property() labelPosition?: string = undefined
 	@property() formValuesContainer?: FormValuesContainer = undefined
 	@property() formValuesContainerChanged?: (newValue: FormValuesContainer) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	constructor() {
 		super()
@@ -55,7 +56,7 @@ class IqrForm extends LitElement {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
 		return renderer && this.form
-			? renderer(this.form, { labelPosition: this.labelPosition }, this.formValuesContainer, (newValue) => this.formValuesContainerChanged?.(newValue))
+			? renderer(this.form, { labelPosition: this.labelPosition }, this.formValuesContainer, (newValue) => this.formValuesContainerChanged?.(newValue), this.translationProvider)
 			: this.form
 			? html`<p>unknown renderer</p>`
 			: html`<p>missing form</p>`

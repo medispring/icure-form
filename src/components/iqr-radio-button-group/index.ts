@@ -30,6 +30,7 @@ class IqrRadioButtonGroup extends LitElement {
 	@state() protected inputValues: string[] = []
 
 	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -45,13 +46,13 @@ class IqrRadioButtonGroup extends LitElement {
 		this.valuesProvider()
 		return html`
 			<div class="iqr-text-field">
-				${generateLabel(this.label, this.labelPosition)}
+				${generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div>
 					${this.options?.map(
-						(x) => html`<input class="iqr-checkbox" type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${this.inputValues.includes(x.text)} @change=${
-							this.checkboxChange
-						} text="${x.text}"></input>
-				<label class="iqr-radio-button-label" for="${x.id}"><span>${!(x instanceof CodeStub) ? x?.text : ''}</span></label>`,
+						(x) => html`<input class="iqr-checkbox" type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${this.inputValues.includes(
+							this.translationProvider(x.text || ''),
+						)} @change=${this.checkboxChange} text="${x.text}"></input>
+				<label class="iqr-radio-button-label" for="${x.id}"><span>${!(x instanceof CodeStub) ? this.translationProvider(x?.text) : ''}</span></label>`,
 					)}
 				</div>
 			</div>
@@ -80,7 +81,7 @@ class IqrRadioButtonGroup extends LitElement {
 			this.handleValueChanged?.('en', {
 				asString: value,
 				value: new Content({
-					stringValue: value,
+					stringValue: this.translationProvider(value),
 				}),
 			})
 		}

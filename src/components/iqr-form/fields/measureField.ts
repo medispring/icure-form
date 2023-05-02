@@ -16,6 +16,7 @@ export class MeasureField extends LitElement {
 	@property() metaProvider?: () => VersionedMeta[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -40,6 +41,7 @@ export class MeasureField extends LitElement {
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}
 					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 					.handleMetaChanged=${this.handleMetaChanged}
+					.translationProvider=${this.translationProvider}
 				></iqr-text-field>
 			`
 		})

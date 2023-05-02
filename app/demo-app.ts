@@ -154,6 +154,11 @@ class DemoApp extends LitElement {
 		}))
 	}
 
+	translationProvider(stringToTranslate: string) {
+		console.log(stringToTranslate)
+		return stringToTranslate
+	}
+
 	render() {
 		// noinspection DuplicatedCode
 		const form = new Form(
@@ -224,6 +229,7 @@ class DemoApp extends LitElement {
 					this.formValuesContainer = newVal
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
+				.translationProvider="${this.translationProvider.bind(this)}"
 			></iqr-form>
 		`
 	}

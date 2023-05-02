@@ -28,6 +28,7 @@ export class DropdownField extends LitElement {
 	@property() value = ''
 
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -45,6 +46,7 @@ export class DropdownField extends LitElement {
 						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 						.labelPosition=${this.labelPosition}
 						.optionProvider=${this.optionProvider}
+						.translationProvider=${this.translationProvider}
 					></iqr-dropdown-field>
 				`,
 		)

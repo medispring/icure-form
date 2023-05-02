@@ -26,6 +26,7 @@ import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 import '../fields/dropdown'
+import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -35,6 +36,7 @@ export const render: Renderer = (
 	props: { [key: string]: unknown },
 	formsValueContainer?: FormValuesContainer,
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+	translationProvider: (text: string) => string = (text) => text,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -82,6 +84,7 @@ export const render: Renderer = (
 						.linksProvider=${fg.options?.linksProvider}
 						.suggestionProvider=${fg.options?.suggestionProvider}
 						.ownersProvider=${fg.options?.ownersProvider}
+						.translationProvider=${translationProvider}
 						.codeColorProvider=${fg.options?.codeColorProvider}
 						.linkColorProvider=${fg.options?.linkColorProvider}
 						.codeContentProvider=${fg.options?.codeContentProvider}
@@ -99,6 +102,7 @@ export const render: Renderer = (
 						value="${fg.value}"
 						unit="${fg.unit}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleMeasureFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
@@ -111,6 +115,7 @@ export const render: Renderer = (
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleNumberFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
@@ -121,8 +126,9 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						value="${fg.value}"
+						value="${fg.now ? currentDate() : fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDateFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
@@ -133,8 +139,9 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						value="${fg.value}"
+						value="${fg.now ? currentTime() : fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTimeFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
@@ -145,8 +152,9 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						value="${fg.value}"
+						value="${fg.now ? currentDateTime() : fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDateTimeFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
@@ -159,6 +167,7 @@ export const render: Renderer = (
 						.labels="${fg.labels}"
 						value="${fg.value}"
 						.valueProvider="${formsValueContainer && firstItemValueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
@@ -168,8 +177,10 @@ export const render: Renderer = (
 						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
+						.translationProvider=${translationProvider}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDropdownFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
@@ -183,6 +194,7 @@ export const render: Renderer = (
 						formValuesContainerChanged &&
 						handleRadioButtonFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
@@ -196,9 +208,15 @@ export const render: Renderer = (
 						formValuesContainerChanged &&
 						handleRadioButtonFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.translationProvider=${translationProvider}
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
-				? html`<iqr-form-label style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}" labelPosition=${props.labelPosition} label="${fg.field}"></iqr-form-label>`
+				? html`<iqr-form-label
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						labelPosition=${props.labelPosition}
+						label="${fg.field}"
+						.translationProvider=${translationProvider}
+				  ></iqr-form-label>`
 				: ''}`
 		}
 		return html``

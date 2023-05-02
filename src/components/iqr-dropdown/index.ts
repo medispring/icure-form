@@ -9,6 +9,7 @@ import { VersionedValue } from '../iqr-text-field'
 import { versionPicto } from '../iqr-text-field/styles/paths'
 import { CodeStub, Content } from '@icure/api'
 import { OptionCode } from '../common'
+import { generateLabel } from '../iqr-label/utils'
 
 class IqrDropdownField extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
@@ -31,6 +32,7 @@ class IqrDropdownField extends LitElement {
 	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 
 	@property() optionProvider: () => Promise<OptionCode[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -66,7 +68,7 @@ class IqrDropdownField extends LitElement {
 	render(): TemplateResult {
 		return html`
 			<div id="root" class="iqr-text-field ${this.inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
-				<label class="iqr-label ${this.labelPosition}"><span>${this.label}</span></label>
+				${generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div class="iqr-input" @click="${this.togglePopup}">
 					<div id="editor">${this.inputValue}</div>
 					<div id="extra" class=${'extra forced'}>
@@ -79,7 +81,7 @@ class IqrDropdownField extends LitElement {
 												${this.options?.map(
 													(x) =>
 														html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="item">
-															${!(x instanceof CodeStub) ? x?.text : x?.label?.['fr']}
+															${!(x instanceof CodeStub) ? this.translationProvider(x?.text) : x?.label?.['fr'] || ''}
 														</button>`,
 												)}
 											</div>
@@ -100,7 +102,7 @@ class IqrDropdownField extends LitElement {
 			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
 			this.value =
 				this.options?.find((option) => {
-					return !(option instanceof CodeStub) ? option.text === this.inputValue : option?.label?.['fr'] === this.inputValue
+					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translationProvider(option?.label?.['fr'] || '') === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) this.inputValue = this.value
 	}

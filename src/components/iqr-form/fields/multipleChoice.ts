@@ -11,6 +11,7 @@ export class MultipleChoice extends LitElement {
 	@property() value?: string = ''
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -31,6 +32,7 @@ export class MultipleChoice extends LitElement {
 				label="${this.label}"
 				.valueProvider=${() => versionedValue}
 				.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.translationProvider=${this.translationProvider}
 			></iqr-text-field>`
 		})
 	}

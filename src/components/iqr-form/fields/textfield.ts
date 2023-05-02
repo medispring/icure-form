@@ -20,6 +20,7 @@ class Textfield extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -52,6 +53,7 @@ class Textfield extends LitElement {
 				.linksProvider=${this.linksProvider}
 				.suggestionProvider=${this.suggestionProvider}
 				.ownersProvider=${this.ownersProvider}
+				.translationProvider=${this.translationProvider}
 				.codeColorProvider=${this.codeColorProvider}
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}

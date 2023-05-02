@@ -29,6 +29,7 @@ export abstract class Field {
 	unit?: string
 	multiline?: boolean
 	hideCondition?: string
+	now?: boolean
 
 	label(): string {
 		return this.field
@@ -49,6 +50,7 @@ export abstract class Field {
 		unit?: string,
 		multiline?: boolean,
 		hideCondition?: string,
+		now?: boolean,
 	) {
 		this.field = label
 		this.type = type
@@ -64,6 +66,7 @@ export abstract class Field {
 		this.unit = unit
 		this.multiline = multiline
 		this.hideCondition = hideCondition
+		this.now = now
 	}
 
 	static parse(json: Field): Field {
@@ -125,6 +128,7 @@ export abstract class Field {
 					json.value,
 					undefined,
 					json.hideCondition,
+					json.now,
 				)
 			case 'time-picker':
 				return new TimePicker(
@@ -139,6 +143,7 @@ export abstract class Field {
 					json.value,
 					undefined,
 					json.hideCondition,
+					json.now,
 				)
 			case 'date-time-picker':
 				return new DateTimePicker(
@@ -153,6 +158,7 @@ export abstract class Field {
 					json.value,
 					undefined,
 					json.hideCondition,
+					json.now,
 				)
 			case 'multiple-choice':
 				return new MultipleChoice(
@@ -251,8 +257,9 @@ export class DatePicker extends Field {
 		value?: string,
 		unit?: string,
 		hideCondition?: string,
+		now?: boolean,
 	) {
-		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
+		super('date-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now)
 	}
 }
 
@@ -269,8 +276,9 @@ export class TimePicker extends Field {
 		value?: string,
 		unit?: string,
 		hideCondition?: string,
+		now?: boolean,
 	) {
-		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
+		super('time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now)
 	}
 }
 
@@ -287,8 +295,9 @@ export class DateTimePicker extends Field {
 		value?: string,
 		unit?: string,
 		hideCondition?: string,
+		now?: boolean,
 	) {
-		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition)
+		super('date-time-picker', label, shortLabel, rows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now)
 	}
 }
 

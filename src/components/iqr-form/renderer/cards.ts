@@ -8,6 +8,7 @@ export const render: Renderer = (
 	props: { [key: string]: unknown },
 	formsValueContainer?: FormValuesContainer,
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+	translationProvider: (text: string) => string = (text) => text,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1

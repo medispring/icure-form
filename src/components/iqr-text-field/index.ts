@@ -83,6 +83,7 @@ class IqrTextField extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -155,7 +156,7 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				${this.labels ? generateLabels(this.labels) : generateLabel(this.label, this.labelPosition)}
+				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
 					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
@@ -357,6 +358,7 @@ class IqrTextField extends LitElement {
 						.map((x) => x as Plugin),
 				}),
 				dispatchTransaction: (tr) => {
+					console.log(tr)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
@@ -369,6 +371,11 @@ class IqrTextField extends LitElement {
 							800,
 						)
 					}
+				},
+				editable: (state) => {
+					const { $from } = state.selection
+					// Empêche l'édition pour tous les nœuds sauf myCustomNode
+					return $from.depth > 0 && ($from.parent.type.spec.editable ?? true) ? true : false
 				},
 			})
 		}

@@ -4,6 +4,7 @@ import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
 import { OptionCode } from '../../common'
 import { Labels, VersionedValue } from '../../iqr-text-field'
+import { Content } from '@icure/api'
 
 export class CheckBox extends LitElement {
 	@property() label = ''
@@ -12,7 +13,8 @@ export class CheckBox extends LitElement {
 	@property() options?: OptionCode[] = []
 	@property() value?: string = ''
 	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -27,7 +29,7 @@ export class CheckBox extends LitElement {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
-				<iqr-form-radio-button
+				<iqr-radio-button
 					type="checkbox"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"
@@ -35,8 +37,9 @@ export class CheckBox extends LitElement {
 					.options="${this.options}"
 					value="${this.value}"
 					.valueProvider=${() => versionedValue}
-					.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
-				></iqr-form-radio-button>
+					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.translationProvider=${this.translationProvider}
+				></iqr-radio-button>
 			`
 		})
 	}

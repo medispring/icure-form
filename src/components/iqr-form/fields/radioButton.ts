@@ -14,6 +14,7 @@ export class RadioButton extends LitElement {
 	@property() value?: string = ''
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -37,6 +38,7 @@ export class RadioButton extends LitElement {
 					value="${this.value}"
 					.valueProvider=${() => versionedValue}
 					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.translationProvider=${this.translationProvider}
 				></iqr-radio-button>
 			`
 		})
