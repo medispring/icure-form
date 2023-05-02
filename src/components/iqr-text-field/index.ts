@@ -27,8 +27,6 @@ import { maskPlugin } from './plugin/mask-plugin'
 import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../utils/no-lodash'
-import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
-import { languageName } from '../../utils/languages'
 import { generateLabel, generateLabels } from '../iqr-label/utils'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
@@ -159,46 +157,47 @@ class IqrTextField extends LitElement {
 				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
-					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
-						<div class="info">~${this.owner}</div>
-						<div class="buttons-container">
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
-								${this.displayOwnersMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-												${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="1.0" class="btn version">${versionPicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
-								${this.displayLanguagesMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input /></div>
-												${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<slot></slot>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		`
 	}
+
+	// 	<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
+	// 	<div class="info">~${this.owner}</div>
+	// 	<div class="buttons-container">
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
+	// 			${this.displayOwnersMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
+	// 							${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="1.0" class="btn version">${versionPicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
+	// 			${this.displayLanguagesMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input /></div>
+	// 							${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<slot></slot>
+	// 		</div>
+	// 	</div>
+	// </div>
 
 	toggleOwnerMenu() {
 		this.displayOwnersMenu = !this.displayOwnersMenu
@@ -504,9 +503,9 @@ class IqrTextField extends LitElement {
 					})
 			: () => new Content({})
 	}
-	private getMeta(): Meta | undefined {
-		return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
-	}
+	// private getMeta(): Meta | undefined {
+	// 	return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
+	// }
 }
 
 // Register the new element with the browser.
