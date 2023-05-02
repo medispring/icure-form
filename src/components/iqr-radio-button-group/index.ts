@@ -47,16 +47,14 @@ class IqrRadioButtonGroup extends LitElement {
 		return html`
 			<div class="iqr-text-field">
 				${generateLabel(this.label, this.labelPosition, this.translationProvider)}
-				<div>
-					${this.options?.map(
-						(x) => html`<input class="iqr-checkbox" type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${this.inputValues.includes(
-							this.translationProvider ? this.translationProvider(x.text) : x.text || '',
-						)} @change=${this.checkboxChange} text="${x.text}"></input>
+				${this.options?.map(
+					(x) => html`<div><input class="iqr-checkbox" type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${this.inputValues.includes(
+						this.translationProvider ? this.translationProvider(x.text) : x.text || '',
+					)} @change=${this.checkboxChange} text="${x.text}"></input>
 				<label class="iqr-radio-button-label" for="${x.id}"><span>${
-							!(x instanceof CodeStub) ? (this.translationProvider ? this.translationProvider(x.text) : x.text || '') : ''
-						}</span></label>`,
-					)}
-				</div>
+						!(x instanceof CodeStub) ? (this.translationProvider ? this.translationProvider(x.text) : x.text || '') : ''
+					}</span></label></div>`,
+				)}
 			</div>
 		`
 	}
