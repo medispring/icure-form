@@ -6,7 +6,7 @@ import baseCss from '../iqr-text-field/styles/style.scss'
 // @ts-ignore
 import kendoCss from '../iqr-text-field/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
-import { versionPicto } from '../iqr-text-field/styles/paths'
+import { dropdownPicto } from '../iqr-text-field/styles/paths'
 import { CodeStub, Content } from '@icure/api'
 import { OptionCode } from '../common'
 import { generateLabel } from '../iqr-label/utils'
@@ -81,7 +81,7 @@ class IqrDropdownField extends LitElement {
 												${this.options?.map(
 													(x) =>
 														html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="item">
-															${!(x instanceof CodeStub) ? this.translationProvider(x?.text) : x?.label?.['fr'] || ''}
+															${!(x instanceof CodeStub) ? (this.translate ? this.translationProvider(x.text) : x.text || '') : ''}
 														</button>`,
 												)}
 											</div>
