@@ -330,40 +330,40 @@ h3 {
 	fill: #274768;
 }
 
-.extra .buttons-container .menu-container .btn:hover::after {
-	content: attr(data-content);
-	position: absolute;
-	top: -22px;
-	height: 16px;
-	left: 50%;
-	transform: translateX(-50%);
-	border-radius: 8px;
-	background: #274768;
-	color: white;
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	text-transform: capitalize;
-	white-space: nowrap;
-	padding: 0 12px;
-	font-size: 12px;
-	line-height: 0;
-}
+// .extra .buttons-container .menu-container .btn:hover::after {
+// 	content: attr(data-content);
+// 	position: absolute;
+// 	top: -22px;
+// 	height: 16px;
+// 	left: 50%;
+// 	transform: translateX(-50%);
+// 	border-radius: 8px;
+// 	background: #274768;
+// 	color: white;
+// 	display: flex;
+// 	flex-flow: row wrap;
+// 	align-items: center;
+// 	text-transform: capitalize;
+// 	white-space: nowrap;
+// 	padding: 0 12px;
+// 	font-size: 12px;
+// 	line-height: 0;
+// }
 
 .extra .buttons-container .btn:focus, .extra .buttons-container .btn:focus-within {
 	border: none;
 	outline: none;
 }
 
-.extra .buttons-container .menu-container .btn:hover::before {
-	content: '';
-	display: block;
-	border-color: #274768 transparent transparent transparent;
-	border-style: solid;
-	border-width: 4px;
-	position: absolute;
-	top: -6px;
-}
+// .extra .buttons-container .menu-container .btn:hover::before {
+// 	content: '';
+// 	display: block;
+// 	border-color: #274768 transparent transparent transparent;
+// 	border-style: solid;
+// 	border-width: 4px;
+// 	position: absolute;
+// 	top: -6px;
+// }
 
 @keyframes slideIn {
 	0% {

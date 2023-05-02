@@ -74,7 +74,7 @@ class IqrDropdownField extends LitElement {
 					<div id="extra" class=${'extra forced'}>
 						<div class="buttons-container">
 							<div class="menu-container">
-								<button class="btn menu-trigger">${versionPicto}</button>
+								<button class="btn menu-trigger">${dropdownPicto}</button>
 								${this.displayMenu
 									? html`
 											<div id="menu" class="menu">

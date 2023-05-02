@@ -40,3 +40,7 @@ export const datePicto = html`<svg width="10" height="10" viewBox="0 0 10 10" fi
 export const markPicto = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 	<path fill="none" stroke="white" stroke-linecap="square" stroke-linejoin="square" stroke-width="2" d="M3,8 l3,3 l7-7" />
 </svg>`
+
+export const dropdownPicto = html`<?xml version="1.0" ?><svg height="30" viewBox="0 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg">
+		<path d="M2 10l10 10 10-10z" />
+	</svg>`
