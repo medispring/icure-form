@@ -15,6 +15,7 @@ export class RadioButton extends LitElement {
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -36,6 +37,7 @@ export class RadioButton extends LitElement {
 					label="${this.label}"
 					.options="${this.options}"
 					value="${this.value}"
+					defaultLanguage="${this.defaultLanguage}"
 					.valueProvider=${() => versionedValue}
 					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 					.translationProvider=${this.translationProvider}

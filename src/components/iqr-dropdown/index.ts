@@ -24,6 +24,9 @@ class IqrDropdownField extends LitElement {
 
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
+	@property() defaultLanguage = 'en'
+
+	@state() protected displayedLanguage = this.defaultLanguage
 
 	@state() protected displayMenu = false
 
@@ -52,7 +55,7 @@ class IqrDropdownField extends LitElement {
 				this.inputValue = (!(option instanceof CodeStub) ? option?.text : option?.label?.['fr']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
-					this.handleValueChanged?.('en', {
+					this.handleValueChanged?.(this.displayedLanguage, {
 						asString: this.inputValue,
 						value: new Content({
 							stringValue: this.inputValue,
@@ -104,7 +107,7 @@ class IqrDropdownField extends LitElement {
 			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
 			this.value =
 				this.options?.find((option) => {
-					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translationProvider(option?.label?.['fr'] || '') === this.inputValue
+					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translationProvider(option?.label?.[this.displayedLanguage] || '') === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) this.inputValue = this.value
 	}

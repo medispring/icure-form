@@ -29,6 +29,7 @@ class Textfield extends LitElement {
 	@property() metaProvider?: () => VersionedMeta[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles() {
 		return [
@@ -47,6 +48,7 @@ class Textfield extends LitElement {
 				label="${this.label}"
 				labels="${this.labels}"
 				value="${this.value}"
+				defaultLanguage="${this.defaultLanguage}"
 				schema="${'text-document'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}

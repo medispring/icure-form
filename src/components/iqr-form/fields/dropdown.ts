@@ -30,6 +30,7 @@ export class DropdownField extends LitElement {
 
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
@@ -49,6 +50,7 @@ export class DropdownField extends LitElement {
 						.labelPosition=${this.labelPosition}
 						.optionProvider=${this.optionProvider}
 						.translationProvider=${this.translationProvider}
+						defaultLanguage="${this.defaultLanguage}"
 					></iqr-dropdown-field>
 				`,
 		)

@@ -17,6 +17,7 @@ export class MeasureField extends LitElement {
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -36,6 +37,7 @@ export class MeasureField extends LitElement {
 					.labels="${this.labels}"
 					label="${this.label}"
 					schema="measure"
+					defaultLanguage="${this.defaultLanguage}"
 					value="${this.value} ${this.unit}"
 					.valueProvider=${() => versionedValue}
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}

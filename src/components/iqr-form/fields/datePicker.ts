@@ -13,6 +13,7 @@ export class DatePicker extends LitElement {
 	@property() translationProvider: (text: string) => string = (text) => text
 	@property() labels?: Labels = undefined
 	@property() value?: string = ''
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -38,6 +39,7 @@ export class DatePicker extends LitElement {
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				.handleMetaChanged=${this.handleMetaChanged}
 				.translationProvider=${this.translationProvider}
+				defaultLanguage="${this.defaultLanguage}"
 			></iqr-text-field>`
 		})
 	}

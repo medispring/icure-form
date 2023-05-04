@@ -24,10 +24,12 @@ class IqrRadioButtonGroup extends LitElement {
 
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
+	@property() defaultLanguage = 'en'
 
 	@state() protected displayMenu = false
 
 	@state() protected inputValues: string[] = []
+	@state() protected displayedLanguage = this.defaultLanguage
 
 	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
@@ -78,7 +80,7 @@ class IqrRadioButtonGroup extends LitElement {
 		if (this.handleValueChanged) {
 			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join('|')
-			this.handleValueChanged?.('en', {
+			this.handleValueChanged?.(this.displayedLanguage, {
 				asString: value,
 				value: new Content({
 					stringValue: this.translationProvider(value),
