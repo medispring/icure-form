@@ -6,10 +6,10 @@ import baseCss from '../iqr-text-field/styles/style.scss'
 // @ts-ignore
 import kendoCss from '../iqr-text-field/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
-import { dropdownPicto } from '../iqr-text-field/styles/paths'
 import { CodeStub, Content } from '@icure/api'
 import { OptionCode } from '../common'
 import { generateLabel } from '../iqr-label/utils'
+import { dropdownPicto } from '../iqr-text-field/styles/paths'
 
 class IqrDropdownField extends LitElement {
 	@property() options?: (OptionCode | CodeStub)[] = []
@@ -69,26 +69,22 @@ class IqrDropdownField extends LitElement {
 		return html`
 			<div id="root" class="iqr-text-field ${this.inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${generateLabel(this.label, this.labelPosition, this.translationProvider)}
-				<div class="iqr-input" @click="${this.togglePopup}">
+				<div class="iqr-input" @click="${this.togglePopup}" id="test">
 					<div id="editor">${this.inputValue}</div>
 					<div id="extra" class=${'extra forced'}>
-						<div class="buttons-container">
-							<div class="menu-container">
-								<button class="btn menu-trigger">${dropdownPicto}</button>
-								${this.displayMenu
-									? html`
-											<div id="menu" class="menu">
-												${this.options?.map(
-													(x) =>
-														html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="item">
-															${!(x instanceof CodeStub) ? (this.translate ? this.translationProvider(x.text) : x.text || '') : ''}
-														</button>`,
-												)}
-											</div>
-									  `
-									: ''}
-							</div>
-						</div>
+						<button class="btn select-arrow">${dropdownPicto}</button>
+						${this.displayMenu
+							? html`
+									<div id="menu" class="options">
+										${this.options?.map(
+											(x) =>
+												html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option">
+													${!(x instanceof CodeStub) ? (this.translate ? this.translationProvider(x.text) : x.text || '') : ''}
+												</button>`,
+										)}
+									</div>
+							  `
+							: ''}
 					</div>
 				</div>
 			</div>
@@ -96,6 +92,12 @@ class IqrDropdownField extends LitElement {
 	}
 
 	public firstUpdated(): void {
+		document.addEventListener('click', (event) => {
+			if (!event.composedPath().includes(this)) {
+				this.displayMenu = false
+				event.stopPropagation()
+			}
+		})
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
