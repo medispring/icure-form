@@ -62,7 +62,7 @@ export const render: Renderer = (
 		}
 		if (fg.clazz === 'group' && fg.fields) {
 			const fieldsOrGroupByRows = groupFieldsOrGroupByRows(fg.fields)
-			return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}">
+			return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width)}">
 				${h(level, html`${fg.group}`)}
 				${fieldsOrGroupByRows.map((fieldsOrGroupRow) => fieldsOrGroupRow.map((fieldOrGroup) => renderFieldOrGroup(fieldOrGroup, level + 1, sumColumnsOfFields(fieldsOrGroupRow))))}
 			</div>`
@@ -75,12 +75,11 @@ export const render: Renderer = (
 			return html`${fg.type === 'textfield'
 				? html`<iqr-form-textfield
 						class="iqr-form-field"
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
 						multiline="${fg.multiline || false}"
-						grows="${fg.grows || false}"
 						defaultLanguage="${props.defaultLanguage}"
 						.linksProvider=${fg.options?.linksProvider}
 						.suggestionProvider=${fg.options?.suggestionProvider}
@@ -96,7 +95,7 @@ export const render: Renderer = (
 				  ></iqr-form-textfield>`
 				: fg.type === 'measure-field'
 				? html`<iqr-form-measure-field
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -111,7 +110,7 @@ export const render: Renderer = (
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
 				? html`<iqr-form-number-field
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -125,7 +124,7 @@ export const render: Renderer = (
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
 				? html`<iqr-form-date-picker
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -139,7 +138,7 @@ export const render: Renderer = (
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
 				? html`<iqr-form-time-picker
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -153,7 +152,7 @@ export const render: Renderer = (
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
 				? html`<iqr-form-date-time-picker
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -167,7 +166,7 @@ export const render: Renderer = (
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'
 				? html`<iqr-form-multiple-choice
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -179,7 +178,7 @@ export const render: Renderer = (
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						defaultLanguage="${props.defaultLanguage}"
 						.label="${fg.field}"
@@ -192,7 +191,7 @@ export const render: Renderer = (
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -207,7 +206,7 @@ export const render: Renderer = (
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
@@ -222,7 +221,7 @@ export const render: Renderer = (
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
 				? html`<iqr-form-label
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.translationProvider=${translationProvider}
@@ -232,8 +231,9 @@ export const render: Renderer = (
 		return html``
 	}
 
-	const calculateFieldOrGroupWidth = (columns: number, fieldsInRow: number) => {
-		return `--width: ${(100 / fieldsInRow) * (columns || 0)}%`
+	const calculateFieldOrGroupWidth = (columns: number, fieldsInRow: number, fieldWidth?: number, shouldFieldGrow?: boolean) => {
+		if (fieldWidth && fieldWidth > 0) return `--width: ${fieldWidth}px; --grows: ${Number(shouldFieldGrow)}`
+		return `--width: ${(100 / fieldsInRow) * (columns || 0)}%; --grows: ${Number(shouldFieldGrow)}`
 	}
 
 	const renderForm = (form: Form) => {

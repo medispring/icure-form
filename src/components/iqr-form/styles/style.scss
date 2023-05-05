@@ -18,17 +18,17 @@
 	}
 
 	iqr-form-textfield, iqr-form-date-picker, iqr-form-number-field, iqr-form-measure-field, iqr-form-time-picker, iqr-form-date-time-picker, iqr-form-multiple-choice, iqr-form-dropdown-field, iqr-form-dropdown-field, iqr-form-radio-button, iqr-form-checkbox {
-		flex: 1 1 calc(var(--width) - 20px);
+		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10PX 10PX 10PX;
 	}
 
 	iqr-form-radio-button {
-		flex: 1 1 calc(var(--width) - 20px);
+		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10px 8px 10px;
 	}
 
 	iqr-form-checkbox {
-		flex: 1 1 calc(var(--width) - 20px);
+		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10px 11px 10px;
 	}
 
