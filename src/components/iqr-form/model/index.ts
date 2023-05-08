@@ -73,7 +73,7 @@ export abstract class Field {
 		this.multiline = multiline
 		this.hideCondition = hideCondition
 		this.now = now
-		this.translate = translate || true
+		this.translate = translate ?? true
 		this.width = width
 	}
 

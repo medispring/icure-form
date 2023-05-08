@@ -21,6 +21,7 @@ class IqrDropdownField extends LitElement {
 	@property({ type: String }) codifications = ''
 
 	@property({ type: String }) value = ''
+	@property({ type: Boolean }) translate = true
 
 	@property() label = ''
 	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'

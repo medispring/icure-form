@@ -181,6 +181,7 @@ export const render: Renderer = (
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						defaultLanguage="${props.defaultLanguage}"
+						.translate="${fg.translate}"
 						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
