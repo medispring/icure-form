@@ -83,7 +83,7 @@ class IqrRadioButtonGroup extends LitElement {
 			this.handleValueChanged?.(this.displayedLanguage, {
 				asString: value,
 				value: new Content({
-					stringValue: this.translationProvider(value),
+					stringValue: value,
 				}),
 			})
 		}

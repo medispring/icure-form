@@ -27,6 +27,7 @@ import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
+import { HealthcareParty } from '@icure/api'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -37,6 +38,7 @@ export const render: Renderer = (
 	formsValueContainer?: FormValuesContainer,
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
 	translationProvider: (text: string) => string = (text) => text,
+	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -79,7 +81,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						multiline="${fg.multiline || false}"
+						.multiline="${fg.multiline || false}"
 						defaultLanguage="${props.defaultLanguage}"
 						.linksProvider=${fg.options?.linksProvider}
 						.suggestionProvider=${fg.options?.suggestionProvider}
@@ -185,6 +187,7 @@ export const render: Renderer = (
 						.label="${fg.field}"
 						.labels="${fg.labels}"
 						.options="${dropdownOptionMapper(fg)}"
+						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDropdownFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"

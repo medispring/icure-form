@@ -53,7 +53,7 @@ class IqrDropdownField extends LitElement {
 			if (id) {
 				const option = (this.options || []).find((option) => option.id === id)
 				this.value = id
-				this.inputValue = (!(option instanceof CodeStub) ? option?.text : option?.label?.['fr']) ?? ''
+				this.inputValue = (!(option instanceof CodeStub) ? (this.translate ? this.translationProvider(option?.text || '') : option?.text) : option?.label?.['fr']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
 					this.handleValueChanged?.(this.displayedLanguage, {

@@ -373,8 +373,7 @@ class IqrTextField extends LitElement {
 				},
 				editable: (state) => {
 					const { $from } = state.selection
-					// Empêche l'édition pour tous les nœuds sauf myCustomNode
-					return $from.depth > 0 && ($from.parent.type.spec.editable ?? true) ? true : false
+					return $from.parent.type.spec.editable ?? true ? true : false
 				},
 			})
 		}
@@ -501,7 +500,10 @@ class IqrTextField extends LitElement {
 					new Content({
 						stringValue: doc?.textContent,
 					})
-			: () => new Content({})
+			: (doc?: ProsemirrorNode) =>
+					new Content({
+						stringValue: doc?.textContent,
+					})
 	}
 	// private getMeta(): Meta | undefined {
 	// 	return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined

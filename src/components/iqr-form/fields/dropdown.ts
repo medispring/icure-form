@@ -9,7 +9,7 @@ import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
 // @ts-ignore
 import { OptionCode } from '../../iqr-dropdown'
-import { Content } from '@icure/api'
+import { Content, HealthcareParty } from '@icure/api'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -30,6 +30,7 @@ export class DropdownField extends LitElement {
 
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
+	@property() ownersProvider: (speciality: string[]) => HealthcareParty[] = () => []
 	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
@@ -50,6 +51,7 @@ export class DropdownField extends LitElement {
 						.labelPosition=${this.labelPosition}
 						.optionProvider=${this.optionProvider}
 						.translationProvider=${this.translationProvider}
+						.ownersProvider=${this.ownersProvider}
 						defaultLanguage="${this.defaultLanguage}"
 					></iqr-dropdown-field>
 				`,

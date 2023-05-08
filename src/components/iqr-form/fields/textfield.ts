@@ -49,7 +49,7 @@ class Textfield extends LitElement {
 				labels="${this.labels}"
 				value="${this.value}"
 				defaultLanguage="${this.defaultLanguage}"
-				schema="${'text-document'}"
+				schema="${this.multiline ? 'text-document' : 'styled-text-with-codes'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}
