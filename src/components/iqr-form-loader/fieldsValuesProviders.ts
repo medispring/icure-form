@@ -89,7 +89,7 @@ export function handleMeasureFieldValueChangedProvider(
 				sId,
 				language,
 				content.value ?? new Content({ measureValue: { value: content.asString.split(' ')[0] || '', unit: content.asString.split(' ')[1] || '' } }),
-				codes,
+				[...codes.filter(code => code.type!=="CD-UNIT"),new CodeStub({ id: "CD-UNIT|"+content.asString.split(' ')[1]||''+"|1", type: "CD-UNIT", code: content.asString.split(' ')[1]||'', version: "1" })],
 				(field.tags ?? []).map((s) => {
 					const parts = s.split('|')
 					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
