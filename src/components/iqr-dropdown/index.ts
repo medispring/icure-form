@@ -33,9 +33,9 @@ class IqrDropdownField extends LitElement {
 
 	@state() protected inputValue = ''
 
-	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }, code?: CodeStub) => void = undefined
 
-	@property() optionProvider: () => Promise<OptionCode[]> = async () => []
+	@property() optionsProvider: (codifications: string[], searchTerm?: string) => Promise<CodeStub[]> = async () => []
 	@property() translationProvider: (text: string) => string = (text) => text
 
 	static get styles(): CSSResultGroup[] {
@@ -53,15 +53,33 @@ class IqrDropdownField extends LitElement {
 			if (id) {
 				const option = (this.options || []).find((option) => option.id === id)
 				this.value = id
-				this.inputValue = (!(option instanceof CodeStub) ? (this.translate ? this.translationProvider(option?.text || '') : option?.text) : option?.label?.['fr']) ?? ''
+				this.inputValue =
+					(!(option instanceof CodeStub) ? (this.translate ? this.translationProvider(option?.text || '') : option?.text) : option?.label?.[this.displayedLanguage]) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
-					this.handleValueChanged?.(this.displayedLanguage, {
-						asString: this.inputValue,
-						value: new Content({
-							stringValue: this.inputValue,
-						}),
-					})
+					if (option instanceof CodeStub) {
+						this.handleValueChanged?.(
+							this.displayedLanguage,
+							{
+								asString: this.inputValue,
+								value: new Content({
+									stringValue: this.inputValue,
+								}),
+							},
+							option,
+						)
+					} else {
+						this.handleValueChanged?.(
+							this.displayedLanguage,
+							{
+								asString: this.inputValue,
+								value: new Content({
+									stringValue: this.inputValue,
+								}),
+							},
+							new CodeStub({ id: 'CUSTOM_OPTION|' + this.value + '|1', type: 'CUSTOM_OPTION', code: this.value, version: '1' }),
+						)
+					}
 				}
 				return true
 			}
@@ -83,7 +101,7 @@ class IqrDropdownField extends LitElement {
 										${this.options?.map(
 											(x) =>
 												html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option">
-													${!(x instanceof CodeStub) ? (this.translate ? this.translationProvider(x.text) : x.text || '') : ''}
+													${!(x instanceof CodeStub) ? (this.translate ? this.translationProvider(x.text) : x.text || '') : x?.label?.[this.displayedLanguage] || ''}
 												</button>`,
 										)}
 									</div>

@@ -24,6 +24,7 @@ import { Renderer } from './renderer'
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
 import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
+import { CodeStub } from '@icure/api'
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {
@@ -36,6 +37,7 @@ class IqrForm extends LitElement {
 	@property() formValuesContainer?: FormValuesContainer = undefined
 	@property() formValuesContainerChanged?: (newValue: FormValuesContainer) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
+	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([])
 
 	constructor() {
 		super()
@@ -63,6 +65,8 @@ class IqrForm extends LitElement {
 					this.formValuesContainer,
 					(newValue) => this.formValuesContainerChanged?.(newValue),
 					this.translationProvider,
+					() => [],
+					this.codesProvider,
 			  )
 			: this.form
 			? html`<p>unknown renderer</p>`

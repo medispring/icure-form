@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { IccHcpartyXApi } from '@icure/api'
+import { CodeStub, IccHcpartyXApi } from '@icure/api'
 // @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
@@ -58,6 +58,15 @@ const icpc2 = {
 	Y: 'XVIII',
 	Z: 'XXI',
 }
+
+const ultrasound = [
+	{ id: 'ULTRASOUND-EVALUATION|01|1', code: '01', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.EMPTY-CAVITY' } },
+	{ id: 'ULTRASOUND-EVALUATION|02|1', code: '02', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.CLOTS' } },
+	{ id: 'ULTRASOUND-EVALUATION|03|1', code: '03', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.RETENTION' } },
+	{ id: 'ULTRASOUND-EVALUATION|04|1', code: '04', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.NON-PROGRESSIVE-PREGNANCY' } },
+	{ id: 'ULTRASOUND-EVALUATION|05|1', code: '05', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.PROGRESSIVE-PREGNANCY' } },
+	{ id: 'ULTRASOUND-EVALUATION|06|1', code: '06', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.DIFFUSE-IMAGE' } },
+]
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
@@ -158,6 +167,13 @@ class DemoApp extends LitElement {
 		console.log(stringToTranslate)
 		return stringToTranslate
 	}
+	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {
+		const codes: CodeStub[] = []
+		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
+			ultrasound.map((x) => codes.push(new CodeStub(x)))
+		}
+		return codes
+	}
 
 	render() {
 		// noinspection DuplicatedCode
@@ -230,6 +246,7 @@ class DemoApp extends LitElement {
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
+				.codesProvider="${this.codesProvider.bind(this)}"
 			></iqr-form>
 		`
 	}

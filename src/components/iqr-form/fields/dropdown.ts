@@ -9,7 +9,7 @@ import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
 // @ts-ignore
 import { OptionCode } from '../../iqr-dropdown'
-import { Content, HealthcareParty } from '@icure/api'
+import { CodeStub, Content, HealthcareParty } from '@icure/api'
 
 export class DropdownField extends LitElement {
 	@property() labels: Labels = {
@@ -17,18 +17,18 @@ export class DropdownField extends LitElement {
 	}
 	@property() label = ''
 	@property() labelPosition?: string = undefined
-	@property() options?: OptionCode[] = []
+	@property() options?: (OptionCode | CodeStub)[] = []
 
 	@property() placeholder = ''
 
-	@property() optionProvider: () => Promise<OptionCode[]> = async () => this.options || []
-
+	@property() optionsProvider: (codifications: string[], searchTerm?: string) => Promise<CodeStub[]> = async () => this.options || []
+	@property() codifications: string[] = []
 	@property() valueProvider?: () => VersionedValue[] = undefined
 
 	@property() value = ''
 	@property() translate = true
 
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }, codes: CodeStub[]) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
 	@property() ownersProvider: (speciality: string[]) => HealthcareParty[] = () => []
 	@property() defaultLanguage?: string = 'en'
@@ -47,9 +47,10 @@ export class DropdownField extends LitElement {
 						.translate="${this.translate}"
 						.options="${this.options}"
 						.valueProvider=${() => versionedValue}
-						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, code?: CodeStub) =>
+							this.handleValueChanged?.(versionedValue?.id, language, value, code ? [code] : [])}
 						.labelPosition=${this.labelPosition}
-						.optionProvider=${this.optionProvider}
+						.optionsProvider=${this.optionsProvider}
 						.translationProvider=${this.translationProvider}
 						.ownersProvider=${this.ownersProvider}
 						defaultLanguage="${this.defaultLanguage}"
@@ -57,11 +58,10 @@ export class DropdownField extends LitElement {
 				`,
 		)
 	}
-	//.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
 	public async firstUpdated(): Promise<void> {
-		if (this.options === undefined || this.options.length === 0) {
-			this.options = await this.optionProvider()
+		if ((this.options === undefined || this.options.length === 0) && this.optionsProvider) {
+			this.options = await this.optionsProvider(this.codifications || [])
 		}
 	}
 }

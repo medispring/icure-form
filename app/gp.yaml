@@ -30,7 +30,7 @@
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
         - field: abortion-forms.field-labels.CONTRACEPTIVE-DURING-CONTROL
-          type: checkbox
+          type: radio-button
           options:
             kiud: abortion-forms.field-options.sKIUD
             hiud: abortion-forms.field-options.HIUD
@@ -66,15 +66,10 @@
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameFutureContraceptiveNumber|1
         - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
           type: dropdown
-          options:
-            '01': abortion-forms.field-options.EMPTY-CAVITY
-            '02': abortion-forms.field-options.CLOTS
-            '03': abortion-forms.field-options.RETENTION
-            '04': abortion-forms.field-options.NON-PROGRESSIVE-PREGNANCY
-            '05': abortion-forms.field-options.PROGRESSIVE-PREGNANCY
-            '06': abortion-forms.field-options.DIFFUSE-IMAGE
           rows: 5
           columns: 1
+          codifications :
+            - ULTRASOUND-EVALUATION
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|resultOfUltrasound|1
         - field: abortion-forms.field-labels.COMPLICATION

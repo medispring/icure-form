@@ -194,29 +194,6 @@ export function handleTimeFieldValueChangedProvider(
 	}
 }
 
-export function handleDropdownFieldValueChangedProvider(
-	field: Field,
-	formValuesContainer: FormValuesContainer,
-	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
-): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
-	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
-		const sId = serviceId ?? uuid()
-		formValuesContainerChanged(
-			formValuesContainer.setValue(
-				field.shortLabel ?? field.label(),
-				sId,
-				language,
-				content.value ?? new Content({ stringValue: content.asString }),
-				codes,
-				(field.tags ?? []).map((s) => {
-					const parts = s.split('|')
-					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
-				}),
-			),
-		)
-	}
-}
-
 export function handleRadioButtonFieldValueChangedProvider(
 	field: Field,
 	formValuesContainer: FormValuesContainer,

@@ -15,7 +15,6 @@ import {
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 	handleRadioButtonFieldValueChangedProvider,
-	handleDropdownFieldValueChangedProvider,
 	handleDateTimeFieldValueChangedProvider,
 	handleMeasureFieldValueChangedProvider,
 	handleNumberFieldValueChangedProvider,
@@ -23,11 +22,11 @@ import {
 	handleTimeFieldValueChangedProvider,
 } from '../../iqr-form-loader'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
-import { dropdownOptionMapper } from '../../iqr-form-loader/fieldsMapper'
+import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
-import { HealthcareParty } from '@icure/api'
+import { CodeStub, HealthcareParty } from '@icure/api'
 
 const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -39,6 +38,7 @@ export const render: Renderer = (
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
 	translationProvider: (text: string) => string = (text) => text,
 	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
+	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -186,10 +186,12 @@ export const render: Renderer = (
 						.translate="${fg.translate}"
 						.label="${fg.field}"
 						.labels="${fg.labels}"
-						.options="${dropdownOptionMapper(fg)}"
+						.options="${optionMapper(fg)}"
+						.codifications="${fg.codifications}"
+						.optionsProvider="${codesProvider}"
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDropdownFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 				  ></iqr-form-dropdown-field>`
@@ -199,7 +201,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						.options="${dropdownOptionMapper(fg)}"
+						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						defaultLanguage="${props.defaultLanguage}"
 						.handleValueChanged=${formsValueContainer &&
@@ -214,7 +216,7 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
-						.options="${dropdownOptionMapper(fg)}"
+						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						defaultLanguage="${props.defaultLanguage}"
 						.handleValueChanged=${formsValueContainer &&
