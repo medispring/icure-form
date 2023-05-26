@@ -14,7 +14,6 @@ import {
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
-	handleRadioButtonFieldValueChangedProvider,
 	handleDateTimeFieldValueChangedProvider,
 	handleMeasureFieldValueChangedProvider,
 	handleNumberFieldValueChangedProvider,
@@ -182,18 +181,18 @@ export const render: Renderer = (
 				? html`<iqr-form-dropdown-field
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
+						.label=${fg.field}
+						.labels=${fg.labels}
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"
-						.label="${fg.field}"
-						.labels="${fg.labels}"
 						.options="${optionMapper(fg)}"
+						value="${fg.value}"
 						.codifications="${fg.codifications}"
-						.optionsProvider="${codesProvider}"
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.optionsProvider=${codesProvider}
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
-						.translationProvider=${translationProvider}
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
@@ -201,14 +200,16 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						defaultLanguage="${props.defaultLanguage}"
+						.translate="${fg.translate}"
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
-						defaultLanguage="${props.defaultLanguage}"
-						.handleValueChanged=${formsValueContainer &&
-						formValuesContainerChanged &&
-						handleRadioButtonFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
-						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.codifications="${fg.codifications}"
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.optionsProvider=${codesProvider}
+						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
+						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
@@ -219,9 +220,7 @@ export const render: Renderer = (
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						defaultLanguage="${props.defaultLanguage}"
-						.handleValueChanged=${formsValueContainer &&
-						formValuesContainerChanged &&
-						handleRadioButtonFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 				  ></iqr-form-checkbox>`

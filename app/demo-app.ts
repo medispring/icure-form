@@ -164,7 +164,6 @@ class DemoApp extends LitElement {
 	}
 
 	translationProvider(stringToTranslate: string) {
-		console.log(stringToTranslate)
 		return stringToTranslate
 	}
 	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {

@@ -1,11 +1,9 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
-import { property } from 'lit/decorators.js'
+import { css, CSSResultGroup, html, TemplateResult } from 'lit'
 import '../../iqr-label'
+import { LabelizedField } from '../../common/labelizedField'
 
-export class Label extends LitElement {
-	@property() label = ''
-	@property() labelPosition?: string = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
+export class Label extends LabelizedField {
+	//override
 	static get styles(): CSSResultGroup[] {
 		return [
 			css`

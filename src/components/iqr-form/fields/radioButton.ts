@@ -2,20 +2,37 @@ import { css, CSSResultGroup, html, LitElement } from 'lit'
 import { property } from 'lit/decorators.js'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
-import { Labels, VersionedValue } from '../../iqr-text-field'
+import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import { OptionCode } from '../../common'
-import { Content } from '@icure/api'
+import { CodeStub, Content } from '@icure/api'
 
 export class RadioButton extends LitElement {
+	/**
+	 * Para-variables of the input field
+	 */
+	@property() labels: Labels = {
+		[LabelPosition.float]: '',
+	}
 	@property() label = ''
 	@property() labelPosition?: string = undefined
-	@property() labels?: Labels = undefined
-	@property() options?: OptionCode[] = []
-	@property() value?: string = ''
-	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
+	/**
+	 * Translation variables
+	 */
 	@property() defaultLanguage?: string = 'en'
+	/**
+	 * Input parameters
+	 */
+	@property() options?: (OptionCode | CodeStub)[] = []
+	@property() codifications?: string[] = []
+	@property() value?: string = ''
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+
+	/**
+	 * Providers for the input field
+	 */
+	@property() valueProvider?: () => VersionedValue[] = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
+	@property() optionsProvider: (codifications: string[], searchTerm?: string) => Promise<CodeStub[]> = async () => this.options || []
 
 	static get styles(): CSSResultGroup[] {
 		return [
