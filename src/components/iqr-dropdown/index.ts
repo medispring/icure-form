@@ -32,7 +32,7 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 				if (this.handleValueChanged) {
 					if (option instanceof CodeStub) {
 						this.handleValueChanged?.(
-							this.displayedLanguage || 'en',
+							this.displayedLanguage || this.defaultLanguage || 'en',
 							{
 								asString: this.inputValue,
 								content: new Content({
@@ -44,7 +44,7 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 						)
 					} else {
 						this.handleValueChanged?.(
-							this.displayedLanguage || 'en',
+							this.displayedLanguage || this.defaultLanguage || 'en',
 							{
 								asString: this.inputValue,
 								content: new Content({

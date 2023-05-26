@@ -65,7 +65,7 @@
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameFutureContraceptiveNumber|1
         - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
-          type: dropdown
+          type: checkbox
           rows: 5
           columns: 1
           codifications :

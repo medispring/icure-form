@@ -217,12 +217,16 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.labels="${fg.labels}"
+						defaultLanguage="${props.defaultLanguage}"
+						.translate="${fg.translate}"
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
-						defaultLanguage="${props.defaultLanguage}"
+						.codifications="${fg.codifications}"
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
-						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.optionsProvider=${codesProvider}
+						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
+						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
 				? html`<iqr-form-label

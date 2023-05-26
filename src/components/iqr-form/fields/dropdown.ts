@@ -25,6 +25,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 						.translationProvider=${this.translationProvider}
 						.ownersProvider=${this.ownersProvider}
 						defaultLanguage="${this.defaultLanguage}"
+						.codifications=${this.codifications}
 					></iqr-dropdown-field>
 				`,
 		)

@@ -1,48 +1,11 @@
-import { css, CSSResultGroup, html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
+import { html } from 'lit'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
-import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
-import { OptionCode } from '../../common'
+import { VersionedValue } from '../../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
+import { OptionsField } from '../../common/optionsField'
 
-export class RadioButton extends LitElement {
-	/**
-	 * Para-variables of the input field
-	 */
-	@property() labels: Labels = {
-		[LabelPosition.float]: '',
-	}
-	@property() label = ''
-	@property() labelPosition?: string = undefined
-	/**
-	 * Translation variables
-	 */
-	@property() defaultLanguage?: string = 'en'
-	/**
-	 * Input parameters
-	 */
-	@property() options?: (OptionCode | CodeStub)[] = []
-	@property() codifications?: string[] = []
-	@property() value?: string = ''
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
-
-	/**
-	 * Providers for the input field
-	 */
-	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
-	@property() optionsProvider: (codifications: string[], searchTerm?: string) => Promise<CodeStub[]> = async () => this.options || []
-
-	static get styles(): CSSResultGroup[] {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
-	}
-
+export class RadioButton extends OptionsField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
@@ -56,11 +19,20 @@ export class RadioButton extends LitElement {
 					value="${this.value}"
 					defaultLanguage="${this.defaultLanguage}"
 					.valueProvider=${() => versionedValue}
-					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
+						this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
 					.translationProvider=${this.translationProvider}
+					.codifications=${this.codifications}
+					.optionsProvider=${this.optionsProvider}
 				></iqr-radio-button>
 			`
 		})
+	}
+
+	public async firstUpdated(): Promise<void> {
+		if (this.options === undefined || this.options.length === 0) {
+			this.options = await this.fetchInitialsOptions()
+		}
 	}
 }
 

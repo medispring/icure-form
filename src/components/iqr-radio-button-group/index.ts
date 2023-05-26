@@ -1,6 +1,5 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
+import { CSSResultGroup, html, TemplateResult } from 'lit'
 import { property, state } from 'lit/decorators.js'
-
 // @ts-ignore
 import baseCss from '../iqr-radio-button-group/styles/style.scss'
 // @ts-ignore
@@ -8,85 +7,69 @@ import kendoCss from '../iqr-radio-button-group/styles/kendo.scss'
 import { VersionedValue } from '../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { generateLabel } from '../iqr-label/utils'
-import { OptionCode } from '../common'
+import { OptionsField } from '../common/optionsField'
 
-class IqrRadioButtonGroup extends LitElement {
-	@property() options?: OptionCode[] = []
-
-	@property() placeholder = ''
-
-	@property() valueProvider?: () => VersionedValue | undefined = undefined
-
-	@property() codifications = ''
+class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 	@property() type: 'radio' | 'checkbox' = 'radio'
-
-	@property() value = ''
-
-	@property() label = ''
-	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
-	@property() defaultLanguage = 'en'
-
-	@state() protected displayMenu = false
-
 	@state() protected inputValues: string[] = []
-	@state() protected displayedLanguage = this.defaultLanguage
 
-	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
-
+	//override
 	static get styles(): CSSResultGroup[] {
 		return [baseCss, kendoCss]
 	}
 
 	private VALUES_SEPARATOR = '|'
-
-	togglePopup(): void {
-		this.displayMenu = !this.displayMenu
+	public checkboxChange() {
+		if (this.handleValueChanged) {
+			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
+			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join(this.VALUES_SEPARATOR)
+			this.handleValueChanged?.(
+				this.displayedLanguage || this.defaultLanguage || 'en',
+				{
+					asString: value,
+					content: new Content({
+						stringValue: value,
+					}),
+				},
+				undefined,
+				[
+					...(this.options || [])
+						.filter((option) => inputs.find((i) => i.id === option.id))
+						.map((option) =>
+							!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option,
+						),
+				],
+			)
+		}
 	}
-
 	render(): TemplateResult {
-		this.valuesProvider()
 		return html`
 			<div class="iqr-text-field">
-				${generateLabel(this.label, this.labelPosition, this.translationProvider)}
-				${this.options?.map(
-					(x) => html`<div><input class="iqr-checkbox" type="${this.type}" id="${x.id}" name="${this.label}" value="${x.id}" .checked=${this.inputValues.includes(
-						this.translationProvider ? this.translationProvider(x.text) : x.text || '',
-					)} @change=${this.checkboxChange} text="${x.text}"></input>
-				<label class="iqr-radio-button-label" for="${x.id}"><span>${
-						!(x instanceof CodeStub) ? (this.translationProvider ? this.translationProvider(x.text) : x.text || '') : ''
-					}</span></label></div>`,
-				)}
+				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
+				${this.options?.map((x) => {
+					const text = !(x instanceof CodeStub) ? this.translateText(x.text) || '' : this.translateText(x?.label?.[this.displayedLanguage || this.defaultLanguage || 'en'] || '')
+					return html`<div>
+						<input
+							class="iqr-checkbox"
+							type="${this.type}"
+							id="${x.id}"
+							name="${this.label}"
+							value="${!(x instanceof CodeStub) ? x.id : x.code}"
+							.checked=${this.inputValues.includes(text)}
+							@change=${this.checkboxChange}
+							text="${text}"
+						/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
+					</div>`
+				})}
 			</div>
 		`
 	}
-
-	public async firstUpdated(): Promise<void> {
-		const providedValue = this.valueProvider && this.valueProvider()
-		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
-		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
-		}
-	}
-
-	public valuesProvider() {
+	public firstUpdated(): void {
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValues = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]].split(this.VALUES_SEPARATOR)
 		} else if (this.value) this.inputValues = this.value.split(this.VALUES_SEPARATOR)
-	}
-
-	public checkboxChange() {
-		if (this.handleValueChanged) {
-			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
-			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join('|')
-			this.handleValueChanged?.(this.displayedLanguage, {
-				asString: value,
-				value: new Content({
-					stringValue: value,
-				}),
-			})
-		}
 	}
 }
 
