@@ -249,6 +249,7 @@ __metadata:
     "@icure/api": ^4.2.39
     "@types/markdown-it": ^12.2.3
     "@types/mocha": ^10.0.1
+    "@types/node": ^18.16.3
     "@types/uuid": ^9.0.1
     "@typescript-eslint/eslint-plugin": ^5.54.1
     "@typescript-eslint/parser": ^5.54.1
@@ -685,6 +686,13 @@ __metadata:
   version: 15.0.1
   resolution: "@types/node@npm:15.0.1"
   checksum: af8c8ba83e9e56a1aa9db7106b2d05c07fa67fd6bf67490317530e05e9d85e1326e95f702aaf207379b3aaa10be7c68c76dc1ed114932bebdf46fe9c58aa0261
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.16.3":
+  version: 18.16.16
+  resolution: "@types/node@npm:18.16.16"
+  checksum: 0efad726dd1e0bef71c392c708fc5d78c5b39c46b0ac5186fee74de4ccb1b2e847b3fa468da67d62812f56569da721b15bf31bdc795e6c69b56c73a45079ed2d
   languageName: node
   linkType: hard
 
