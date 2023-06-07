@@ -1,18 +1,14 @@
-import { html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
-
+import { html } from 'lit'
 import { generateLabel } from './utils'
+import { LabelizedField } from '../common/labelizedField'
 
-class IqrLabel extends LitElement {
-	@property() label = ''
-	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' | 'left' | 'right' = 'float'
-
+class IqrLabel extends LabelizedField {
 	constructor() {
 		super()
 	}
 
 	render() {
-		return html`${generateLabel(this.label, this.labelPosition)}`
+		return html`${generateLabel(this.label ?? '', this.labelPosition ?? 'float')}`
 	}
 }
 customElements.define('iqr-label', IqrLabel)

@@ -27,9 +27,9 @@ import { maskPlugin } from './plugin/mask-plugin'
 import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../utils/no-lodash'
-import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
-import { languageName } from '../../utils/languages'
 import { generateLabel, generateLabels } from '../iqr-label/utils'
+import { Content, Measure } from '@icure/api'
+import { parse, format } from 'date-fns'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -81,6 +81,7 @@ class IqrTextField extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -97,7 +98,7 @@ class IqrTextField extends LitElement {
 
 	@property() valueProvider?: () => VersionedValue | undefined = undefined
 	@property() metaProvider?: () => VersionedMeta | undefined = undefined
-	@property() handleValueChanged?: (language: string, value: string) => void = undefined
+	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
 	@state() protected displayOwnersMenu = false
@@ -116,7 +117,8 @@ class IqrTextField extends LitElement {
 
 	private proseMirrorSchema?: Schema
 	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
-	private serializer?: MarkdownSerializer
+	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = { serialize: (content: ProsemirrorNode) => content.textContent }
+	private contentMaker: (doc?: ProsemirrorNode) => Content = () => ({})
 
 	private view?: EditorView
 	private container?: HTMLElement
@@ -152,49 +154,50 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				${this.labels ? generateLabels(this.labels) : generateLabel(this.label, this.labelPosition)}
+				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
-					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
-						<div class="info">~${this.owner}</div>
-						<div class="buttons-container">
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
-								${this.displayOwnersMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-												${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="1.0" class="btn version">${versionPicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
-								${this.displayLanguagesMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input /></div>
-												${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<slot></slot>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		`
 	}
+
+	// 	<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
+	// 	<div class="info">~${this.owner}</div>
+	// 	<div class="buttons-container">
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
+	// 			${this.displayOwnersMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
+	// 							${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="1.0" class="btn version">${versionPicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
+	// 			${this.displayLanguagesMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input /></div>
+	// 							${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<slot></slot>
+	// 		</div>
+	// 	</div>
+	// </div>
 
 	toggleOwnerMenu() {
 		this.displayOwnersMenu = !this.displayOwnersMenu
@@ -245,6 +248,8 @@ class IqrTextField extends LitElement {
 		))
 
 		this.parser = this.makeParser(pms)
+		this.contentMaker = this.makeContentMaker(pms)
+
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
 		if (this.container) {
@@ -275,7 +280,7 @@ class IqrTextField extends LitElement {
 				this.displayedLanguage = this.availableLanguages[0]
 			}
 
-			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || '' : this.value) ?? undefined
+			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || this.value || '' : this.value) ?? undefined
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
@@ -352,13 +357,23 @@ class IqrTextField extends LitElement {
 						.map((x) => x as Plugin),
 				}),
 				dispatchTransaction: (tr) => {
+					console.log(tr)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
-					//this.view && console.log(JSON.stringify(this.view.state.doc.toJSON(), null, 2));
+					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
-						setTimeout(() => this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, this.serializer?.serialize(tr.doc) ?? tr.doc.textContent), 800)
+						setTimeout(
+							() =>
+								// eslint-disable-next-line max-len
+								this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, { asString: this.serializer.serialize(tr.doc), value: this.contentMaker?.(tr.doc) }),
+							800,
+						)
 					}
+				},
+				editable: (state) => {
+					const { $from } = state.selection
+					return $from.parent.type.spec.editable ?? true ? true : false
 				},
 			})
 		}
@@ -458,9 +473,41 @@ class IqrTextField extends LitElement {
 			  )
 	}
 
-	private getMeta(): Meta | undefined {
-		return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
+	private makeContentMaker(pms: Schema) {
+		return this.schema === 'date'
+			? (doc?: ProsemirrorNode) =>
+					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy', new Date()), 'yyyyMMdd') : undefined })
+			: this.schema === 'time'
+			? (doc?: ProsemirrorNode) =>
+					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'HH:mm:ss', new Date()), 'HHmmss') : undefined })
+			: this.schema === 'measure'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						measureValue: new Measure({ value: doc?.firstChild?.textContent ? parseFloat(doc?.firstChild?.textContent) : undefined, unit: doc?.child(1)?.textContent }),
+					})
+			: this.schema === 'decimal'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						numberValue: doc?.firstChild?.textContent ? parseFloat(doc?.firstChild?.textContent?.replace(/,/g, '.')) : undefined,
+					})
+			: this.schema === 'date-time'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
+					})
+			: this.schema === 'text-document'
+			? (doc?: ProsemirrorNode) =>
+					new Content({
+						stringValue: doc?.textContent,
+					})
+			: (doc?: ProsemirrorNode) =>
+					new Content({
+						stringValue: doc?.textContent,
+					})
 	}
+	// private getMeta(): Meta | undefined {
+	// 	return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
+	// }
 }
 
 // Register the new element with the browser.

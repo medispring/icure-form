@@ -36,3 +36,11 @@ export const datePicto = html`<svg width="10" height="10" viewBox="0 0 10 10" fi
 		d="M2 0C0.895431 0 0 0.89543 0 2V8C0 9.10457 0.89543 10 2 10H8C9.10457 10 10 9.10457 10 8V2C10 0.895431 9.10457 0 8 0H2ZM1 3V8C1 8.55229 1.44772 9 2 9H8C8.55229 9 9 8.55229 9 8V3H1ZM8 8H5V5H8V8Z"
 	/>
 </svg>`
+
+export const markPicto = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+	<path fill="none" stroke="white" stroke-linecap="square" stroke-linejoin="square" stroke-width="2" d="M3,8 l3,3 l7-7" />
+</svg>`
+
+export const dropdownPicto = html`<?xml version="1.0" ?><svg height="30" viewBox="0 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg">
+		<path d="M2 10l10 10 10-10z" />
+	</svg>`

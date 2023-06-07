@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js'
 
 import '../../iqr-text-field'
 import { Labels, Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
+import { Content } from '@icure/api'
 
 class Textfield extends LitElement {
 	@property() label = ''
@@ -19,14 +20,16 @@ class Textfield extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 
 	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() metaProvider?: () => VersionedMeta[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
-	@property() handleMetaChanged?: (id: string, language: string, value: string) => void = undefined
+	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles() {
 		return [
@@ -44,23 +47,26 @@ class Textfield extends LitElement {
 				labelPosition=${this.labelPosition}
 				label="${this.label}"
 				labels="${this.labels}"
-				value="${this.value} ${this.unit}"
-				schema="${this.multiline === 'true' ? 'text-document' : 'styled-text-with-codes'}"
+				value="${this.value}"
+				defaultLanguage="${this.defaultLanguage}"
+				schema="${this.multiline ? 'text-document' : 'styled-text-with-codes'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
 				.linksProvider=${this.linksProvider}
 				.suggestionProvider=${this.suggestionProvider}
 				.ownersProvider=${this.ownersProvider}
+				.translationProvider=${this.translationProvider}
 				.codeColorProvider=${this.codeColorProvider}
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
-				.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 				.handleMetaChanged=${this.handleMetaChanged}
 			></iqr-text-field>`
 		})
 	}
 }
+//.valueProvider=${() => versionedValue}
 
 customElements.define('iqr-form-textfield', Textfield)

@@ -41,23 +41,149 @@ export function timeFieldValuesProvider(formValuesContainer: FormValuesContainer
 	return () => convertServicesToVersionedValues(getVersions(formValuesContainer, field), (content: Content) => `${content.fuzzyDateValue}`)
 }
 
+export function dropdownFieldValuesProvider(formValuesContainer: FormValuesContainer, field: Field): () => VersionedValue[] {
+	return () => convertServicesToVersionedValues(getVersions(formValuesContainer, field), (content: Content) => `${content.stringValue}`)
+}
+
+export function radioButtonFieldValuesProvider(formValuesContainer: FormValuesContainer, field: Field): () => VersionedValue[] {
+	return () => convertServicesToVersionedValues(getVersions(formValuesContainer, field), (content: Content) => `${content.stringValue}`)
+}
+
 export function metaProvider(formValuesContainer: FormValuesContainer, field: Field): () => VersionedMeta[] {
 	return () => convertServicesToVersionedMetas(getVersions(formValuesContainer, field))
 }
 
-export function handleTextFieldValueChangedProvider(
+export function handleFieldValueChangedProvider(
 	field: Field,
 	formValuesContainer: FormValuesContainer,
 	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
-): (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => void {
-	return (serviceId: string | undefined, language: string, content: string, codes: CodeStub[]) => {
+): (language: string, content: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) => void {
+	return (language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) => {
 		const sId = serviceId ?? uuid()
 		formValuesContainerChanged(
 			formValuesContainer.setValue(
 				field.shortLabel ?? field.label(),
 				sId,
 				language,
-				new Content({ stringValue: content }),
+				value.content ?? new Content({ stringValue: value.asString }),
+				codes ?? [],
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
+	}
+}
+
+export function handleMeasureFieldValueChangedProvider(
+	field: Field,
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				content.value ?? new Content({ measureValue: { value: content.asString.split(' ')[0] || '', unit: content.asString.split(' ')[1] || '' } }),
+				[
+					...(codes || [])?.filter((code) => code.type !== 'CD-UNIT'),
+					new CodeStub({ id: 'CD-UNIT|' + content.asString.split(' ')[1] || '' + '|1', type: 'CD-UNIT', code: content.asString.split(' ')[1] || '', version: '1' }),
+				],
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
+	}
+}
+
+export function handleNumberFieldValueChangedProvider(
+	field: Field,
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				content.value ?? new Content({ numberValue: content.value }),
+				codes,
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
+	}
+}
+
+export function handleDateTimeFieldValueChangedProvider(
+	field: Field,
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				content.value ?? new Content({ fuzzyDateValue: content.asString.replace(/[\/:-]/gm, '').replace(/(..)(..)(....)(......)/, '$3$2$1$4') || '' }),
+				codes,
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
+	}
+}
+
+export function handleDateFieldValueChangedProvider(
+	field: Field,
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				content.value ?? new Content({ fuzzyDateValue: content.asString.replace(/[\/-]/gm, '').replace(/(..)(..)(....)/, '$3$2$1') || '' }),
+				codes,
+				(field.tags ?? []).map((s) => {
+					const parts = s.split('|')
+					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+				}),
+			),
+		)
+	}
+}
+
+export function handleTimeFieldValueChangedProvider(
+	field: Field,
+	formValuesContainer: FormValuesContainer,
+	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
+): (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => void {
+	return (serviceId: string | undefined, language: string, content: { asString: string; value: Content }, codes: CodeStub[]) => {
+		const sId = serviceId ?? uuid()
+		formValuesContainerChanged(
+			formValuesContainer.setValue(
+				field.shortLabel ?? field.label(),
+				sId,
+				language,
+				content.value ?? new Content({ fuzzyDateValue: content.asString.replace(/[-:]/gm, '') || '' }),
 				codes,
 				(field.tags ?? []).map((s) => {
 					const parts = s.split('|')

@@ -2,11 +2,21 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { resolve } = require('path')
 
 module.exports = ({ mode }) => {
 	return {
-		mode,
-		entry: './app/demo-app.ts',
+		mode: 'development',
+		//entry: './app/demo-app.ts',
+		entry: {
+			app: { import: './app/demo-app.ts', dependOn: ['codes'] },
+			codes: { import: './app/codes.ts' },
+			icure: { import: '@icure/api', dependOn: ['lodash', 'dateFns', 'moment'] },
+			lodash: 'lodash',
+			dateFns: 'date-fns',
+			moment: 'moment',
+		},
 		plugins: [
 			new HtmlWebpackPlugin({
 				template: 'index.html',
@@ -15,7 +25,7 @@ module.exports = ({ mode }) => {
 				patterns: [{ context: 'node_modules/@webcomponents/webcomponentsjs', from: '**/*.js', to: 'webcomponents' }],
 			}),
 		],
-		devtool: mode === 'source-map',
+		devtool: 'source-map',
 		module: {
 			rules: [
 				{
@@ -46,6 +56,16 @@ module.exports = ({ mode }) => {
 		},
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js'],
+		},
+		output: {
+			filename: '[name].bundle.js',
+			path: resolve(__dirname, 'dist'),
+		},
+		optimization: {
+			runtimeChunk: 'single',
+			splitChunks: {
+				chunks: 'all',
+			},
 		},
 	}
 }

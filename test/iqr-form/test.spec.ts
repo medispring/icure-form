@@ -101,9 +101,9 @@ describe('Form parsing tests', () => {
 									new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice'),
 								]),
 								new Group('And you can add tags and codes', [
-									new TextField('This field is a TextField', 'TextField', 3, true, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], { option: 'blink' }),
-									new NumberField('This field is a NumberField', 'NumberField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
-									new MeasureField('This field is a MeasureField', 'MeasureField', ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
+									new TextField('This field is a TextField', 'TextField', 3, 1, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], { option: 'blink' }),
+									new NumberField('This field is a NumberField', 'NumberField', 3, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
+									new MeasureField('This field is a MeasureField', 'MeasureField', 3, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
 									new MultipleChoice('This field is a MultipleChoice', 'MultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
 								]),
 							]),
@@ -317,5 +317,207 @@ sections:
 		const text = YAML.stringify(JSON.parse(JSON.stringify(form)))
 		console.log(text)
 		strictEqual(text, original)
+	})
+	it('Should parse a form from a graph of POJOs', () => {
+		const toParse = JSON.parse(`{
+  "form": "Entretien préliminaire Psycho Social",
+  "sections": [
+    {
+      "fields": [
+        {
+          "field": "Type de consultation",
+          "shortLabel": "contactType",
+          "rows": 1,
+          "columns": 1,
+          "tags": [
+            "MS-IVG|CONTACT-TYPE|1"
+          ],
+          "codifications": [
+            "MS-IVG-CONTACT-TYPE"
+          ],
+          "options": {
+            "home": "Sur place",
+            "visio": "Visioconférence",
+            "call": "Téléphone"
+          },
+          "required": true,
+          "type": "dropdown"
+        },
+        {
+          "field": "waitingRoomFollowersNumber",
+          "shortLabel": "waitingRoomFollowersNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|WAITING-ROOM-FOLLOWERS-NUMBER|1"
+          ],
+          "rows": 2,
+          "columns": 1,
+          "required": true,
+          "value": "0",
+          "type": "number-field"
+        },
+        {
+          "field": "consultationFollowersNumber",
+          "shortLabel": "consultationFollowersNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|CONSULTATION-FOLLOWERS-NUMBER|1"
+          ],
+          "rows": 2,
+          "columns": 1,
+          "required": true,
+          "value": "0",
+          "type": "number-field"
+        },
+        {
+          "field": "Personnes Accompagnants",
+          "shortLabel": "PersonFollowerType",
+          "rows": 3,
+          "columns": 1,
+          "tags": [
+            "CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1"
+          ],
+          "options": {
+            "option1": "Partenaire",
+            "option2": "Mère",
+            "option3": "Amie",
+            "option4": "Éducateur",
+            "option5": "Père"
+          },
+          "required": false,
+          "type": "checkbox"
+        },
+        {
+          "field": "Profession de la patiente",
+          "shortLabel": "PatientProfession",
+          "rows": 4,
+          "columns": 1,
+          "tags": [
+            "CD-CUSTOM-IVG|PATIENT-PROFESSION|1"
+          ],
+          "options": {
+            "option1": "Employé",
+            "option2": "Ouvrier",
+            "option3": "Indépendant",
+            "option4": "Sans travail",
+            "option5": "Ne veut pas dire"
+          },
+          "required": false,
+          "type": "radio-button"
+        },
+        {
+          "field": "Nombre d’enfants",
+          "shortLabel": "ChildNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|CHILD-NUMBER|1"
+          ],
+          "rows": 5,
+          "columns": 1,
+          "required": true,
+          "value": "0",
+          "type": "number-field"
+        },
+        {
+          "field": "Nombre d’enfants à charge",
+          "shortLabel": "ChildInChargeNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|CHILD-IN-CHARGE-NUMBER|1"
+          ],
+          "rows": 5,
+          "columns": 1,
+          "required": true,
+          "value": "0",
+          "type": "number-field"
+        },
+        {
+          "field": "Nombre de minutes de suivi",
+          "shortLabel": "minutesTrackingNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|MINUTES-TRACKING-NUMBER|1"
+          ],
+          "rows": 6,
+          "columns": 1,
+          "required": true,
+          "value": "50",
+          "type": "measure-field"
+        },
+        {
+          "field": "Nombre de minutes de contraception",
+          "shortLabel": "minutesContraceptionNumber",
+          "tags": [
+            "CD-CUSTOM-IVG|MINUTES-CONTRACEPTION-NUMBER|1"
+          ],
+          "rows": 6,
+          "columns": 1,
+          "required": true,
+          "value": "10",
+          "type": "measure-field"
+        },
+        {
+          "field": "Historique/Situation",
+          "shortLabel": "History",
+          "rows": 7,
+          "tags": [
+            "CD-CUSTOM-IVG|HISTORY|1"
+          ],
+          "columns": 1,
+          "required": false,
+          "type": "textfield"
+        },
+        {
+          "field": "Position du partenaire pendant la grossesse",
+          "shortLabel": "SexualPosition",
+          "rows": 8,
+          "tags": [
+            "CD-CUSTOM-IVG|SEXUAL-POSITION|1"
+          ],
+          "columns": 1,
+          "required": false,
+          "type": "textfield"
+        },
+        {
+          "field": "Processus de prise de décision / choix / attitude par rapport à l'avortement (le cas échéant)",
+          "shortLabel": "decisionProcessus",
+          "rows": 9,
+          "tags": [
+            "CD-CUSTOM-IVG|DECISION-PROCESSUS|1"
+          ],
+          "columns": 1,
+          "required": false,
+          "type": "textfield"
+        },
+        {
+          "field": "Première décision de la patiente",
+          "shortLabel": "firstChoice",
+          "rows": 9,
+          "columns": 1,
+          "tags": [
+            "CD-CUSTOM-IVG|FIRST-CHOICE|1"
+          ],
+          "options": {
+            "option1": "Oui par curretage",
+            "option2": "Ne sait pas",
+            "option3": "Oui par médication",
+            "option4": "Non"
+          },
+          "required": true,
+          "type": "radio-button"
+        },
+        {
+          "field": "Notes",
+          "shortLabel": "notes",
+          "rows": 10,
+          "tags": [
+            "CD-CUSTOM-IVG|NOTES|1"
+          ],
+          "columns": 1,
+          "required": false,
+          "type": "textfield"
+        }
+      ]
+    }
+  ],
+  "description": "Entretien préliminaire Psycho Social"
+}`)
+		const form = Form.parse(toParse)
+		strictEqual(form.sections[0].fields[0].clazz, 'field')
 	})
 })
