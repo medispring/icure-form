@@ -1,29 +1,11 @@
-import { css, CSSResultGroup, html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
+import { html } from 'lit'
 import '../../iqr-text-field'
 import '../../iqr-radio-button-group'
-import { Labels, VersionedValue } from '../../iqr-text-field'
-import { OptionCode } from '../../common'
-import { Content } from '@icure/api'
+import { VersionedValue } from '../../iqr-text-field'
+import { CodeStub, Content } from '@icure/api'
+import { OptionsField } from '../../common/optionsField'
 
-export class RadioButton extends LitElement {
-	@property() label = ''
-	@property() labelPosition?: string = undefined
-	@property() labels?: Labels = undefined
-	@property() options?: OptionCode[] = []
-	@property() value?: string = ''
-	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
-
-	static get styles(): CSSResultGroup[] {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
-	}
-
+export class RadioButton extends OptionsField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
@@ -35,11 +17,22 @@ export class RadioButton extends LitElement {
 					label="${this.label}"
 					.options="${this.options}"
 					value="${this.value}"
+					defaultLanguage="${this.defaultLanguage}"
 					.valueProvider=${() => versionedValue}
-					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
+						this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
+					.translationProvider=${this.translationProvider}
+					.codifications=${this.codifications}
+					.optionsProvider=${this.optionsProvider}
 				></iqr-radio-button>
 			`
 		})
+	}
+
+	public async firstUpdated(): Promise<void> {
+		if (this.options === undefined || this.options.length === 0) {
+			this.options = await this.fetchInitialsOptions()
+		}
 	}
 }
 

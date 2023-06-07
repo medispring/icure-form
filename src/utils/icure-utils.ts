@@ -18,6 +18,20 @@ export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	}
 }
 
+export function currentTime() {
+	const now = new Date()
+	return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
+}
+
+export function currentDate() {
+	const now = new Date()
+	return `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`
+}
+
+export function currentDateTime() {
+	return `${currentDate()} ${currentTime()}`
+}
+
 export function isCodeEqual(c1: CodeStub, c2: CodeStub): boolean {
 	const idParts1 = c1.id?.split('|')
 	const idParts2 = c2.id?.split('|')

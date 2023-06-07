@@ -2,12 +2,16 @@ import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 import { FormValuesContainer } from '../../iqr-form-loader/formValuesContainer'
+import { CodeStub, HealthcareParty } from '@icure/api'
 
 export const render: Renderer = (
 	form: Form,
 	props: { [key: string]: unknown },
 	formsValueContainer?: FormValuesContainer,
 	formValuesContainerChanged?: (newValue: FormValuesContainer) => void,
+	translationProvider: (text: string) => string = (text) => text,
+	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
+	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1

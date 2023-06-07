@@ -27,8 +27,6 @@ import { maskPlugin } from './plugin/mask-plugin'
 import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../utils/no-lodash'
-import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
-import { languageName } from '../../utils/languages'
 import { generateLabel, generateLabels } from '../iqr-label/utils'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
@@ -83,6 +81,7 @@ class IqrTextField extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -155,49 +154,50 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				${this.labels ? generateLabels(this.labels) : generateLabel(this.label, this.labelPosition)}
+				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label, this.labelPosition, this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
-					<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
-						<div class="info">~${this.owner}</div>
-						<div class="buttons-container">
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
-								${this.displayOwnersMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-												${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="1.0" class="btn version">${versionPicto}</button>
-							</div>
-							<div class="menu-container">
-								<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
-								${this.displayLanguagesMenu
-									? html`
-											<div id="menu" class="menu">
-												<div class="input-container">${searchPicto} <input /></div>
-												${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
-											</div>
-									  `
-									: ''}
-							</div>
-							<div class="menu-container">
-								<slot></slot>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		`
 	}
+
+	// 	<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
+	// 	<div class="info">~${this.owner}</div>
+	// 	<div class="buttons-container">
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
+	// 			${this.displayOwnersMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
+	// 							${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="1.0" class="btn version">${versionPicto}</button>
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
+	// 			${this.displayLanguagesMenu
+	// 				? html`
+	// 						<div id="menu" class="menu">
+	// 							<div class="input-container">${searchPicto} <input /></div>
+	// 							${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
+	// 						</div>
+	// 				  `
+	// 				: ''}
+	// 		</div>
+	// 		<div class="menu-container">
+	// 			<slot></slot>
+	// 		</div>
+	// 	</div>
+	// </div>
 
 	toggleOwnerMenu() {
 		this.displayOwnersMenu = !this.displayOwnersMenu
@@ -357,6 +357,7 @@ class IqrTextField extends LitElement {
 						.map((x) => x as Plugin),
 				}),
 				dispatchTransaction: (tr) => {
+					console.log(tr)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
@@ -369,6 +370,10 @@ class IqrTextField extends LitElement {
 							800,
 						)
 					}
+				},
+				editable: (state) => {
+					const { $from } = state.selection
+					return $from.parent.type.spec.editable ?? true ? true : false
 				},
 			})
 		}
@@ -495,11 +500,14 @@ class IqrTextField extends LitElement {
 					new Content({
 						stringValue: doc?.textContent,
 					})
-			: () => new Content({})
+			: (doc?: ProsemirrorNode) =>
+					new Content({
+						stringValue: doc?.textContent,
+					})
 	}
-	private getMeta(): Meta | undefined {
-		return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
-	}
+	// private getMeta(): Meta | undefined {
+	// 	return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
+	// }
 }
 
 // Register the new element with the browser.

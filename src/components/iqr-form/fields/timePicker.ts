@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js'
 
 import '../../iqr-text-field'
 import { Labels, VersionedValue } from '../../iqr-text-field'
-
 export class TimePicker extends LitElement {
 	@property() label = ''
 	@property() labelPosition?: string = undefined
@@ -11,6 +10,8 @@ export class TimePicker extends LitElement {
 	@property() labels?: Labels = undefined
 	@property() value?: string = ''
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -32,7 +33,9 @@ export class TimePicker extends LitElement {
 					schema="time"
 					.valueProvider=${() => versionedValue}
 					value="${this.value}"
+					defaultLanguage="${this.defaultLanguage}"
 					.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.translationProvider=${this.translationProvider}
 				></iqr-text-field>
 			`
 		})

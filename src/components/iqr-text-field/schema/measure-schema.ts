@@ -27,6 +27,7 @@ export function getMeasureSpec(): SchemaSpec {
 				toDOM() {
 					return ['span', { class: 'unit' }, 0]
 				},
+				editable: false,
 			},
 
 			text: {

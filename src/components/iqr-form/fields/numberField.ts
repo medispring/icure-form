@@ -14,6 +14,8 @@ export class NumberField extends LitElement {
 	@property() metaProvider?: () => VersionedMeta[] = undefined
 	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
+	@property() translationProvider: (text: string) => string = (text) => text
+	@property() defaultLanguage?: string = 'en'
 
 	static get styles(): CSSResultGroup[] {
 		return [
@@ -33,9 +35,11 @@ export class NumberField extends LitElement {
 				.labels="${this.labels}"
 				value="${this.value}"
 				schema="decimal"
+				defaultLanguage="${this.defaultLanguage}"
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.translationProvider=${this.translationProvider}
 				.handleMetaChanged=${this.handleMetaChanged}
 			></iqr-text-field>`
 		})

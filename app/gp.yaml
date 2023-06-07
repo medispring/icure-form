@@ -1,76 +1,122 @@
-    form: Moment du rendez-vous
-    description: Moment du rendez-vous
+    form: 10 - Contrôle
+    description: 10 - Contrôle
     sections:
       - section:
         fields:
-          - field: Accompagnée de
-            type: number-field
-            labels:
-              above : Accompagnée de
-              right : personne(s) (salle d'attente)
-            shortLabel: accompaniedBy
-            rows: 1
-            columns: 1
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|accompaniedBy|1
-          - field : Moyen de contact
-            type: checkbox
-            shortLabel: wayOfContact
-            options:
-              phone: Téléphone
-              reception: Accueil
-              internet: Internet
-            rows: 2
-            columns: 1
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
-          - field : Date de rendez-vous
-            type: date-picker
-            shortLabel: appointmentDate
-            rows: 3
-            columns: 1
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
-          - field : Commentaire
-            type: textfield
-            shortLabel: commentary
-            rows: 4
-            columns: 1
-            multiline: true
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
-          - field : Mise en contact via
-            type: dropdown
-            shortLabel: contactVia
-            options:
-              physician: Médecin
-              internet: Internet
-              other: Autre
-            rows: 5
-            columns: 1
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|contactVia|1
-          - field : Patient adressé par
-            type: dropdown
-            shortLabel: patientAdressedBy
-            rows: 6
-            columns: 1
-            codifications:
-              - HCP-LIST
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
-          - field : Nombre de minutes de suivi
-            value: 10
-            type: number-field
-            shortLabel: ChildInChargeNumber
-            rows: 7
-            columns: 1
-            required: true
-            tags:
-              - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1s
+        - field: abortion-forms.field-labels.YES
+          type: checkbox
+          options:
+          '06': abortion-forms.field-options.COITUS-INTERRUPTED
+          '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
+          '08': abortion-forms.field-options.SPERMICIDES
+          '09': abortion-forms.field-options.DIAPHRAGM
+          '10': abortion-forms.field-options.CONDOM
+          '11': abortion-forms.field-options.ORAL-PILL
+          '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
+          '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
+          '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
+          '15': abortion-forms.field-options.MALE-STERILIZATION
+          '16': abortion-forms.field-options.FEMALE-STERILIZATION
+          '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
+          '18': abortion-forms.field-options.MORNING-AFTER-PILL
+          '19': abortion-forms.field-options.IMPLANT
+          '20': abortion-forms.field-options.PATCH
+          '21': abortion-forms.field-options.VAGINAL-RING
+          '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
+          '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
+          '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
+          rows: 1
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
+        - field: abortion-forms.field-labels.CONTRACEPTIVE-DURING-CONTROL
+          type: radio-button
+          options:
+            kiud: abortion-forms.field-options.sKIUD
+            hiud: abortion-forms.field-options.HIUD
+            implant: abortion-forms.field-options.Implant
+            contraceptiveInjection: Injection contraceptive
+          rows: 2
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
+        - field: abortion-forms.field-labels.CONTRACEPTIVE-BRAND
+          type: textfield
+          rows: 3
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameContraceptive|1
+        - field: abortion-forms.field-labels.CONTRACEPTIVE-NUMBER
+          type: textfield
+          rows: 3
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameContraceptiveNumber|1
+        - field: abortion-forms.field-labels.NEXT-CONTRACEPTIVE-PLANNED-BRAND
+          type: textfield
+          rows: 4
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameFutureContraceptive|1
+        - field: abortion-forms.field-labels.NEXT-CONTRACEPTIVE-PLANNED-NUMBER
+          type: textfield
+          rows: 4
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|brandNameFutureContraceptiveNumber|1
+        - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
+          type: checkbox
+          rows: 5
+          columns: 1
+          codifications :
+            - ULTRASOUND-EVALUATION
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|resultOfUltrasound|1
+        - field: abortion-forms.field-labels.COMPLICATION
+          type: dropdown
+          options:
+            '01': abortion-forms.field-options.FAILED-CURETTAGE
+            '02': abortion-forms.field-options.BLEEDING-REQUIRING-STYPTIC-CURETTAGE
+            '03': abortion-forms.field-options.UTERINE-PERFORATION
+            '04': abortion-forms.field-options.CERVICAL-RUPTURE
+            '05': abortion-forms.field-options.INFECTIOUS-COMPLICATION
+            '06': abortion-forms.field-options.FAILURE-OF-DRUG-TREATMENT
+            '07': abortion-forms.field-options.OTHER
+          rows: 6
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|complication|1
+        - field: abortion-forms.field-labels.PATIENT-EVALUATION
+          type: textfield
+          rows: 7
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|evaluationOfPatient|1
+        - field: abortion-forms.field-labels.NOTES
+          type: textfield
+          rows: 8
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|medicalNotes|1
+        - field: abortion-forms.field-labels.HCG-DATE
+          type: date-time-picker
+          rows: 9
+          columns: 1
+          now: true
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|HCGDate|1
+        - field: abortion-forms.field-labels.FOLLOW-UP-MIN
+          type: number-field
+          value: 30
+          rows: 10
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|numberOfMinutesOfFollowUp|1
+        - field: abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN
+          type: measure-field
+          value: 10
+          unit: mg/L
+          rows: 11
+          columns: 1
+          tags:
+            - MS-ABORTION-APPOINTMENT-TIME-ITEM|numberOfMinutesOfContraception|1

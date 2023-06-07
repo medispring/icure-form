@@ -1,37 +1,12 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit'
+import { html, TemplateResult } from 'lit'
 import { property } from 'lit/decorators.js'
-// @ts-ignore
-import baseCss from '../../iqr-text-field/styles/style.scss'
-// @ts-ignore
-import kendoCss from '../../iqr-text-field/styles/kendo.scss'
-
-import { LabelPosition, Labels, VersionedValue } from '../../iqr-text-field'
 import '../../iqr-dropdown'
-// @ts-ignore
-import { OptionCode } from '../../iqr-dropdown'
-import { Content } from '@icure/api'
+import { CodeStub, Content, HealthcareParty } from '@icure/api'
+import { OptionsField } from '../../common/optionsField'
+import { VersionedValue } from '../../iqr-text-field'
 
-export class DropdownField extends LitElement {
-	@property() labels: Labels = {
-		[LabelPosition.float]: '',
-	}
-	@property() label = ''
-	@property() labelPosition?: string = undefined
-	@property() options?: OptionCode[] = []
-
-	@property() placeholder = ''
-
-	@property() optionProvider: () => Promise<OptionCode[]> = async () => this.options || []
-
-	@property() valueProvider?: () => VersionedValue[] = undefined
-
-	@property() value = ''
-
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
-
-	static get styles(): CSSResultGroup[] {
-		return [baseCss, kendoCss]
-	}
+export class DropdownField extends OptionsField<string, VersionedValue[]> {
+	@property() ownersProvider: (speciality: string[]) => HealthcareParty[] = () => []
 
 	render(): TemplateResult[] {
 		const versionedValues = this.valueProvider?.()
@@ -40,20 +15,25 @@ export class DropdownField extends LitElement {
 				html`
 					<iqr-dropdown-field
 						label="${this.label}"
+						.translate="${this.translate}"
 						.options="${this.options}"
 						.valueProvider=${() => versionedValue}
-						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
+							this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
 						.labelPosition=${this.labelPosition}
-						.optionProvider=${this.optionProvider}
+						.optionsProvider=${this.optionsProvider}
+						.translationProvider=${this.translationProvider}
+						.ownersProvider=${this.ownersProvider}
+						defaultLanguage="${this.defaultLanguage}"
+						.codifications=${this.codifications}
 					></iqr-dropdown-field>
 				`,
 		)
 	}
-	//.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {
-			this.options = await this.optionProvider()
+			this.options = await this.fetchInitialsOptions()
 		}
 	}
 }

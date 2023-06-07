@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { IccHcpartyXApi } from '@icure/api'
+import { CodeStub, IccHcpartyXApi } from '@icure/api'
 // @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
@@ -58,6 +58,15 @@ const icpc2 = {
 	Y: 'XVIII',
 	Z: 'XXI',
 }
+
+const ultrasound = [
+	{ id: 'ULTRASOUND-EVALUATION|01|1', code: '01', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.EMPTY-CAVITY' } },
+	{ id: 'ULTRASOUND-EVALUATION|02|1', code: '02', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.CLOTS' } },
+	{ id: 'ULTRASOUND-EVALUATION|03|1', code: '03', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.RETENTION' } },
+	{ id: 'ULTRASOUND-EVALUATION|04|1', code: '04', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.NON-PROGRESSIVE-PREGNANCY' } },
+	{ id: 'ULTRASOUND-EVALUATION|05|1', code: '05', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.PROGRESSIVE-PREGNANCY' } },
+	{ id: 'ULTRASOUND-EVALUATION|06|1', code: '06', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.DIFFUSE-IMAGE' } },
+]
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
@@ -154,31 +163,42 @@ class DemoApp extends LitElement {
 		}))
 	}
 
+	translationProvider(stringToTranslate: string) {
+		return stringToTranslate
+	}
+	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {
+		const codes: CodeStub[] = []
+		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
+			ultrasound.map((x) => codes.push(new CodeStub(x)))
+		}
+		return codes
+	}
+
 	render() {
 		// noinspection DuplicatedCode
 		const form = new Form(
 			'Waiting room GP',
 			[
 				new Section('All fields', [
-					new TextField('This field is a TextField', 'allTextField', 1, 1),
-					new NumberField('This field is a NumberField', 'allNumberField', 1, 1),
-					new MeasureField('This field is a MeasureField', 'allMeasureField', 1, 1),
-					new DatePicker('This field is a DatePicker', 'allDatePicker', 2, 1),
-					new TimePicker('This field is a TimePicker', 'allTimePicker', 2, 1),
-					new DateTimePicker('This field is a DateTimePicker', 'allDateTimePicker', 3, 1),
-					new MultipleChoice('This field is a MultipleChoice', 'allMultipleChoice', 3, 1),
+					new TextField('This field is a TextField', 'allTextField', 1, true, 1),
+					new NumberField('This field is a NumberField', 'allNumberField', 1, true, 1),
+					new MeasureField('This field is a MeasureField', 'allMeasureField', 1, true, 1),
+					new DatePicker('This field is a DatePicker', 'allDatePicker', 2, true, 1),
+					new TimePicker('This field is a TimePicker', 'allTimePicker', 2, true, 1),
+					new DateTimePicker('This field is a DateTimePicker', 'allDateTimePicker', 3, true, 1),
+					new MultipleChoice('This field is a MultipleChoice', 'allMultipleChoice', 3, true, 1),
 				]),
 				new Section('Grouped fields', [
 					new Group(
 						'You can group fields together',
 						[
-							new TextField('This field is a TextField', 'groupTextField', 1, 2, undefined, undefined, ['CD-ITEM|diagnosis|1']),
-							new NumberField('This field is a NumberField', 'groupNumberField', 1, 2),
-							new MeasureField('This field is a MeasureField', 'groupMeasureField', 2, 1),
-							new DatePicker('This field is a DatePicker', 'groupDatePicker', 3, 2),
-							new TimePicker('This field is a TimePicker', 'groupTimePicker', 3, 2),
-							new DateTimePicker('This field is a DateTimePicker', 'groupDateTimePicker', 3, 2),
-							new MultipleChoice('This field is a MultipleChoice', 'groupMultipleChoice', 4, 2),
+							new TextField('This field is a TextField', 'groupTextField', 1, true, 2, undefined, undefined, ['CD-ITEM|diagnosis|1']),
+							new NumberField('This field is a NumberField', 'groupNumberField', 1, true, 2),
+							new MeasureField('This field is a MeasureField', 'groupMeasureField', 1, true, 2),
+							new DatePicker('This field is a DatePicker', 'groupDatePicker', 3, true, 2),
+							new TimePicker('This field is a TimePicker', 'groupTimePicker', 3, true, 2),
+							new DateTimePicker('This field is a DateTimePicker', 'groupDateTimePicker', 3, true, 2),
+							new MultipleChoice('This field is a MultipleChoice', 'groupMultipleChoice', 4, true, 2),
 						],
 						1,
 						1,
@@ -186,12 +206,12 @@ class DemoApp extends LitElement {
 					new Group(
 						'And you can add tags and codes',
 						[
-							new TextField('This field is a TextField with rows and columns', 'tagTextField', 1, 1, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], {
+							new TextField('This field is a TextField with rows and columns', 'tagTextField', 1, true, 1, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], {
 								option: 'blink',
 							}),
-							new NumberField('This field is a NumberField', 'tagNumberField', 1, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
-							new MeasureField('This field is a MeasureField', 'tagMeasureField', 1, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
-							new MultipleChoice('This field is a MultipleChoice', 'tagMultipleChoice', 4, 4, [], ['KATZ'], { many: 'no' }),
+							new NumberField('This field is a NumberField', 'tagNumberField', 1, true, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
+							new MeasureField('This field is a MeasureField', 'tagMeasureField', 1, true, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
+							new MultipleChoice('This field is a MultipleChoice', 'tagMultipleChoice', 4, true, 4, [], ['KATZ'], { many: 'no' }),
 						],
 						1,
 						1,
@@ -224,6 +244,8 @@ class DemoApp extends LitElement {
 					this.formValuesContainer = newVal
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
+				.translationProvider="${this.translationProvider.bind(this)}"
+				.codesProvider="${this.codesProvider.bind(this)}"
 			></iqr-form>
 		`
 	}

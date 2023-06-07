@@ -172,13 +172,13 @@ $font-weight-label: 500;
 					opacity: 1;
 				}
 			}
-			.buttons-container .menu-container .btn:hover::after {
-				background: $accent;
-				border-radius: $border-radius;
-			}
-			.buttons-container .menu-container .btn:hover::before {
-				border-color:$accent transparent transparent transparent;
-			}
+			// .buttons-container .menu-container .btn:hover::after {
+			// 	background: $accent;
+			// 	border-radius: $border-radius;
+			// }
+			// .buttons-container .menu-container .btn:hover::before {
+			// 	border-color:$accent transparent transparent transparent;
+			// }
 		}
 	}
 }
