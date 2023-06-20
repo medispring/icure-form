@@ -1,28 +1,10 @@
-import { css, CSSResultGroup, html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
-
+import { html } from 'lit'
 import '../../iqr-text-field'
-import { Labels, VersionedValue } from '../../iqr-text-field'
+import { VersionedValue } from '../../iqr-text-field'
+import { ValuedField } from '../../common/valuedField'
+import { CodeStub, Content } from '@icure/api'
 
-export class MultipleChoice extends LitElement {
-	@property() label = ''
-	@property() labelPosition?: string = undefined
-	@property() labels?: Labels = undefined
-	@property() value?: string = ''
-	@property() valueProvider?: () => VersionedValue[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: string) => void = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
-	@property() defaultLanguage?: string = 'en'
-
-	static get styles(): CSSResultGroup[] {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
-	}
-
+export class MultipleChoice extends ValuedField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
@@ -33,7 +15,8 @@ export class MultipleChoice extends LitElement {
 				label="${this.label}"
 				defaultLanguage="${this.defaultLanguage}"
 				.valueProvider=${() => versionedValue}
-				.handleValueChanged=${(language: string, value: string) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
+					this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
 				.translationProvider=${this.translationProvider}
 			></iqr-text-field>`
 		})

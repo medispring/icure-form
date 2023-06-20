@@ -14,11 +14,6 @@ import {
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
-	handleDateTimeFieldValueChangedProvider,
-	handleMeasureFieldValueChangedProvider,
-	handleNumberFieldValueChangedProvider,
-	handleDateFieldValueChangedProvider,
-	handleTimeFieldValueChangedProvider,
 } from '../../iqr-form-loader'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
 import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
@@ -27,7 +22,7 @@ import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 
-const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
+export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
 
 export const render: Renderer = (
@@ -106,7 +101,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(measureFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleMeasureFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
@@ -120,7 +115,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(numberFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleNumberFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
@@ -134,7 +129,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDateFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
@@ -148,7 +143,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(timeFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleTimeFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
@@ -162,7 +157,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dateTimeFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
-						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleDateTimeFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'

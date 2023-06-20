@@ -1,4 +1,5 @@
 import { IqrTextFieldSchema, Labels } from '../../iqr-text-field'
+import { CodeStub, Content } from '@icure/api'
 type FieldType =
 	| 'textfield'
 	| 'measure-field'
@@ -609,4 +610,13 @@ export class Form {
 			json.keywords,
 		)
 	}
+}
+
+export interface ExtractDefaultValue {
+	label: string
+	serviceId: string
+	language: string
+	content: Content
+	codes: CodeStub[]
+	tags: CodeStub[]
 }

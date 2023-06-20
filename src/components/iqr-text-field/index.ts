@@ -331,6 +331,8 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 					return $from.parent.type.spec.editable ?? true ? true : false
 				},
 			})
+
+			this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
 		}
 	}
 
