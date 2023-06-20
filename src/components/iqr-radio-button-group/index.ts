@@ -70,6 +70,27 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValues = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]].split(this.VALUES_SEPARATOR)
 		} else if (this.value) this.inputValues = this.value.split(this.VALUES_SEPARATOR)
+		if (this.inputValues.length) {
+			this.handleValueChanged?.(
+				this.displayedLanguage || this.defaultLanguage || 'en',
+				{
+					asString: this.inputValues.join(this.VALUES_SEPARATOR),
+					content: new Content({
+						stringValue: this.inputValues.join(this.VALUES_SEPARATOR),
+					}),
+				},
+				undefined,
+				[
+					...(this.options || [])
+						.filter((option) =>
+							this.inputValues.some((i) => (!(option instanceof CodeStub) ? i === option.text : i === option.label?.[this.displayedLanguage || this.defaultLanguage || 'en'])),
+						)
+						.map((option) =>
+							!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option,
+						),
+				],
+			)
+		}
 	}
 }
 

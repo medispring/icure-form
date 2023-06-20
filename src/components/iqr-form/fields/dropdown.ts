@@ -17,6 +17,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 						label="${this.label}"
 						.translate="${this.translate}"
 						.options="${this.options}"
+						value="${this.value}"
 						.valueProvider=${() => versionedValue}
 						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
 							this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}

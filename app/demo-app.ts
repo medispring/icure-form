@@ -222,7 +222,7 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 		return html`
-			<!--<iqr-form
+			<iqr-form
 				.form="${form}"
 				labelPosition="above"
 				skin="kendo"
@@ -230,9 +230,10 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.formValuesContainer = newVal
+					console.log('newVal', newVal)
+					//this.formValuesContainer = newVal
 				}}"
-			></iqr-form>-->
+			></iqr-form>
 			<iqr-form
 				.form="${Form.parse(YAML.parse(yamlForm))}"
 				labelPosition="above"
@@ -242,7 +243,7 @@ class DemoApp extends LitElement {
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
 					console.log('newVal', newVal)
-					this.formValuesContainer = newVal
+					//this.formValuesContainer = newVal
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"

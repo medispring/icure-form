@@ -110,7 +110,29 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 				this.options?.find((option) => {
 					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translateText(option?.label?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 				})?.id ?? ''
-		} else if (this.value) this.inputValue = this.value
+		} else if (this.value) {
+			this.inputValue = this.value
+			this.value =
+				this.options?.find((option) => {
+					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translateText(option?.label?.[this.displayedLanguage || 'en'] || '') === this.inputValue
+				})?.id ?? ''
+		}
+		if (this.value && this.handleValueChanged && this.inputValue) {
+			this.handleValueChanged?.(
+				this.displayedLanguage || this.defaultLanguage || 'en',
+				{
+					asString: this.inputValue,
+					content: new Content({
+						stringValue: this.inputValue || '',
+					}),
+				},
+				undefined,
+				[
+					this.options?.find((option) => option instanceof CodeStub && option.id === this.value) ??
+						new CodeStub({ id: 'CUSTOM_OPTION|' + this.value + '|1', type: 'CUSTOM_OPTION', code: this.value, version: '1' }),
+				],
+			)
+		}
 	}
 }
 
