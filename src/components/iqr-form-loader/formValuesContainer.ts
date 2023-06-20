@@ -1,6 +1,6 @@
 import { CodeStub, Contact, Content, Service } from '@icure/api'
 import { groupBy, sortedBy } from '../../utils/no-lodash'
-import { fuzzyDate, isServiceContentEqual, setServices } from '../../utils/icure-utils'
+import { fuzzyDate, isServiceContentEqual } from '../../utils/icure-utils'
 import { ServicesHistory, ServiceWithContact } from './models'
 
 export function withLabel(label: string): (svc: Service) => boolean {
@@ -45,6 +45,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		this.serviceFactory = serviceFactory
 	}
 
+	//TODO: remove this method
 	copy(currentContact: Contact): ICureFormValuesContainer {
 		return new ICureFormValuesContainer(currentContact, this.contact, this.contactsHistory, this.serviceFactory)
 	}
@@ -56,11 +57,12 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		)
 	}
 
+	//TODO: setter and setService is maybe redundant => ts works with pointers, so we can just modify the service in place
 	private setServiceProperty<K>(serviceId: string, newValue: K, getter: (svc: Service) => K, setter: (svc: Service, value: K) => Service): FormValuesContainer {
 		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
 		if (swcs.length) {
 			if (newValue !== getter(swcs[0].service)) {
-				return this.copy(setServices(this.currentContact, [], [setter(swcs[0].service, newValue)]))
+				return this.setServices([], [setter(swcs[0].service, newValue)], [])
 			} else {
 				return this
 			}
@@ -69,6 +71,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		}
 	}
 
+	//TODO: maybe create a bunnch of setters/getters for each property in the utils/icure-utils.ts
 	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer {
 		return this.setServiceProperty(
 			serviceId,
@@ -108,14 +111,15 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 					...swcs[0].service,
 					content: { ...previousContent, [language]: content },
 					codes: codes,
+					tags: tags,
 					modified: +new Date(),
 				}
-				return this.copy(setServices({ ...this.currentContact, services: this.currentContact.services }, [], [new Service(modifiedServiceValues)]))
+				return this.setServices([], [new Service(modifiedServiceValues)], [])
 			} else {
 				return this
 			}
 		} else {
-			return this.copy(setServices(this.currentContact, [this.serviceFactory(label, serviceId, language, content, codes, tags)], []))
+			return this.setServices([this.serviceFactory(label, serviceId, language, content, codes, tags)], [],[])
 		}
 	}
 
@@ -124,19 +128,17 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		if (swcs.length) {
 			//Omit end of life
 			const now = +new Date()
-			return this.copy(
-				setServices(
-					this.currentContact,
-					[],
-					[
-						new Service({
-							...swcs[0].service,
-							content: {},
-							modified: now,
-							endOfLife: now,
-						}),
-					],
-				),
+			return this.setServices(
+				[],
+				[
+					new Service({
+						...swcs[0].service,
+						content: {},
+						modified: now,
+						endOfLife: now,
+					}),
+				],
+				[],
 			)
 		} else {
 			return this
@@ -211,5 +213,17 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 					contact: ctc,
 				})) || [],
 		)
+	}
+	private setServices(newServices: Service[], modifiedServices: Service[], removeServices: Service[]): FormValuesContainer {
+		this.currentContact.services = [
+			...newServices.filter((s) => !this.currentContact.services?.some((s2) => s2.id === s.id)),
+			...(this.currentContact.services || [])
+				?.filter((s) => !removeServices.some((s2) => s2.id === s.id))
+				.map((s) => {
+					const found = modifiedServices.find((s2) => s2.id === s.id)
+					return found ? found : s
+				}),
+		]
+		return this
 	}
 }

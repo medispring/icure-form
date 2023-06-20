@@ -108,7 +108,9 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 
 	private proseMirrorSchema?: Schema
 	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
-	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = { serialize: (content: ProsemirrorNode) => content.textContent }
+	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = {
+		serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
+	}
 	private contentMaker: (doc?: ProsemirrorNode) => Content = () => ({})
 
 	private view?: EditorView
@@ -332,7 +334,9 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 				},
 			})
 
-			this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
+			if (parsedDoc ? this.serializer.serialize(parsedDoc) : '' !== '') {
+				this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
+			}
 		}
 	}
 
@@ -450,7 +454,10 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 			: this.schema === 'date-time'
 			? (doc?: ProsemirrorNode) =>
 					new Content({
-						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
+						fuzzyDateValue:
+							doc?.firstChild?.textContent && doc?.lastChild?.textContent
+								? format(parse(doc?.firstChild?.textContent + ' ' + doc?.lastChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'yyyyMMddHHmmss')
+								: undefined,
 					})
 			: this.schema === 'text-document'
 			? (doc?: ProsemirrorNode) =>
