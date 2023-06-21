@@ -1,32 +1,14 @@
-import { css, CSSResultGroup, html, LitElement } from 'lit'
+import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import '../../iqr-text-field'
-import { Labels, VersionedMeta, VersionedValue } from '../../iqr-text-field'
-import { Content } from '@icure/api'
+import { VersionedMeta, VersionedValue } from '../../iqr-text-field'
+import { CodeStub, Content } from '@icure/api'
+import { ValuedField } from '../../common/valuedField'
 
-export class MeasureField extends LitElement {
-	@property() label?: string = ''
-	@property() labelPosition?: 'float' | 'side' | 'above' | 'hidden' = 'float'
-	@property() labels?: Labels = undefined
-
-	@property() value?: string = ''
+export class MeasureField extends ValuedField<string, VersionedValue[]> {
 	@property() unit?: string = ''
-
-	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() metaProvider?: () => VersionedMeta[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
-	@property() translationProvider: (text: string) => string = (text) => text
-	@property() defaultLanguage?: string = 'en'
-
-	static get styles(): CSSResultGroup[] {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
-	}
 
 	render() {
 		const versionedValues = this.valueProvider?.()
@@ -41,7 +23,8 @@ export class MeasureField extends LitElement {
 					value="${this.value} ${this.unit}"
 					.valueProvider=${() => versionedValue}
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}
-					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
+						this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
 					.handleMetaChanged=${this.handleMetaChanged}
 					.translationProvider=${this.translationProvider}
 				></iqr-text-field>

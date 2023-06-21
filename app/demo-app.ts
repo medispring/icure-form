@@ -230,7 +230,8 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.formValuesContainer = newVal
+					console.log('newVal', newVal)
+					//this.formValuesContainer = newVal
 				}}"
 			></iqr-form>
 			<iqr-form
@@ -241,7 +242,8 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.formValuesContainer = newVal
+					console.log('newVal', newVal)
+					//this.formValuesContainer = newVal
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"

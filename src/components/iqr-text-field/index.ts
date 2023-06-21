@@ -1,5 +1,5 @@
 // Import the LitElement base class and html helper function
-import { html, LitElement } from 'lit'
+import { html } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -30,6 +30,7 @@ import { sorted } from '../../utils/no-lodash'
 import { generateLabel, generateLabels } from '../iqr-label/utils'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
+import { ValuedField } from '../common/valuedField'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -69,7 +70,7 @@ export interface Labels {
 	[position: string]: string
 }
 // Extend the LitElement base class
-class IqrTextField extends LitElement {
+class IqrTextField extends ValuedField<string, VersionedValue> {
 	get _ownerSearch(): HTMLInputElement | null {
 		return this.renderRoot.querySelector('#ownerSearch')
 	}
@@ -81,24 +82,15 @@ class IqrTextField extends LitElement {
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 	@property() schema: IqrTextFieldSchema = 'styled-text-with-codes'
-	@property() label = ''
-	@property() labelPosition: 'float' | 'side' | 'above' | 'hidden' = 'float'
-	@property() placeholder = ''
 	@property() textRegex = ''
-	@property() labels: Labels = {}
 
-	@property() value = ''
-	@property() defaultLanguage = 'en'
 	@property() owner?: string
 
-	@property() valueProvider?: () => VersionedValue | undefined = undefined
 	@property() metaProvider?: () => VersionedMeta | undefined = undefined
-	@property() handleValueChanged?: (language: string, value: { asString: string; value?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, meta: Meta) => void = undefined
 
 	@state() protected displayOwnersMenu = false
@@ -110,14 +102,15 @@ class IqrTextField extends LitElement {
 
 	@state() protected displayVersionsMenu = false
 
-	@state() protected displayedLanguage = this.defaultLanguage
 	@state() protected displayedVersion = '0'
 
 	@state() protected availableLanguages = [this.displayedLanguage]
 
 	private proseMirrorSchema?: Schema
 	private parser?: MarkdownParser | { parse: (value: string) => ProsemirrorNode }
-	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = { serialize: (content: ProsemirrorNode) => content.textContent }
+	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = {
+		serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
+	}
 	private contentMaker: (doc?: ProsemirrorNode) => Content = () => ({})
 
 	private view?: EditorView
@@ -154,50 +147,13 @@ class IqrTextField extends LitElement {
 	render() {
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
-				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label, this.labelPosition, this.translationProvider)}
+				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
 				</div>
 			</div>
 		`
 	}
-
-	// 	<div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
-	// 	<div class="info">~${this.owner}</div>
-	// 	<div class="buttons-container">
-	// 		<div class="menu-container">
-	// 			<button data-content="${this.getMeta()?.owner}" @click="${this.toggleOwnerMenu}" class="btn menu-trigger author">${ownerPicto}</button>
-	// 			${this.displayOwnersMenu
-	// 				? html`
-	// 						<div id="menu" class="menu">
-	// 							<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-	// 							${this.availableOwners?.map((x) => html`<button @click="${this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
-	// 						</div>
-	// 				  `
-	// 				: ''}
-	// 		</div>
-	// 		<div class="menu-container">
-	// 			<button data-content="${this.getMeta()?.valueDate}" class="btn date">${datePicto}</button>
-	// 		</div>
-	// 		<div class="menu-container">
-	// 			<button data-content="1.0" class="btn version">${versionPicto}</button>
-	// 		</div>
-	// 		<div class="menu-container">
-	// 			<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
-	// 			${this.displayLanguagesMenu
-	// 				? html`
-	// 						<div id="menu" class="menu">
-	// 							<div class="input-container">${searchPicto} <input /></div>
-	// 							${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${languageName(x)}</button>`)}
-	// 						</div>
-	// 				  `
-	// 				: ''}
-	// 		</div>
-	// 		<div class="menu-container">
-	// 			<slot></slot>
-	// 		</div>
-	// 	</div>
-	// </div>
 
 	toggleOwnerMenu() {
 		this.displayOwnersMenu = !this.displayOwnersMenu
@@ -280,7 +236,7 @@ class IqrTextField extends LitElement {
 				this.displayedLanguage = this.availableLanguages[0]
 			}
 
-			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage] || this.value || '' : this.value) ?? undefined
+			const parsedDoc = this.parser.parse(this.valueProvider ? displayedVersionedValue?.[this.displayedLanguage ?? 'en'] || this.value || '' : this.value || '') ?? undefined
 
 			this.view = new EditorView(this.container, {
 				state: EditorState.create({
@@ -366,7 +322,8 @@ class IqrTextField extends LitElement {
 						setTimeout(
 							() =>
 								// eslint-disable-next-line max-len
-								this.trToSave === tr && this.handleValueChanged?.(this.displayedLanguage, { asString: this.serializer.serialize(tr.doc), value: this.contentMaker?.(tr.doc) }),
+								this.trToSave === tr &&
+								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: this.serializer.serialize(tr.doc), content: this.contentMaker?.(tr.doc) }),
 							800,
 						)
 					}
@@ -376,6 +333,10 @@ class IqrTextField extends LitElement {
 					return $from.parent.type.spec.editable ?? true ? true : false
 				},
 			})
+
+			if (parsedDoc ? this.serializer.serialize(parsedDoc) : '' !== '') {
+				this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
+			}
 		}
 	}
 
@@ -493,7 +454,10 @@ class IqrTextField extends LitElement {
 			: this.schema === 'date-time'
 			? (doc?: ProsemirrorNode) =>
 					new Content({
-						fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'YYYYMMddHHmmss') : undefined,
+						fuzzyDateValue:
+							doc?.firstChild?.textContent && doc?.lastChild?.textContent
+								? format(parse(doc?.firstChild?.textContent + ' ' + doc?.lastChild?.textContent, 'dd/MM/yyyy HH:mm:ss', new Date()), 'yyyyMMddHHmmss')
+								: undefined,
 					})
 			: this.schema === 'text-document'
 			? (doc?: ProsemirrorNode) =>

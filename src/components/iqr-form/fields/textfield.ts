@@ -1,44 +1,28 @@
-import { css, html, LitElement } from 'lit'
+import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 
 import '../../iqr-text-field'
-import { Labels, Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
+import { Suggestion, VersionedMeta, VersionedValue } from '../../iqr-text-field'
 import { Content } from '@icure/api'
+import { ValuedField } from '../../common/valuedField'
 
-class Textfield extends LitElement {
-	@property() label = ''
-	@property() labels?: Labels = undefined
+class Textfield extends ValuedField<string, VersionedValue[]> {
 	//Boolean value is parsed as text, so we also need to use string type
 	@property() multiline: boolean | string = false
 	@property() rows = 1
 	@property() grows = false
-	@property() value?: string = ''
 	@property() unit?: string = ''
-	@property() labelPosition?: string = undefined
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 
-	@property() valueProvider?: () => VersionedValue[] = undefined
 	@property() metaProvider?: () => VersionedMeta[] = undefined
-	@property() handleValueChanged?: (id: string | undefined, language: string, value: { asString: string; content?: Content }) => void = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
-	@property() defaultLanguage?: string = 'en'
-
-	static get styles() {
-		return [
-			css`
-				:host {
-				}
-			`,
-		]
-	}
 
 	render() {
 		const versionedValues = this.valueProvider?.()
@@ -61,7 +45,7 @@ class Textfield extends LitElement {
 				.codeContentProvider=${this.codeContentProvider}
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
-				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(versionedValue?.id, language, value)}
+				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(language, value, versionedValue?.id, [])}
 				.handleMetaChanged=${this.handleMetaChanged}
 			></iqr-text-field>`
 		})

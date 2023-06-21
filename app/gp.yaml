@@ -6,26 +6,27 @@
         - field: abortion-forms.field-labels.YES
           type: checkbox
           options:
-          '06': abortion-forms.field-options.COITUS-INTERRUPTED
-          '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
-          '08': abortion-forms.field-options.SPERMICIDES
-          '09': abortion-forms.field-options.DIAPHRAGM
-          '10': abortion-forms.field-options.CONDOM
-          '11': abortion-forms.field-options.ORAL-PILL
-          '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
-          '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
-          '15': abortion-forms.field-options.MALE-STERILIZATION
-          '16': abortion-forms.field-options.FEMALE-STERILIZATION
-          '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
-          '18': abortion-forms.field-options.MORNING-AFTER-PILL
-          '19': abortion-forms.field-options.IMPLANT
-          '20': abortion-forms.field-options.PATCH
-          '21': abortion-forms.field-options.VAGINAL-RING
-          '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
-          '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
-          '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
+            '06': abortion-forms.field-options.COITUS-INTERRUPTED
+            '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
+            '08': abortion-forms.field-options.SPERMICIDES
+            '09': abortion-forms.field-options.DIAPHRAGM
+            '10': abortion-forms.field-options.CONDOM
+            '11': abortion-forms.field-options.ORAL-PILL
+            '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
+            '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
+            '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
+            '15': abortion-forms.field-options.MALE-STERILIZATION
+            '16': abortion-forms.field-options.FEMALE-STERILIZATION
+            '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
+            '18': abortion-forms.field-options.MORNING-AFTER-PILL
+            '19': abortion-forms.field-options.IMPLANT
+            '20': abortion-forms.field-options.PATCH
+            '21': abortion-forms.field-options.VAGINAL-RING
+            '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
+            '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
+            '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
           rows: 1
+          value: abortion-forms.field-options.FEMALE-STERILIZATION|abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS|abortion-forms.field-options.MORNING-AFTER-PILL
           columns: 1
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
@@ -36,6 +37,7 @@
             hiud: abortion-forms.field-options.HIUD
             implant: abortion-forms.field-options.Implant
             contraceptiveInjection: Injection contraceptive
+          value: abortion-forms.field-options.sKIUD
           rows: 2
           columns: 1
           tags:
@@ -83,6 +85,7 @@
             '06': abortion-forms.field-options.FAILURE-OF-DRUG-TREATMENT
             '07': abortion-forms.field-options.OTHER
           rows: 6
+          value : abortion-forms.field-options.INFECTIOUS-COMPLICATION
           columns: 1
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|complication|1
