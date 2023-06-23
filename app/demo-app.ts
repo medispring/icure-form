@@ -13,7 +13,8 @@ import { codes } from './codes'
 import yamlForm from './gp.yaml'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
-import { property } from 'lit/decorators.js'
+import { property, customElement } from 'lit/decorators.js'
+import 'app-datepicker'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -70,6 +71,9 @@ const ultrasound = [
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
+const localName = 'demo-app'
+
+@customElement(localName)
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	@property() formValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
@@ -98,6 +102,10 @@ class DemoApp extends LitElement {
 				margin-top: 1em;
 				margin-bottom: 0;
 				font-family: 'Roboto', Helvetica, sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
 			}
 		`
 	}
@@ -222,6 +230,7 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 		return html`
+			<app-date-picker></app-date-picker>
 			<iqr-form
 				.form="${form}"
 				labelPosition="above"
@@ -230,9 +239,9 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					console.log('newVal', newVal)
-					//this.formValuesContainer = newVal
-				}}"
+				console.log('newVal', newVal)
+				//this.formValuesContainer = newVal
+			}}"
 			></iqr-form>
 			<iqr-form
 				.form="${Form.parse(YAML.parse(yamlForm))}"
@@ -242,9 +251,9 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					console.log('newVal', newVal)
-					//this.formValuesContainer = newVal
-				}}"
+				console.log('newVal', newVal)
+				//this.formValuesContainer = newVal
+			}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
