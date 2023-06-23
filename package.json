@@ -1,104 +1,110 @@
 {
-	"name": "@icure/form",
-	"version": "1.1.0",
-	"description": "",
-	"main": "lib/index.js",
-	"scripts": {
-		"start": "node lit-inject-scss.js src tmp && webpack-dev-server",
-		"build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json && rm -r tmp",
-		"dist": "webpack --env.mode production",
-		"prepare": "rm -r lib && yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
-		"publish": "yarn version patch && yarn run prepare && cd lib && npm publish && cd ..",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "GPL-3.0",
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"lint-staged": {
-		"*.ts": [
-			"eslint --fix",
-			"git add"
-		]
-	},
-	"dependencies": {
-		"@types/node": "^18.16.3",
-		"@webcomponents/webcomponentsjs": "^2.7.0",
-		"fast-deep-equal": "^3.1.3",
-		"lit": "^2.6.1",
-		"markdown-it": "^13.0.1",
-		"orderedmap": "2.1.0",
-		"prosemirror-commands": "1.5.1",
-		"prosemirror-history": "1.3.0",
-		"prosemirror-keymap": "1.2.1",
-		"prosemirror-markdown": "1.10.1",
-		"prosemirror-model": "1.19.0",
-		"prosemirror-schema-basic": "1.2.1",
-		"prosemirror-schema-list": "1.2.2",
-		"prosemirror-state": "1.4.2",
-		"prosemirror-transform": "1.7.1",
-		"prosemirror-view": "1.30.1",
-		"simple-statistics": "^7.8.3",
-		"uuid": "^9.0.0",
-		"yaml": "^1.10.2"
-	},
-	"devDependencies": {
-		"@icure/api": "^4.2.39",
-		"@types/markdown-it": "^12.2.3",
-		"@types/mocha": "^10.0.1",
-		"@types/uuid": "^9.0.1",
-		"@typescript-eslint/eslint-plugin": "^5.54.1",
-		"@typescript-eslint/parser": "^5.54.1",
-		"assert": "^2.0.0",
-		"babel": "^6.23.0",
-		"babel-eslint": "10.1.0",
-		"babel-preset-es2017": "^6.24.1",
-		"copy-webpack-plugin": "^11.0.0",
-		"css-loader": "^6.7.3",
-		"eslint": "^8.35.0",
-		"eslint-config-prettier": "^8.7.0",
-		"eslint-plugin-import": "^2.27.5",
-		"eslint-plugin-jsdoc": "^40.0.1",
-		"eslint-plugin-jsx-a11y": "^6.7.1",
-		"eslint-plugin-prettier": "^4.2.1",
-		"extract-loader": "^5.1.0",
-		"html-webpack-plugin": "^5.5.0",
-		"husky": "^8.0.3",
-		"lint-staged": "^13.1.2",
-		"lit-scss-loader": "^2.0.1",
-		"minisearch": "^6.0.1",
-		"mocha": "^10.2.0",
-		"prettier": "^2.8.4",
-		"pretty-quick": "^3.1.3",
-		"raw-loader": "^4.0.2",
-		"sass": "^1.58.3",
-		"sass-loader": "^13.2.0",
-		"ts-loader": "^9.4.2",
-		"ts-node": "^10.9.1",
-		"typescript": "^4.9.5",
-		"webpack": "^5.75.0",
-		"webpack-cli": "^4.10.0",
-		"webpack-dev-server": "^4.11.1"
-	},
-	"resolutions": {
-		"prosemirror-model": "1.19.0",
-		"prosemirror-state": "1.4.2",
-		"prosemirror-view": "1.30.1"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "@medispring/form",
+  "version": "1.0.4",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node lit-inject-scss.js src tmp && webpack-dev-server",
+    "build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json",
+    "dist": "webpack --env.mode production",
+    "prepare": "yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types,access:.access, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
+    "publish": "yarn version patch && yarn run prepare && cd lib && npm publish --access public && cd ..",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0",
+  "access": "public",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@types/node": "^18.16.3",
+    "@webcomponents/webcomponentsjs": "^2.7.0",
+    "fast-deep-equal": "^3.1.3",
+    "lit": "^2.6.1",
+    "markdown-it": "^13.0.1",
+    "orderedmap": "2.1.0",
+    "prosemirror-commands": "1.5.1",
+    "prosemirror-history": "1.3.0",
+    "prosemirror-keymap": "1.2.1",
+    "prosemirror-markdown": "1.10.1",
+    "prosemirror-model": "1.19.0",
+    "prosemirror-schema-basic": "1.2.1",
+    "prosemirror-schema-list": "1.2.2",
+    "prosemirror-state": "1.4.2",
+    "prosemirror-transform": "1.7.1",
+    "prosemirror-view": "1.30.1",
+    "simple-statistics": "^7.8.3",
+    "uuid": "^9.0.0",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@icure/api": "^4.2.39",
+    "@types/markdown-it": "^12.2.3",
+    "@types/mocha": "^10.0.1",
+    "@types/uuid": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "assert": "^2.0.0",
+    "babel": "^6.23.0",
+    "babel-eslint": "10.1.0",
+    "babel-preset-es2017": "^6.24.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^40.0.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "extract-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "lit-scss-loader": "^2.0.1",
+    "minisearch": "^6.0.1",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.4",
+    "pretty-quick": "^3.1.3",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.19.0",
+    "prosemirror-state": "1.4.2",
+    "prosemirror-view": "1.30.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "types": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "description": ""
 }
