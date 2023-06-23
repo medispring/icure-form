@@ -14,7 +14,6 @@ import yamlForm from './gp.yaml'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
 import { property, customElement } from 'lit/decorators.js'
-import 'app-datepicker'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -230,7 +229,6 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 		return html`
-			<app-date-picker></app-date-picker>
 			<iqr-form
 				.form="${form}"
 				labelPosition="above"
@@ -238,10 +236,7 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-				console.log('newVal', newVal)
-				//this.formValuesContainer = newVal
-			}}"
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {}}"
 			></iqr-form>
 			<iqr-form
 				.form="${Form.parse(YAML.parse(yamlForm))}"
@@ -250,10 +245,7 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-				console.log('newVal', newVal)
-				//this.formValuesContainer = newVal
-			}}"
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
