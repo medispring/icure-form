@@ -1,6 +1,6 @@
 import { html } from 'lit'
 import { property } from 'lit/decorators.js'
-import '../../iqr-text-field'
+import '../../iqr-date-picker'
 import { VersionedMeta, VersionedValue } from '../../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { ValuedField } from '../../common/valuedField'
@@ -11,20 +11,17 @@ export class DatePicker extends ValuedField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
-			return html` <iqr-text-field
+			return html`<iqr-date-picker-field
 				labelPosition=${this.labelPosition}
 				label="${this.label}"
 				.labels="${this.labels}"
-				schema="date"
 				value=${this.value}
 				.valueProvider=${() => versionedValue}
-				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
 					this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
-				.handleMetaChanged=${this.handleMetaChanged}
 				.translationProvider=${this.translationProvider}
 				defaultLanguage="${this.defaultLanguage}"
-			></iqr-text-field>`
+			></iqr-date-picker-field>`
 		})
 	}
 }

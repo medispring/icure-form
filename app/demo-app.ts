@@ -4,6 +4,7 @@ import { CodeStub, IccHcpartyXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-dropdown'
+import '../src/components/iqr-date-picker'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
@@ -11,7 +12,7 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { property, customElement } from 'lit/decorators.js'
 
@@ -236,7 +237,9 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {}}"
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+					console.log(newVal)
+				}}"
 			></iqr-form>
 			<iqr-form
 				.form="${Form.parse(YAML.parse(yamlForm))}"
@@ -245,7 +248,9 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {}}"
+				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+					console.log(newVal)
+				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"

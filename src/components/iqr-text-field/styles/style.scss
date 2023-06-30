@@ -671,6 +671,28 @@ span.code-count-3::after, span.code-count-3::before {
 	max-height: 280px;
 }
 
+.date-picker {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	position: absolute;
+	top: 30px;
+	right: 0;
+	z-index: 2;
+	background: #fff;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+	width: 260px;
+	overflow-y: auto;
+	max-height: 280px;
+}
+
+app-date-picker {
+	--app-primary: #06a070;
+	--app-hover: #06a070;
+	--app-selected-hover: #06a070;
+}
+
+
 .option {
 	height: 28px;
 	min-height: 28px;
