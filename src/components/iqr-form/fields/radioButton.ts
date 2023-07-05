@@ -4,13 +4,17 @@ import '../../iqr-radio-button-group'
 import { VersionedValue } from '../../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { OptionsField } from '../../common/optionsField'
+import { property } from 'lit/decorators.js'
+import { ActionManager } from '../../iqr-form-loader/actionManager'
 
 export class RadioButton extends OptionsField<string, VersionedValue[]> {
+	@property() actionManager?: ActionManager
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
 				<iqr-radio-button
+					.actionManager="${this.actionManager}"
 					type="radio"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"

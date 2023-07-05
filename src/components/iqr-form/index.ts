@@ -1,8 +1,8 @@
 // Import the LitElement base class and html helper function
 import { html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
-import { Form } from './model'
+import { Form, StateToUpdate, Trigger } from './model'
 
 import './fields/textfield'
 import './fields/measureField'
@@ -25,6 +25,7 @@ import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
 import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
 import { CodeStub } from '@icure/api'
+import { ActionManager } from '../iqr-form-loader/actionManager'
 
 // Extend the LitElement base class
 class IqrForm extends LitElement {
@@ -38,6 +39,14 @@ class IqrForm extends LitElement {
 	@property() formValuesContainerChanged?: (newValue: FormValuesContainer) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([])
+	@property() actionManager?: ActionManager
+	@state() display: boolean = true
+
+	stateUpdate: (state: StateToUpdate, result: any) => void = (state, result) => {
+		if (state === StateToUpdate.VISIBLE) {
+			this.display = result
+		}
+	}
 
 	constructor() {
 		super()
@@ -58,6 +67,9 @@ class IqrForm extends LitElement {
 	render() {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
+		if (!this.display) {
+			return html``
+		}
 		return renderer && this.form
 			? renderer(
 					this.form,
@@ -67,6 +79,7 @@ class IqrForm extends LitElement {
 					this.translationProvider,
 					() => [],
 					this.codesProvider,
+					this.actionManager,
 			  )
 			: this.form
 			? html`<p>unknown renderer</p>`
@@ -74,7 +87,12 @@ class IqrForm extends LitElement {
 	}
 
 	firstUpdated() {
-		//Do nothing
+		if (this.actionManager && this.form && this.formValuesContainer) {
+			console.log('init action manager')
+			this.actionManager.registerStateUpdater(this.form.form, this.stateUpdate)
+			//launch init actions
+			this.actionManager.launchActions(Trigger.INIT, this.form.form)
+		}
 	}
 }
 

@@ -8,10 +8,14 @@ import { VersionedValue } from '../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { generateLabel } from '../iqr-label/utils'
 import { OptionsField } from '../common/optionsField'
+import { ActionManager } from '../iqr-form-loader/actionManager'
+import { StateToUpdate, Trigger } from '../iqr-form/model'
 
 class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 	@property() type: 'radio' | 'checkbox' = 'radio'
 	@state() protected inputValues: string[] = []
+	@state() protected display: boolean = true
+	@property() actionManager?: ActionManager
 
 	//override
 	static get styles(): CSSResultGroup[] {
@@ -43,6 +47,9 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		}
 	}
 	render(): TemplateResult {
+		if (!this.display) {
+			return html``
+		}
 		return html`
 			<div class="iqr-text-field">
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -65,6 +72,14 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		`
 	}
 	public firstUpdated(): void {
+		if (this.actionManager) {
+			this.actionManager.registerStateUpdater(this.label || '', (state: StateToUpdate, result: any) => {
+				if (state === StateToUpdate.VISIBLE) {
+					this.display = result
+				}
+			})
+		}
+
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
@@ -91,6 +106,7 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				],
 			)
 		}
+		if (this.actionManager) this.actionManager.launchActions(Trigger.INIT, '10 - Contrôle')
 	}
 }
 

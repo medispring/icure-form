@@ -8,30 +8,30 @@ export function withLabel(label: string): (svc: Service) => boolean {
 }
 
 export interface FormValuesContainer {
-	copy(currentContact: Contact): FormValuesContainer
 	getVersions(selector: (svc: Service) => boolean): ServicesHistory
 	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): FormValuesContainer
 	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer
 	setAuthor(serviceId: string, author: string | null): FormValuesContainer
 	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
 	delete(serviceId: string): FormValuesContainer
-	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined
+	compute<T, S>(formula: string, sandbox?: S): T | undefined
 }
 
 export class ICureFormValuesContainer implements FormValuesContainer {
 	currentContact: Contact //The contact of the day, used to record modifications
 	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)
-	sandboxProxies = new WeakMap()
-	codeSnippets = new Map<string, any>()
 
 	serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service
+	//Actions management
+	interpretor: (formula: string, sandbox: any) => any
 
 	constructor(
 		currentContact: Contact,
 		contact: Contact,
 		contactsHistory: Contact[],
 		serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service,
+		interpretor: (formula: string, sandbox: any) => any,
 	) {
 		if (!contactsHistory.includes(contact) && contact !== currentContact) {
 			throw new Error('Illegal argument, the history must contain the contact')
@@ -43,11 +43,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		this.contact = contact
 		this.contactsHistory = sortedBy(contactsHistory, 'created', 'desc')
 		this.serviceFactory = serviceFactory
-	}
-
-	//TODO: remove this method
-	copy(currentContact: Contact): ICureFormValuesContainer {
-		return new ICureFormValuesContainer(currentContact, this.contact, this.contactsHistory, this.serviceFactory)
+		this.interpretor = interpretor
 	}
 
 	getVersions(selector: (svc: Service) => boolean): ServicesHistory {
@@ -71,7 +67,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		}
 	}
 
-	//TODO: maybe create a bunnch of setters/getters for each property in the utils/icure-utils.ts
+	//TODO: maybe create a bunch of setters/getters for each property in the utils/icure-utils.ts
 	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer {
 		return this.setServiceProperty(
 			serviceId,
@@ -145,59 +141,8 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 		}
 	}
 
-	compute<T, S extends { [key: string | symbol]: unknown }>(
-		formula: string,
-		sandbox: S = new Proxy({} as S, {
-			has: (target: S, key: string | symbol) => Object.keys(this.getVersions((s) => s.label === key) ?? {}).length > 0,
-			get: (target: S, key: string | symbol) => Object.values(this.getVersions((s) => s.label === key)),
-		}),
-	): T | undefined {
-		const sb = this.sandboxProxies
-		const cs = this.codeSnippets
-		function compileCode(src: string) {
-			if (cs.has(src)) {
-				return cs.get(src)
-			}
-
-			src = 'with (sandbox) {' + src + '}'
-			const code = new Function('sandbox', src)
-
-			const result = function (sandbox: S) {
-				if (!sb.has(sandbox)) {
-					const sandboxProxy = new Proxy<S>(sandbox, { has, get })
-					sb.set(sandbox, sandboxProxy)
-				}
-				return code(sb.get(sandbox))
-			}
-
-			cs.set(src, result)
-
-			return result
-		}
-
-		function has() {
-			return true
-		}
-
-		function get(target: S, key: string | symbol) {
-			if (key === Symbol.unscopables) return undefined
-			return target[key]
-		}
-
-		let compiledCode: any
-		try {
-			compiledCode = compileCode(formula)
-		} catch (e) {
-			console.info('Invalid Formula: ' + formula)
-			return undefined
-		}
-		try {
-			const result = compiledCode(sandbox)
-			return result
-		} catch (e) {
-			console.info('Error while executing formula: ' + formula, e)
-			return undefined
-		}
+	compute<T, S>(formula: string, sandbox: S): T | undefined {
+		return this.interpretor(formula, sandbox)
 	}
 
 	/** returns all services in history that match a selector

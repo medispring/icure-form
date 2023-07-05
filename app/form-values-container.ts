@@ -24,5 +24,6 @@ export const makeFormValuesContainer = () => {
 		ctc,
 		[ctc],
 		(label, serviceId, language, content, codes, tags) => new Service({ label, id: serviceId, created: now, modified: now, content: { [language]: content }, codes, tags }),
+		(f,s) => f
 	)
 }

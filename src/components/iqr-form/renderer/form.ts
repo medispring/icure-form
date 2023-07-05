@@ -21,6 +21,7 @@ import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
+import {ActionManager} from "../../iqr-form-loader/actionManager";
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -33,6 +34,7 @@ export const render: Renderer = (
 	translationProvider: (text: string) => string = (text) => text,
 	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
 	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
+	actionManager?: ActionManager,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -49,13 +51,6 @@ export const render: Renderer = (
 	}
 	const renderFieldOrGroup = function (fg: Field | Group, level: number, fieldsInRow = 1): TemplateResult | TemplateResult[] {
 		const fgColumns = fg.columns ?? 1
-		if (fg.hideCondition) {
-			const hideCondition = fg.hideCondition
-			const hideConditionResult = formsValueContainer?.compute(hideCondition)
-			if (hideConditionResult) {
-				return html``
-			}
-		}
 		if (fg.clazz === 'group' && fg.fields) {
 			const fieldsOrGroupByRows = groupFieldsOrGroupByRows(fg.fields)
 			return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width)}">
@@ -191,6 +186,7 @@ export const render: Renderer = (
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
