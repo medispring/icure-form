@@ -686,7 +686,7 @@ export class State {
 	}
 }
 
-export enum StateToUpdate{
+export enum StateToUpdate {
 	VALUE = 'VALUE',
 	VISIBLE = 'VISIBLE',
 	READONLY = 'READONLY',

@@ -9,6 +9,7 @@ export class MultipleChoice extends ValuedField<string, VersionedValue[]> {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-text-field
+				.actionManager="${this.actionManager}"
 				.labels="${this.labels}"
 				value="${this.value}"
 				labelPosition=${this.labelPosition}

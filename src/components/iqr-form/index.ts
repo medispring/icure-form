@@ -1,8 +1,8 @@
 // Import the LitElement base class and html helper function
-import { html, LitElement } from 'lit'
-import { property, state } from 'lit/decorators.js'
+import { html } from 'lit'
+import { property } from 'lit/decorators.js'
 
-import { Form, StateToUpdate, Trigger } from './model'
+import { Form } from './model'
 
 import './fields/textfield'
 import './fields/measureField'
@@ -25,10 +25,10 @@ import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
 import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
 import { CodeStub } from '@icure/api'
-import { ActionManager } from '../iqr-form-loader/actionManager'
+import { ActionedField } from '../common/actionedField'
 
 // Extend the LitElement base class
-class IqrForm extends LitElement {
+class IqrForm extends ActionedField {
 	@property() form?: Form
 	@property() skin = 'material'
 	@property() theme = 'default'
@@ -39,14 +39,6 @@ class IqrForm extends LitElement {
 	@property() formValuesContainerChanged?: (newValue: FormValuesContainer) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([])
-	@property() actionManager?: ActionManager
-	@state() display: boolean = true
-
-	stateUpdate: (state: StateToUpdate, result: any) => void = (state, result) => {
-		if (state === StateToUpdate.VISIBLE) {
-			this.display = result
-		}
-	}
 
 	constructor() {
 		super()
@@ -88,10 +80,7 @@ class IqrForm extends LitElement {
 
 	firstUpdated() {
 		if (this.actionManager && this.form && this.formValuesContainer) {
-			console.log('init action manager')
-			this.actionManager.registerStateUpdater(this.form.form, this.stateUpdate)
-			//launch init actions
-			this.actionManager.launchActions(Trigger.INIT, this.form.form)
+			this.registerStateUpdater(this.form.form || '')
 		}
 	}
 }

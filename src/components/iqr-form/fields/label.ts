@@ -14,7 +14,7 @@ export class Label extends LabelizedField {
 	}
 
 	render(): TemplateResult {
-		return html`<iqr-label label="${this.label}" labelPosition="${this.labelPosition}"></iqr-label>`
+		return html`<iqr-label .actionManager="${this.actionManager}" label="${this.label}" labelPosition="${this.labelPosition}"></iqr-label>`
 	}
 }
 

@@ -15,6 +15,7 @@ export class MeasureField extends ValuedField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
 				<iqr-text-field
+					.actionManager="${this.actionManager}"
 					labelPosition=${this.labelPosition}
 					.labels="${this.labels}"
 					label="${this.label}"

@@ -11,7 +11,7 @@
             stateToUpdate: VISIBLE
             canLaunchLauncher: false
     sections:
-      - section:
+      - section: first-section
         fields:
         - field: abortion-forms.field-labels.YES
           type: checkbox
