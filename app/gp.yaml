@@ -112,7 +112,7 @@
           tags:
             - MS-ABORTION-APPOINTMENT-TIME-ITEM|medicalNotes|1
         - field: abortion-forms.field-labels.HCG-DATE
-          type: date-time-picker
+          type: date-picker
           rows: 9
           columns: 1
           now: true

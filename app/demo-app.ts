@@ -4,6 +4,7 @@ import { CodeStub, IccHcpartyXApi } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-dropdown'
+import '../src/components/iqr-date-picker'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
 //@ts-ignore
@@ -11,7 +12,7 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
+import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { property } from 'lit/decorators.js'
 import {ActionManager} from "../src/components/iqr-form-loader/actionManager";
@@ -71,6 +72,9 @@ const ultrasound = [
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
+const localName = 'demo-app'
+
+@customElement(localName)
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	@property() formValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
@@ -99,6 +103,10 @@ class DemoApp extends LitElement {
 				margin-top: 1em;
 				margin-bottom: 0;
 				font-family: 'Roboto', Helvetica, sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
 			}
 		`
 	}
@@ -235,8 +243,7 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					console.log('newVal', newVal)
-					//this.formValuesContainer = newVal
+					console.log(newVal)
 				}}"
 			></iqr-form>
 			<iqr-form
@@ -248,8 +255,7 @@ class DemoApp extends LitElement {
 				.formValuesContainer="${this.formValuesContainer}"
 				.actionManager="${actionManager}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					console.log('newVal', newVal)
-					//this.formValuesContainer = newVal
+					console.log(newVal)
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
