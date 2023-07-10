@@ -1,5 +1,5 @@
 import { IqrTextFieldSchema, Labels } from '../../iqr-text-field'
-import { CodeStub, Content } from '@icure/api'
+
 type FieldType =
 	| 'textfield'
 	| 'measure-field'
@@ -594,29 +594,102 @@ export class Form {
 	sections: Section[]
 	description?: string
 	keywords?: string[]
+	actions?: Action[]
 
-	constructor(title: string, sections: Section[], description?: string, keywords?: string[]) {
+	constructor(title: string, sections: Section[], description?: string, keywords?: string[], actions?: Action[]) {
 		this.form = title
 		this.description = description
 		this.keywords = keywords
 		this.sections = sections
+		this.actions = actions
 	}
 
-	static parse(json: { form: string; sections: Section[]; description?: string; keywords?: string[] }): Form {
+	static parse(json: { form: string; sections: Section[]; description?: string; keywords?: string[]; actions?: Action[] }): Form {
 		return new Form(
 			json.form,
 			(json.sections || []).map((s: Section) => Section.parse(s)),
 			json.description,
 			json.keywords,
+			(json.actions || []).map((a: Action) => Action.parse(a)),
 		)
 	}
 }
 
-export interface ExtractDefaultValue {
-	label: string
-	serviceId: string
-	language: string
-	content: Content
-	codes: CodeStub[]
-	tags: CodeStub[]
+/**
+ * Action part.
+ * An action is an expression that can be triggered by a launcher and that can change the state of the form.
+ * Launchers are defined by a trigger and a name. Launchers are events that will trigger the action.
+ * Expression is evaluated by an Interpreter (get from the frontend). The expression can change the state of the form or launch another action on the frontend.
+ * States are the states that can be changed by the action. States are defined by a name and a state to update.
+ * There is 3 types of Action:
+ * - Formulas: the expression is a formula that will change the value of a field.
+ * 		Example: OnChange of field A and B, expresion is A + B and state is value of field C.
+ * - ExternalAction: the expression is a call to an external action.
+ * 		Example: OnClick of button A, expression is open dialog B and state is value of field C (that will be returned by the dialog).
+ * - ExternalEvent: the launcher is an external event.
+ * 		Example: Frontend send an event, expression is value of the event and state is value of field A.
+ */
+export class Action {
+	launchers: Launcher[]
+	expression: string
+	states: State[]
+	constructor(launchers: Launcher[], expression: string, states: State[]) {
+		this.launchers = launchers
+		this.expression = expression
+		this.states = states
+	}
+
+	static parse(json: { launchers: Launcher[]; expression: string; states: State[] }): Action {
+		return new Action(
+			(json.launchers || []).map((l: Launcher) => Launcher.parse(l)),
+			json.expression,
+			(json.states || []).map((s: State) => State.parse(s)),
+		)
+	}
+}
+
+export class Launcher {
+	name: string
+	triggerer: Trigger
+	shouldPassValue: boolean
+	constructor(name: string, triggerer: Trigger, shouldPassValue: boolean) {
+		this.name = name
+		this.triggerer = triggerer
+		this.shouldPassValue = shouldPassValue
+	}
+	static parse(json: { name: string; triggerer: Trigger; shouldPassValue: boolean }): Launcher {
+		return new Launcher(json.name, json.triggerer, json.shouldPassValue)
+	}
+}
+
+export enum Trigger {
+	INIT = 'INIT',
+	CHANGE = 'CHANGE',
+	CLICK = 'CLICK',
+	VISIBLE = 'VISIBLE',
+	ERROR = 'ERROR',
+	VALID = 'VALID',
+	EVENT = 'EVENT',
+}
+
+export class State {
+	name: string
+	stateToUpdate: StateToUpdate
+	canLaunchLauncher: boolean
+	constructor(name: string, stateToUpdate: StateToUpdate, canLaunchLauncher: boolean) {
+		this.name = name
+		this.stateToUpdate = stateToUpdate
+		this.canLaunchLauncher = canLaunchLauncher
+	}
+	static parse(json: { name: string; stateToUpdate: StateToUpdate; canLaunchLauncher: boolean }): State {
+		return new State(json.name, json.stateToUpdate, json.canLaunchLauncher)
+	}
+}
+
+export enum StateToUpdate {
+	VALUE = 'VALUE',
+	VISIBLE = 'VISIBLE',
+	READONLY = 'READONLY',
+	CLAZZ = 'CLAZZ',
+	REQUIRED = 'REQUIRED',
 }

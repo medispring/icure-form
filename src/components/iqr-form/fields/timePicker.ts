@@ -10,6 +10,7 @@ export class TimePicker extends ValuedField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
 				<iqr-text-field
+					.actionManager="${this.actionManager}"
 					.labels="${this.labels}"
 					labelPosition=${this.labelPosition}
 					label="${this.label}"

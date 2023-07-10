@@ -43,6 +43,9 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		}
 	}
 	render(): TemplateResult {
+		if (!this.display) {
+			return html``
+		}
 		return html`
 			<div class="iqr-text-field">
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -65,6 +68,8 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		`
 	}
 	public firstUpdated(): void {
+		this.registerStateUpdater(this.label || '')
+
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {

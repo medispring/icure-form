@@ -1,5 +1,5 @@
 // Import the LitElement base class and html helper function
-import { html, LitElement } from 'lit'
+import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 
 import { Form } from './model'
@@ -25,9 +25,10 @@ import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
 import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
 import { CodeStub } from '@icure/api'
+import { ActionedField } from '../common/actionedField'
 
 // Extend the LitElement base class
-class IqrForm extends LitElement {
+class IqrForm extends ActionedField {
 	@property() form?: Form
 	@property() skin = 'material'
 	@property() theme = 'default'
@@ -58,6 +59,9 @@ class IqrForm extends LitElement {
 	render() {
 		const renderer: Renderer | undefined = this.renderer === 'form' ? renderAsForm : this.renderer === 'form' ? renderAsCard : undefined
 
+		if (!this.display) {
+			return html``
+		}
 		return renderer && this.form
 			? renderer(
 					this.form,
@@ -67,6 +71,7 @@ class IqrForm extends LitElement {
 					this.translationProvider,
 					() => [],
 					this.codesProvider,
+					this.actionManager,
 			  )
 			: this.form
 			? html`<p>unknown renderer</p>`
@@ -74,7 +79,9 @@ class IqrForm extends LitElement {
 	}
 
 	firstUpdated() {
-		//Do nothing
+		if (this.actionManager && this.form && this.formValuesContainer) {
+			this.registerStateUpdater(this.form.form || '')
+		}
 	}
 }
 

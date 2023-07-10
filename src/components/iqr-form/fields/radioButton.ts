@@ -11,6 +11,7 @@ export class RadioButton extends OptionsField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
 				<iqr-radio-button
+					.actionManager="${this.actionManager}"
 					type="radio"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"

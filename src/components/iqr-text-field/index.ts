@@ -145,6 +145,9 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 	}
 
 	render() {
+		if (!this.display) {
+			return html``
+		}
 		return html`
 			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
 				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -195,6 +198,7 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 	}
 
 	firstUpdated() {
+		this.registerStateUpdater(this.label || '')
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const cmp = this
 		const pms: Schema = (this.proseMirrorSchema = createSchema(

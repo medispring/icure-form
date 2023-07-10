@@ -11,6 +11,7 @@ export class CheckBox extends OptionsField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`
 				<iqr-radio-button
+					.actionManager="${this.actionManager}"
 					type="checkbox"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"

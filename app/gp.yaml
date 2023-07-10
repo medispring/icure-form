@@ -1,7 +1,17 @@
     form: 10 - Contrôle
     description: 10 - Contrôle
+    actions:
+      - launchers:
+          - name: 10 - Contrôle
+            triggerer: INIT
+            shouldPassValue: false
+        expression: false
+        states:
+          - name: abortion-forms.field-labels.YES
+            stateToUpdate: VISIBLE
+            canLaunchLauncher: false
     sections:
-      - section:
+      - section: first-section
         fields:
         - field: abortion-forms.field-labels.YES
           type: checkbox
