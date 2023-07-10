@@ -14,7 +14,8 @@ import { codes } from './codes'
 import yamlForm from './gp.yaml'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
-import { property, customElement } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
+import {ActionManager} from "../src/components/iqr-form-loader/actionManager";
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -229,6 +230,10 @@ class DemoApp extends LitElement {
 			],
 			'Fill in the patient information inside the waiting room',
 		)
+
+		const gpForm = Form.parse(YAML.parse(yamlForm))
+		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer)
+
 		return html`
 			<iqr-form
 				.form="${form}"
@@ -242,12 +247,13 @@ class DemoApp extends LitElement {
 				}}"
 			></iqr-form>
 			<iqr-form
-				.form="${Form.parse(YAML.parse(yamlForm))}"
+				.form="${gpForm}"
 				labelPosition="above"
 				skin="kendo"
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
+				.actionManager="${actionManager}"
 				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
 					console.log(newVal)
 				}}"

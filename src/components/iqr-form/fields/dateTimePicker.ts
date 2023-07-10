@@ -13,6 +13,7 @@ export class DateTimePicker extends ValuedField<string, VersionedValue[]> {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-text-field
+				.actionManager="${this.actionManager}"
 				.labels="${this.labels}"
 				labelPosition=${this.labelPosition}
 				label="${this.label}"

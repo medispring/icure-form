@@ -63,6 +63,9 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	}
 
 	render(): TemplateResult {
+		if (!this.display) {
+			return html``
+		}
 		return html`
 			<div id="root" class="iqr-text-field ${this.inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -93,6 +96,8 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	}
 
 	public firstUpdated(): void {
+		this.registerStateUpdater(this.label || '')
+
 		document.addEventListener('click', (event) => {
 			if (!event.composedPath().includes(this)) {
 				this.displayMenu = false

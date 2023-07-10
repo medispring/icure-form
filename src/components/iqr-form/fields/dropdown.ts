@@ -14,6 +14,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 			(versionedValue, idx) =>
 				html`
 					<iqr-dropdown-field
+						.actionManager="${this.actionManager}"
 						label="${this.label}"
 						.translate="${this.translate}"
 						.options="${this.options}"

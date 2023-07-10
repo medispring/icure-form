@@ -21,6 +21,7 @@ import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
+import { ActionManager } from '../../iqr-form-loader/actionManager'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -33,6 +34,7 @@ export const render: Renderer = (
 	translationProvider: (text: string) => string = (text) => text,
 	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
 	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
+	actionManager?: ActionManager,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -49,13 +51,6 @@ export const render: Renderer = (
 	}
 	const renderFieldOrGroup = function (fg: Field | Group, level: number, fieldsInRow = 1): TemplateResult | TemplateResult[] {
 		const fgColumns = fg.columns ?? 1
-		if (fg.hideCondition) {
-			const hideCondition = fg.hideCondition
-			const hideConditionResult = formsValueContainer?.compute(hideCondition)
-			if (hideConditionResult) {
-				return html``
-			}
-		}
 		if (fg.clazz === 'group' && fg.fields) {
 			const fieldsOrGroupByRows = groupFieldsOrGroupByRows(fg.fields)
 			return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width)}">
@@ -70,6 +65,7 @@ export const render: Renderer = (
 		} else if (fg.clazz === 'field') {
 			return html`${fg.type === 'textfield'
 				? html`<iqr-form-textfield
+						.actionManager="${actionManager}"
 						class="iqr-form-field"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
@@ -91,6 +87,7 @@ export const render: Renderer = (
 				  ></iqr-form-textfield>`
 				: fg.type === 'measure-field'
 				? html`<iqr-form-measure-field
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -106,6 +103,7 @@ export const render: Renderer = (
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
 				? html`<iqr-form-number-field
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -120,6 +118,7 @@ export const render: Renderer = (
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
 				? html`<iqr-form-date-picker
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -134,6 +133,7 @@ export const render: Renderer = (
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
 				? html`<iqr-form-time-picker
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -148,6 +148,7 @@ export const render: Renderer = (
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
 				? html`<iqr-form-date-time-picker
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -162,6 +163,7 @@ export const render: Renderer = (
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'
 				? html`<iqr-form-multiple-choice
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -174,6 +176,7 @@ export const render: Renderer = (
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						.label=${fg.field}
@@ -191,6 +194,7 @@ export const render: Renderer = (
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -208,6 +212,7 @@ export const render: Renderer = (
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -225,6 +230,7 @@ export const render: Renderer = (
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
 				? html`<iqr-form-label
+						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
