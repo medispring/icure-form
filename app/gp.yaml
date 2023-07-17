@@ -2,10 +2,13 @@
     description: 10 - Contrôle
     actions:
       - launchers:
-          - name: 10 - Contrôle
+          - name: abortion-forms.field-labels.HCG-DATE
+            triggerer: CHANGE
+            shouldPassValue: true
+          - name: abortion-forms.field-labels.HCG-DATE
             triggerer: INIT
-            shouldPassValue: false
-        expression: false
+            shouldPassValue: true
+        expression: value == "17/04/1997"
         states:
           - name: abortion-forms.field-labels.YES
             stateToUpdate: VISIBLE

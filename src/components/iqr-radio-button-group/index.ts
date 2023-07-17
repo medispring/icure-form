@@ -8,6 +8,7 @@ import { VersionedValue } from '../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { generateLabel } from '../iqr-label/utils'
 import { OptionsField } from '../common/optionsField'
+import { Trigger } from '../iqr-form/model'
 
 class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 	@property() type: 'radio' | 'checkbox' = 'radio'
@@ -40,6 +41,9 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 						),
 				],
 			)
+			if (this.actionManager) {
+				this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: value, options: this.options || [] })
+			}
 		}
 	}
 	render(): TemplateResult {

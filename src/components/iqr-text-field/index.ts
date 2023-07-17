@@ -31,6 +31,7 @@ import { generateLabel, generateLabels } from '../iqr-label/utils'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
 import { ValuedField } from '../common/valuedField'
+import { Trigger } from '../iqr-form/model'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -317,19 +318,21 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 						.map((x) => x as Plugin),
 				}),
 				dispatchTransaction: (tr) => {
-					console.log(tr)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					//current state as json in text area
 					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
-						setTimeout(
-							() =>
-								// eslint-disable-next-line max-len
-								this.trToSave === tr &&
-								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: this.serializer.serialize(tr.doc), content: this.contentMaker?.(tr.doc) }),
-							800,
-						)
+						setTimeout(() => {
+							// eslint-disable-next-line max-len
+							if (this.trToSave === tr) {
+								const serialized = this.serializer.serialize(tr.doc)
+								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: serialized, content: this.contentMaker?.(tr.doc) })
+								if (this.actionManager) {
+									this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: serialized })
+								}
+							}
+						}, 800)
 					}
 				},
 				editable: (state) => {

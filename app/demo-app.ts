@@ -14,8 +14,8 @@ import { codes } from './codes'
 import yamlForm from './gp.yaml'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
-import { property } from 'lit/decorators.js'
-import {ActionManager} from "../src/components/iqr-form-loader/actionManager";
+import { customElement, property } from 'lit/decorators.js'
+import { ActionManager } from '../src/components/iqr-form-loader/actionManager'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -110,7 +110,6 @@ class DemoApp extends LitElement {
 			}
 		`
 	}
-
 	async firstUpdated() {
 		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}

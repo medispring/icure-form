@@ -9,12 +9,16 @@ import { CustomEventDetail } from 'app-datepicker/dist/typings'
 import { Content } from '@icure/api'
 import { MAX_DATE } from 'app-datepicker/dist/constants'
 import { toResolvedDate } from 'app-datepicker/dist/helpers/to-resolved-date'
+import {Trigger} from "../iqr-form/model";
 
 class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 	@state() protected displayDatePicker = false
 	@state() protected inputValue = ''
 
 	render(): TemplateResult {
+		if (!this.display) {
+			return html``
+		}
 		return html`
 			<div id="root" class="iqr-text-field ${this.inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -33,6 +37,8 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 		`
 	}
 	public firstUpdated(): void {
+		this.registerStateUpdater(this.label || '')
+
 		let providedValue = this.valueProvider && this.valueProvider()
 		if (!providedValue) {
 			providedValue = { id: '', versions: [] }
@@ -72,6 +78,9 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 			undefined,
 			[],
 		)
+		if (this.actionManager) {
+			this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue })
+		}
 		this.togglePopup()
 	}
 

@@ -1,6 +1,7 @@
 import { Contact, Service } from '@icure/api'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 
+// @ts-ignore
 export const makeFormValuesContainer = () => {
 	const cc = new Contact({
 		id: 'c2',
@@ -18,12 +19,18 @@ export const makeFormValuesContainer = () => {
 			{ id: 's4', label: 'A TimePicker', tags: [], content: { en: { fuzzyDateValue: 102000 } } },
 		],
 	})
+	const interpretor: (formula: string, sandbox: any) => any = (formula, sandbox) => {
+		const sandboxKeys = Object.keys(sandbox)
+		const sandboxValues = sandboxKeys.map((k) => sandbox[k])
+		const f = new Function(...sandboxKeys, `return ${formula}`)
+		return f(...sandboxValues)
+	}
 	const now = +new Date()
 	return new ICureFormValuesContainer(
 		cc,
 		ctc,
 		[ctc],
 		(label, serviceId, language, content, codes, tags) => new Service({ label, id: serviceId, created: now, modified: now, content: { [language]: content }, codes, tags }),
-		(f,s) => f
+		interpretor,
 	)
 }

@@ -5,6 +5,7 @@ import { generateLabel } from '../iqr-label/utils'
 import { dropdownPicto } from '../iqr-text-field/styles/paths'
 import { OptionsField } from '../common/optionsField'
 import { VersionedValue } from '../iqr-text-field'
+import {Trigger} from "../iqr-form/model";
 
 class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	@state() protected displayMenu = false
@@ -55,6 +56,9 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 							[new CodeStub({ id: 'CUSTOM_OPTION|' + this.value + '|1', type: 'CUSTOM_OPTION', code: this.value, version: '1' })],
 						)
 					}
+				}
+				if (this.actionManager) {
+					this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, code: this.value, options: this.options || [] })
 				}
 				return true
 			}
