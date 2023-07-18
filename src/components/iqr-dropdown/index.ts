@@ -5,7 +5,7 @@ import { generateLabel } from '../iqr-label/utils'
 import { dropdownPicto } from '../iqr-text-field/styles/paths'
 import { OptionsField } from '../common/optionsField'
 import { VersionedValue } from '../iqr-text-field'
-import {Trigger} from "../iqr-form/model";
+import { Trigger } from '../iqr-form/model'
 
 class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	@state() protected displayMenu = false

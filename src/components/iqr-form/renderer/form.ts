@@ -21,7 +21,7 @@ import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { ActionManager } from '../../iqr-form-loader/actionManager'
+import { ActionManager } from '../../iqr-form-loader'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]

@@ -23,7 +23,8 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
-import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
+// @ts-ignore
+import { FormValuesContainer, ActionManager } from '../iqr-form-loader'
 import { CodeStub } from '@icure/api'
 import { ActionedField } from '../common/actionedField'
 
