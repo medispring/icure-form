@@ -24,6 +24,9 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		if (this.handleValueChanged) {
 			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join(this.VALUES_SEPARATOR)
+			const codes = (this.options || [])
+				.filter((option) => inputs.find((i) => i.id === option.id))
+				.map((option) => (!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option))
 			this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
@@ -33,16 +36,10 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 					}),
 				},
 				undefined,
-				[
-					...(this.options || [])
-						.filter((option) => inputs.find((i) => i.id === option.id))
-						.map((option) =>
-							!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option,
-						),
-				],
+				codes,
 			)
 			if (this.actionManager) {
-				this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: value, options: this.options || [] })
+				this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: value, codes: codes, options: this.options || [] })
 			}
 		}
 	}

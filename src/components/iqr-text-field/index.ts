@@ -327,9 +327,10 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 							// eslint-disable-next-line max-len
 							if (this.trToSave === tr) {
 								const serialized = this.serializer.serialize(tr.doc)
-								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: serialized, content: this.contentMaker?.(tr.doc) })
+								const content = this.contentMaker?.(tr.doc)
+								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: serialized, content: content })
 								if (this.actionManager) {
-									this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: serialized })
+									this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: serialized, content: content })
 								}
 							}
 						}, 800)

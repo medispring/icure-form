@@ -9,7 +9,7 @@ actions:
       - name: abortion-forms.field-labels.PLANNED-PREGNANCY
         triggerer: INIT
         shouldPassValue: true
-    expression: value == 'abortion-forms.field-options.YES'
+    expression: (codes || []).some( c => c.code == 'yes')
     states:
       - name: abortion-forms.field-labels.YES
         stateToUpdate: VISIBLE
@@ -21,7 +21,7 @@ actions:
       - name: abortion-forms.field-labels.PLANNED-PREGNANCY
         triggerer: INIT
         shouldPassValue: true
-    expression: value == 'abortion-forms.field-options.NO'
+    expression: (codes || []).some( c => c.code =='no')
     states:
       - name: abortion-forms.field-labels.NO
         stateToUpdate: VISIBLE
@@ -47,8 +47,7 @@ sections:
         columns: 1
         tags:
           - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|amenorrheaDate|1
-      - field: abortion-forms.field-labels.
-
+      - field: abortion-forms.field-labels.PLANNED-PREGNANCY
         type: radio-button
         options:
           yes: abortion-forms.field-options.YES

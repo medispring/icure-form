@@ -22,6 +22,7 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			e.stopPropagation()
 			if (id) {
 				const option = (this.options || []).find((option) => option.id === id)
+				const code = option instanceof CodeStub ? option : new CodeStub({ id: 'CUSTOM_OPTION|' + id + '|1', type: 'CUSTOM_OPTION', code: id, version: '1' })
 				this.value = id
 				this.inputValue =
 					(!(option instanceof CodeStub)
@@ -31,34 +32,20 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 						: option?.label?.[this.displayedLanguage || this.defaultLanguage || 'en']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
-					if (option instanceof CodeStub) {
-						this.handleValueChanged?.(
-							this.displayedLanguage || this.defaultLanguage || 'en',
-							{
-								asString: this.inputValue,
-								content: new Content({
-									stringValue: this.inputValue || '',
-								}),
-							},
-							undefined,
-							[option],
-						)
-					} else {
-						this.handleValueChanged?.(
-							this.displayedLanguage || this.defaultLanguage || 'en',
-							{
-								asString: this.inputValue,
-								content: new Content({
-									stringValue: this.inputValue || '',
-								}),
-							},
-							undefined,
-							[new CodeStub({ id: 'CUSTOM_OPTION|' + this.value + '|1', type: 'CUSTOM_OPTION', code: this.value, version: '1' })],
-						)
-					}
+					this.handleValueChanged?.(
+						this.displayedLanguage || this.defaultLanguage || 'en',
+						{
+							asString: this.inputValue,
+							content: new Content({
+								stringValue: this.inputValue || '',
+							}),
+						},
+						undefined,
+						[code],
+					)
 				}
 				if (this.actionManager) {
-					this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, code: this.value, options: this.options || [] })
+					this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, id: this.value, code: code, options: this.options || [] })
 				}
 				return true
 			}

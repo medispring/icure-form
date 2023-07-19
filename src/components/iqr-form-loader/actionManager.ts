@@ -81,6 +81,11 @@ export class MedispringActionManager implements ActionManager{
 				const sandbox: any = { value: null }
 				action.launchers.forEach((launcher) => {
 					if (launcher.triggerer === Trigger.INIT && launcher.shouldPassValue) {
+						sandbox.codes = []
+						sandbox.content = null
+						sandbox.fuzzyDateValue = null
+						sandbox.options = []
+						sandbox.id = null
 						if (sandbox.value === null) {
 							sandbox.value = this.defaultValues.get(launcher.name)
 						} else {

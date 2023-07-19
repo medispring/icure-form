@@ -67,19 +67,20 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 
 	public dateUpdated(date: CustomEventDetail['date-updated']): void {
 		this.inputValue = date.detail.value?.split('-').reverse().join('/') ?? ''
+		const fuzzyDateValue= this.inputValue.split('/').reduce((acc, x) => x + '' + acc, '')
 		this.handleValueChanged?.(
 			this.displayedLanguage || this.defaultLanguage || 'en',
 			{
 				asString: this.inputValue,
 				content: new Content({
-					fuzzyDateValue: this.inputValue.split('/').reduce((acc, x) => x + '' + acc, ''),
+					fuzzyDateValue: fuzzyDateValue,
 				}),
 			},
 			undefined,
 			[],
 		)
 		if (this.actionManager) {
-			this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue })
+			this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, fuzzyDateValue: fuzzyDateValue })
 		}
 		this.togglePopup()
 	}
