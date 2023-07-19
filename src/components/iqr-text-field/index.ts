@@ -319,8 +319,6 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 				}),
 				dispatchTransaction: (tr) => {
 					this.view && this.view.updateState(this.view.state.apply(tr))
-					//current state as json in text area
-					tr.doc && tr.before && console.log('before:\n' + JSON.stringify(tr.before.toJSON(), null, 2) + '\ndoc:\n' + JSON.stringify(tr.doc.toJSON(), null, 2))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
 						setTimeout(() => {

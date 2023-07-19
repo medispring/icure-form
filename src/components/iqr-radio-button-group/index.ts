@@ -53,10 +53,23 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
 				${this.options?.map((x) => {
 					const text = !(x instanceof CodeStub) ? this.translateText(x.text) || '' : this.translateText(x?.label?.[this.displayedLanguage || this.defaultLanguage || 'en'] || '')
+					if (!this.editable) {
+						return html`<div>
+							<input
+								class="iqr-checkbox"
+								disabled
+								type="${this.type}"
+								id="${x.id}"
+								name="${this.label}"
+								value="${!(x instanceof CodeStub) ? x.id : x.code}"
+								.checked=${this.inputValues.includes(text)}
+								text="${text}"
+							/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
+						</div>`
+					}
 					return html`<div>
 						<input
 							class="iqr-checkbox"
-							disabled="${!this.editable}"
 							type="${this.type}"
 							id="${x.id}"
 							name="${this.label}"
