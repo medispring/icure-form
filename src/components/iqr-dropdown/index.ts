@@ -88,7 +88,7 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	}
 
 	public async firstUpdated(): Promise<void> {
-		this.options = await this.optionsProvider(this.codifications || [], '')
+		if (this.codifications?.find((codification) => codification.split('|')[0] === 'HCP-LIST')) this.options = await this.optionsProvider(this.codifications || [], '')
 		this.registerStateUpdater(this.label || '')
 
 		document.addEventListener('click', (event) => {
