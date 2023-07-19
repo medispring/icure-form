@@ -27,6 +27,7 @@ import { render as renderAsForm } from './renderer/form'
 import { FormValuesContainer, ActionManager } from '../iqr-form-loader'
 import { CodeStub } from '@icure/api'
 import { ActionedField } from '../common/actionedField'
+import { OptionCode } from '../common'
 
 // Extend the LitElement base class
 class IqrForm extends ActionedField {
@@ -40,6 +41,7 @@ class IqrForm extends ActionedField {
 	@property() formValuesContainerChanged?: (newValue: FormValuesContainer) => void = undefined
 	@property() translationProvider: (text: string) => string = (text) => text
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([])
+	@property() optionsProvider: (codifications: string[], searchTerm: string) => Promise<OptionCode[]> = () => Promise.resolve([])
 
 	constructor() {
 		super()
@@ -72,6 +74,7 @@ class IqrForm extends ActionedField {
 					this.translationProvider,
 					() => [],
 					this.codesProvider,
+					this.optionsProvider,
 					this.actionManager,
 					this.editable,
 			  )
