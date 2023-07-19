@@ -170,6 +170,15 @@ class DemoApp extends LitElement {
 		}))
 	}
 
+	async optionsProvider(codifications: string[]) {
+		return [
+			{
+				id: 1,
+				text: 'Dylan Friedrich',
+			},
+		]
+	}
+
 	translationProvider(stringToTranslate: string) {
 		return stringToTranslate
 	}
@@ -259,6 +268,7 @@ class DemoApp extends LitElement {
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
+				.optionsProvider="${this.optionsProvider.bind(this)}"
 			></iqr-form>
 		`
 	}
