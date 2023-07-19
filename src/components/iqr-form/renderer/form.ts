@@ -22,6 +22,7 @@ import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 import { ActionManager } from '../../iqr-form-loader/actionManager'
+import { OptionCode } from '../../common'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]
@@ -34,6 +35,7 @@ export const render: Renderer = (
 	translationProvider: (text: string) => string = (text) => text,
 	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
 	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
+	optionsProvider: (codifications: string[], searchTerm?: string) => Promise<OptionCode[]> = () => Promise.resolve([]),
 	actionManager?: ActionManager,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
@@ -187,7 +189,7 @@ export const render: Renderer = (
 						value="${fg.value}"
 						.codifications="${fg.codifications}"
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
-						.optionsProvider=${codesProvider}
+						.optionsProvider=${optionsProvider}
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
@@ -197,7 +199,7 @@ export const render: Renderer = (
 						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
-						label="${fg.field}"
+						.label="${fg.field}"
 						.labels="${fg.labels}"
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"
@@ -215,7 +217,7 @@ export const render: Renderer = (
 						.actionManager="${actionManager}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
-						label="${fg.field}"
+						.label="${fg.field}"
 						.labels="${fg.labels}"
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"

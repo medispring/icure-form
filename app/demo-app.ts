@@ -15,7 +15,7 @@ import yamlForm from './gp.yaml'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { property } from 'lit/decorators.js'
-import {ActionManager} from "../src/components/iqr-form-loader/actionManager";
+import { ActionManager } from '../src/components/iqr-form-loader/actionManager'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -172,6 +172,15 @@ class DemoApp extends LitElement {
 		}))
 	}
 
+	async optionsProvider(codifications: string[]) {
+		return [
+			{
+				id: 1,
+				text: 'Dylan Friedrich',
+			},
+		]
+	}
+
 	translationProvider(stringToTranslate: string) {
 		return stringToTranslate
 	}
@@ -260,6 +269,7 @@ class DemoApp extends LitElement {
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
+				.optionsProvider="${this.optionsProvider.bind(this)}"
 			></iqr-form>
 		`
 	}

@@ -95,7 +95,8 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 		`
 	}
 
-	public firstUpdated(): void {
+	public async firstUpdated(): Promise<void> {
+		this.options = await this.optionsProvider(this.codifications || [], '')
 		this.registerStateUpdater(this.label || '')
 
 		document.addEventListener('click', (event) => {
