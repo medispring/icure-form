@@ -1,6 +1,6 @@
 {
 	"name": "@medispring/form",
-	"version": "1.0.4",
+	"version": "1.0.7",
 	"main": "lib/index.js",
 	"scripts": {
 		"start": "node lit-inject-scss.js src tmp && webpack-dev-server",
