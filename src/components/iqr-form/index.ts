@@ -23,7 +23,8 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
-import { FormValuesContainer } from '../iqr-form-loader/formValuesContainer'
+// @ts-ignore
+import { FormValuesContainer, ActionManager } from '../iqr-form-loader'
 import { CodeStub } from '@icure/api'
 import { ActionedField } from '../common/actionedField'
 import { OptionCode } from '../common'
@@ -75,6 +76,7 @@ class IqrForm extends ActionedField {
 					this.codesProvider,
 					this.optionsProvider,
 					this.actionManager,
+					this.editable,
 			  )
 			: this.form
 			? html`<p>unknown renderer</p>`

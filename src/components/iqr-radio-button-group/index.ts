@@ -8,6 +8,7 @@ import { VersionedValue } from '../iqr-text-field'
 import { CodeStub, Content } from '@icure/api'
 import { generateLabel } from '../iqr-label/utils'
 import { OptionsField } from '../common/optionsField'
+import { Trigger } from '../iqr-form/model'
 
 class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 	@property() type: 'radio' | 'checkbox' = 'radio'
@@ -20,9 +21,13 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 
 	private VALUES_SEPARATOR = '|'
 	public checkboxChange() {
+		if (!this.editable) return
 		if (this.handleValueChanged) {
 			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join(this.VALUES_SEPARATOR)
+			const codes = (this.options || [])
+				.filter((option) => inputs.find((i) => i.id === option.id))
+				.map((option) => (!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option))
 			this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
@@ -32,14 +37,11 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 					}),
 				},
 				undefined,
-				[
-					...(this.options || [])
-						.filter((option) => inputs.find((i) => i.id === option.id))
-						.map((option) =>
-							!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option,
-						),
-				],
+				codes,
 			)
+			if (this.actionManager) {
+				this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: value, codes: codes, options: this.options || [] })
+			}
 		}
 	}
 	render(): TemplateResult {
@@ -51,6 +53,20 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
 				${this.options?.map((x) => {
 					const text = !(x instanceof CodeStub) ? this.translateText(x.text) || '' : this.translateText(x?.label?.[this.displayedLanguage || this.defaultLanguage || 'en'] || '')
+					if (!this.editable) {
+						return html`<div>
+							<input
+								class="iqr-checkbox"
+								disabled
+								type="${this.type}"
+								id="${x.id}"
+								name="${this.label}"
+								value="${!(x instanceof CodeStub) ? x.id : x.code}"
+								.checked=${this.inputValues.includes(text)}
+								text="${text}"
+							/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
+						</div>`
+					}
 					return html`<div>
 						<input
 							class="iqr-checkbox"

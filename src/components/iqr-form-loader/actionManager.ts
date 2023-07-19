@@ -1,4 +1,4 @@
-import { Action, Trigger, Form, StateToUpdate, Group, Field, Section } from '../iqr-form/model'
+import { Action, Trigger, Form, StateToUpdate, Group, Field, Section, Launcher } from '../iqr-form/model'
 import { FormValuesContainer } from './formValuesContainer'
 
 export function extractActions(actions: Action[], name: string, trigger?: Trigger): Action[] {
@@ -7,11 +7,20 @@ export function extractActions(actions: Action[], name: string, trigger?: Trigge
 export function extractActionsByTrigger(actions: Action[], trigger: Trigger): Action[] {
 	return actions.filter((action) => action.launchers.some((launcher) => launcher.triggerer === trigger))
 }
-export class ActionManager {
+
+export interface ActionManager {
+	registerStateUpdater(name: string, updater: (state: StateToUpdate, result: any) => void): void
+	launchActions(trigger: Trigger, name: string, sandbox?: any): void
+}
+export function extractLauncherByNameAndTrigger(actions: Action, name: string, trigger: Trigger): Launcher | undefined {
+	return actions.launchers.find((launcher) => launcher.name === name && launcher.triggerer === trigger)
+}
+export class MedispringActionManager implements ActionManager{
 	actions: Action[] = []
 	formValuesContainer: FormValuesContainer
 	stateUpdaters: { [name: string]: (state: StateToUpdate, result: any) => void } = {}
 	readyChildrenCount: Map<string, { total: number; count: number; parent: string }> = new Map()
+	defaultValues: Map<string, any> = new Map()
 
 	constructor(form: Form, formValueContainer: FormValuesContainer) {
 		this.formValuesContainer = formValueContainer
@@ -32,13 +41,10 @@ export class ActionManager {
 		} else if (sg instanceof Group) {
 			name = sg.group || ''
 		} else {
-			{
-				name = sg.field || ''
-				{
-					childrenCount.set(name, { total: 0, count: 0, parent: parentName })
-					return childrenCount
-				}
-			}
+			name = sg.field || ''
+			this.defaultValues.set(name, sg.value)
+			childrenCount.set(name, { total: 0, count: 0, parent: parentName })
+			return childrenCount
 		}
 		childrenCount.set(name, { total: (sg.fields || []).length, count: 0, parent: parentName })
 		;(sg.fields || []).forEach((field) => {
@@ -57,7 +63,7 @@ export class ActionManager {
 			const parent = this.readyChildrenCount.get(parentName)
 			const count = parent?.count || 0
 			const total = parent?.total || 0
-			this.readyChildrenCount.set(parentName, { total, count: count + 1, parent: parent?.parent || ''})
+			this.readyChildrenCount.set(parentName, { total, count: count + 1, parent: parent?.parent || '' })
 			if (count + 1 === total) {
 				this.childrenReady(parentName)
 			}
@@ -72,7 +78,22 @@ export class ActionManager {
 	private launchInitActions() {
 		if (this.formValuesContainer && this.actions) {
 			extractActionsByTrigger(this.actions || [], Trigger.INIT).forEach((action) => {
-				const result = this.formValuesContainer?.compute(action.expression, {})
+				const sandbox: any = { value: null }
+				action.launchers.forEach((launcher) => {
+					if (launcher.triggerer === Trigger.INIT && launcher.shouldPassValue) {
+						sandbox.codes = []
+						sandbox.content = null
+						sandbox.fuzzyDateValue = null
+						sandbox.options = []
+						sandbox.id = null
+						if (sandbox.value === null) {
+							sandbox.value = this.defaultValues.get(launcher.name)
+						} else {
+							sandbox.value = [...sandbox.value, ...this.defaultValues.get(launcher.name)]
+						}
+					}
+				})
+				const result = this.formValuesContainer?.compute(action.expression, sandbox)
 				if (result !== undefined) {
 					action.states.forEach((state) => {
 						this.stateUpdaters[state.name]?.(state.stateToUpdate, result)
@@ -82,10 +103,11 @@ export class ActionManager {
 		}
 	}
 
-	public launchActions(trigger: Trigger, name: string) {
+	public launchActions(trigger: Trigger, name: string, sandbox?: any) {
 		if (this.formValuesContainer && this.actions) {
 			extractActions(this.actions || [], name, trigger).forEach((action) => {
-				const result = this.formValuesContainer?.compute(action.expression, {})
+				const launcher = extractLauncherByNameAndTrigger(action, name, trigger)
+				const result = this.formValuesContainer?.compute(action.expression, launcher?.shouldPassValue ? sandbox || {} : {})
 				if (result !== undefined) {
 					action.states.forEach((state) => {
 						this.stateUpdaters[state.name]?.(state.stateToUpdate, result)

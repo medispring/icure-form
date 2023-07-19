@@ -14,6 +14,7 @@ export class DateTimePicker extends ValuedField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-text-field
 				.actionManager="${this.actionManager}"
+				.editable="${this.editable}"
 				.labels="${this.labels}"
 				labelPosition=${this.labelPosition}
 				label="${this.label}"

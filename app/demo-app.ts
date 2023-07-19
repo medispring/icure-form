@@ -12,10 +12,9 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
+import {ICureFormValuesContainer, ActionManager, MedispringActionManager} from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
-import { property } from 'lit/decorators.js'
-import { ActionManager } from '../src/components/iqr-form-loader/actionManager'
+import { customElement, property } from 'lit/decorators.js'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -110,7 +109,6 @@ class DemoApp extends LitElement {
 			}
 		`
 	}
-
 	async firstUpdated() {
 		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}
@@ -241,7 +239,7 @@ class DemoApp extends LitElement {
 		)
 
 		const gpForm = Form.parse(YAML.parse(yamlForm))
-		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer)
+		const actionManager: ActionManager = new MedispringActionManager(gpForm, this.formValuesContainer)
 
 		return html`
 			<iqr-form
@@ -257,6 +255,7 @@ class DemoApp extends LitElement {
 			></iqr-form>
 			<iqr-form
 				.form="${gpForm}"
+				.editable="${true}"
 				labelPosition="above"
 				skin="kendo"
 				theme="gray"

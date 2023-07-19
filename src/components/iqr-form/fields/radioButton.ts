@@ -12,6 +12,7 @@ export class RadioButton extends OptionsField<string, VersionedValue[]> {
 			return html`
 				<iqr-radio-button
 					.actionManager="${this.actionManager}"
+					.editable="${this.editable}"
 					type="radio"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"

@@ -13,6 +13,7 @@ export class DatePicker extends ValuedField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-date-picker-field
 				.actionManager="${this.actionManager}"
+				.editable="${this.editable}"
 				labelPosition=${this.labelPosition}
 				label="${this.label}"
 				.labels="${this.labels}"

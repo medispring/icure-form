@@ -21,7 +21,7 @@ import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { ActionManager } from '../../iqr-form-loader/actionManager'
+import { ActionManager } from '../../iqr-form-loader'
 import { OptionCode } from '../../common'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
@@ -37,6 +37,7 @@ export const render: Renderer = (
 	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
 	optionsProvider: (codifications: string[], searchTerm?: string) => Promise<OptionCode[]> = () => Promise.resolve([]),
 	actionManager?: ActionManager,
+	editable?: boolean,
 ) => {
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -68,6 +69,7 @@ export const render: Renderer = (
 			return html`${fg.type === 'textfield'
 				? html`<iqr-form-textfield
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						class="iqr-form-field"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
@@ -90,6 +92,7 @@ export const render: Renderer = (
 				: fg.type === 'measure-field'
 				? html`<iqr-form-measure-field
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -106,6 +109,7 @@ export const render: Renderer = (
 				: fg.type === 'number-field'
 				? html`<iqr-form-number-field
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -121,6 +125,7 @@ export const render: Renderer = (
 				: fg.type === 'date-picker'
 				? html`<iqr-form-date-picker
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -136,6 +141,7 @@ export const render: Renderer = (
 				: fg.type === 'time-picker'
 				? html`<iqr-form-time-picker
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -151,6 +157,7 @@ export const render: Renderer = (
 				: fg.type === 'date-time-picker'
 				? html`<iqr-form-date-time-picker
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -166,6 +173,7 @@ export const render: Renderer = (
 				: fg.type === 'multiple-choice'
 				? html`<iqr-form-multiple-choice
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
@@ -179,6 +187,7 @@ export const render: Renderer = (
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						.label=${fg.field}
@@ -197,6 +206,7 @@ export const render: Renderer = (
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						.label="${fg.field}"
@@ -215,6 +225,7 @@ export const render: Renderer = (
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						.label="${fg.field}"
@@ -233,6 +244,7 @@ export const render: Renderer = (
 				: fg.type === 'label'
 				? html`<iqr-form-label
 						.actionManager="${actionManager}"
+						.editable="${editable}"
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
