@@ -15,6 +15,7 @@ export class NumberField extends ValuedField<string, VersionedValue[]> {
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
 			return html`<iqr-text-field
 				.actionManager="${this.actionManager}"
+				.editable="${this.editable}"
 				labelPosition="${this.labelPosition}"
 				label="${this.label}"
 				.labels="${this.labels}"

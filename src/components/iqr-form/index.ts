@@ -73,6 +73,7 @@ class IqrForm extends ActionedField {
 					() => [],
 					this.codesProvider,
 					this.actionManager,
+					this.editable,
 			  )
 			: this.form
 			? html`<p>unknown renderer</p>`

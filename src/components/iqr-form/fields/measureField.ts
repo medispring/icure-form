@@ -16,6 +16,7 @@ export class MeasureField extends ValuedField<string, VersionedValue[]> {
 			return html`
 				<iqr-text-field
 					.actionManager="${this.actionManager}"
+					.editable="${this.editable}"
 					labelPosition=${this.labelPosition}
 					.labels="${this.labels}"
 					label="${this.label}"

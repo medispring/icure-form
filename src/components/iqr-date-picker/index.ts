@@ -86,6 +86,9 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 	}
 
 	public togglePopup(): void {
+		if(!this.editable) {
+			return
+		}
 		this.displayDatePicker = !this.displayDatePicker
 	}
 }

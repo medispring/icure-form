@@ -13,6 +13,7 @@ class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	@state() protected inputValue = ''
 
 	togglePopup(): void {
+		if (!this.editable) return
 		this.displayMenu = !this.displayMenu
 	}
 

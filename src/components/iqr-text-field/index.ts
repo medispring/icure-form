@@ -337,8 +337,7 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 					}
 				},
 				editable: (state) => {
-					const { $from } = state.selection
-					return $from.parent.type.spec.editable ?? true ? true : false
+					return this.editable
 				},
 			})
 

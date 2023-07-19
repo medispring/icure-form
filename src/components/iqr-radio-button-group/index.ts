@@ -21,6 +21,7 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 
 	private VALUES_SEPARATOR = '|'
 	public checkboxChange() {
+		if (!this.editable) return
 		if (this.handleValueChanged) {
 			const inputs = Array.from(this.shadowRoot?.querySelectorAll('input') || []).filter((input) => input.checked)
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join(this.VALUES_SEPARATOR)
@@ -55,6 +56,7 @@ class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 					return html`<div>
 						<input
 							class="iqr-checkbox"
+							disabled="${!this.editable}"
 							type="${this.type}"
 							id="${x.id}"
 							name="${this.label}"

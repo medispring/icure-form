@@ -246,6 +246,7 @@ class DemoApp extends LitElement {
 			></iqr-form>
 			<iqr-form
 				.form="${gpForm}"
+				.editable="${false}"
 				labelPosition="above"
 				skin="kendo"
 				theme="gray"

@@ -12,6 +12,7 @@ export class CheckBox extends OptionsField<string, VersionedValue[]> {
 			return html`
 				<iqr-radio-button
 					.actionManager="${this.actionManager}"
+					.editable="${this.editable}"
 					type="checkbox"
 					.labels="${this.labels}"
 					labelPosition="${this.labelPosition}"

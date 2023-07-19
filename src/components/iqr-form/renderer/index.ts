@@ -13,4 +13,5 @@ export type Renderer = (
 	ownersProvider?: (speciality: string[]) => HealthcareParty[],
 	codesProvider?: (codifications: string[], searchTerm: string) => Promise<CodeStub[]>,
 	actionManager?: ActionManager,
+	editable?: boolean
 ) => TemplateResult

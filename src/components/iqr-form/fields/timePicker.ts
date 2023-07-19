@@ -11,6 +11,7 @@ export class TimePicker extends ValuedField<string, VersionedValue[]> {
 			return html`
 				<iqr-text-field
 					.actionManager="${this.actionManager}"
+					.editable="${this.editable}"
 					.labels="${this.labels}"
 					labelPosition=${this.labelPosition}
 					label="${this.label}"
