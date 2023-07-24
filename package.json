@@ -4,7 +4,7 @@
 	"description": "Parser YAML to dynamic HTML form",
 	"main": "lib/index.js",
 	"scripts": {
-		"start": "node lit-inject-scss.js src tmp && webpack serve --mode development",
+		"start": "webpack serve --mode development",
 		"build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json",
 		"dist": "webpack --env.mode production",
 		"prepare": "yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types,access:.access, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",

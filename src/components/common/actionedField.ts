@@ -1,7 +1,7 @@
 import { property, state } from 'lit/decorators.js'
-import { ActionManager } from '../iqr-form-loader'
 import { StateToUpdate } from '../iqr-form/model'
 import { LitElement } from 'lit'
+import { ActionManager } from '../../models'
 
 export abstract class ActionedField extends LitElement {
 	@property() actionManager?: ActionManager

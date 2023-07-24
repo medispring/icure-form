@@ -2,7 +2,6 @@ import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 import {
-	FormValuesContainer,
 	handleFieldValueChangedProvider,
 	dateFieldValuesProvider,
 	dateTimeFieldValuesProvider,
@@ -21,8 +20,8 @@ import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { ActionManager } from '../../iqr-form-loader'
 import { OptionCode } from '../../common'
+import { ActionManager, FormValuesContainer } from '../../../models'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]

@@ -1,7 +1,7 @@
 import { CodeStub, Contact, Content, Service } from '@icure/api'
-import { groupBy, sortedBy } from '../../utils/no-lodash'
-import { fuzzyDate, isServiceContentEqual } from '../../utils/icure-utils'
-import { ServicesHistory, ServiceWithContact } from './models'
+import { groupBy, sortedBy } from '../utils/no-lodash'
+import { fuzzyDate, isServiceContentEqual } from '../utils/icure-utils'
+import { ServicesHistory, ServiceWithContact } from '../components/iqr-form-loader'
 
 export function withLabel(label: string): (svc: Service) => boolean {
 	return (svc: Service) => svc.label === label
@@ -17,7 +17,10 @@ export interface FormValuesContainer {
 	compute<T, S>(formula: string, sandbox?: S): T | undefined
 }
 
-export class ICureFormValuesContainer implements FormValuesContainer {
+/**
+ * Todo: create abstract class for FormValuesContainer to be compatible with all backends objects (like: contact, patient, hcparty, etc.)
+ */
+export class ContactFormValuesContainer implements FormValuesContainer {
 	currentContact: Contact //The contact of the day, used to record modifications
 	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)

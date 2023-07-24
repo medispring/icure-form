@@ -1,21 +1,17 @@
-import { Action, Trigger, Form, StateToUpdate, Group, Field, Section, Launcher } from '../iqr-form/model'
+import { Action, Trigger, Form, StateToUpdate, Group, Field, Section, Launcher } from '../components/iqr-form/model'
 import { FormValuesContainer } from './formValuesContainer'
 
 export function extractActions(actions: Action[], name: string, trigger?: Trigger): Action[] {
-	return actions.filter((action) => action.launchers.some((launcher) => launcher.name === name && (!trigger || launcher.triggerer === trigger)))
+	return actions.filter((action) => action.launchers.some((launcher: Launcher) => launcher.name === name && (!trigger || launcher.triggerer === trigger)))
 }
 export function extractActionsByTrigger(actions: Action[], trigger: Trigger): Action[] {
-	return actions.filter((action) => action.launchers.some((launcher) => launcher.triggerer === trigger))
+	return actions.filter((action) => action.launchers.some((launcher: Launcher) => launcher.triggerer === trigger))
 }
 
-export interface ActionManager {
-	registerStateUpdater(name: string, updater: (state: StateToUpdate, result: any) => void): void
-	launchActions(trigger: Trigger, name: string, sandbox?: any): void
-}
 export function extractLauncherByNameAndTrigger(actions: Action, name: string, trigger: Trigger): Launcher | undefined {
-	return actions.launchers.find((launcher) => launcher.name === name && launcher.triggerer === trigger)
+	return actions.launchers.find((launcher: Launcher) => launcher.name === name && launcher.triggerer === trigger)
 }
-export class MedispringActionManager implements ActionManager {
+export class ActionManager {
 	actions: Action[] = []
 	formValuesContainer: FormValuesContainer
 	stateUpdaters: { [name: string]: (state: StateToUpdate, result: any) => void } = {}
@@ -26,7 +22,7 @@ export class MedispringActionManager implements ActionManager {
 		this.formValuesContainer = formValueContainer
 		this.actions = form.actions || []
 		this.readyChildrenCount.set(form.form || 'main', { total: (form.sections || []).length, count: 0, parent: '' })
-		form.sections.forEach((section) => {
+		form.sections.forEach((section: Section) => {
 			this.readyChildrenCount = this.getTotalChildrenCount(section, this.readyChildrenCount, form.form || 'main')
 		})
 	}
@@ -79,7 +75,7 @@ export class MedispringActionManager implements ActionManager {
 		if (this.formValuesContainer && this.actions) {
 			extractActionsByTrigger(this.actions || [], Trigger.INIT).forEach((action) => {
 				const sandbox: any = { value: null }
-				action.launchers.forEach((launcher) => {
+				action.launchers.forEach((launcher: Launcher) => {
 					if (launcher.triggerer === Trigger.INIT && launcher.shouldPassValue) {
 						sandbox.codes = []
 						sandbox.content = null

@@ -1,8 +1,8 @@
 import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
-import { FormValuesContainer } from '../../iqr-form-loader'
 import { CodeStub, HealthcareParty } from '@icure/api'
+import { FormValuesContainer } from '../../../models'
 
 export const render: Renderer = (
 	form: Form,
