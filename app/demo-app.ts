@@ -12,7 +12,7 @@ import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, 
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import {ICureFormValuesContainer, ActionManager, MedispringActionManager} from '../src/components/iqr-form-loader'
+import { ICureFormValuesContainer, ActionManager, MedispringActionManager } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { customElement, property } from 'lit/decorators.js'
 
