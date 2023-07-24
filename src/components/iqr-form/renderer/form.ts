@@ -13,15 +13,15 @@ import {
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
-} from '../../iqr-form-loader'
+} from '../../../utils/fieldsValuesProviders'
 import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
-import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
 
 import '../fields/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 import { OptionCode } from '../../common'
 import { ActionManager, FormValuesContainer } from '../../../models'
+import { optionMapper } from '../../../utils/code-utils'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]

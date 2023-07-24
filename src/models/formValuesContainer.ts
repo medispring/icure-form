@@ -1,7 +1,7 @@
 import { CodeStub, Contact, Content, Service } from '@icure/api'
 import { groupBy, sortedBy } from '../utils/no-lodash'
 import { fuzzyDate, isServiceContentEqual } from '../utils/icure-utils'
-import { ServicesHistory, ServiceWithContact } from '../components/iqr-form-loader'
+import { ServicesHistory, ServiceWithContact } from './models'
 
 export function withLabel(label: string): (svc: Service) => boolean {
 	return (svc: Service) => svc.label === label

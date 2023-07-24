@@ -1,5 +1,5 @@
 import { Contact, Form, Service } from '@icure/api'
-import { FormValuesContainer } from '../../models/formValuesContainer'
+import { FormValuesContainer } from './formValuesContainer'
 
 export type ServicesHistory = {
 	[id: string]: ServiceWithContact[] //All services in a service history have the same id as id

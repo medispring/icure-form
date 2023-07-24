@@ -1,9 +1,8 @@
 import parse from 'date-fns/parse'
 import { CodeStub, Contact, Content, normalizeCode, Service } from '@icure/api'
 import { Field } from '../components/iqr-form/model'
-import { ServicesHistory } from '../components/iqr-form-loader'
 import { VersionedMeta, VersionedValue } from '../components'
-import { FormValuesContainer } from '../models'
+import { FormValuesContainer, ServicesHistory } from '../models'
 
 export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
 	if (!epochOrLongCalendar && epochOrLongCalendar !== 0) {

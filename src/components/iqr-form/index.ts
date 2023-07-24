@@ -23,11 +23,10 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
-// @ts-ignore
-import { FormValuesContainer } from '../iqr-form-loader'
 import { CodeStub } from '@icure/api'
 import { ActionedField } from '../common/actionedField'
 import { OptionCode } from '../common'
+import { FormValuesContainer } from '../../models'
 
 // Extend the LitElement base class
 class IqrForm extends ActionedField {

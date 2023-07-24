@@ -1,5 +1,5 @@
-import { Field } from '../iqr-form/model'
-import { OptionCode } from '../common'
+import { Field } from '../components/iqr-form/model'
+import { OptionCode } from '../components'
 
 export function optionMapper(field: Field): OptionCode[] {
 	return Object.keys(field?.options ?? []).map((optionKey) => {
