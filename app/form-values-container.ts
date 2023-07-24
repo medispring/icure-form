@@ -1,7 +1,6 @@
 import { Contact, Service } from '@icure/api'
 import { ICureFormValuesContainer } from '../src/components/iqr-form-loader'
 
-// @ts-ignore
 export const makeFormValuesContainer = () => {
 	const cc = new Contact({
 		id: 'c2',

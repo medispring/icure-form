@@ -115,7 +115,7 @@ export class ICureFormValuesContainer implements FormValuesContainer {
 				return this
 			}
 		} else {
-			return this.setServices([this.serviceFactory(label, serviceId, language, content, codes, tags)], [],[])
+			return this.setServices([this.serviceFactory(label, serviceId, language, content, codes, tags)], [], [])
 		}
 	}
 

@@ -15,7 +15,7 @@ export interface ActionManager {
 export function extractLauncherByNameAndTrigger(actions: Action, name: string, trigger: Trigger): Launcher | undefined {
 	return actions.launchers.find((launcher) => launcher.name === name && launcher.triggerer === trigger)
 }
-export class MedispringActionManager implements ActionManager{
+export class MedispringActionManager implements ActionManager {
 	actions: Action[] = []
 	formValuesContainer: FormValuesContainer
 	stateUpdaters: { [name: string]: (state: StateToUpdate, result: any) => void } = {}

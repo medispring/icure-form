@@ -11,7 +11,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 	render(): TemplateResult[] {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map(
-			(versionedValue, idx) =>
+			(versionedValue) =>
 				html`
 					<iqr-dropdown-field
 						.actionManager="${this.actionManager}"

@@ -9,7 +9,7 @@ import { CustomEventDetail } from 'app-datepicker/dist/typings'
 import { Content } from '@icure/api'
 import { MAX_DATE } from 'app-datepicker/dist/constants'
 import { toResolvedDate } from 'app-datepicker/dist/helpers/to-resolved-date'
-import {Trigger} from "../iqr-form/model";
+import { Trigger } from '../iqr-form/model'
 
 class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 	@state() protected displayDatePicker = false
@@ -67,7 +67,7 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 
 	public dateUpdated(date: CustomEventDetail['date-updated']): void {
 		this.inputValue = date.detail.value?.split('-').reverse().join('/') ?? ''
-		const fuzzyDateValue= this.inputValue.split('/').reduce((acc, x) => x + '' + acc, '')
+		const fuzzyDateValue: string = this.inputValue.split('/').reduce((acc, x) => x + '' + acc, '')
 		this.handleValueChanged?.(
 			this.displayedLanguage || this.defaultLanguage || 'en',
 			{
@@ -86,7 +86,7 @@ class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 	}
 
 	public togglePopup(): void {
-		if(!this.editable) {
+		if (!this.editable) {
 			return
 		}
 		this.displayDatePicker = !this.displayDatePicker

@@ -8,7 +8,7 @@ import { OptionsField } from '../../common/optionsField'
 export class CheckBox extends OptionsField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
-		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
+		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue) => {
 			return html`
 				<iqr-radio-button
 					.actionManager="${this.actionManager}"

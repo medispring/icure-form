@@ -209,7 +209,7 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 		))
 
 		this.parser = this.makeParser(pms)
-		this.contentMaker = this.makeContentMaker(pms)
+		this.contentMaker = this.makeContentMaker()
 
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
 
@@ -334,7 +334,7 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 						}, 800)
 					}
 				},
-				editable: (state) => {
+				editable: () => {
 					return this.editable
 				},
 			})
@@ -439,7 +439,7 @@ class IqrTextField extends ValuedField<string, VersionedValue> {
 			  )
 	}
 
-	private makeContentMaker(pms: Schema) {
+	private makeContentMaker() {
 		return this.schema === 'date'
 			? (doc?: ProsemirrorNode) =>
 					new Content({ fuzzyDateValue: doc?.firstChild?.textContent ? format(parse(doc?.firstChild?.textContent, 'dd/MM/yyyy', new Date()), 'yyyyMMdd') : undefined })

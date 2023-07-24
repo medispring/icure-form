@@ -1,18 +1,16 @@
 import { css, html, LitElement } from 'lit'
 import { CodeStub, IccHcpartyXApi } from '@icure/api'
-// @ts-ignore
 import * as YAML from 'yaml'
 import '../src/components/iqr-text-field'
 import '../src/components/iqr-dropdown'
 import '../src/components/iqr-date-picker'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
-//@ts-ignore
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import {ICureFormValuesContainer, ActionManager, MedispringActionManager} from '../src/components/iqr-form-loader'
+import { ICureFormValuesContainer, ActionManager, MedispringActionManager } from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -170,7 +168,7 @@ class DemoApp extends LitElement {
 		}))
 	}
 
-	async optionsProvider(codifications: string[]) {
+	async optionsProvider() {
 		return [
 			{
 				id: 1,
@@ -182,7 +180,7 @@ class DemoApp extends LitElement {
 	translationProvider(stringToTranslate: string) {
 		return stringToTranslate
 	}
-	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {
+	async codesProvider(codifications: string[]): Promise<CodeStub[]> {
 		const codes: CodeStub[] = []
 		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
 			ultrasound.map((x) => codes.push(new CodeStub(x)))

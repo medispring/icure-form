@@ -7,7 +7,7 @@ import { CodeStub, Content } from '@icure/api'
 export class MultipleChoice extends ValuedField<string, VersionedValue[]> {
 	render() {
 		const versionedValues = this.valueProvider?.()
-		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
+		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue) => {
 			return html`<iqr-text-field
 				.actionManager="${this.actionManager}"
 				.editable="${this.editable}"
