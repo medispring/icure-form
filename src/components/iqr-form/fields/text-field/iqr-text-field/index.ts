@@ -134,11 +134,8 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 	}
 
 	render() {
-		if (!this.display) {
-			return html``
-		}
 		return html`
-			<div id="root" class="iqr-text-field" data-placeholder=${this.placeholder}>
+			<div id="root" class="${this.display ? 'iqr-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.labels ? generateLabels(this.labels, this.translationProvider) : generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
 				<div class="iqr-input">
 					<div id="editor"></div>
