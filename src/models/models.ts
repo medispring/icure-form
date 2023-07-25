@@ -15,3 +15,15 @@ export interface ServiceWithContact {
 	service: Service
 	contact: Contact
 }
+
+export enum LabelPosition {
+	float = 'float',
+	sideRight = 'sideRight',
+	sideLeft = 'sideLeft',
+	above = 'above',
+	hidden = 'hidden',
+}
+
+export interface Labels {
+	[position: string]: string
+}

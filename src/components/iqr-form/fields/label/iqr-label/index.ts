@@ -1,12 +1,8 @@
 import { html } from 'lit'
 import { generateLabel } from './utils'
-import { LabelizedField } from '../../../../common/labelizedField'
+import { LabelizedField } from '../../../../common'
 
 export class IqrLabel extends LabelizedField {
-	constructor() {
-		super()
-	}
-
 	render() {
 		if (!this.display) {
 			return html``

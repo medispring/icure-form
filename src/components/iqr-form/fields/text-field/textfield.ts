@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js'
 import './iqr-text-field'
 import { Suggestion, VersionedMeta, VersionedValue } from './iqr-text-field'
 import { Content } from '@icure/api'
-import { ValuedField } from '../../../common/valuedField'
+import { ValuedField } from '../../../common'
 
 class Textfield extends ValuedField<string, VersionedValue[]> {
 	//Boolean value is parsed as text, so we also need to use string type

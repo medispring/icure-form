@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, html, TemplateResult } from 'lit'
 import './iqr-label'
-import { LabelizedField } from '../../../common/labelizedField'
+import { LabelizedField } from '../../../common'
 
 export class Label extends LabelizedField {
 	//override

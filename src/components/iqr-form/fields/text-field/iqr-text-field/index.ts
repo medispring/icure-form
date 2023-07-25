@@ -27,10 +27,10 @@ import { maskPlugin } from './plugin/mask-plugin'
 import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { sorted } from '../../../../../utils/no-lodash'
-import { generateLabel, generateLabels } from '../../label/iqr-label/utils'
+import { generateLabel, generateLabels } from '../../label'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
-import { ValuedField } from '../../../../common/valuedField'
+import { ValuedField } from '../../../../common'
 import { Trigger } from '../../../model'
 
 export { IqrTextFieldSchema } from './schema'
@@ -57,18 +57,6 @@ export interface VersionedMeta {
 export interface VersionedValue {
 	id: string
 	versions: Version[]
-}
-
-export enum LabelPosition {
-	float = 'float',
-	sideRight = 'sideRight',
-	sideLeft = 'sideLeft',
-	above = 'above',
-	hidden = 'hidden',
-}
-
-export interface Labels {
-	[position: string]: string
 }
 // Extend the LitElement base class
 export class IqrTextField extends ValuedField<string, VersionedValue> {

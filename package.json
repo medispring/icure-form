@@ -23,7 +23,15 @@
 		"preset": "ts-jest",
 		"testEnvironment": "node",
 		"testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-		"moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node","yaml"]
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js",
+			"jsx",
+			"json",
+			"node",
+			"yaml"
+		]
 	},
 	"husky": {
 		"hooks": {

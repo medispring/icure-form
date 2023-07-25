@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit'
-import { Labels } from '../../text-field/iqr-text-field'
+import { Labels } from '../../../../../models'
 
 export function generateLabels(labels: Labels, translationProvider: (text: string) => string = (text) => text): TemplateResult[] {
 	return Object.keys(labels).map((position) => generateLabel(labels[position], position, translationProvider))
