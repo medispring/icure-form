@@ -14,9 +14,9 @@ import {
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 } from '../../../utils/fieldsValuesProviders'
-import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
+import { /*VersionedMeta,*/ VersionedValue } from '../fields/text-field/iqr-text-field'
 
-import '../fields/dropdown'
+import '../fields/dropdown/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 import { OptionCode } from '../../common'

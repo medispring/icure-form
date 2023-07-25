@@ -1,5 +1,5 @@
 import { property } from 'lit/decorators.js'
-import { LabelPosition, Labels } from '../iqr-text-field'
+import { LabelPosition, Labels } from '../iqr-form/fields/text-field/iqr-text-field'
 import { StylizedField } from './stylizedField'
 
 export abstract class LabelizedField extends StylizedField {

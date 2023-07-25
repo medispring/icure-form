@@ -1,4 +1,4 @@
-import { IqrTextFieldSchema, Labels } from '../../iqr-text-field'
+import { IqrTextFieldSchema, Labels } from '../fields/text-field/iqr-text-field'
 
 type FieldType =
 	| 'textfield'
