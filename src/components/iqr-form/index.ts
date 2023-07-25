@@ -24,8 +24,7 @@ import { Renderer } from './renderer'
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
 import { CodeStub } from '@icure/api'
-import { ActionedField } from '../common/actionedField'
-import { OptionCode } from '../common'
+import { ActionedField, OptionCode } from '../common'
 import { FormValuesContainer } from '../../models'
 
 // Extend the LitElement base class
