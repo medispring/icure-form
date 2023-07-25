@@ -1,13 +1,13 @@
 import { property, state } from 'lit/decorators.js'
-import { ActionManager } from '../iqr-form-loader'
 import { StateToUpdate } from '../iqr-form/model'
 import { LitElement } from 'lit'
+import { ActionManager } from '../../models'
 
 export abstract class ActionedField extends LitElement {
 	@property() actionManager?: ActionManager
-	@property() editable: boolean = true
+	@property() editable = true
 	@state() public display = true
-	public stateUpdater(state: StateToUpdate, result: any): void{
+	public stateUpdater(state: StateToUpdate, result: any): void {
 		if (state === StateToUpdate.VISIBLE) {
 			this.display = result
 		}

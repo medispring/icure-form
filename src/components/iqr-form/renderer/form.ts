@@ -2,7 +2,6 @@ import { html, TemplateResult } from 'lit'
 import { Field, Form, Group } from '../model'
 import { Renderer } from './index'
 import {
-	FormValuesContainer,
 	handleFieldValueChangedProvider,
 	dateFieldValuesProvider,
 	dateTimeFieldValuesProvider,
@@ -14,15 +13,15 @@ import {
 	numberFieldValuesProvider,
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
-} from '../../iqr-form-loader'
-import { /*VersionedMeta,*/ VersionedValue } from '../../iqr-text-field'
-import { optionMapper } from '../../iqr-form-loader/fieldsMapper'
+} from '../../../utils/fieldsValuesProviders'
+import { /*VersionedMeta,*/ VersionedValue } from '../fields/text-field/iqr-text-field'
 
-import '../fields/dropdown'
+import '../fields/dropdown/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { ActionManager } from '../../iqr-form-loader'
 import { OptionCode } from '../../common'
+import { ActionManager, FormValuesContainer } from '../../../models'
+import { optionMapper } from '../../../utils/code-utils'
 
 export const firstItemValueProvider = (valuesProvider: () => VersionedValue[]) => () => valuesProvider()[0] ? [valuesProvider()[0]] : []
 //const firstItemMetaProvider = (valuesProvider: () => VersionedMeta[]) => () => valuesProvider()[0]

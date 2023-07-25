@@ -4,17 +4,17 @@ import { property } from 'lit/decorators.js'
 
 import { Form } from './model'
 
-import './fields/textfield'
-import './fields/measureField'
-import './fields/numberField'
-import './fields/datePicker'
-import './fields/timePicker'
-import './fields/dateTimePicker'
-import './fields/multipleChoice'
-import './fields/dropdown'
-import './fields/radioButton'
-import './fields/checkbox'
-import './fields/label'
+import './fields/text-field/textfield'
+import './fields/measure-field/measureField'
+import './fields/number-field/numberField'
+import './fields/date-picker/datePicker'
+import './fields/date-picker/timePicker'
+import './fields/date-picker/dateTimePicker'
+import './fields/multiple-choice/multipleChoice'
+import './fields/dropdown/dropdown'
+import './fields/button-group/radioButton'
+import './fields/button-group/checkbox'
+import './fields/label/label'
 // @ts-ignore
 import baseCss from './styles/style.scss'
 // @ts-ignore
@@ -23,11 +23,9 @@ import { Renderer } from './renderer'
 
 import { render as renderAsCard } from './renderer/cards'
 import { render as renderAsForm } from './renderer/form'
-// @ts-ignore
-import { FormValuesContainer, ActionManager } from '../iqr-form-loader'
 import { CodeStub } from '@icure/api'
-import { ActionedField } from '../common/actionedField'
-import { OptionCode } from '../common'
+import { ActionedField, OptionCode } from '../common'
+import { FormValuesContainer } from '../../models'
 
 // Extend the LitElement base class
 class IqrForm extends ActionedField {

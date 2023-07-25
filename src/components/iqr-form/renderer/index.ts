@@ -1,9 +1,8 @@
 import { Form } from '../model'
 import { TemplateResult } from 'lit'
-import { FormValuesContainer } from '../../iqr-form-loader'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { ActionManager } from '../../iqr-form-loader'
 import { OptionCode } from '../../common'
+import { ActionManager, FormValuesContainer } from '../../../models'
 
 export type Renderer = (
 	form: Form,

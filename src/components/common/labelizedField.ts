@@ -1,6 +1,6 @@
 import { property } from 'lit/decorators.js'
-import { LabelPosition, Labels } from '../iqr-text-field'
 import { StylizedField } from './stylizedField'
+import { LabelPosition, Labels } from '../../models'
 
 export abstract class LabelizedField extends StylizedField {
 	@property() labels: Labels = {

@@ -1,7 +1,11 @@
 import { property } from 'lit/decorators.js'
-import { OptionCode } from './index'
 import { CodeStub } from '@icure/api'
 import { ValuedField } from './valuedField'
+
+export interface OptionCode {
+	id: string
+	text: string
+}
 
 export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 	@property() options?: (OptionCode | CodeStub)[] = []

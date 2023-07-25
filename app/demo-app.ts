@@ -1,20 +1,18 @@
 import { css, html, LitElement } from 'lit'
 import { CodeStub, IccHcpartyXApi } from '@icure/api'
-// @ts-ignore
 import * as YAML from 'yaml'
-import '../src/components/iqr-text-field'
-import '../src/components/iqr-dropdown'
-import '../src/components/iqr-date-picker'
+import '../src/components/iqr-form/fields/text-field/iqr-text-field'
+import '../src/components/iqr-form/fields/dropdown/iqr-dropdown'
+import '../src/components/iqr-form/fields/date-picker/iqr-date-picker'
 import '../src/components/iqr-form'
 import MiniSearch, { SearchResult } from 'minisearch'
-//@ts-ignore
 import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import {ICureFormValuesContainer, ActionManager, MedispringActionManager} from '../src/components/iqr-form-loader'
 import { makeFormValuesContainer } from './form-values-container'
 import { customElement, property } from 'lit/decorators.js'
+import { ContactFormValuesContainer, ActionManager } from '../src/models'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -76,7 +74,7 @@ const localName = 'demo-app'
 @customElement(localName)
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
-	@property() formValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
+	@property() formValuesContainer: ContactFormValuesContainer = makeFormValuesContainer()
 
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
@@ -170,7 +168,7 @@ class DemoApp extends LitElement {
 		}))
 	}
 
-	async optionsProvider(codifications: string[]) {
+	async optionsProvider() {
 		return [
 			{
 				id: 1,
@@ -182,7 +180,7 @@ class DemoApp extends LitElement {
 	translationProvider(stringToTranslate: string) {
 		return stringToTranslate
 	}
-	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {
+	async codesProvider(codifications: string[]): Promise<CodeStub[]> {
 		const codes: CodeStub[] = []
 		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
 			ultrasound.map((x) => codes.push(new CodeStub(x)))
@@ -239,7 +237,7 @@ class DemoApp extends LitElement {
 		)
 
 		const gpForm = Form.parse(YAML.parse(yamlForm))
-		const actionManager: ActionManager = new MedispringActionManager(gpForm, this.formValuesContainer)
+		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer)
 
 		return html`
 			<iqr-form
@@ -249,7 +247,7 @@ class DemoApp extends LitElement {
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+				.formValuesContainerChanged="${(newVal: ContactFormValuesContainer) => {
 					console.log(newVal)
 				}}"
 			></iqr-form>
@@ -262,7 +260,7 @@ class DemoApp extends LitElement {
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.actionManager="${actionManager}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
+				.formValuesContainerChanged="${(newVal: ContactFormValuesContainer) => {
 					console.log(newVal)
 				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
