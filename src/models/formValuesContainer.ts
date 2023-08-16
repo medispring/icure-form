@@ -14,7 +14,7 @@ export interface FormValuesContainer {
 	setAuthor(serviceId: string, author: string | null): FormValuesContainer
 	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
 	delete(serviceId: string): FormValuesContainer
-	compute<T, S>(formula: string, sandbox?: S): T | undefined
+	compute<T, S>(formula: string, sandbox?: S): Promise<T | undefined>
 }
 
 /**
@@ -27,14 +27,14 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 
 	serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service
 	//Actions management
-	interpretor: (formula: string, sandbox: any) => any
+	interpretor: (formula: string, sandbox: any) => Promise<any>
 
 	constructor(
 		currentContact: Contact,
 		contact: Contact,
 		contactsHistory: Contact[],
 		serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service,
-		interpretor: (formula: string, sandbox: any) => any,
+		interpretor: (formula: string, sandbox: any) => Promise<any>,
 	) {
 		if (!contactsHistory.includes(contact) && contact !== currentContact) {
 			throw new Error('Illegal argument, the history must contain the contact')
@@ -144,8 +144,8 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 		}
 	}
 
-	compute<T, S>(formula: string, sandbox: S): T | undefined {
-		return this.interpretor(formula, sandbox)
+	async compute<T, S>(formula: string, sandbox: S): Promise<T | undefined> {
+		return await this.interpretor(formula, sandbox)
 	}
 
 	/** returns all services in history that match a selector

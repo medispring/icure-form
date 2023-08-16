@@ -31,7 +31,7 @@ import { generateLabel, generateLabels } from '../../label'
 import { Content, Measure } from '@icure/api'
 import { parse, format } from 'date-fns'
 import { ValuedField } from '../../../../common'
-import { Trigger } from '../../../model'
+import { StateToUpdate, Trigger } from '../../../model'
 
 export { IqrTextFieldSchema } from './schema'
 export { Suggestion } from './suggestion-palette'
@@ -462,6 +462,25 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 	// private getMeta(): Meta | undefined {
 	// 	return (this.metaProvider && this.metaProvider()?.metas?.find((vm) => vm.revision === this.displayedVersion)) || undefined
 	// }
+
+	//override
+	public stateUpdater(state: StateToUpdate, result: any): void {
+		switch (state) {
+			case StateToUpdate.VALUE:
+				this.value = result
+				if (this.view) {
+					const tr = this.view?.state.tr
+					tr?.insertText(this.value || '')
+					this.view?.dispatch(tr)
+				}
+				break
+			case StateToUpdate.VISIBLE:
+				this.display = result
+				break
+			default:
+				break
+		}
+	}
 }
 
 // Register the new element with the browser.

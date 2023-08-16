@@ -71,9 +71,9 @@ export class ActionManager {
 	private allReady(): boolean {
 		return Array.from(this.readyChildrenCount.values()).every((count) => count.count === count.total)
 	}
-	private launchInitActions() {
+	private async launchInitActions() {
 		if (this.formValuesContainer && this.actions) {
-			extractActionsByTrigger(this.actions || [], Trigger.INIT).forEach((action) => {
+			for (const action of extractActionsByTrigger(this.actions || [], Trigger.INIT)) {
 				const sandbox: any = { value: null }
 				action.launchers.forEach((launcher: Launcher) => {
 					if (launcher.triggerer === Trigger.INIT && launcher.shouldPassValue) {
@@ -89,27 +89,27 @@ export class ActionManager {
 						}
 					}
 				})
-				const result = this.formValuesContainer?.compute(action.expression, sandbox)
+				const result = await this.formValuesContainer?.compute(action.expression, sandbox)
 				if (result !== undefined) {
 					action.states.forEach((state) => {
 						this.stateUpdaters[state.name]?.(state.stateToUpdate, result)
 					})
 				}
-			})
+			}
 		}
 	}
 
-	public launchActions(trigger: Trigger, name: string, sandbox?: any) {
+	public async launchActions(trigger: Trigger, name: string, sandbox?: any) {
 		if (this.formValuesContainer && this.actions) {
-			extractActions(this.actions || [], name, trigger).forEach((action) => {
+			for (const action of extractActions(this.actions || [], name, trigger)) {
 				const launcher = extractLauncherByNameAndTrigger(action, name, trigger)
-				const result = this.formValuesContainer?.compute(action.expression, launcher?.shouldPassValue ? sandbox || {} : {})
+				const result = await this.formValuesContainer?.compute(action.expression, launcher?.shouldPassValue ? sandbox || {} : {})
 				if (result !== undefined) {
 					action.states.forEach((state) => {
 						this.stateUpdaters[state.name]?.(state.stateToUpdate, result)
 					})
 				}
-			})
+			}
 		}
 	}
 }
