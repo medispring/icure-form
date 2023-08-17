@@ -3,7 +3,7 @@ import { VersionedValue } from '../../text-field/iqr-text-field'
 import { html, TemplateResult } from 'lit'
 import { generateLabel } from '../../label/iqr-label/utils'
 import { state } from 'lit/decorators.js'
-import { dropdownPicto } from '../../text-field/iqr-text-field/styles/paths'
+import { datePicto } from '../../text-field/iqr-text-field/styles/paths'
 import 'app-datepicker'
 import { CustomEventDetail } from 'app-datepicker/dist/typings'
 import { Content } from '@icure/api'
@@ -25,7 +25,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 				<div class="iqr-input" @click="${this.togglePopup}" id="test">
 					<div id="editor">${this.inputValue}</div>
 					<div id="extra" class=${'extra forced'}>
-						<button class="btn select-arrow">${dropdownPicto}</button>
+						<button class="btn select-arrow">${datePicto}</button>
 						${this.displayDatePicker
 							? html`<div id="menu" class="date-picker" @click="${(event: Event) => event.stopPropagation()}">
 									<app-date-picker style="" max="${MAX_DATE}" min="${toResolvedDate('1970-01-01')}" @date-updated="${this.dateUpdated}"></app-date-picker>
