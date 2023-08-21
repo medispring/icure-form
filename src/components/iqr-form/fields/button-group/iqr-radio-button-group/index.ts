@@ -4,10 +4,10 @@ import { property, state } from 'lit/decorators.js'
 import baseCss from './styles/style.scss'
 // @ts-ignore
 import kendoCss from './styles/kendo.scss'
-import { VersionedValue } from '../../text-field/iqr-text-field'
+import { VersionedValue } from '../../text-field'
 import { CodeStub, Content } from '@icure/api'
-import { generateLabel } from '../../label/iqr-label/utils'
-import { OptionsField } from '../../../../common/optionsField'
+import { generateLabel } from '../../label'
+import { OptionsField } from '../../../../common'
 import { Trigger } from '../../../model'
 
 export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
@@ -27,7 +27,16 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 			const value = inputs.map((i) => Array.from(i.labels || []).map((label) => label.textContent)).join(this.VALUES_SEPARATOR)
 			const codes = (this.options || [])
 				.filter((option) => inputs.find((i) => i.id === option.id))
-				.map((option) => (!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option))
+				.map((option) =>
+					!(option instanceof CodeStub)
+						? new CodeStub({
+								id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + option.id + '|1',
+								type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+								code: option.id,
+								version: '1',
+						  })
+						: option,
+				)
 			this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
@@ -107,7 +116,14 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 							this.inputValues.some((i) => (!(option instanceof CodeStub) ? i === option.text : i === option.label?.[this.displayedLanguage || this.defaultLanguage || 'en'])),
 						)
 						.map((option) =>
-							!(option instanceof CodeStub) ? new CodeStub({ id: 'CUSTOM_OPTION|' + option.id + '|1', type: 'CUSTOM_OPTION', code: option.id, version: '1' }) : option,
+							!(option instanceof CodeStub)
+								? new CodeStub({
+										id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + option.id + '|1',
+										type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+										code: option.id,
+										version: '1',
+								  })
+								: option,
 						),
 				],
 			)
