@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit'
 import { state } from 'lit/decorators.js'
 import { CodeStub, Content } from '@icure/api'
-import { generateLabel } from '../../label/iqr-label/utils'
+import { generateLabel } from '../../label'
 import { dropdownPicto } from '../../text-field/iqr-text-field/styles/paths'
-import { OptionsField } from '../../../../common/optionsField'
-import { VersionedValue } from '../../text-field/iqr-text-field'
+import { OptionsField } from '../../../../common'
+import { VersionedValue } from '../../text-field'
 import { Trigger } from '../../../model'
 
 export class IqrDropdownField extends OptionsField<string, VersionedValue> {
@@ -23,7 +23,15 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			e.stopPropagation()
 			if (id) {
 				const option = (this.options || []).find((option) => option.id === id)
-				const code = option instanceof CodeStub ? option : new CodeStub({ id: 'CUSTOM_OPTION|' + id + '|1', type: 'CUSTOM_OPTION', code: id, version: '1' })
+				const code =
+					option instanceof CodeStub
+						? option
+						: new CodeStub({
+								id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + id + '|1',
+								type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+								code: id,
+								version: '1',
+						  })
 				this.value = id
 				this.inputValue =
 					(!(option instanceof CodeStub)
@@ -127,7 +135,12 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 				undefined,
 				[
 					this.options?.find((option) => option instanceof CodeStub && option.id === this.value) ??
-						new CodeStub({ id: 'CUSTOM_OPTION|' + this.value + '|1', type: 'CUSTOM_OPTION', code: this.value, version: '1' }),
+						new CodeStub({
+							id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + this.value + '|1',
+							type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+							code: this.value,
+							version: '1',
+						}),
 				],
 			)
 		}
