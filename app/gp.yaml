@@ -1,282 +1,110 @@
 
-form: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
-description: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
+form: abortion-forms.TIME-OF-APPOINTMENT
+description: abortion-forms.TIME-OF-APPOINTMENT
 actions:
   - launchers:
-      - name: abortion-forms.field-labels.PLANNED-PREGNANCY
-        triggerer: CHANGE
-        shouldPassValue: true
-      - name: abortion-forms.field-labels.PLANNED-PREGNANCY
+      - name: abortion-forms.field-labels.CONTACT-VIA
         triggerer: INIT
         shouldPassValue: true
-    expression: (codes || []).some( c => c.code == 'yes')
+      - name: abortion-forms.field-labels.CONTACT-VIA
+        triggerer: CHANGE
+        shouldPassValue: true
+    expression: id == 'other'
     states:
-      - name: abortion-forms.field-labels.YES
+      - name: abortion-forms.field-labels.OTHER
         stateToUpdate: VISIBLE
         canLaunchLauncher: false
   - launchers:
-      - name: abortion-forms.field-labels.PLANNED-PREGNANCY
-        triggerer: CHANGE
-        shouldPassValue: true
-      - name: abortion-forms.field-labels.PLANNED-PREGNANCY
+      - name: abortion-forms.field-labels.FOLDER-NUMBER
         triggerer: INIT
         shouldPassValue: true
-    expression: (codes || []).some( c => c.code =='no')
+    expression: value || entity.getEntityReference()
     states:
-      - name: abortion-forms.field-labels.NO
-        stateToUpdate: VISIBLE
+      - name: abortion-forms.field-labels.FOLDER-NUMBER
+        stateToUpdate: VALUE
         canLaunchLauncher: false
 sections:
-  - section: abortion-forms.field-labels.PREGNANCY-SECTION
+  - section: abortion-forms.section
     fields:
-      - field: abortion-forms.field-labels.PREGNANCY-TYPE
-        type: checkbox
-        options:
-          pregnancy: abortion-forms.field-options.PREGNANCY
-          p: abortion-forms.field-options.P
-          miscarriage: abortion-forms.field-options.MISCARRIAGE
-          abortion: abortion-forms.field-options.ABORTION
-          extra-uterine: abortion-forms.field-options.EXTRA-UTERINE
+      - field : abortion-forms.field-labels.FOLDER-NUMBER
+        type: textfield
+        shortLabel: folder-number
         rows: 1
         columns: 1
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyType|1
-      - field: abortion-forms.field-labels.AMENORRHEA-DATE
-        type: date-picker
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|folder-number|1
+      - field : abortion-forms.field-labels.WAY-OF-CONTACT
+        type: checkbox
+        shortLabel: wayOfContact
+        options:
+          phone: abortion-forms.field-options.PHONE
+          reception: abortion-forms.field-options.RECEPTION
+          email: abortion-forms.field-options.EMAIL
         rows: 2
         columns: 1
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|amenorrheaDate|1
-      - field: abortion-forms.field-labels.PLANNED-PREGNANCY
-        type: radio-button
-        options:
-          yes: abortion-forms.field-options.YES
-          no: abortion-forms.field-options.NO
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
+      - field : abortion-forms.field-labels.APPOINTMENT-DATE
+        type: date-picker
+        shortLabel: appointmentDate
         rows: 3
         columns: 1
+        now: true
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|plannedPregnancy|1
-      - field: abortion-forms.field-labels.NO
-        type: radio-button
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
+          - MS-ABORTION-ITEM|date|1
+          - MS-ABORTION-DATE|appointment|1
+      - field : abortion-forms.field-labels.CONTACT-VIA
+        type: dropdown
+        shortLabel: contactVia
         options:
-          '01': abortion-forms.field-options.UNINTENDED-PREGNANCY
-          '02': abortion-forms.field-options.INTENDED-PREGNANCY
-          '03': abortion-forms.field-options.PRESUMED-INFERTILITY
-          '04': abortion-forms.field-options.MAN-REFUSED-CONTRACEPTION
-          '05': abortion-forms.field-options.OTHER
+          physician: abortion-forms.field-options.PHYSICIAN
+          internet: abortion-forms.field-options.INTERNET
+          healthcareInstance: abortion-forms.field-options.HEALTHCARE-INSTANCE
+          otherPatient: abortion-forms.field-options.OTHER-PATIENT
+          other: abortion-forms.field-options.OTHER
         rows: 4
         columns: 1
+        codifications:
+          - MS-ABORTION-CONTACT-VIA-TYPE
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|unwantedPregnancy|1
-      - field: abortion-forms.field-labels.YES
-        type: checkbox
-        options:
-          '06': abortion-forms.field-options.COITUS-INTERRUPTED
-          '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
-          '08': abortion-forms.field-options.SPERMICIDES
-          '09': abortion-forms.field-options.DIAPHRAGM
-          '10': abortion-forms.field-options.CONDOM
-          '11': abortion-forms.field-options.ORAL-PILL
-          '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
-          '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
-          '15': abortion-forms.field-options.MALE-STERILIZATION
-          '16': abortion-forms.field-options.FEMALE-STERILIZATION
-          '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
-          '18': abortion-forms.field-options.MORNING-AFTER-PILL
-          '19': abortion-forms.field-options.IMPLANT
-          '20': abortion-forms.field-options.PATCH
-          '21': abortion-forms.field-options.VAGINAL-RING
-          '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
-          '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
-          '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|contactVia|1
+          - MS-ABORTION-ITEM|contact-via|1
+      - field : abortion-forms.field-labels.OTHER
+        type: textfield
+        shortLabel: other
+        rows: 4
+        columns: 2
+        tags:
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|other|1
+          - MS-ABORTION-ITEM|contact-via|1
+          - MS-ABORTION-CONTACT-VIA-TYPE|custom|1
+      - field : abortion-forms.field-labels.PATIENT-ADRESSED-BY
+        type: dropdown
+        shortLabel: patientAdressedBy
         rows: 5
         columns: 1
+        codifications:
+          - HCP-LIST
+        translate: false
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|wantedPregnancy|1
-      - field: abortion-forms.field-labels.CONTRACEPTION-AT-TIME-OF-CONCEPTION
-        type: dropdown
-        options:
-          '01': abortion-forms.field-options.UNINTENDED-PREGNANCY
-          '02': abortion-forms.field-options.INTENDED-PREGNANCY
-          '03': abortion-forms.field-options.PRESUMED-INFERTILITY
-          '04': abortion-forms.field-options.MAN-REFUSED-CONTRACEPTION
-          '05': abortion-forms.field-options.OTHER
-          '06': abortion-forms.field-options.COITUS-INTERRUPTED
-          '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
-          '08': abortion-forms.field-options.SPERMICIDES
-          '09': abortion-forms.field-options.DIAPHRAGM
-          '10': abortion-forms.field-options.CONDOM
-          '11': abortion-forms.field-options.ORAL-PILL
-          '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
-          '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
-          '15': abortion-forms.field-options.MALE-STERILIZATION
-          '16': abortion-forms.field-options.FEMALE-STERILIZATION
-          '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
-          '18': abortion-forms.field-options.MORNING-AFTER-PILL
-          '19': abortion-forms.field-options.IMPLANT
-          '20': abortion-forms.field-options.PATCH
-          '21': abortion-forms.field-options.VAGINAL-RING
-          '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
-          '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
-          '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
+      - field: abortion-forms.field-labels.COMMENTARY
+        type: textfield
+        shortLabel: commentary
         rows: 6
         columns: 1
+        multiline: true
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionAtConception|1
-      - field: abortion-forms.field-labels.REASON-OF-FAILURE
-        type: radio-button
-        options:
-          '01': abortion-forms.field-options.DID-NOT-USE-CONTRACEPTION
-          '02': abortion-forms.field-options.IRREGULAR-OR-IMPROPER-USE-AGAINST-DESIGN
-          '03': abortion-forms.field-options.ANTI-DESIGN-FAILED-DESPITE-GOOD-USE
-          '04': abortion-forms.field-options.DOES-NOT-KNOW
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
+          - MS-ABORTION-ITEM|comment-note|1
+      - field : abortion-forms.field-labels.FOLLOW-UP-MIN
+        value: 10
+        type: number-field
+        shortLabel: ChildInChargeNumber
         rows: 7
         columns: 1
         tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|reasonOfFailure|1
-      - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
-        type: dropdown
-        options:
-          '06': abortion-forms.field-options.COITUS-INTERRUPTED
-          '07': abortion-forms.field-options.PERIODIC-ABSTINENCE
-          '08': abortion-forms.field-options.SPERMICIDES
-          '09': abortion-forms.field-options.DIAPHRAGM
-          '10': abortion-forms.field-options.CONDOM
-          '11': abortion-forms.field-options.ORAL-PILL
-          '12': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          '13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
-          '14': abortion-forms.field-options.HORMONAL-INTRAUTERINE-DEVICE
-          '15': abortion-forms.field-options.MALE-STERILIZATION
-          '16': abortion-forms.field-options.FEMALE-STERILIZATION
-          '17': abortion-forms.field-options.STERILIZATION-OF-BOTH-PARTNERS
-          '18': abortion-forms.field-options.MORNING-AFTER-PILL
-          '19': abortion-forms.field-options.IMPLANT
-          '20': abortion-forms.field-options.PATCH
-          '21': abortion-forms.field-options.VAGINAL-RING
-          '22': abortion-forms.field-options.FERTILITY-AWARENESS-METHODS
-          '23': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
-          '24': abortion-forms.field-options.OTHER-CONTRACEPTIVES
-        rows: 8
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
-      - field: abortion-forms.field-labels.ULTRASOUND
-        type: radio-button
-        options:
-          yes: abortion-forms.field-options.YES
-          no: abortion-forms.field-options.NO
-        rows: 9
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|ultrasound|1
-      - field: abortion-forms.field-labels.NUMBER-OF-FETUSES
-        type: number-field
-        rows: 9
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfFoetus|1
-      - field: abortion-forms.field-labels.POSITIONING-OF-THE-UTERUS
-        type: dropdown
-        options:
-          '01': abortion-forms.field-options.ANTEVERSION
-          '02': abortion-forms.field-options.RETROVERSION
-          '03': abortion-forms.field-options.STRETCHING-POSITION
-        rows: 10
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|uterusPosition|1
-      - field: abortion-forms.field-labels.MEDICATION-GIVEN-TO-PATIENT
-        type: dropdown
-        options:
-          '01': abortion-forms.field-options.NONE
-          '02': abortion-forms.field-options.MISOPROSTOL
-          '03': abortion-forms.field-options.MIFEPRISTONE
-          '04': abortion-forms.field-options.MIFEGYNE
-          '05': abortion-forms.field-options.MIFEGYNE-MISOPROSTOL
-          '06': abortion-forms.field-options.OTHER
-        rows: 11
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|medicationGiven|1
-      - field: abortion-forms.field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION
-        type: dropdown
-        options:
-          waitingTime: abortion-forms.field-options.WAITING-TIME
-          keepPregnancy: abortion-forms.field-options.PRESERVING-THE-PREGNANCY
-          miscarriage: abortion-forms.field-options.MISCARRIAGE
-          noPregnancy: abortion-forms.field-options.NO-PREGNANCY
-          lunaReferral: abortion-forms.field-options.LUNA-REFERRAL
-          surgeryReferral: abortion-forms.field-options.SURGERY-REFERRAL
-          hospitalReferral: abortion-forms.field-options.HOSPITAL-REFERRAL
-          gynecologistReferral: abortion-forms.field-options.GYNECOLOGIST-REFERRAL
-          adoptionReferral: abortion-forms.field-options.ADOPTION-REFERRAL
-          otherReferral: abortion-forms.field-options.OTHER-REFERRAL
-          noInformation: abortion-forms.field-options.NO-INFORMATION
-        rows: 12
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|preliminaryInvestigationResult|1
-      - field: abortion-forms.field-labels.FIRST-DECISION-OF-THE-PATIENT
-        type: textfield
-        rows: 13
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|firstPatientDecision|1
-      - field: abortion-forms.field-labels.FOLLOW-UP-MIN
-        type: number-field
-        rows: 14
-        columns: 1
-        value: 50
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfFollowUp|1
-      - field: abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN
-        type: number-field
-        rows: 15
-        columns: 1
-        value: 10
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfContraception|1
-      - field: abortion-forms.field-labels.CONFIRMATION-OF-PATIENT-CHOICE-AND-PHYSICIAN
-        type: radio-button
-        options:
-          curettage: abortion-forms.field-options.CURETTAGE
-          medicalAbortion: abortion-forms.field-options.MEDICAL-ABORTION
-        rows: 16
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|confirmationOfPatientChoice|1
-      - field: abortion-forms.field-labels.COMMENTARY
-        type: textfield
-        multiline: true
-        rows: 17
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|comment|1
-      - field: abortion-forms.field-labels.HCG
-        type: measure-field
-        unit: mg/l
-        rows: 18
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|hcg|1
-      - field: abortion-forms.field-labels.HCG-DATE
-        type: date-picker
-        rows: 18
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|hcgDate|1
-      - field: abortion-forms.field-labels.PROG
-        type: measure-field
-        unit: mg/l
-        rows: 19
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|prog|1
-      - field: abortion-forms.field-labels.PROG-DATE
-        type: date-picker
-        rows: 19
-        columns: 1
-        tags:
-          - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|progDate|1
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1
+          - MS-ABORTION-ITEM|follow-up|1
+          - MS-FOLLOW-UP-MIN|generic|1
