@@ -9,8 +9,8 @@ export function generateLabel(label: string, labelPosition: string, translationP
 	switch (labelPosition) {
 		case 'right':
 		case 'left':
-			return html` <label class="iqr-label side above ${labelPosition}"><span>${translationProvider(label)}</span></iqr-label> `
+			return html` <label class="iqr-label side above ${labelPosition}">${translationProvider(label)}</iqr-label> `
 		default:
-			return html` <label class="iqr-label ${labelPosition}"><span>${translationProvider(label)}</span></iqr-label> `
+			return html` <label class="iqr-label ${labelPosition}">${translationProvider(label)}</iqr-label> `
 	}
 }

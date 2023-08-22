@@ -28,21 +28,15 @@
 	iqr-form-dropdown-field,
 	iqr-form-radio-button,
 	iqr-form-checkbox {
-		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10px 10px 10px;
-		max-width: 220px;
 	}
 
 	iqr-form-radio-button {
-		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10px 8px 10px;
-		max-width: 220px;
 	}
 
 	iqr-form-checkbox {
-		flex: var(--grows) 1 calc(var(--width) - 20px);
 		margin: 0em 10px 11px 10px;
-		max-width: 220px;
 	}
 
 	.group {
