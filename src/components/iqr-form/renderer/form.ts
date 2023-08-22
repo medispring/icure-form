@@ -73,6 +73,7 @@ export const render: Renderer = (
 						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
+						value="${fg.value}"
 						.labels="${fg.labels}"
 						.multiline="${fg.multiline || false}"
 						defaultLanguage="${props.defaultLanguage}"
