@@ -23,22 +23,21 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			e.stopPropagation()
 			if (id) {
 				const option = (this.options || []).find((option) => option.id === id)
-				const code =
-					option instanceof CodeStub
-						? option
-						: new CodeStub({
-								id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + id + '|1',
-								type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
-								code: id,
-								version: '1',
-						  })
+				const code = !Boolean(option?.['text'])
+					? option
+					: new CodeStub({
+							id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + id + '|1',
+							type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+							code: id,
+							version: '1',
+					  })
 				this.value = id
 				this.inputValue =
-					(!(option instanceof CodeStub)
+					(Boolean(option?.['text'])
 						? this.translate
-							? this.translateText(option?.text || '')
-							: option?.text
-						: option?.label?.[this.displayedLanguage || this.defaultLanguage || 'en']) ?? ''
+							? this.translateText(option?.['text'] || '')
+							: option?.['text']
+						: option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
 					this.handleValueChanged?.(
@@ -50,7 +49,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 							}),
 						},
 						undefined,
-						[code],
+						code ? [code] : [],
 					)
 				}
 				if (this.actionManager) {
@@ -79,11 +78,11 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 										${this.options?.map(
 											(x) =>
 												html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option">
-													${!(x instanceof CodeStub)
+													${Boolean(x?.['text'])
 														? this.translate
-															? this.translationProvider(x.text)
-															: x.text || ''
-														: x?.label?.[this.displayedLanguage || this.defaultLanguage || 'en'] || ''}
+															? this.translationProvider(x?.['text'])
+															: x?.['text'] || ''
+														: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''}
 												</button>`,
 										)}
 									</div>
@@ -96,7 +95,6 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 	}
 
 	public async firstUpdated(): Promise<void> {
-		if (this.codifications?.find((codification) => codification.split('|')[0] === 'HCP-LIST')) this.options = await this.optionsProvider(this.codifications || [], '')
 		this.registerStateUpdater(this.label || '')
 
 		document.addEventListener('click', (event) => {
@@ -114,13 +112,17 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
 			this.value =
 				this.options?.find((option) => {
-					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translateText(option?.label?.[this.displayedLanguage || 'en'] || '') === this.inputValue
+					return Boolean(option?.['text'])
+						? option?.['text'] === this.inputValue
+						: this.translateText(option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) {
 			this.inputValue = this.value
 			this.value =
 				this.options?.find((option) => {
-					return !(option instanceof CodeStub) ? option.text === this.inputValue : this.translateText(option?.label?.[this.displayedLanguage || 'en'] || '') === this.inputValue
+					return Boolean(option?.['text'])
+						? option?.['text'] === this.inputValue
+						: this.translateText(option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 				})?.id ?? ''
 		}
 		if (this.value && this.handleValueChanged && this.inputValue) {
@@ -134,7 +136,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 				},
 				undefined,
 				[
-					this.options?.find((option) => option instanceof CodeStub && option.id === this.value) ??
+					this.options?.find((option) => !Boolean(option?.['text']) && option.id === this.value) ??
 						new CodeStub({
 							id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + this.value + '|1',
 							type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
