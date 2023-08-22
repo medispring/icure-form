@@ -18,11 +18,18 @@ export const makeFormValuesContainer = () => {
 			{ id: 's4', label: 'A TimePicker', tags: [], content: { en: { fuzzyDateValue: 102000 } } },
 		],
 	})
-	const interpretor: (formula: string, sandbox: any) => any = (formula, sandbox) => {
-		const sandboxKeys = Object.keys(sandbox)
+
+	const entity = {
+		getEntityReference: () => {
+			return Promise.resolve('entity')
+		},
+	}
+	const interpretor: (formula: string, sandbox: any) => Promise<any> = async (formula, sandbox) => {
+		const sandboxKeys = [...Object.keys(sandbox), 'entity']
+		sandbox['entity'] = entity
 		const sandboxValues = sandboxKeys.map((k) => sandbox[k])
 		const f = new Function(...sandboxKeys, `return ${formula}`)
-		return f(...sandboxValues)
+		return await f(...sandboxValues)
 	}
 	const now = +new Date()
 	return new ContactFormValuesContainer(

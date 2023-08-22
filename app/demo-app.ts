@@ -194,6 +194,7 @@ class DemoApp extends LitElement {
 
 	render() {
 		// noinspection DuplicatedCode
+		// @ts-ignore
 		const form = new Form(
 			'Waiting room GP',
 			[
@@ -244,17 +245,6 @@ class DemoApp extends LitElement {
 		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer)
 
 		return html`
-			<iqr-form
-				.form="${form}"
-				labelPosition="above"
-				skin="kendo"
-				theme="gray"
-				renderer="form"
-				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ContactFormValuesContainer) => {
-					console.log(newVal)
-				}}"
-			></iqr-form>
 			<iqr-form
 				.form="${gpForm}"
 				.editable="${true}"
