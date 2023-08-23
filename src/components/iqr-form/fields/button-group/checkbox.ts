@@ -1,9 +1,9 @@
 import { html } from 'lit'
 import '../text-field/iqr-text-field'
 import './iqr-radio-button-group'
-import { VersionedValue } from '../text-field/iqr-text-field'
+import { VersionedValue } from '../text-field'
 import { CodeStub, Content } from '@icure/api'
-import { OptionsField } from '../../../common/optionsField'
+import { OptionCode, OptionsField } from '../../../common'
 
 export class CheckBox extends OptionsField<string, VersionedValue[]> {
 	render() {
@@ -33,7 +33,7 @@ export class CheckBox extends OptionsField<string, VersionedValue[]> {
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {
-			this.options = await this.fetchInitialsOptions()
+			this.options = ((await this.fetchInitialsOptions()) as (OptionCode | CodeStub)[]) || []
 		}
 	}
 }

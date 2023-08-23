@@ -28,7 +28,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 			const codes = (this.options || [])
 				.filter((option) => inputs.find((i) => i.id === option.id))
 				.map((option) =>
-					!(option instanceof CodeStub)
+					Boolean(option?.['text'])
 						? new CodeStub({
 								id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + option.id + '|1',
 								type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
@@ -61,7 +61,9 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 			<div class="iqr-text-field">
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
 				${this.options?.map((x) => {
-					const text = !(x instanceof CodeStub) ? this.translateText(x.text) || '' : this.translateText(x?.label?.[this.displayedLanguage || this.defaultLanguage || 'en'] || '')
+					const text = Boolean(x?.['text'])
+						? this.translateText(x?.['text']) || ''
+						: this.translateText(x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || '')
 					if (!this.editable) {
 						return html`<div>
 							<input
@@ -70,7 +72,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 								type="${this.type}"
 								id="${x.id}"
 								name="${this.label}"
-								value="${!(x instanceof CodeStub) ? x.id : x.code}"
+								value="${Boolean(x?.['text']) ? x.id : x?.['code']}"
 								.checked=${this.inputValues.includes(text)}
 								text="${text}"
 							/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
@@ -82,7 +84,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 							type="${this.type}"
 							id="${x.id}"
 							name="${this.label}"
-							value="${!(x instanceof CodeStub) ? x.id : x.code}"
+							value="${Boolean(x?.['text']) ? x.id : x?.['code']}"
 							.checked=${this.inputValues.includes(text)}
 							@change=${this.checkboxChange}
 							text="${text}"
@@ -92,7 +94,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 			</div>
 		`
 	}
-	public firstUpdated(): void {
+	public async firstUpdated(): Promise<void> {
 		this.registerStateUpdater(this.label || '')
 
 		const providedValue = this.valueProvider && this.valueProvider()
@@ -113,10 +115,14 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				[
 					...(this.options || [])
 						.filter((option) =>
-							this.inputValues.some((i) => (!(option instanceof CodeStub) ? i === option.text : i === option.label?.[this.displayedLanguage || this.defaultLanguage || 'en'])),
+							this.inputValues.some((i) =>
+								Boolean(option?.['text'])
+									? i === option?.['text']
+									: i === option?.['label']?.[this.defaultLanguage || 'en'] || i === option?.['label']?.[this.displayedLanguage || 'en'],
+							),
 						)
 						.map((option) =>
-							!(option instanceof CodeStub)
+							Boolean(option?.['text'])
 								? new CodeStub({
 										id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + option.id + '|1',
 										type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',

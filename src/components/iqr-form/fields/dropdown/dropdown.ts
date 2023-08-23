@@ -2,8 +2,8 @@ import { html, TemplateResult } from 'lit'
 import { property } from 'lit/decorators.js'
 import './iqr-dropdown'
 import { CodeStub, Content, HealthcareParty } from '@icure/api'
-import { OptionsField } from '../../../common/optionsField'
-import { VersionedValue } from '../text-field/iqr-text-field'
+import { OptionCode, OptionsField } from '../../../common'
+import { VersionedValue } from '../text-field'
 
 export class DropdownField extends OptionsField<string, VersionedValue[]> {
 	@property() ownersProvider: (speciality: string[]) => HealthcareParty[] = () => []
@@ -36,7 +36,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 
 	public async firstUpdated(): Promise<void> {
 		if (this.options === undefined || this.options.length === 0) {
-			this.options = await this.fetchInitialsOptions()
+			this.options = ((await this.fetchInitialsOptions()) as (OptionCode | CodeStub)[]) || []
 		}
 	}
 }
