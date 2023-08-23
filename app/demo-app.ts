@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { CodeStub, IccHcpartyXApi } from '@icure/api'
+import { CodeStub, IccHcpartyXApi, sleep } from '@icure/api'
 import * as YAML from 'yaml'
 import '../src/components/iqr-form/fields/text-field/iqr-text-field'
 import '../src/components/iqr-form/fields/dropdown/iqr-dropdown'
@@ -167,14 +167,18 @@ class DemoApp extends LitElement {
 			text: [x.firstName, x.lastName].filter((x) => x?.length).join(' '),
 		}))
 	}
+	async sleep(ms: number): Promise<any> {
+		return new Promise((resolve) => setTimeout(resolve, ms))
+	}
 
 	async optionsProvider() {
-		return [
+		await sleep(5000)
+		return Promise.resolve([
 			{
 				id: 1,
 				text: 'Dylan Friedrich',
 			},
-		]
+		])
 	}
 
 	translationProvider(stringToTranslate: string) {

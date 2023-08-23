@@ -28,7 +28,13 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 						<button class="btn select-arrow">${datePicto}</button>
 						${this.displayDatePicker
 							? html`<div id="menu" class="date-picker" @click="${(event: Event) => event.stopPropagation()}">
-									<app-date-picker locale="${this.displayedLanguage || this.defaultLanguage || 'en'}" style="" max="${MAX_DATE}" min="${toResolvedDate('1970-01-01')}" @date-updated="${this.dateUpdated}"></app-date-picker>
+									<app-date-picker
+										locale="${this.displayedLanguage || this.defaultLanguage || 'en'}"
+										style=""
+										max="${MAX_DATE}"
+										min="${toResolvedDate('1970-01-01')}"
+										@date-updated="${this.dateUpdated}"
+									></app-date-picker>
 							  </div>`
 							: ''}
 					</div>
