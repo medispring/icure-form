@@ -1,5 +1,5 @@
 :host {
-	--bg-color-1: #F44336;
+	--bg-color-1: #f44336;
 }
 
 .ProseMirror {
@@ -11,7 +11,7 @@
 	white-space: pre-wrap;
 	-webkit-font-variant-ligatures: none;
 	font-variant-ligatures: none;
-	font-feature-settings: "liga" 0; /* the above doesn't seem to work in Edge */
+	font-feature-settings: 'liga' 0; /* the above doesn't seem to work in Edge */
 }
 
 .ProseMirror pre {
@@ -44,7 +44,7 @@ li.ProseMirror-selectednode {
 }
 
 li.ProseMirror-selectednode:after {
-	content: "";
+	content: '';
 	position: absolute;
 	left: -32px;
 	right: -2px;
@@ -61,7 +61,7 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-gapcursor:after {
-	content: "";
+	content: '';
 	display: block;
 	position: absolute;
 	top: -2px;
@@ -89,14 +89,15 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-example-setup-style hr:after {
-	content: "";
+	content: '';
 	display: block;
 	height: 1px;
 	background: silver;
 	line-height: 2px;
 }
 
-.ProseMirror ul, .ProseMirror ol {
+.ProseMirror ul,
+.ProseMirror ol {
 	padding-left: 30px;
 }
 
@@ -118,7 +119,7 @@ li.ProseMirror-selectednode:after {
 	position: fixed;
 	border-radius: 3px;
 	z-index: 11;
-	box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
+	box-shadow: -0.5px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .ProseMirror-prompt h5 {
@@ -128,14 +129,14 @@ li.ProseMirror-selectednode:after {
 	color: #444;
 }
 
-.ProseMirror-prompt input[type="text"],
+.ProseMirror-prompt input[type='text'],
 .ProseMirror-prompt textarea {
 	background: #eee;
 	border: none;
 	outline: none;
 }
 
-.ProseMirror-prompt input[type="text"] {
+.ProseMirror-prompt input[type='text'] {
 	padding: 0 4px;
 }
 
@@ -150,7 +151,7 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-prompt-close:after {
-	content: "✕";
+	content: '✕';
 	font-size: 12px;
 }
 
@@ -168,7 +169,8 @@ li.ProseMirror-selectednode:after {
 	display: none;
 }
 
-#editor, .editor {
+#editor,
+.editor {
 	color: rgb(101, 101, 101);
 	background-clip: padding-box;
 	border-radius: 4px;
@@ -198,11 +200,11 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror p {
-	margin-bottom: 1em
+	margin-bottom: 1em;
 }
 
 .iqr-input {
-	background: #EDF2F7;
+	background: #edf2f7;
 	border-radius: 8px;
 	border: none;
 	min-height: 28px;
@@ -225,7 +227,6 @@ li.ProseMirror-selectednode:after {
 	padding: 0;
 }
 
-
 * {
 	font-family: 'Roboto', Helvetica, sans-serif;
 }
@@ -246,11 +247,11 @@ h3 {
 	flex-flow: row nowrap;
 	align-items: center;
 	padding: 0 8px;
-	transition: all .24s cubic-bezier(.42, .01, 1, .62);
+	transition: all 0.24s cubic-bezier(0.42, 0.01, 1, 0.62);
 }
 
 .extra > .info {
-	color: #809AB4;
+	color: #809ab4;
 	font-size: 12px;
 	width: 100%;
 	height: auto;
@@ -270,11 +271,11 @@ h3 {
 	align-items: center;
 	justify-content: flex-end;
 	width: 0;
-	transition: all .24s cubic-bezier(.14, .69, .87, .54);
+	transition: all 0.24s cubic-bezier(0.14, 0.69, 0.87, 0.54);
 }
 
 .extra:hover .buttons-container .menu-container .btn {
-	animation: slideIn .24s ease-in forwards;
+	animation: slideIn 0.24s ease-in forwards;
 	pointer-events: none;
 }
 
@@ -323,7 +324,7 @@ h3 {
 }
 
 .extra .buttons-container .btn svg path {
-	fill: #809AB4;
+	fill: #809ab4;
 }
 
 .extra .buttons-container .btn:hover svg path {
@@ -350,7 +351,8 @@ h3 {
 // 	line-height: 0;
 // }
 
-.extra .buttons-container .btn:focus, .extra .buttons-container .btn:focus-within {
+.extra .buttons-container .btn:focus,
+.extra .buttons-container .btn:focus-within {
 	border: none;
 	outline: none;
 }
@@ -401,7 +403,7 @@ h3 {
 }
 
 .menu .input-container {
-	background: #EDF2F7;
+	background: #edf2f7;
 	border-radius: 4px;
 	display: flex;
 	flex-flow: row nowrap;
@@ -417,8 +419,7 @@ h3 {
 }
 
 .menu .input-container:focus-within {
-	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2),
-	0 0 0 1px rgba(40, 151, 255, 1);
+	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2), 0 0 0 1px rgba(40, 151, 255, 1);
 }
 
 .menu .input-container input {
@@ -457,7 +458,7 @@ h3 {
 }
 
 .menu-container .item:hover {
-	background: #F5F9FD;
+	background: #f5f9fd;
 	font-weight: 500;
 	border-radius: 4px;
 }
@@ -485,12 +486,11 @@ span.unit {
 	display: inline-block;
 }
 
-
 span[data-content]:hover::after {
 	position: absolute;
 	content: attr(data-content);
 	background: #274768;
-	color: #FFFFFF;
+	color: #ffffff;
 	font-size: 9px;
 	line-height: 12px;
 	top: -12px;
@@ -506,7 +506,7 @@ span[data-content]::before {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
-	opacity: .3;
+	opacity: 0.3;
 }
 
 .masked {
@@ -536,7 +536,7 @@ span[data-content]::before {
 }
 
 *::selection {
-	background-color: hsla(194, 100%, 50%, .2);
+	background-color: hsla(194, 100%, 50%, 0.2);
 }
 
 .suggestion-palette {
@@ -550,12 +550,8 @@ span[data-content]::before {
 	border: none;
 	border-radius: 8px;
 	background: white;
-	box-shadow: 0 1.1px 1.1px rgba(0, 0, 0, 0.022),
-	0 2.7px 2.7px rgba(0, 0, 0, 0.032),
-	0 5px 5px rgba(0, 0, 0, 0.04),
-	0 8.9px 8.9px rgba(0, 0, 0, 0.048),
-	0 16.7px 16.7px rgba(0, 0, 0, 0.058),
-	0 40px 40px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 1.1px 1.1px rgba(0, 0, 0, 0.022), 0 2.7px 2.7px rgba(0, 0, 0, 0.032), 0 5px 5px rgba(0, 0, 0, 0.04), 0 8.9px 8.9px rgba(0, 0, 0, 0.048),
+		0 16.7px 16.7px rgba(0, 0, 0, 0.058), 0 40px 40px rgba(0, 0, 0, 0.08);
 }
 
 .suggestion-palette ul {
@@ -586,8 +582,9 @@ span[data-content]::before {
 	}
 }
 
-
-.suggestion-palette ul li:not(:first-child) svg.tab-icn, .suggestion-palette ul li:not(.focused) svg.return-icn, .suggestion-palette ul.focused li:first-child svg.tab-icn {
+.suggestion-palette ul li:not(:first-child) svg.tab-icn,
+.suggestion-palette ul li:not(.focused) svg.return-icn,
+.suggestion-palette ul.focused li:first-child svg.tab-icn {
 	height: 0;
 	width: 0;
 	transform: scale(0);
@@ -599,27 +596,29 @@ span[data-content]::before {
 }
 
 .suggestion-palette ul li.focused svg.return-icn {
-	animation: growIn .24s ease-in forwards;
+	animation: growIn 0.24s ease-in forwards;
 }
 
 @keyframes growIn {
 	0% {
-		transform: scale(0.5)
+		transform: scale(0.5);
 	}
 	90% {
-		transform: scale(1.1)
+		transform: scale(1.1);
 	}
 	100% {
-		transform: scale(1)
+		transform: scale(1);
 	}
 }
 
-span.code-count-1::after, span.code-count-1::before {
+span.code-count-1::after,
+span.code-count-1::before {
 	background: var(--bg-code-color-1);
 	color: var(--text-code-color-1);
 }
 
-span.code-count-2::after, span.code-count-2::before {
+span.code-count-2::after,
+span.code-count-2::before {
 	background: var(--bg-code-color-1);
 	color: var(--text-code-color-1);
 	/* STRIPES */
@@ -635,26 +634,20 @@ span.code-count-2::after, span.code-count-2::before {
 	background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);
 }
 
-span.code-count-3::after, span.code-count-3::before {
+span.code-count-3::after,
+span.code-count-3::before {
 	background: var(--bg-code-color-1);
 	color: var(--text-code-color-1);
 	/* STRIPES */
-	background: repeating-linear-gradient(
-			45deg,
-			var(--bg-code-color-1),
-			var(--bg-code-color-1) 10px,
-			var(--bg-code-color-2) 10px,
-			var(--bg-code-color-2) 20px
-	);
+	background: repeating-linear-gradient(45deg, var(--bg-code-color-1), var(--bg-code-color-1) 10px, var(--bg-code-color-2) 10px, var(--bg-code-color-2) 20px);
 	/* PAS STRIPES */
 	/* background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);*/
 }
 
-.selected-option{
+.selected-option {
 	padding: 2px;
 	margin-right: 5px;
 }
-
 
 .options {
 	display: flex;
@@ -684,6 +677,7 @@ span.code-count-3::after, span.code-count-3::before {
 	width: 260px;
 	overflow-y: auto;
 	max-height: 280px;
+	left: 0px;
 }
 
 app-date-picker {
@@ -691,7 +685,6 @@ app-date-picker {
 	--app-hover: #06a070;
 	--app-selected-hover: #06a070;
 }
-
 
 .option {
 	height: 28px;
@@ -716,30 +709,27 @@ app-date-picker {
 	user-select: none; /* Standard syntax */
 }
 
-.option:hover{
+.option:hover {
 	color: #656565;
-    background-color: #ededed;
+	background-color: #ededed;
 }
 
 .select-arrow {
 	border: none;
-    background: 0px 0px;
-    position: relative;
-    top: 0px;
-    opacity: 0.5;
-    cursor: pointer;
-    height: 20px;
-    width: 10px;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding: 0px;
+	background: 0px 0px;
+	position: relative;
+	top: 0px;
+	opacity: 0.5;
+	cursor: pointer;
+	height: 20px;
+	width: 10px;
+	margin-left: 4px;
+	margin-right: 4px;
+	padding: 0px;
 }
 
 .hidden {
 	display: none;
 }
-
-
-
 
 //select backgroud color #06b57e box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.12);
