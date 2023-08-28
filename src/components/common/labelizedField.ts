@@ -9,4 +9,5 @@ export abstract class LabelizedField extends StylizedField {
 	@property() label?: string = ''
 	@property() labelPosition?: 'float' | 'side' | 'above' | 'hidden' | 'left' | 'right' = 'float'
 	@property() placeholder?: string = ''
+	@property() styleOptions: { [key: string]: unknown }
 }

@@ -221,6 +221,7 @@ export const render: Renderer = (
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-radio-button>`
 				: fg.type === 'checkbox'
 				? html`<iqr-form-checkbox
@@ -240,6 +241,7 @@ export const render: Renderer = (
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(radioButtonFieldValuesProvider(formsValueContainer, fg))}"
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-checkbox>`
 				: fg.type === 'label'
 				? html`<iqr-form-label

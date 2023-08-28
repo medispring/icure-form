@@ -1,4 +1,3 @@
-
 form: abortion-forms.PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
 description: abortion-forms.PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
 actions:
@@ -117,6 +116,9 @@ sections:
           friend: abortion-forms.field-options.FRIEND
           educator: abortion-forms.field-options.EDUCATOR
           other: abortion-forms.field-options.OTHER
+        styleOptions:
+          direction: column
+          columns: 3
         rows: 3
         columns: 1
         codifications:
@@ -158,7 +160,7 @@ sections:
         multiline: true
         columns: 1
         tags:
-          -  MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|DECISION-PROCESSUS|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|DECISION-PROCESSUS|1
       - field: abortion-forms.field-labels.PATIENT-FIRST-DECISION
         type: radio-button
         shortLabel: patientFirstDecision
@@ -169,6 +171,9 @@ sections:
           curettage: abortion-forms.field-options.CURETTAGE
           doubt: abortion-forms.field-options.DOUBT
           keepIt: abortion-forms.field-options.KEEP-IT
+        styleOptions:
+          direction: row
+          rows: 2
         codifications:
           - MS-ABORTION-METHOD-TYPE
         tags:
@@ -350,4 +355,3 @@ sections:
           - MS-FOLLOW-UP-MIN|contraception|1
           - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|MINUTES-CONTRACEPTION-NUMBER|1
           - MS-ABORTION-ITEM|follow-up|1
-

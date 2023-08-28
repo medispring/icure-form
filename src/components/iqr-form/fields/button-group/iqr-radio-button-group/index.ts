@@ -63,39 +63,41 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		return html`
 			<div class="iqr-text-field">
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
-				${(this.translate ? this.translatedOptions : this.options)?.map((x) => {
-					const text = this.translate
-						? x?.['translatedText']
-						: Boolean(x?.['text'])
-						? x?.['text'] || ''
-						: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''
-					if (!this.editable) {
+				<div style="${this.generateStyle()}">
+					${(this.translate ? this.translatedOptions : this.options)?.map((x) => {
+						const text = this.translate
+							? x?.['translatedText']
+							: Boolean(x?.['text'])
+							? x?.['text'] || ''
+							: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''
+						if (!this.editable) {
+							return html`<div>
+								<input
+									class="iqr-checkbox"
+									disabled
+									type="${this.type}"
+									id="${x.id}"
+									name="${this.label}"
+									value="${Boolean(x?.['text']) ? x.id : x?.['code']}"
+									.checked=${this.inputValues.includes(text)}
+									text="${text}"
+								/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
+							</div>`
+						}
 						return html`<div>
 							<input
 								class="iqr-checkbox"
-								disabled
 								type="${this.type}"
 								id="${x.id}"
 								name="${this.label}"
 								value="${Boolean(x?.['text']) ? x.id : x?.['code']}"
 								.checked=${this.inputValues.includes(text)}
+								@change=${this.checkboxChange}
 								text="${text}"
 							/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
 						</div>`
-					}
-					return html`<div>
-						<input
-							class="iqr-checkbox"
-							type="${this.type}"
-							id="${x.id}"
-							name="${this.label}"
-							value="${Boolean(x?.['text']) ? x.id : x?.['code']}"
-							.checked=${this.inputValues.includes(text)}
-							@change=${this.checkboxChange}
-							text="${text}"
-						/><label class="iqr-radio-button-label" for="${x.id}"><span>${text}</span></label>
-					</div>`
-				})}
+					})}
+				</div>
 			</div>
 		`
 	}
@@ -157,6 +159,17 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 						),
 				],
 			)
+		}
+	}
+
+	private generateStyle() {
+		switch (this.styleOptions.direction) {
+			case 'column':
+				return `grid-template-columns: repeat(${this.styleOptions.columns}, 1fr);`
+			case 'row':
+				return `grid-template-columns: repeat(${Number((this.options?.length ?? 0) / (this.styleOptions.rows as number))}, 1fr);`
+			default:
+				return ``
 		}
 	}
 }

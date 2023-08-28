@@ -34,6 +34,7 @@ export abstract class Field {
 	now?: boolean
 	translate?: boolean
 	width?: number
+	styleOptions?: { [key: string]: unknown }
 
 	label(): string {
 		return this.field
@@ -58,6 +59,7 @@ export abstract class Field {
 		now?: boolean,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { [key: string]: unknown },
 	) {
 		this.field = label
 		this.type = type
@@ -77,6 +79,7 @@ export abstract class Field {
 		this.now = now
 		this.translate = translate ?? true
 		this.width = width
+		this.styleOptions = styleOptions
 	}
 
 	static parse(json: Field): Field {
@@ -235,6 +238,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.width,
+					json.styleOptions,
 				)
 			case 'checkbox':
 				return new CheckBox(
@@ -250,6 +254,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.width,
+					json.styleOptions,
 				)
 			case 'label':
 				return new Label(json.field, json.shortLabel, json.rows, json.grows, json.columns)
@@ -483,6 +488,7 @@ export class RadioButton extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		stylesOptions?: { [key: string]: unknown },
 	) {
 		super(
 			'radio-button',
@@ -503,6 +509,7 @@ export class RadioButton extends Field {
 			false,
 			translate,
 			width,
+			stylesOptions,
 		)
 	}
 }
@@ -521,8 +528,29 @@ export class CheckBox extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		stylesOptions?: { [key: string]: unknown },
 	) {
-		super('checkbox', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, undefined, value, undefined, false, hideCondition, false, translate, width)
+		super(
+			'checkbox',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			undefined,
+			value,
+			undefined,
+			false,
+			hideCondition,
+			false,
+			translate,
+			width,
+			stylesOptions,
+		)
 	}
 }
 export class Label extends Field {

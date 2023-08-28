@@ -26,6 +26,7 @@ export class CheckBox extends OptionsField<string, VersionedValue[]> {
 					.translationProvider=${this.translationProvider}
 					.codifications=${this.codifications}
 					.optionsProvider=${this.optionsProvider}
+					.styleOptions=${this.styleOptions}
 				></iqr-radio-button>
 			`
 		})
