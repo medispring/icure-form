@@ -16,9 +16,11 @@ export class ActionManager {
 	formValuesContainer: FormValuesContainer
 	stateUpdaters: { [name: string]: (state: StateToUpdate, result: any) => void } = {}
 	readyChildrenCount: Map<string, { total: number; count: number; parent: string }> = new Map()
-	defaultValues: Map<string, any> = new Map()
+	defaultSandbox: Map<string, any> = new Map()
+	public editable = true
 
-	constructor(form: Form, formValueContainer: FormValuesContainer) {
+	constructor(form: Form, formValueContainer: FormValuesContainer, editable = true) {
+		this.editable = editable
 		this.formValuesContainer = formValueContainer
 		this.actions = form.actions || []
 		this.readyChildrenCount.set(form.form || 'main', { total: (form.sections || []).length, count: 0, parent: '' })
@@ -38,7 +40,7 @@ export class ActionManager {
 			name = sg.group || ''
 		} else {
 			name = sg.field || ''
-			this.defaultValues.set(name, sg.value)
+			this.defaultSandbox.set(name, { value: sg.value })
 			childrenCount.set(name, { total: 0, count: 0, parent: parentName })
 			return childrenCount
 		}
@@ -74,19 +76,16 @@ export class ActionManager {
 	private async launchInitActions() {
 		if (this.formValuesContainer && this.actions) {
 			for (const action of extractActionsByTrigger(this.actions || [], Trigger.INIT)) {
-				const sandbox: any = { value: null }
+				let sandbox: any = { value: null }
 				action.launchers.forEach((launcher: Launcher) => {
 					if (launcher.triggerer === Trigger.INIT && launcher.shouldPassValue) {
-						sandbox.codes = []
-						sandbox.content = null
-						sandbox.fuzzyDateValue = null
-						sandbox.options = []
-						sandbox.id = null
-						if (sandbox.value === null) {
-							sandbox.value = this.defaultValues.get(launcher.name)
-						} else {
-							sandbox.value = [...sandbox.value, ...this.defaultValues.get(launcher.name)]
-						}
+						sandbox = this.defaultSandbox.get(launcher.name)
+						if (!sandbox.codes) sandbox.codes = []
+						if (!sandbox.content) sandbox.content = null
+						if (!sandbox.fuzzyDateValue) sandbox.fuzzyDateValue = null
+						if (!sandbox.options) sandbox.options = []
+						if (!sandbox.id) sandbox.id = null
+						if (!sandbox.value) sandbox.value = null
 					}
 				})
 				const result = await this.formValuesContainer?.compute(action.expression, sandbox)
@@ -100,7 +99,7 @@ export class ActionManager {
 	}
 
 	public async launchActions(trigger: Trigger, name: string, sandbox?: any) {
-		if (this.formValuesContainer && this.actions) {
+		if (this.formValuesContainer && this.actions && this.editable) {
 			for (const action of extractActions(this.actions || [], name, trigger)) {
 				const launcher = extractLauncherByNameAndTrigger(action, name, trigger)
 				const result = await this.formValuesContainer?.compute(action.expression, launcher?.shouldPassValue ? sandbox || {} : {})

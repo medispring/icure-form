@@ -57,13 +57,18 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		if (!this.display) {
 			return html``
 		}
+		if (this.translate) {
+			this.fetchTranslateOptions()
+		}
 		return html`
 			<div class="iqr-text-field">
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
-				${this.options?.map((x) => {
-					const text = Boolean(x?.['text'])
-						? this.translateText(x?.['text']) || ''
-						: this.translateText(x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || '')
+				${(this.translate ? this.translatedOptions : this.options)?.map((x) => {
+					const text = this.translate
+						? x?.['translatedText']
+						: Boolean(x?.['text'])
+						? x?.['text'] || ''
+						: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''
 					if (!this.editable) {
 						return html`<div>
 							<input
@@ -102,6 +107,25 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValues = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]].split(this.VALUES_SEPARATOR)
 		} else if (this.value) this.inputValues = this.value.split(this.VALUES_SEPARATOR)
+		this.actionManager?.defaultSandbox.set(this.label || '', {
+			value: this.inputValues.join(this.VALUES_SEPARATOR),
+			content: new Content({
+				stringValue: this.inputValues.join(this.VALUES_SEPARATOR),
+			}),
+			options: this.options || [],
+			codes: ((this.translate ? this.translatedOptions : this.options) || [])
+				.filter((option) => this.inputValues.find((i) => (i === option.id || this.translate ? option?.['translatedText'] === i : false)))
+				.map((option) =>
+					Boolean(option?.['text'])
+						? new CodeStub({
+								id: (this.codifications?.length ? this.codifications[0] + '|' : 'CUSTOM_OPTION|') + option.id + '|1',
+								type: this.codifications?.length ? this.codifications[0] : 'CUSTOM_OPTION',
+								code: option.id,
+								version: '1',
+						  })
+						: option,
+				),
+		})
 		if (this.inputValues.length) {
 			this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',

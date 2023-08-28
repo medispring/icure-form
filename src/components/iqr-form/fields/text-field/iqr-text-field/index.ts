@@ -323,8 +323,11 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 					return this.editable
 				},
 			})
-
 			if (parsedDoc ? this.serializer.serialize(parsedDoc) : '' !== '') {
+				this.actionManager?.defaultSandbox.set(this.label || '', {
+					value: parsedDoc ? this.serializer.serialize(parsedDoc) : '',
+					content: this.contentMaker?.(parsedDoc),
+				})
 				this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
 			}
 		}
@@ -452,11 +455,11 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 			: this.schema === 'text-document'
 			? (doc?: ProsemirrorNode) =>
 					new Content({
-						stringValue: doc?.textContent,
+						stringValue: doc?.textBetween(0, doc?.nodeSize - 2, '\n'),
 					})
 			: (doc?: ProsemirrorNode) =>
 					new Content({
-						stringValue: doc?.textContent,
+						stringValue: doc?.textBetween(0, doc?.nodeSize - 2, '\n'),
 					})
 	}
 	// private getMeta(): Meta | undefined {
@@ -470,6 +473,7 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 				this.value = result
 				if (this.view) {
 					const tr = this.view?.state.tr
+					tr?.delete(0, tr.doc.nodeSize - 2)
 					tr?.insertText(this.value || '')
 					this.view?.dispatch(tr)
 				}

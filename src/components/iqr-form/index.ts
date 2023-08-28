@@ -83,7 +83,7 @@ class IqrForm extends ActionedField {
 
 	firstUpdated() {
 		if (this.actionManager && this.form && this.formValuesContainer) {
-			this.registerStateUpdater(this.form.form || '')
+			this.registerStateUpdater(this.form.form || 'main-form')
 		}
 	}
 }

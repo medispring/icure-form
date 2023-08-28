@@ -241,13 +241,14 @@ class DemoApp extends LitElement {
 			'Fill in the patient information inside the waiting room',
 		)
 
+		const editable = true
 		const gpForm = Form.parse(YAML.parse(yamlForm))
-		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer)
+		const actionManager: ActionManager = new ActionManager(gpForm, this.formValuesContainer, editable)
 
 		return html`
 			<iqr-form
 				.form="${gpForm}"
-				.editable="${true}"
+				.editable="${editable}"
 				labelPosition="above"
 				skin="kendo"
 				theme="gray"

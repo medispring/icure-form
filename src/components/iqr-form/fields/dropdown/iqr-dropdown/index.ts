@@ -22,7 +22,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			e.preventDefault()
 			e.stopPropagation()
 			if (id) {
-				const option = (this.options || []).find((option) => option.id === id)
+				const option = (this.translate ? this.translatedOptions : this.options || []).find((option) => option.id === id)
 				const code = !Boolean(option?.['text'])
 					? option
 					: new CodeStub({
@@ -33,10 +33,10 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 					  })
 				this.value = id
 				this.inputValue =
-					(Boolean(option?.['text'])
-						? this.translate
-							? this.translateText(option?.['text'] || '')
-							: option?.['text']
+					(this.translate
+						? option?.['translatedText']
+						: Boolean(option?.['text'])
+						? option?.['text']
 						: option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
@@ -65,6 +65,9 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 		if (!this.display) {
 			return html``
 		}
+		if (this.translate) {
+			this.fetchTranslateOptions()
+		}
 		return html`
 			<div id="root" class="iqr-text-field ${this.inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${generateLabel(this.label ?? '', this.labelPosition ?? 'float', this.translationProvider)}
@@ -75,13 +78,13 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 						${this.displayMenu
 							? html`
 									<div id="menu" class="options">
-										${this.options?.map(
+										${(this.translate ? this.translatedOptions : this.options)?.map(
 											(x) =>
 												html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option">
-													${Boolean(x?.['text'])
-														? this.translate
-															? this.translationProvider(x?.['text'])
-															: x?.['text'] || ''
+													${this.translate
+														? x?.['translatedText'] || ''
+														: Boolean(x?.['text'])
+														? x?.['text'] || ''
 														: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''}
 												</button>`,
 										)}
@@ -96,7 +99,6 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 
 	public async firstUpdated(): Promise<void> {
 		this.registerStateUpdater(this.label || '')
-
 		document.addEventListener('click', (event) => {
 			if (!event.composedPath().includes(this)) {
 				this.displayMenu = false
@@ -111,20 +113,37 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
 			this.value =
-				this.options?.find((option) => {
-					return Boolean(option?.['text'])
-						? option?.['text'] === this.inputValue
-						: this.translateText(option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
+				(this.translate ? this.translatedOptions : this.options)?.find((option) => {
+					return this.translate
+						? option?.['translatedText']
+						: Boolean(option?.['text'])
+						? (option?.['text'] === this.inputValue || '') === this.inputValue
+						: (option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) {
-			this.inputValue = this.value
-			this.value =
-				this.options?.find((option) => {
-					return Boolean(option?.['text'])
-						? option?.['text'] === this.inputValue
-						: this.translateText(option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
-				})?.id ?? ''
+			const option = (this.translate ? this.translatedOptions : this.options)?.find((option) => option.id === this.value)
+			if (option) {
+				this.inputValue = this.translate ? option?.['translatedText'] || '' : option?.['text'] || ''
+			} else {
+				this.inputValue = this.value
+				this.value =
+					(this.translate ? this.translatedOptions : this.options)?.find((option) => {
+						return this.translate
+							? option?.['translatedText']
+							: Boolean(option?.['text'])
+							? (option?.['text'] === this.inputValue || '') === this.inputValue
+							: (option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
+					})?.id ?? ''
+			}
 		}
+		this.actionManager?.defaultSandbox.set(this.label || '', {
+			value: this.inputValue,
+			content: new Content({
+				stringValue: this.inputValue || '',
+			}),
+			options: this.options || [],
+			id: this.value,
+		})
 		if (this.value && this.handleValueChanged && this.inputValue) {
 			this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
