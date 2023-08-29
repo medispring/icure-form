@@ -130,8 +130,8 @@ sections:
       - field: abortion-forms.field-labels.OTHER
         type: textfield
         shortLabel: other
-        rows: 3
-        columns: 2
+        rows: 4
+        columns: 1
         tags:
           - MS-ABORTION-COMPANION-TYPE|custom|1
           - MS-ABORTION-COMPANION|typeOfCompanion|1
@@ -141,14 +141,14 @@ sections:
         type: textfield
         shortLabel: history
         multiline: true
-        rows: 4
+        rows: 5
         columns: 1
         tags:
           - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1
       - field: abortion-forms.field-labels.PARTNER-POSITION
         type: textfield
         shortLabel: partnerPosition
-        rows: 5
+        rows: 6
         multiline: true
         columns: 1
         tags:

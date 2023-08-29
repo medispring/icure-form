@@ -45,9 +45,7 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 				?.sort((a, b) => {
 					if (a?.['id'] === 'other') return 1
 					if (b?.['id'] === 'other') return -1
-					if (a?.['translatedText'] < b?.['translatedText']) return -1
-					if (a?.['translatedText'] > b?.['translatedText']) return 1
-					return 0
+					return (a?.['translatedText'] || '').localeCompare(b?.['translatedText'] || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' })
 				}) ?? []
 	}
 }
