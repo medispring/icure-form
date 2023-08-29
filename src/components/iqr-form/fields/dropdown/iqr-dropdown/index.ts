@@ -115,9 +115,9 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			this.value =
 				(this.translate ? this.translatedOptions : this.options)?.find((option) => {
 					return this.translate
-						? option?.['translatedText']
+						? option?.['translatedText'] === this.inputValue
 						: Boolean(option?.['text'])
-						? (option?.['text'] === this.inputValue || '') === this.inputValue
+						? (option?.['text'] || '') === this.inputValue
 						: (option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 				})?.id ?? ''
 		} else if (this.value) {
@@ -129,9 +129,9 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 				this.value =
 					(this.translate ? this.translatedOptions : this.options)?.find((option) => {
 						return this.translate
-							? option?.['translatedText']
+							? option?.['translatedText'] === this.inputValue
 							: Boolean(option?.['text'])
-							? (option?.['text'] === this.inputValue || '') === this.inputValue
+							? (option?.['text'] || '') === this.inputValue
 							: (option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en'] || '') === this.inputValue
 					})?.id ?? ''
 			}

@@ -66,7 +66,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				<div style="${this.generateStyle()}">
 					${(this.translate ? this.translatedOptions : this.options)?.map((x) => {
 						const text = this.translate
-							? x?.['translatedText']
+							? x?.['translatedText'] || ''
 							: Boolean(x?.['text'])
 							? x?.['text'] || ''
 							: x?.['label']?.[this.defaultLanguage || 'en'] || x?.['label']?.[this.displayedLanguage || 'en'] || ''
@@ -163,11 +163,11 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 	}
 
 	private generateStyle() {
-		switch (this.styleOptions.direction) {
+		switch (this.styleOptions?.direction) {
 			case 'column':
-				return `grid-template-columns: repeat(${this.styleOptions.columns}, 1fr);`
+				return `grid-template-columns: repeat(${this.styleOptions?.columns}, 1fr);`
 			case 'row':
-				return `grid-template-columns: repeat(${Number((this.options?.length ?? 0) / (this.styleOptions.rows as number))}, 1fr);`
+				return `grid-template-columns: repeat(${Number((this.options?.length ?? 0) / (this.styleOptions?.rows as number))}, 1fr);`
 			default:
 				return ``
 		}
