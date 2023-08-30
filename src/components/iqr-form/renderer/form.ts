@@ -266,7 +266,9 @@ export const render: Renderer = (
 		return form.sections.map((s) =>
 			groupFieldsOrGroupByRows(s.fields)?.map(
 				(fieldsOrGroup) =>
-					html`<div class="iqr-form">${fieldsOrGroup.map((fieldOrGroup: Field | Group) => renderFieldOrGroup(fieldOrGroup, 3, sumColumnsOfFields(fieldsOrGroup)))}</div> `,
+					html`<div class="iqr-form" style="${fieldsOrGroup.some((fieldOrGroup) => fieldOrGroup.styleOptions?.alignItems === 'flex-end') ? 'align-items: flex-end' : ''}">
+						${fieldsOrGroup.map((fieldOrGroup: Field | Group) => renderFieldOrGroup(fieldOrGroup, 3, sumColumnsOfFields(fieldsOrGroup)))}
+					</div> `,
 			),
 		)
 	}

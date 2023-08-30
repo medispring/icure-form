@@ -53,7 +53,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 					)
 				}
 				if (this.actionManager) {
-					this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, id: this.value, code: code, options: this.options || [] })
+					this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: this.inputValue, id: this.value, codes: [code], options: this.options || [] })
 				}
 				return true
 			}

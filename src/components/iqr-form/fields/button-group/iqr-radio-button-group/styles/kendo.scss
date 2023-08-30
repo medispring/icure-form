@@ -35,9 +35,6 @@ input[type='radio'] {
 }
 
 .iqr-text-field {
-	position: relative;
-	padding-top: $floating-label-height;
-
 	> .iqr-label {
 		z-index: 1;
 		pointer-events: none;

@@ -566,14 +566,16 @@ export class Group {
 	columns?: number
 	hideCondition?: string
 	width?: number
+	styleOptions?: { [key: string]: unknown }
 
-	constructor(title: string, fields: Array<Field | Group>, rows?: number, columns?: number, hideCondition?: string, width?: number) {
+	constructor(title: string, fields: Array<Field | Group>, rows?: number, columns?: number, hideCondition?: string, width?: number, styleOptions?: { [key: string]: unknown }) {
 		this.group = title
 		this.fields = fields
 		this.rows = rows
 		this.columns = columns
 		this.hideCondition = hideCondition
 		this.width = width
+		this.styleOptions = styleOptions
 	}
 
 	static parse(json: { group: string; fields?: Array<Field | Group>; rows?: number; columns?: number; hideCondition?: string; width?: number }): Group {
