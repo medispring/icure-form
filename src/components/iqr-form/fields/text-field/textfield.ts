@@ -49,6 +49,7 @@ class Textfield extends ValuedField<string, VersionedValue[]> {
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
 				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(language, value, versionedValue?.id, [])}
 				.handleMetaChanged=${this.handleMetaChanged}
+				.styleOptions=${this.styleOptions}
 			></iqr-text-field>`
 		})
 	}

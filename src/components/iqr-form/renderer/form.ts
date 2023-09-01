@@ -70,7 +70,7 @@ export const render: Renderer = (
 						.actionManager="${actionManager}"
 						.editable="${editable}"
 						class="iqr-form-field"
-						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows)}"
+						style="${calculateFieldOrGroupWidth(fgColumns, fieldsInRow, fg.width, fg.grows, fg.styleOptions?.width)}"
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						value="${fg.value}"
@@ -88,6 +88,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-textfield>`
 				: fg.type === 'measure-field'
 				? html`<iqr-form-measure-field
@@ -105,6 +106,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-measure-field>`
 				: fg.type === 'number-field'
 				? html`<iqr-form-number-field
@@ -121,6 +123,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-number-field>`
 				: fg.type === 'date-picker'
 				? html`<iqr-form-date-picker
@@ -137,6 +140,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-date-picker>`
 				: fg.type === 'time-picker'
 				? html`<iqr-form-time-picker
@@ -153,6 +157,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-time-picker>`
 				: fg.type === 'date-time-picker'
 				? html`<iqr-form-date-time-picker
@@ -169,6 +174,7 @@ export const render: Renderer = (
 						.metaProvider=${formsValueContainer && metaProvider(formsValueContainer, fg)}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
 						.handleMetaChanged=${formsValueContainer && handleMetaChangedProvider(formsValueContainer)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-date-time-picker>`
 				: fg.type === 'multiple-choice'
 				? html`<iqr-form-multiple-choice
@@ -183,6 +189,7 @@ export const render: Renderer = (
 						.valueProvider="${formsValueContainer && firstItemValueProvider(textFieldValuesProvider(formsValueContainer, fg))}"
 						.translationProvider=${translationProvider}
 						.handleValueChanged=${formsValueContainer && formValuesContainerChanged && handleFieldValueChangedProvider(fg, formsValueContainer, formValuesContainerChanged)}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-multiple-choice>`
 				: fg.type === 'dropdown-field'
 				? html`<iqr-form-dropdown-field
@@ -202,6 +209,7 @@ export const render: Renderer = (
 						.ownersProvider=${ownersProvider}
 						.translationProvider=${translationProvider}
 						.valueProvider="${formsValueContainer && firstItemValueProvider(dropdownFieldValuesProvider(formsValueContainer, fg))}"
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-dropdown-field>`
 				: fg.type === 'radio-button'
 				? html`<iqr-form-radio-button
@@ -251,15 +259,17 @@ export const render: Renderer = (
 						labelPosition=${props.labelPosition}
 						label="${fg.field}"
 						.translationProvider=${translationProvider}
+						.styleOptions="${fg.styleOptions}"
 				  ></iqr-form-label>`
 				: ''}`
 		}
 		return html``
 	}
 
-	const calculateFieldOrGroupWidth = (columns: number, fieldsInRow: number, fieldWidth?: number, shouldFieldGrow?: boolean) => {
-		if (fieldWidth && fieldWidth > 0) return `--width: ${fieldWidth}px; --grows: ${Number(shouldFieldGrow)}`
-		return `--width: ${(100 / fieldsInRow) * (columns || 0)}%; --grows: ${Number(shouldFieldGrow)}`
+	const calculateFieldOrGroupWidth = (columns: number, fieldsInRow: number, fieldWidth?: number, shouldFieldGrow?: boolean, fixedWidth?: number | undefined) => {
+		if (fixedWidth) return `width: ${fixedWidth}px`
+		else if (fieldWidth && fieldWidth > 0) return `--width: ${fieldWidth}px; --grows: ${Number(shouldFieldGrow)}`
+		return `--width: ${(100 / fieldsInRow) * (columns || 0)}%; --grows: ${Number(shouldFieldGrow)};`
 	}
 
 	const renderForm = (form: Form) => {

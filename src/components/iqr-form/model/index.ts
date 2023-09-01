@@ -34,7 +34,7 @@ export abstract class Field {
 	now?: boolean
 	translate?: boolean
 	width?: number
-	styleOptions?: { [key: string]: unknown }
+	styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 
 	label(): string {
 		return this.field
@@ -59,7 +59,7 @@ export abstract class Field {
 		now?: boolean,
 		translate?: boolean,
 		width?: number,
-		styleOptions?: { [key: string]: unknown },
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
 		this.field = label
 		this.type = type
@@ -102,6 +102,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.width,
+					json.styleOptions,
 				)
 			case 'measure-field':
 				return new MeasureField(
@@ -282,6 +283,7 @@ export class TextField extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
 		super(
 			'textfield',
@@ -302,6 +304,7 @@ export class TextField extends Field {
 			false,
 			translate,
 			width,
+			styleOptions,
 		)
 	}
 }
@@ -322,8 +325,29 @@ export class MeasureField extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('measure-field', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, false, translate, width)
+		super(
+			'measure-field',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			false,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -343,8 +367,29 @@ export class NumberField extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('number-field', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, false, translate, width)
+		super(
+			'number-field',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			false,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -365,8 +410,29 @@ export class DatePicker extends Field {
 		now?: boolean,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('date-picker', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now, translate, width)
+		super(
+			'date-picker',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			now,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -387,8 +453,29 @@ export class TimePicker extends Field {
 		now?: boolean,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('time-picker', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now, translate, width)
+		super(
+			'time-picker',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			now,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -409,8 +496,29 @@ export class DateTimePicker extends Field {
 		now?: boolean,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('date-time-picker', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, now, translate, width)
+		super(
+			'date-time-picker',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			now,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -430,8 +538,29 @@ export class MultipleChoice extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
-		super('multiple-choice', label, shortLabel, rows, grows, columns, undefined, tags, codifications, options, labels, value, unit, false, hideCondition, false, translate, width)
+		super(
+			'multiple-choice',
+			label,
+			shortLabel,
+			rows,
+			grows,
+			columns,
+			undefined,
+			tags,
+			codifications,
+			options,
+			labels,
+			value,
+			unit,
+			false,
+			hideCondition,
+			false,
+			translate,
+			width,
+			styleOptions,
+		)
 	}
 }
 
@@ -450,6 +579,7 @@ export class DropdownField extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
 		super(
 			'dropdown-field',
@@ -470,6 +600,7 @@ export class DropdownField extends Field {
 			false,
 			translate,
 			width,
+			styleOptions,
 		)
 	}
 }
@@ -488,7 +619,7 @@ export class RadioButton extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
-		stylesOptions?: { [key: string]: unknown },
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
 		super(
 			'radio-button',
@@ -509,7 +640,7 @@ export class RadioButton extends Field {
 			false,
 			translate,
 			width,
-			stylesOptions,
+			styleOptions,
 		)
 	}
 }
@@ -528,7 +659,7 @@ export class CheckBox extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		width?: number,
-		stylesOptions?: { [key: string]: unknown },
+		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
 		super(
 			'checkbox',
@@ -549,7 +680,7 @@ export class CheckBox extends Field {
 			false,
 			translate,
 			width,
-			stylesOptions,
+			styleOptions,
 		)
 	}
 }
