@@ -51,7 +51,7 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 
 	getVersions(selector: (svc: Service) => boolean): VersionedData<ServiceWithContact> {
 		return groupBy(
-			this.getServicesInHistory(selector).sort((a, b) => (a?.contact?.created ||+new Date()) - (b?.contact?.created ||+new Date())),
+			this.getServicesInHistory(selector).sort((a, b) => (b?.contact?.created || +new Date()) - (a?.contact?.created || +new Date())),
 			(swc) => swc.service.id || '',
 		)
 	}
@@ -73,14 +73,18 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 
 	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): string {
 		let service
-		if (serviceId) {
-			service= this.getServicesInCurrentContact(serviceId)
+		try {
+			service = this.getServicesInCurrentContact(serviceId)
+		} catch (e) {
+			service = undefined
+		}
+		if (service) {
 			service.content = service.content || {}
 			service.content[language] = content
 			service.codes = codes
 			service.tags = tags
 			return service.id || ''
-		}else{
+		} else {
 			service = this.serviceFactory(label, serviceId, language, content, codes, tags)
 			this.currentContact.services = this.currentContact.services || []
 			this.currentContact.services.push(service)
@@ -112,8 +116,8 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 		)
 	}
 
-	private getServicesInCurrentContact(id : string): Service {
-		const service = (this.currentContact.services || [])?.find(s => s.id === id)
+	private getServicesInCurrentContact(id: string): Service {
+		const service = (this.currentContact.services || [])?.find((s) => s.id === id)
 		if (!service) {
 			throw new Error('Service not found')
 		}

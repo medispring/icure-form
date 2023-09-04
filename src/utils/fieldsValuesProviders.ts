@@ -56,27 +56,27 @@ export function handleFieldValueChangedProvider(
 	field: Field,
 	formValuesContainer: FormValuesContainer,
 	formValuesContainerChanged: (newValue: FormValuesContainer) => void,
-): (language: string, content: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) => void {
+): (language: string, content: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) => string {
 	return (language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) => {
-		const sId = serviceId ?? uuid()
-		formValuesContainerChanged(
-			formValuesContainer.setValue(
-				field.shortLabel ?? field.label(),
-				sId,
-				language,
-				value.content ?? createContent(field, value),
-				[
-					...(codes || [])?.filter((code) => code.type !== 'CD-UNIT'),
-					field.type === 'measure-field'
-						? new CodeStub({ id: 'CD-UNIT|' + value.asString.split(' ')[1] || '' + '|1', type: 'CD-UNIT', code: value.asString.split(' ')[1] || '', version: '1' })
-						: undefined,
-				].filter((c) => c !== undefined) as CodeStub[],
-				(field.tags ?? []).map((s) => {
-					const parts = s.split('|')
-					return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
-				}),
-			),
+		const sId = !serviceId || serviceId == '' ? uuid() : serviceId
+		const id = formValuesContainer.setValue(
+			field.shortLabel ?? field.label(),
+			sId,
+			language,
+			value.content ?? createContent(field, value),
+			[
+				...(codes || [])?.filter((code) => code.type !== 'CD-UNIT'),
+				field.type === 'measure-field'
+					? new CodeStub({ id: 'CD-UNIT|' + value.asString.split(' ')[1] || '' + '|1', type: 'CD-UNIT', code: value.asString.split(' ')[1] || '', version: '1' })
+					: undefined,
+			].filter((c) => c !== undefined) as CodeStub[],
+			(field.tags ?? []).map((s) => {
+				const parts = s.split('|')
+				return new CodeStub({ id: s, type: parts[0], code: parts[1], version: parts[2] })
+			}),
 		)
+		formValuesContainerChanged(formValuesContainer)
+		return id
 	}
 }
 

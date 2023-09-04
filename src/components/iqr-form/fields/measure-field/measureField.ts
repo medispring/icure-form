@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { property } from 'lit/decorators.js'
 import '../text-field/iqr-text-field'
 import { VersionedMeta, VersionedValue } from '../text-field/iqr-text-field'
-import { CodeStub, Content } from '@icure/api'
+import { Content } from '@icure/api'
 import { ValuedField } from '../../../common/valuedField'
 
 export class MeasureField extends ValuedField<string, VersionedValue[]> {
@@ -25,8 +25,7 @@ export class MeasureField extends ValuedField<string, VersionedValue[]> {
 					value="${this.value} ${this.unit}"
 					.valueProvider=${() => versionedValue}
 					.metaProvider=${() => this.metaProvider?.()?.[idx]}
-					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
-						this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
+					.handleValueChanged=${this.handleValueChanged}
 					.handleMetaChanged=${this.handleMetaChanged}
 					.translationProvider=${this.translationProvider}
 				></iqr-text-field>

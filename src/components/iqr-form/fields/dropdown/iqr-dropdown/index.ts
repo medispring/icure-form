@@ -40,7 +40,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 						: option?.['label']?.[this.defaultLanguage || 'en'] || option?.['label']?.[this.displayedLanguage || 'en']) ?? ''
 				this.displayMenu = false
 				if (this.handleValueChanged) {
-					this.handleValueChanged?.(
+					this.containerId = this.handleValueChanged?.(
 						this.displayedLanguage || this.defaultLanguage || 'en',
 						{
 							asString: this.inputValue,
@@ -48,7 +48,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 								stringValue: this.inputValue || '',
 							}),
 						},
-						undefined,
+						this.containerId,
 						code ? [code] : [],
 					)
 				}
@@ -110,6 +110,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			providedValue = { id: '', versions: [] }
 		}
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
+		this.containerId = providedValue?.id
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValue = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]]
 			this.value =
@@ -145,7 +146,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 			id: this.value,
 		})
 		if (this.value && this.handleValueChanged && this.inputValue) {
-			this.handleValueChanged?.(
+			this.containerId = this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
 					asString: this.inputValue,
@@ -153,7 +154,7 @@ export class IqrDropdownField extends OptionsField<string, VersionedValue> {
 						stringValue: this.inputValue || '',
 					}),
 				},
-				undefined,
+				this.containerId,
 				[
 					this.options?.find((option) => !Boolean(option?.['text']) && option.id === this.value) ??
 						new CodeStub({

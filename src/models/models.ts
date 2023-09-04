@@ -1,7 +1,6 @@
 import { Contact, Form, Service } from '@icure/api'
 import { FormValuesContainer } from './formValuesContainer'
 
-
 export type VersionedData<T> = {
 	[id: string]: T[]
 }

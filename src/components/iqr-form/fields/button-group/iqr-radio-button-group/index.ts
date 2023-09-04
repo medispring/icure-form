@@ -37,7 +37,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 						  })
 						: option,
 				)
-			this.handleValueChanged?.(
+			this.containerId = this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
 					asString: value,
@@ -45,7 +45,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 						stringValue: value,
 					}),
 				},
-				undefined,
+				this.containerId,
 				codes,
 			)
 			if (this.actionManager) {
@@ -106,6 +106,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 
 		const providedValue = this.valueProvider && this.valueProvider()
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
+		this.containerId = providedValue?.id
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValues = displayedVersionedValue[Object.keys(displayedVersionedValue)[0]].split(this.VALUES_SEPARATOR)
 		} else if (this.value) this.inputValues = this.value.split(this.VALUES_SEPARATOR)
@@ -129,7 +130,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 				),
 		})
 		if (this.inputValues.length) {
-			this.handleValueChanged?.(
+			this.containerId = this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
 					asString: this.inputValues.join(this.VALUES_SEPARATOR),
@@ -137,7 +138,7 @@ export class IqrRadioButtonGroup extends OptionsField<string, VersionedValue> {
 						stringValue: this.inputValues.join(this.VALUES_SEPARATOR),
 					}),
 				},
-				undefined,
+				this.containerId,
 				[
 					...(this.options || [])
 						.filter((option) =>

@@ -24,6 +24,9 @@ class Textfield extends ValuedField<string, VersionedValue[]> {
 	@property() metaProvider?: () => VersionedMeta[] = undefined
 	@property() handleMetaChanged?: (id: string, language: string, value: { asString: string; content?: Content }) => void = undefined
 
+	/**
+	 * Todo: refactor versioned values.
+	 */
 	render() {
 		const versionedValues = this.valueProvider?.()
 		return (versionedValues?.length ? versionedValues : [undefined]).map((versionedValue, idx) => {
@@ -47,7 +50,7 @@ class Textfield extends ValuedField<string, VersionedValue[]> {
 				.codeContentProvider=${this.codeContentProvider}
 				.valueProvider=${() => versionedValue}
 				.metaProvider=${() => this.metaProvider?.()?.[idx]}
-				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }) => this.handleValueChanged?.(language, value, versionedValue?.id, [])}
+				.handleValueChanged=${this.handleValueChanged}
 				.handleMetaChanged=${this.handleMetaChanged}
 			></iqr-text-field>`
 		})
