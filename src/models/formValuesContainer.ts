@@ -1,19 +1,19 @@
 import { CodeStub, Contact, Content, Service } from '@icure/api'
 import { groupBy, sortedBy } from '../utils/no-lodash'
-import { fuzzyDate, isServiceContentEqual } from '../utils/icure-utils'
-import { ServicesHistory, ServiceWithContact } from './models'
+import { DateAsIcureDate } from '../utils/icure-utils'
+import { ServiceWithContact, VersionedData } from './models'
 
 export function withLabel(label: string): (svc: Service) => boolean {
 	return (svc: Service) => svc.label === label
 }
 
 export interface FormValuesContainer {
-	getVersions(selector: (svc: Service) => boolean): ServicesHistory
-	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): FormValuesContainer
-	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer
-	setAuthor(serviceId: string, author: string | null): FormValuesContainer
-	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer
-	delete(serviceId: string): FormValuesContainer
+	getVersions(selector: (svc: Service) => boolean): VersionedData<any>
+	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): string
+	setValueDate(serviceId: string, fuzzyDate: number | null): void
+	setAuthor(serviceId: string, author: string | null): void
+	setResponsible(serviceId: string, responsible: string | null): void
+	delete(serviceId: string): void
 	compute<T, S>(formula: string, sandbox?: S): Promise<T | undefined>
 }
 
@@ -21,9 +21,9 @@ export interface FormValuesContainer {
  * Todo: create abstract class for FormValuesContainer to be compatible with all backends objects (like: contact, patient, hcparty, etc.)
  */
 export class ContactFormValuesContainer implements FormValuesContainer {
-	currentContact: Contact //The contact of the day, used to record modifications
-	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
-	contactsHistory: Contact[] //Must be sorted (most recent first), does not include currentContent but must include contact (except if contact is currentContact)
+	currentContact: Contact //The contact of the moment, used to record new modifications
+	contact: Contact //The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day todo: is it really useful ?
+	contactsHistory: Contact[] //Must be sorted (most recent first), contains all the contacts linked to this form
 
 	serviceFactory: (label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]) => Service
 	//Actions management
@@ -49,99 +49,52 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 		this.interpretor = interpretor
 	}
 
-	getVersions(selector: (svc: Service) => boolean): ServicesHistory {
+	getVersions(selector: (svc: Service) => boolean): VersionedData<ServiceWithContact> {
 		return groupBy(
-			this.getServicesInHistory(selector).filter((swc) => +(fuzzyDate(swc.contact.created) || 0) <= +(fuzzyDate(this.contact.created) || 0)),
+			this.getServicesInHistory(selector).sort((a, b) => (b?.contact?.created || +new Date()) - (a?.contact?.created || +new Date())),
 			(swc) => swc.service.id || '',
 		)
 	}
 
-	//TODO: setter and setService is maybe redundant => ts works with pointers, so we can just modify the service in place
-	private setServiceProperty<K>(serviceId: string, newValue: K, getter: (svc: Service) => K, setter: (svc: Service, value: K) => Service): FormValuesContainer {
-		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
-		if (swcs.length) {
-			if (newValue !== getter(swcs[0].service)) {
-				return this.setServices([], [setter(swcs[0].service, newValue)], [])
-			} else {
-				return this
-			}
+	setValueDate(serviceId: string, fuzzyDate: number | null): void {
+		const service = this.getServicesInCurrentContact(serviceId)
+		service.valueDate = fuzzyDate || DateAsIcureDate(new Date())
+	}
+
+	setAuthor(serviceId: string, author: string | null): void {
+		const service = this.getServicesInCurrentContact(serviceId)
+		service.author = author || ''
+	}
+
+	setResponsible(serviceId: string, responsible: string | null): void {
+		const service = this.getServicesInCurrentContact(serviceId)
+		service.responsible = responsible || ''
+	}
+
+	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): string {
+		let service
+		try {
+			service = this.getServicesInCurrentContact(serviceId)
+		} catch (e) {
+			service = undefined
+		}
+		if (service) {
+			service.content = service.content || {}
+			service.content[language] = content
+			service.codes = codes
+			service.tags = tags
+			return service.id || ''
 		} else {
-			return this
+			service = this.serviceFactory(label, serviceId, language, content, codes, tags)
+			this.currentContact.services = this.currentContact.services || []
+			this.currentContact.services.push(service)
+			return service.id || ''
 		}
 	}
 
-	//TODO: maybe create a bunch of setters/getters for each property in the utils/icure-utils.ts
-	setValueDate(serviceId: string, fuzzyDate: number | null): FormValuesContainer {
-		return this.setServiceProperty(
-			serviceId,
-			fuzzyDate,
-			(s) => s.valueDate,
-			(s) => new Service({ ...s, valueDate: fuzzyDate }),
-		)
-	}
-
-	setAuthor(serviceId: string, author: string | null): FormValuesContainer {
-		return this.setServiceProperty(
-			serviceId,
-			author,
-			(s) => s.author,
-			(s) => new Service({ ...s, author }),
-		)
-	}
-
-	setResponsible(serviceId: string, responsible: string | null): FormValuesContainer {
-		return this.setServiceProperty(
-			serviceId,
-			responsible,
-			(s) => s.author,
-			(s) => new Service({ ...s, responsible }),
-		)
-	}
-
-	setValue(label: string, serviceId: string, language: string, content: Content, codes: CodeStub[], tags: CodeStub[]): FormValuesContainer {
-		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
-		if (swcs.length) {
-			const previousContent = swcs[0].service.content
-
-			if (!previousContent || !isServiceContentEqual({ [language]: content }, previousContent)) {
-				// Omit end of life
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				const { endOfLife, ...modifiedServiceValues } = {
-					...swcs[0].service,
-					content: { ...previousContent, [language]: content },
-					codes: codes,
-					tags: tags,
-					modified: +new Date(),
-				}
-				return this.setServices([], [new Service(modifiedServiceValues)], [])
-			} else {
-				return this
-			}
-		} else {
-			return this.setServices([this.serviceFactory(label, serviceId, language, content, codes, tags)], [], [])
-		}
-	}
-
-	delete(serviceId: string): FormValuesContainer {
-		const swcs = this.getServicesInHistory((s) => s.id === serviceId)
-		if (swcs.length) {
-			//Omit end of life
-			const now = +new Date()
-			return this.setServices(
-				[],
-				[
-					new Service({
-						...swcs[0].service,
-						content: {},
-						modified: now,
-						endOfLife: now,
-					}),
-				],
-				[],
-			)
-		} else {
-			return this
-		}
+	delete(serviceId: string): void {
+		const service = this.getServicesInCurrentContact(serviceId)
+		service.endOfLife = Date.now()
 	}
 
 	async compute<T, S>(formula: string, sandbox: S): Promise<T | undefined> {
@@ -162,16 +115,12 @@ export class ContactFormValuesContainer implements FormValuesContainer {
 				})) || [],
 		)
 	}
-	private setServices(newServices: Service[], modifiedServices: Service[], removeServices: Service[]): FormValuesContainer {
-		this.currentContact.services = [
-			...newServices.filter((s) => !this.currentContact.services?.some((s2) => s2.id === s.id)),
-			...(this.currentContact.services || [])
-				?.filter((s) => !removeServices.some((s2) => s2.id === s.id))
-				.map((s) => {
-					const found = modifiedServices.find((s2) => s2.id === s.id)
-					return found ? found : s
-				}),
-		]
-		return this
+
+	private getServicesInCurrentContact(id: string): Service {
+		const service = (this.currentContact.services || [])?.find((s) => s.id === id)
+		if (!service) {
+			throw new Error('Service not found')
+		}
+		return service
 	}
 }

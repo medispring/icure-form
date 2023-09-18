@@ -2,7 +2,7 @@ import { html } from 'lit'
 import '../text-field/iqr-text-field'
 import './iqr-radio-button-group'
 import { VersionedValue } from '../text-field'
-import { CodeStub, Content } from '@icure/api'
+import { CodeStub } from '@icure/api'
 import { OptionCode, OptionsField } from '../../../common'
 
 export class RadioButton extends OptionsField<string, VersionedValue[]> {
@@ -21,8 +21,7 @@ export class RadioButton extends OptionsField<string, VersionedValue[]> {
 					value="${this.value}"
 					defaultLanguage="${this.defaultLanguage}"
 					.valueProvider=${() => versionedValue}
-					.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
-						this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
+					.handleValueChanged=${this.handleValueChanged}
 					.translationProvider=${this.translationProvider}
 					.codifications=${this.codifications}
 					.optionsProvider=${this.optionsProvider}

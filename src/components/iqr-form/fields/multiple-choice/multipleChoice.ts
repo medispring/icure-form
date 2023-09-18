@@ -2,7 +2,6 @@ import { html } from 'lit'
 import '../text-field/iqr-text-field'
 import { VersionedValue } from '../text-field/iqr-text-field'
 import { ValuedField } from '../../../common/valuedField'
-import { CodeStub, Content } from '@icure/api'
 
 export class MultipleChoice extends ValuedField<string, VersionedValue[]> {
 	render() {
@@ -17,8 +16,7 @@ export class MultipleChoice extends ValuedField<string, VersionedValue[]> {
 				label="${this.label}"
 				defaultLanguage="${this.defaultLanguage}"
 				.valueProvider=${() => versionedValue}
-				.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
-					this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
+				.handleValueChanged=${this.handleValueChanged}
 				.translationProvider=${this.translationProvider}
 			></iqr-text-field>`
 		})

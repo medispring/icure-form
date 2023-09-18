@@ -50,6 +50,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 			providedValue = { id: '', versions: [] }
 		}
 		const displayedVersionedValue = providedValue?.versions?.find((version) => version.value)?.value
+		this.containerId = providedValue?.id
 		if (displayedVersionedValue && Object.keys(displayedVersionedValue)?.length) {
 			this.inputValue = this.formatDate(displayedVersionedValue[Object.keys(displayedVersionedValue)[0]])
 			this.value = this.value || this.inputValue.split('/').reduce((acc, x) => x + '' + acc, '')
@@ -64,7 +65,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 			fuzzyDate: this.inputValue.split('/').reduce((acc, x) => x + '' + acc, ''),
 		})
 		if (this.value && this.handleValueChanged && this.inputValue) {
-			this.handleValueChanged?.(
+			this.containerId = this.handleValueChanged?.(
 				this.displayedLanguage || this.defaultLanguage || 'en',
 				{
 					asString: this.inputValue,
@@ -72,7 +73,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 						fuzzyDateValue: this.inputValue.split('/').reduce((acc, x) => x + '' + acc, ''),
 					}),
 				},
-				undefined,
+				this.containerId,
 				[],
 			)
 		}
@@ -81,7 +82,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 	public dateUpdated(date: CustomEventDetail['date-updated']): void {
 		this.inputValue = date.detail.value?.split('-').reverse().join('/') ?? ''
 		const fuzzyDateValue: string = this.inputValue.split('/').reduce((acc, x) => x + '' + acc, '')
-		this.handleValueChanged?.(
+		this.containerId = this.handleValueChanged?.(
 			this.displayedLanguage || this.defaultLanguage || 'en',
 			{
 				asString: this.inputValue,
@@ -89,7 +90,7 @@ export class IqrDatePickerField extends ValuedField<string, VersionedValue> {
 					fuzzyDateValue: fuzzyDateValue,
 				}),
 			},
-			undefined,
+			this.containerId,
 			[],
 		)
 		if (this.actionManager) {

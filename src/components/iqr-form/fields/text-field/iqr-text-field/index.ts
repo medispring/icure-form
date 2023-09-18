@@ -107,7 +107,6 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 	private readonly windowListeners: [string, () => void][] = []
 	private suggestionPalette?: SuggestionPalette
 	private mouseCount = 0
-	private serviceId?: string = undefined
 	private trToSave?: Transaction = undefined
 
 	constructor() {
@@ -162,7 +161,7 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 	}
 
 	handleOwnerButtonClicked(id: string) {
-		this.handleMetaChanged && this.serviceId && this.handleMetaChanged(this.serviceId, { revision: this.displayedVersion, owner: { id } })
+		this.handleMetaChanged && this.containerId && this.handleMetaChanged(this.containerId, { revision: this.displayedVersion, owner: { id } })
 		this.displayOwnersMenu = false
 	}
 
@@ -219,7 +218,7 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 			const providedValue = this.valueProvider && this.valueProvider()
 			this.displayedVersion = providedValue?.versions?.[0]?.revision || '0'
 			const displayedVersionedValue = providedValue?.versions?.[0]?.value
-			this.serviceId = providedValue?.id
+			this.containerId = providedValue?.id
 
 			this.availableLanguages = displayedVersionedValue && Object.keys(displayedVersionedValue).length ? sorted(Object.keys(displayedVersionedValue)) : this.availableLanguages
 			if (!this.availableLanguages.includes(this.displayedLanguage)) {
@@ -311,7 +310,7 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 							if (this.trToSave === tr) {
 								const serialized = this.serializer.serialize(tr.doc)
 								const content = this.contentMaker?.(tr.doc)
-								this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: serialized, content: content })
+								this.containerId = this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: serialized, content: content }, this.containerId, [])
 								if (this.actionManager) {
 									this.actionManager.launchActions(Trigger.CHANGE, this.label || '', { value: serialized, content: content })
 								}
@@ -328,7 +327,12 @@ export class IqrTextField extends ValuedField<string, VersionedValue> {
 					value: parsedDoc ? this.serializer.serialize(parsedDoc) : '',
 					content: this.contentMaker?.(parsedDoc),
 				})
-				this.handleValueChanged?.(this.displayedLanguage ?? 'en', { asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) })
+				this.containerId = this.handleValueChanged?.(
+					this.displayedLanguage ?? 'en',
+					{ asString: parsedDoc ? this.serializer.serialize(parsedDoc) : '', content: this.contentMaker?.(parsedDoc) },
+					this.containerId,
+					[],
+				)
 			}
 		}
 	}

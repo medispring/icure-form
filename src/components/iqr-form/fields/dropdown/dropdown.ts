@@ -1,7 +1,7 @@
 import { html, TemplateResult } from 'lit'
 import { property } from 'lit/decorators.js'
 import './iqr-dropdown'
-import { CodeStub, Content, HealthcareParty } from '@icure/api'
+import { CodeStub, HealthcareParty } from '@icure/api'
 import { OptionCode, OptionsField } from '../../../common'
 import { VersionedValue } from '../text-field'
 
@@ -21,8 +21,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 						.options="${this.options}"
 						value="${this.value}"
 						.valueProvider=${() => versionedValue}
-						.handleValueChanged=${(language: string, value: { asString: string; content?: Content }, serviceId?: string | undefined, codes?: CodeStub[]) =>
-							this.handleValueChanged?.(language, value, versionedValue?.id || serviceId, codes ?? [])}
+						.handleValueChanged=${this.handleValueChanged}
 						.labelPosition=${this.labelPosition}
 						.optionsProvider=${this.optionsProvider}
 						.translationProvider=${this.translationProvider}
