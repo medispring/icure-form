@@ -20,6 +20,8 @@ export class RadioButton extends OptionsField<string, VersionedValue[]> {
 					.options="${this.options}"
 					value="${this.value}"
 					defaultLanguage="${this.defaultLanguage}"
+					.translate="${this.translate}"
+					.sortable="${this.sortable}"
 					.valueProvider=${() => versionedValue}
 					.handleValueChanged=${this.handleValueChanged}
 					.translationProvider=${this.translationProvider}

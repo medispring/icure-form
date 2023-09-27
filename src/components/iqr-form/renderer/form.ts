@@ -14,7 +14,7 @@ import {
 	textFieldValuesProvider,
 	timeFieldValuesProvider,
 } from '../../../utils/fieldsValuesProviders'
-import { /*VersionedMeta,*/ VersionedValue } from '../fields/text-field/iqr-text-field'
+import { /*VersionedMeta,*/ VersionedValue } from '../fields/text-field'
 
 import '../fields/dropdown/dropdown'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
@@ -201,6 +201,7 @@ export const render: Renderer = (
 						.labels=${fg.labels}
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"
+						.sortable="${fg.sortable}"
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						.codifications="${fg.codifications}"
@@ -221,6 +222,7 @@ export const render: Renderer = (
 						.labels="${fg.labels}"
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"
+						.sortable="${fg.sortable}"
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						.codifications="${fg.codifications}"
@@ -241,6 +243,7 @@ export const render: Renderer = (
 						.labels="${fg.labels}"
 						defaultLanguage="${props.defaultLanguage}"
 						.translate="${fg.translate}"
+						.sortable="${fg.sortable}"
 						.options="${optionMapper(fg)}"
 						value="${fg.value}"
 						.codifications="${fg.codifications}"
