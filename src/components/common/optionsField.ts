@@ -67,8 +67,9 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 				}
 
 				// If powers are equal, perform alphabetical sorting using comparatorProperty if sortOptions.alpha is true.
-				return this.sortOptions?.alpha
-					? (comparatorProperty(a) || '').localeCompare(comparatorProperty(b) || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' })
+				return this.sortOptions === undefined || this.sortOptions?.alpha
+					? (comparatorProperty(a) || '').localeCompare(comparatorProperty(b) || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' }) *
+							(this.sortOptions === undefined || this.sortOptions?.asc ? 1 : -1)
 					: 0
 			})
 		}
