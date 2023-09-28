@@ -22,6 +22,7 @@ export class CheckBox extends OptionsField<string, VersionedValue[]> {
 					defaultLanguage="${this.defaultLanguage}"
 					.translate="${this.translate}"
 					.sortable="${this.sortable}"
+					.sortOptions="${this.sortOptions}"
 					.valueProvider=${() => versionedValue}
 					.handleValueChanged=${this.handleValueChanged}
 					.translationProvider=${this.translationProvider}

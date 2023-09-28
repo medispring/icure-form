@@ -36,6 +36,7 @@ export abstract class Field {
 	now?: boolean
 	translate?: boolean
 	sortable?: boolean
+	sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean }
 	width?: number
 	styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 
@@ -227,6 +228,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.sortable,
+					json.sortOptions,
 					json.width,
 					json.styleOptions,
 				)
@@ -244,6 +246,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.sortable,
+					json.sortOptions,
 					json.width,
 					json.styleOptions,
 				)
@@ -261,6 +264,7 @@ export abstract class Field {
 					json.hideCondition,
 					json.translate,
 					json.sortable,
+					json.sortOptions,
 					json.width,
 					json.styleOptions,
 				)
@@ -586,6 +590,7 @@ export class DropdownField extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		sortable?: boolean,
+		sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean },
 		width?: number,
 		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
@@ -611,6 +616,7 @@ export class DropdownField extends Field {
 			styleOptions,
 		)
 		this.sortable = sortable ?? false
+		this.sortOptions = sortOptions ?? undefined
 	}
 }
 
@@ -628,6 +634,7 @@ export class RadioButton extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		sortable?: boolean,
+		sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean },
 		width?: number,
 		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
@@ -653,6 +660,7 @@ export class RadioButton extends Field {
 			styleOptions,
 		)
 		this.sortable = sortable ?? false
+		this.sortOptions = sortOptions ?? undefined
 	}
 }
 
@@ -670,6 +678,7 @@ export class CheckBox extends Field {
 		hideCondition?: string,
 		translate?: boolean,
 		sortable?: boolean,
+		sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean },
 		width?: number,
 		styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string },
 	) {
@@ -695,6 +704,7 @@ export class CheckBox extends Field {
 			styleOptions,
 		)
 		this.sortable = sortable ?? false
+		this.sortOptions = sortOptions ?? undefined
 	}
 }
 export class Label extends Field {

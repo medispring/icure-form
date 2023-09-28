@@ -19,6 +19,7 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 	@property() codifications?: string[] = []
 	@property() optionsProvider: (codifications: string[], searchTerm?: string) => Promise<(OptionCode | CodeStub)[]> = async () => []
 	@property() sortable?: boolean = false
+	@property() sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean } = { other: 2, none: 1, empty: -1, asc: true, alpha: true }
 
 	protected translatedOptions: (TranslatedOptionCode | CodeStub)[] = []
 	protected async fetchInitialsOptions(): Promise<(OptionCode | CodeStub)[]> {
@@ -54,11 +55,21 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 			const comparatorProperty: (arg0: OptionCode | TranslatedOptionCode | CodeStub) => string = (obj: OptionCode | CodeStub | TranslatedOptionCode): string =>
 				obj?.['translatedText'] || obj?.['text'] || obj?.['label']?.[this.displayedLanguage || this.defaultLanguage || 'en'] || ''
 			array = array.sort((a, b) => {
-				if (a?.['id'] === 'other') return 1
-				if (b?.['id'] === 'other') return -1
-				if (a?.['id'] === 'nonne') return 1
-				if (b?.['id'] === 'nonne') return -1
-				return (comparatorProperty(a) || '').localeCompare(comparatorProperty(b) || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' })
+				// Assign powers to IDs using sorting options (sortOptions)
+				const poweredA = this.sortOptions?.[a?.['id'] || ''] || 0
+				const poweredB = this.sortOptions?.[b?.['id'] || ''] || 0
+
+				// Compare powers
+				if (poweredA !== poweredB) {
+					// If powers are different, perform sorting based on powers,
+					// taking into account the ascending or descending order defined in sortOptions.
+					return (poweredA - poweredB) * (this.sortOptions?.asc ? 1 : -1)
+				}
+
+				// If powers are equal, perform alphabetical sorting using comparatorProperty if sortOptions.alpha is true.
+				return this.sortOptions?.alpha
+					? (comparatorProperty(a) || '').localeCompare(comparatorProperty(b) || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' })
+					: 0
 			})
 		}
 		return array

@@ -19,6 +19,7 @@ export class DropdownField extends OptionsField<string, VersionedValue[]> {
 						label="${this.label}"
 						.translate="${this.translate}"
 						.sortable="${this.sortable}"
+						.sortOptions="${this.sortOptions}"
 						.options="${this.options}"
 						value="${this.value}"
 						.valueProvider=${() => versionedValue}
