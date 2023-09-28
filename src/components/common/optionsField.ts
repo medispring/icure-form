@@ -52,6 +52,8 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 			array = array.sort((a, b) => {
 				if (a?.['id'] === 'other') return 1
 				if (b?.['id'] === 'other') return -1
+				if (a?.['id'] === 'nonne') return 1
+				if (b?.['id'] === 'nonne') return -1
 				return (comparatorProperty(a) || '').localeCompare(comparatorProperty(b) || '', this.displayedLanguage || this.defaultLanguage || 'en', { sensitivity: 'base' })
 			})
 		}
