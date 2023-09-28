@@ -840,6 +840,7 @@ export class Launcher {
 export enum Trigger {
 	INIT = 'INIT',
 	CHANGE = 'CHANGE',
+	SORT = 'SORT',
 	CLICK = 'CLICK',
 	VISIBLE = 'VISIBLE',
 	ERROR = 'ERROR',
@@ -864,6 +865,7 @@ export class State {
 export enum StateToUpdate {
 	VALUE = 'VALUE',
 	VISIBLE = 'VISIBLE',
+	OPTIONS = 'OPTIONS',
 	READONLY = 'READONLY',
 	CLAZZ = 'CLAZZ',
 	REQUIRED = 'REQUIRED',

@@ -1,6 +1,7 @@
 import { property } from 'lit/decorators.js'
 import { CodeStub } from '@icure/api'
 import { ValuedField } from './valuedField'
+import { StateToUpdate, Trigger } from '../iqr-form/model'
 
 export class OptionCode {
 	id: string
@@ -46,6 +47,9 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 	}
 
 	protected sort(array: (OptionCode | CodeStub | TranslatedOptionCode)[]): (OptionCode | CodeStub | TranslatedOptionCode)[] {
+		if (this.actionManager?.hasActionsToLaunch(Trigger.SORT, this.label || '')) {
+			this.actionManager?.launchActions(Trigger.SORT, this.label || '', { options: array })
+		}
 		if (this.sortable) {
 			const comparatorProperty: (arg0: OptionCode | TranslatedOptionCode | CodeStub) => string = (obj: OptionCode | CodeStub | TranslatedOptionCode): string =>
 				obj?.['translatedText'] || obj?.['text'] || obj?.['label']?.[this.displayedLanguage || this.defaultLanguage || 'en'] || ''
@@ -58,5 +62,12 @@ export abstract class OptionsField<T, V> extends ValuedField<T, V> {
 			})
 		}
 		return array
+	}
+	//override
+	public stateUpdater(state: StateToUpdate, result: any): void {
+		super.stateUpdater(state, result)
+		if (state === StateToUpdate.OPTIONS) {
+			this.options = result
+		}
 	}
 }
