@@ -4,12 +4,40 @@ import { fieldValuesProvider, handleMetadataChanged, handleValueChanged } from '
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 import { optionMapper } from '../../../utils/code-utils'
-import { Code, FieldMetadata, FieldValue, Form, Field, Group, SubForm } from '../../model'
+import { Code, FieldMetadata, FieldValue, Form, Field, Group, SubForm, SortOptions } from '../../model'
 import { FormValuesContainer } from '../../../generic'
 
 import '../fields'
 import { defaultTranslationProvider } from '../../../utils/languages'
-import { getLabels } from '../../common/utils'
+import { defaultCodePromoter, defaultCodesComparator, getLabels, makePromoter } from '../../common/utils'
+
+function sortCodes(codes: Code[], language: string, sortOptions?: SortOptions) {
+	return sortOptions?.sort && sortOptions?.sort !== 'natural'
+		? codes.sort(defaultCodesComparator(language, sortOptions?.sort === 'asc', sortOptions?.promotions ? makePromoter(sortOptions.promotions.split(/ ?, ?/)) : defaultCodePromoter))
+		: codes
+}
+
+function filerAndSortOptionsFromFieldDefinition(
+	language: string,
+	fg: Field,
+	translationProvider: ((language: string, text: string) => string) | undefined,
+	searchTerms: string | undefined,
+) {
+	return Promise.resolve(
+		sortCodes(
+			optionMapper(language, fg, translationProvider).filter(
+				(x) =>
+					!searchTerms ||
+					searchTerms
+						.split(/\s+/)
+						.map((st) => st.toLowerCase())
+						.every((st) => x.label[language].toLowerCase().includes(st)),
+			),
+			language,
+			fg.sortOptions,
+		),
+	)
+}
 
 export const render: Renderer = (
 	form: Form,
@@ -41,6 +69,10 @@ export const render: Renderer = (
 					)
 			  }
 			: optionsProvider
+			? (language: string, codifications: string[], searchTerms?: string, sortOptions?: SortOptions): Promise<Code[]> => {
+					return optionsProvider?.(language, codifications, searchTerms).then((codes) => sortCodes(codes, language, sortOptions)) ?? Promise.resolve([])
+			  }
+			: undefined
 
 	const h = function (level: number, content: TemplateResult): TemplateResult {
 		return level === 1
@@ -193,23 +225,12 @@ export const render: Renderer = (
 			.displayedLabels=${getLabels(fg)}
 			defaultLanguage="${props.defaultLanguage}"
 			.translate="${fg.translate}"
-			.sortable="${fg.sortable}"
 			.sortOptions="${fg.sortOptions}"
 			value="${fg.value}"
 			.codifications="${fg.codifications}"
-			.optionsProvider=${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms)
-				: (language: string, searchTerms?: string) =>
-						Promise.resolve(
-							optionMapper(language, fg).filter(
-								(x) =>
-									!searchTerms ||
-									searchTerms
-										.split(/\s+/)
-										.map((st) => st.toLowerCase())
-										.every((st) => x.label[language].toLowerCase().includes(st)),
-							),
-						)}
+			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
+				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
+				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
@@ -228,22 +249,11 @@ export const render: Renderer = (
 			.displayedLabels="${getLabels(fg)}"
 			defaultLanguage="${props.defaultLanguage}"
 			.translate="${fg.translate}"
-			.sortable="${fg.sortable}"
 			.sortOptions="${fg.sortOptions}"
 			.codifications="${fg.codifications}"
-			.optionsProvider=${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms)
-				: (language: string, searchTerms?: string) =>
-						Promise.resolve(
-							optionMapper(language, fg).filter(
-								(x) =>
-									!searchTerms ||
-									searchTerms
-										.split(/\s+/)
-										.map((st) => st.toLowerCase())
-										.every((st) => x.label[language].toLowerCase().includes(st)),
-							),
-						)}
+			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
+				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
+				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
@@ -262,23 +272,12 @@ export const render: Renderer = (
 			.displayedLabels="${getLabels(fg)}"
 			defaultLanguage="${props.defaultLanguage}"
 			.translate="${fg.translate}"
-			.sortable="${fg.sortable}"
 			.sortOptions="${fg.sortOptions}"
 			value="${fg.value}"
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms)
-				: (language: string, searchTerms?: string) =>
-						Promise.resolve(
-							optionMapper(language, fg).filter(
-								(x) =>
-									!searchTerms ||
-									searchTerms
-										.split(/\s+/)
-										.map((st) => st.toLowerCase())
-										.every((st) => x.label[language].toLowerCase().includes(st)),
-							),
-						)}"
+				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
+				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider="${ownersProvider}"
 			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"

@@ -9,7 +9,7 @@ import MiniSearch, { SearchResult } from 'minisearch'
 import { Form } from '../src/components/model'
 import { codes } from './codes'
 // @ts-ignore
-import yamlForm from './gp.yaml'
+import yamlForm from './abortion.yaml'
 import { makeFormValuesContainer } from './form-values-container'
 import { state } from 'lit/decorators.js'
 import { BridgedFormValuesContainer } from '../src/icure'
@@ -117,14 +117,12 @@ class DemoApp extends LitElement {
 			if (event.key === 'Z' && event.metaKey) {
 				event.preventDefault()
 				if (this.redoStack.length > 0) {
-					console.log('redo')
 					this.undoStack.push(this.formValuesContainer)
 					this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
 				}
 			} else if (event.key === 'z' && event.metaKey) {
 				event.preventDefault()
 				if (this.undoStack.length > 0) {
-					console.log('undo')
 					this.redoStack.push(this.formValuesContainer)
 					this.formValuesContainer = this.undoStack.pop() as BridgedFormValuesContainer
 				}
@@ -137,6 +135,14 @@ class DemoApp extends LitElement {
 			this.redoStack = []
 			this.undoStack.push(this.formValuesContainer)
 			this.formValuesContainer = newValue
+
+			const toSave = this.formValuesContainer.getContactFormValuesContainer()
+
+			setTimeout(() => {
+				if (toSave === this.formValuesContainer.getContactFormValuesContainer()) {
+					console.log('saving')
+				}
+			}, 10000)
 		})
 		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}

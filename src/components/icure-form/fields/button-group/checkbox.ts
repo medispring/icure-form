@@ -14,6 +14,7 @@ export class CheckBox extends Field {
 		return (versionedValues && Object.keys(versionedValues).length ? Object.keys(versionedValues) : [undefined]).map((id) => {
 			return html`
 				<icure-button-group
+					type="checkbox"
 					.readonly="${this.readonly}"
 					.displayedLabels="${this.displayedLabels}"
 					label="${this.label}"

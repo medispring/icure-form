@@ -77,8 +77,6 @@ export class IcureTextField extends Field {
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 	@property() schema: IcureTextFieldSchema = 'styled-text-with-codes'
 
-	@state() protected containerId?: string
-
 	@state() protected displayOwnersMenu = false
 	@state() protected ownerInputValue = ''
 	@state() protected availableOwners: Suggestion[] = []
@@ -152,7 +150,6 @@ export class IcureTextField extends Field {
 					const parsedDoc = this.parser?.parse(valueForLanguage.value) ?? undefined
 					if (parsedDoc) {
 						const selection = this.view.state.selection
-						console.log(selection)
 						const selAnchor = selection.$anchor.pos
 						const selHead = selection.$head.pos
 						const lastPos = parsedDoc.content.size - 1
@@ -196,7 +193,9 @@ export class IcureTextField extends Field {
 	}
 
 	handleOwnerButtonClicked(id: string) {
-		this.handleMetadataChanged && this.containerId && this.handleMetadataChanged(this.containerId, { label: this.label, owner: id })
+		const [valueId] = extractSingleValue(this.valueProvider?.())
+
+		this.handleMetadataChanged && valueId && this.handleMetadataChanged(valueId, { label: this.label, owner: id })
 		this.displayOwnersMenu = false
 	}
 

@@ -22,11 +22,19 @@ export function generateLabel(
 	}
 }
 
-export const defaulCodePromoter = (code: Code): number =>
+export const makePromoter = (promotions: string[]) => {
+	const middle = promotions.indexOf('*' ?? '')
+	return (code: Code): number => {
+		const index = promotions.indexOf(code.id ?? '')
+		return index >= 0 ? index - middle : 0
+	}
+}
+
+export const defaultCodePromoter = (code: Code): number =>
 	code?.label?.en?.toLowerCase() === 'other' ? 2 : code?.label?.en?.toLowerCase() === 'none' ? 1 : code?.label?.en?.toLowerCase() === 'empty' ? -1 : 0
 
 export const defaultCodesComparator =
-	(language = 'en', ascending = true, codePromoter: (c: Code) => number = defaulCodePromoter) =>
+	(language = 'en', ascending = true, codePromoter: (c: Code) => number = defaultCodePromoter) =>
 	(a: Code, b: Code): number => {
 		const aPromoted = codePromoter(a)
 		const bPromoted = codePromoter(b)
@@ -35,21 +43,3 @@ export const defaultCodesComparator =
 		}
 		return (a?.label?.[language] || '').localeCompare(b?.label?.[language] || '') * (ascending ? 1 : -1)
 	}
-
-export const translateCodes = (
-	codes: Code[],
-	sourceLanguage: string,
-	destinationLanguage: string,
-	translationProvider: (text: string, language?: string) => string,
-	codesComparator?: (a: Code, b: Code) => number,
-): Code[] =>
-	codes
-		?.map((code) =>
-			code?.label?.[sourceLanguage]
-				? {
-						...code,
-						label: { ...code.label, [destinationLanguage]: translationProvider(code.label[sourceLanguage], destinationLanguage) },
-				  }
-				: code,
-		)
-		.sort(codesComparator ?? defaultCodesComparator(destinationLanguage))

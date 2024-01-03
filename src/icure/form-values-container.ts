@@ -36,6 +36,10 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 
 	private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[]
 
+	getContactFormValuesContainer() {
+		return this.contactFormValuesContainer
+	}
+
 	registerChangeListener(listener: (newValue: BridgedFormValuesContainer) => void): void {
 		this.changeListeners.push(listener)
 	}

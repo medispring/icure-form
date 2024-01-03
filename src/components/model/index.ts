@@ -64,6 +64,11 @@ export interface Labels {
 	[position: string]: string
 }
 
+export interface SortOptions {
+	sort: 'asc' | 'desc' | 'natural'
+	promotions?: string
+}
+
 export type IcureTextFieldSchema =
 	| DocumentSchema
 	| TokensSchema
@@ -118,8 +123,7 @@ export abstract class Field {
 	computedProperties?: ComputedProperties
 	now?: boolean
 	translate?: boolean
-	sortable?: boolean
-	sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean }
+	sortOptions?: SortOptions
 	width?: number
 	styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 
@@ -210,7 +214,6 @@ export abstract class Field {
 		schema: string | undefined
 		columns: number | undefined
 		codifications: string[] | undefined
-		sortable: boolean | undefined
 		type:
 			| 'textfield'
 			| 'measure-field'
@@ -232,7 +235,7 @@ export abstract class Field {
 		unit: string | undefined
 		field: string
 		styleOptions: { width: number; direction: string; columns: number; rows: number; alignItems: string } | undefined
-		sortOptions: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean } | undefined
+		sortOptions: SortOptions | undefined
 		multiline: boolean | undefined
 		now: boolean | undefined
 		options: { [key: string]: unknown } | undefined
@@ -258,7 +261,6 @@ export abstract class Field {
 			computedProperties: this.computedProperties,
 			now: this.now,
 			translate: this.translate,
-			sortable: this.sortable,
 			sortOptions: this.sortOptions,
 			width: this.width,
 			styleOptions: this.styleOptions,
@@ -703,8 +705,7 @@ export class DropdownField extends Field {
 			value?: string
 			computedProperties?: ComputedProperties
 			translate?: boolean
-			sortable?: boolean
-			sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean }
+			sortOptions?: SortOptions
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 		},
@@ -723,7 +724,6 @@ export class DropdownField extends Field {
 			width: options.width,
 			styleOptions: options.styleOptions,
 		})
-		this.sortable = options.sortable ?? false
 		this.sortOptions = options.sortOptions ?? undefined
 	}
 }
@@ -741,7 +741,6 @@ export class RadioButton extends Field {
 			value,
 			computedProperties,
 			translate,
-			sortable,
 			sortOptions,
 			width,
 			styleOptions,
@@ -755,8 +754,7 @@ export class RadioButton extends Field {
 			value?: string
 			computedProperties?: ComputedProperties
 			translate?: boolean
-			sortable?: boolean
-			sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean }
+			sortOptions?: SortOptions
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 		},
@@ -774,7 +772,6 @@ export class RadioButton extends Field {
 			width,
 			styleOptions,
 		})
-		this.sortable = sortable ?? false
 		this.sortOptions = sortOptions ?? undefined
 	}
 }
@@ -792,7 +789,6 @@ export class CheckBox extends Field {
 			value,
 			computedProperties,
 			translate,
-			sortable,
 			sortOptions,
 			width,
 			styleOptions,
@@ -806,8 +802,7 @@ export class CheckBox extends Field {
 			value?: string
 			computedProperties?: ComputedProperties
 			translate?: boolean
-			sortable?: boolean
-			sortOptions?: { other?: number; none?: number; empty?: number; asc?: boolean; alpha?: boolean }
+			sortOptions?: SortOptions
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
 		},
@@ -825,7 +820,6 @@ export class CheckBox extends Field {
 			width,
 			styleOptions,
 		})
-		this.sortable = sortable ?? false
 		this.sortOptions = sortOptions ?? undefined
 	}
 }

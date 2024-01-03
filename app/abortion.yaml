@@ -152,6 +152,13 @@ translations:
       abortion-forms.field-options.ON-SITE: On site
       abortion-forms.field-options.VISIO: Visio
       abortion-forms.field-options.PHONE: Phone
+      abortion-forms.field-options.FATHER: Father
+      abortion-forms.field-options.MOTHER: Mother
+      abortion-forms.field-options.PARTNER: Partner
+      abortion-forms.field-options.FRIEND: Friend
+      abortion-forms.field-options.EDUCATOR: Educator
+      abortion-forms.field-options.OTHER: Other
+      abortion-forms.field-options.NONE: None
       inTakeDate: Intake date
       consultationType: Consultation type
       accompaniedBy: Accompanied by
@@ -180,6 +187,13 @@ translations:
       abortion-forms.field-options.ON-SITE: Sur place
       abortion-forms.field-options.VISIO: Visio
       abortion-forms.field-options.PHONE: Téléphone
+      abortion-forms.field-options.FATHER: Père
+      abortion-forms.field-options.MOTHER: Mère
+      abortion-forms.field-options.PARTNER: Partenaire
+      abortion-forms.field-options.FRIEND: Ami
+      abortion-forms.field-options.EDUCATOR: Éducateur
+      abortion-forms.field-options.OTHER: Autre
+      abortion-forms.field-options.NONE: Aucun
       inTakeDate: Date de prise en charge
       consultationType: Type de consultation
       accompaniedBy: Accompagné par
@@ -233,18 +247,18 @@ sections:
             shortLabel: accompaniedBy
             styleOptions:
               columns: 3
-            sortable: true
+            optionCodeType: MS-ABORTION-COMPANION-TYPE
+            options:
+                father: abortion-forms.field-options.FATHER
+                mother: abortion-forms.field-options.MOTHER
+                partner: abortion-forms.field-options.PARTNER
+                friend: abortion-forms.field-options.FRIEND
+                educator: abortion-forms.field-options.EDUCATOR
+                other: abortion-forms.field-options.OTHER
+                none: abortion-forms.field-options.NONE
             sortOptions:
-              other: 2
-              none: 1
-              empty: -1
-              asc: true
-              alpha: false
-            codifications:
-              - MS-ABORTION-COMPANION-TYPE
-            computedProperties:
-              codifications: |
-                return !self['abortion-forms.field-labels.ACCOMPANIED-BY']?.some(d => d.codes?.some(c => c.id === 'other'))
+              sort: natural
+              promotions: empty, *, none, other
             tags:
               - MS-ABORTION-COMPANION|typeOfCompanion|1
               - MS-ABORTION-ITEM|companion|1
