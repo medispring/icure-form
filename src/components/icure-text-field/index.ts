@@ -11,7 +11,7 @@ import { liftListItem, sinkListItem, splitListItem, wrapInList } from 'prosemirr
 
 import { createSchema } from './schema'
 import MarkdownIt from 'markdown-it'
-import { MarkdownParser, MarkdownSerializer } from 'prosemirror-markdown'
+import { defaultMarkdownSerializer, MarkdownParser, MarkdownSerializer } from 'prosemirror-markdown'
 import { unwrapFrom, wrapInIfNeeded } from './prosemirror-commands'
 import { SelectionCompanion } from './selection-companion'
 import { SuggestionPalette } from './suggestion-palette'
@@ -32,13 +32,14 @@ import baseCss from '../common/styles/style.scss'
 // @ts-ignore
 import kendoCss from '../common/styles/kendo.scss'
 import { extractSingleValue } from '../icure-form/fields/utils'
+import { preprocessEmptyNodes } from '../../utils/markdown'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
 
 	parse(value: string): ProsemirrorNode | null {
 		const node = this.mkdp.parse(value)
-		const trailingSpaces = value.match(/([ \t\n]+)$/)?.[1]
+		const trailingSpaces = value.match(/([ ]+)$/)?.[1]
 		if (node && trailingSpaces) {
 			const appendTextToLastTextChild = (node: ProsemirrorNode, text: string): ProsemirrorNode => {
 				if (node.isText) {
@@ -127,6 +128,21 @@ export class IcureTextField extends Field {
 		return [baseCss, kendoCss]
 	}
 
+	private updateValue(tr: Transaction) {
+		const [valueId] = extractSingleValue(this.valueProvider?.())
+		const value = this.primitiveTypeExtractor?.(tr.doc)
+		value &&
+			this.handleValueChanged?.(
+				this.label,
+				this.language(),
+				{
+					content: { [this.language()]: value },
+					codes: this.codesExtractor?.(tr.doc) ?? [],
+				},
+				valueId,
+			)
+	}
+
 	render() {
 		if (this.view) {
 			const [, versions] = extractSingleValue(this.valueProvider?.())
@@ -139,7 +155,7 @@ export class IcureTextField extends Field {
 						console.log(selection)
 						const selAnchor = selection.$anchor.pos
 						const selHead = selection.$head.pos
-						const lastPos = parsedDoc.content.size
+						const lastPos = parsedDoc.content.size - 1
 						const newState = EditorState.create({
 							schema: this.view.state.schema,
 							doc: parsedDoc,
@@ -211,6 +227,7 @@ export class IcureTextField extends Field {
 		))
 
 		this.parser = this.makeParser(this.schema, pms)
+		this.serializer = this.makeSerializer(this.schema, pms)
 		this.primitiveTypeExtractor = this.makePrimitiveExtractor(this.schema)
 		this.codesExtractor = this.makeCodesExtractor(this.schema)
 
@@ -328,21 +345,6 @@ export class IcureTextField extends Field {
 		}
 	}
 
-	private updateValue(tr: Transaction) {
-		const [valueId] = extractSingleValue(this.valueProvider?.())
-		const value = this.primitiveTypeExtractor?.(tr.doc)
-		value &&
-			this.handleValueChanged?.(
-				this.label,
-				this.language(),
-				{
-					content: { [this.language()]: value },
-					codes: this.codesExtractor?.(tr.doc) ?? [],
-				},
-				valueId,
-			)
-	}
-
 	private makeParser(schemaName: string, pms: Schema) {
 		const tokenizer = MarkdownIt('commonmark', { html: false })
 		return schemaName === 'date'
@@ -439,6 +441,16 @@ export class IcureTextField extends Field {
 						},
 					),
 			  )
+	}
+
+	private makeSerializer(schemaName: string, pms: Schema) {
+		return schemaName === 'text-document'
+			? {
+					serialize: (content: ProsemirrorNode) => defaultMarkdownSerializer.serialize(preprocessEmptyNodes(content, pms)),
+			  }
+			: {
+					serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
+			  }
 	}
 
 	private makeCodesExtractor(schemaName: string): (doc?: ProsemirrorNode) => Code[] {
