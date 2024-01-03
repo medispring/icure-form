@@ -3,41 +3,13 @@ import { Renderer, RendererProps } from './index'
 import { fieldValuesProvider, handleMetadataChanged, handleValueChanged } from '../../../utils/fields-values-provider'
 import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { optionMapper } from '../../../utils/code-utils'
 import { Code, FieldMetadata, FieldValue, Form, Field, Group, SubForm, SortOptions } from '../../model'
 import { FormValuesContainer } from '../../../generic'
 
 import '../fields'
 import { defaultTranslationProvider } from '../../../utils/languages'
-import { defaultCodePromoter, defaultCodesComparator, getLabels, makePromoter } from '../../common/utils'
-
-function sortCodes(codes: Code[], language: string, sortOptions?: SortOptions) {
-	return sortOptions?.sort && sortOptions?.sort !== 'natural'
-		? codes.sort(defaultCodesComparator(language, sortOptions?.sort === 'asc', sortOptions?.promotions ? makePromoter(sortOptions.promotions.split(/ ?, ?/)) : defaultCodePromoter))
-		: codes
-}
-
-function filerAndSortOptionsFromFieldDefinition(
-	language: string,
-	fg: Field,
-	translationProvider: ((language: string, text: string) => string) | undefined,
-	searchTerms: string | undefined,
-) {
-	return Promise.resolve(
-		sortCodes(
-			optionMapper(language, fg, translationProvider).filter(
-				(x) =>
-					!searchTerms ||
-					searchTerms
-						.split(/\s+/)
-						.map((st) => st.toLowerCase())
-						.every((st) => x.label[language].toLowerCase().includes(st)),
-			),
-			language,
-			fg.sortOptions,
-		),
-	)
-}
+import { getLabels } from '../../common/utils'
+import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../utils/code-utils'
 
 export const render: Renderer = (
 	form: Form,
@@ -92,12 +64,12 @@ export const render: Renderer = (
 		return html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupWidth(fgColumns, fg.width)}">
 			${fg.borderless ? nothing : html`<div>${h(level, html`${fg.group}`)}</div>`}
 			<div class="icure-form" style="grid-template-columns: repeat(${fgColumns}, 1fr)">
-				${(fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldOrGroup(fieldOrGroup, level + 1))}
+				${(fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1))}
 			</div>
 		</div>`
 	}
 
-	function renderSubForm(fg: SubForm, fgColumns: number) {
+	function renderSubform(fg: SubForm, fgColumns: number) {
 		const children = formsValueContainer?.getChildren(fg.title)
 		return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fg.width)}">
 			${Object.entries(children ?? {})?.flatMap(([formKey, children]) => {
@@ -300,37 +272,43 @@ export const render: Renderer = (
 		></icure-form-label>`
 	}
 
-	const renderFieldOrGroup = function (fg: Field | Group | SubForm, level: number): TemplateResult | TemplateResult[] {
-		const fgColumns = fg.columns ?? 6
-		const hidden = fg.computedProperties?.hidden ? formsValueContainer?.compute(fg.computedProperties?.hidden) : false
-		if (hidden) {
+	const renderFieldGroupOrSubform = function (fg: Field | Group | SubForm, level: number): TemplateResult | TemplateResult[] {
+		const computedProperties = Object.keys(fg.computedProperties ?? {}).reduce(
+			(acc, k) => ({ ...acc, [k]: fg.computedProperties?.[k] && formsValueContainer?.compute(fg.computedProperties[k]) }),
+			{},
+		)
+		if (computedProperties['hidden']) {
 			return html``
 		}
-		if (fg.clazz === 'group' && fg.fields) {
-			return renderGroup(fg, fgColumns, level)
-		} else if (fg.clazz === 'subform' && fg.title) {
-			return renderSubForm(fg, fgColumns)
+
+		const fgColumns = computedProperties['columns'] ?? fg.columns ?? 6
+
+		if (fg.clazz === 'group' && fg.fields?.length) {
+			return renderGroup((fg as Group).copy({ ...computedProperties }), fgColumns, level)
+		} else if (fg.clazz === 'subform' && (fg.title || computedProperties['title'])) {
+			return renderSubform((fg as SubForm).copy({ ...computedProperties }), fgColumns)
 		} else if (fg.clazz === 'field') {
+			const field = fg.copy({ ...computedProperties })
 			return html`${fg.type === 'textfield'
-				? renderTextField(fgColumns, fg)
+				? renderTextField(fgColumns, field)
 				: fg.type === 'measure-field'
-				? renderMeasureField(fgColumns, fg)
+				? renderMeasureField(fgColumns, field)
 				: fg.type === 'number-field'
-				? renderNumberField(fgColumns, fg)
+				? renderNumberField(fgColumns, field)
 				: fg.type === 'date-picker'
-				? renderDatePicker(fgColumns, fg)
+				? renderDatePicker(fgColumns, field)
 				: fg.type === 'time-picker'
-				? renderTimePicker(fgColumns, fg)
+				? renderTimePicker(fgColumns, field)
 				: fg.type === 'date-time-picker'
-				? renderDateTimePicker(fgColumns, fg)
+				? renderDateTimePicker(fgColumns, field)
 				: fg.type === 'dropdown-field'
-				? renderDropdownField(fgColumns, fg)
+				? renderDropdownField(fgColumns, field)
 				: fg.type === 'radio-button'
-				? renderRadioButtons(fgColumns, fg)
+				? renderRadioButtons(fgColumns, field)
 				: fg.type === 'checkbox'
-				? renderCheckboxes(fgColumns, fg)
+				? renderCheckboxes(fgColumns, field)
 				: fg.type === 'label'
-				? renderLabel(fgColumns, fg)
+				? renderLabel(fgColumns, field)
 				: ''}`
 		}
 		return html``
@@ -342,7 +320,7 @@ export const render: Renderer = (
 	}
 
 	const renderForm = (form: Form) => {
-		return form.sections.map((s) => html`<div class="icure-form">${s.fields.map((fieldOrGroup: Field | Group) => renderFieldOrGroup(fieldOrGroup, 3))}</div>`)
+		return form.sections.map((s) => html`<div class="icure-form">${s.fields.map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, 3))}</div>`)
 	}
 
 	return html` ${renderForm(form)} `

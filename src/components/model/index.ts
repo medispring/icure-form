@@ -99,12 +99,6 @@ type FieldType =
 
 //todo: create abstract class for all fields + delete useless properties
 
-export interface ComputedProperties {
-	hidden?: string
-	readonly?: string
-	value?: string
-}
-
 export abstract class Field {
 	clazz = 'field' as const
 	field: string
@@ -120,7 +114,7 @@ export abstract class Field {
 	value?: string
 	unit?: string
 	multiline?: boolean
-	computedProperties?: ComputedProperties
+	computedProperties?: { [key: string]: string }
 	now?: boolean
 	translate?: boolean
 	sortOptions?: SortOptions
@@ -163,7 +157,7 @@ export abstract class Field {
 			value?: string
 			unit?: string
 			multiline?: boolean
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -189,6 +183,8 @@ export abstract class Field {
 		this.width = width
 		this.styleOptions = styleOptions
 	}
+
+	abstract copy(properties: Partial<Field>): Field
 
 	static parse(json: Field): Field {
 		return (
@@ -241,7 +237,7 @@ export abstract class Field {
 		options: { [key: string]: unknown } | undefined
 		width: number | undefined
 		shortLabel: string | undefined
-		computedProperties: ComputedProperties | undefined
+		computedProperties: { [key: string]: string } | undefined
 		value: string | undefined
 	} {
 		return {
@@ -299,7 +295,7 @@ export class TextField extends Field {
 			value?: string
 			unit?: string
 			multiline?: boolean
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
@@ -322,6 +318,10 @@ export class TextField extends Field {
 			width,
 			styleOptions,
 		})
+	}
+
+	override copy(properties: Partial<TextField>): TextField {
+		return new TextField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -352,7 +352,7 @@ export class MeasureField extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
@@ -373,6 +373,9 @@ export class MeasureField extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<MeasureField>): MeasureField {
+		return new MeasureField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -403,7 +406,7 @@ export class NumberField extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
@@ -424,6 +427,9 @@ export class NumberField extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<NumberField>): NumberField {
+		return new NumberField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -454,7 +460,7 @@ export class TokenField extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
@@ -475,6 +481,9 @@ export class TokenField extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<TokenField>): TokenField {
+		return new TokenField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -505,7 +514,7 @@ export class ItemsListField extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; columns: number; rows: number; alignItems: string }
@@ -526,6 +535,9 @@ export class ItemsListField extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<ItemsListField>): ItemsListField {
+		return new ItemsListField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -557,7 +569,7 @@ export class DatePicker extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -580,6 +592,9 @@ export class DatePicker extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<DatePicker>): DatePicker {
+		return new DatePicker(this.field, { ...this, ...properties })
 	}
 }
 
@@ -611,7 +626,7 @@ export class TimePicker extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -634,6 +649,9 @@ export class TimePicker extends Field {
 			width,
 			styleOptions,
 		})
+	}
+	override copy(properties: Partial<TimePicker>): TimePicker {
+		return new TimePicker(this.field, { ...this, ...properties })
 	}
 }
 
@@ -665,7 +683,7 @@ export class DateTimePicker extends Field {
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -689,6 +707,9 @@ export class DateTimePicker extends Field {
 			styleOptions,
 		})
 	}
+	override copy(properties: Partial<DateTimePicker>): DateTimePicker {
+		return new DateTimePicker(this.field, { ...this, ...properties })
+	}
 }
 
 export class DropdownField extends Field {
@@ -703,7 +724,7 @@ export class DropdownField extends Field {
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -725,6 +746,9 @@ export class DropdownField extends Field {
 			styleOptions: options.styleOptions,
 		})
 		this.sortOptions = options.sortOptions ?? undefined
+	}
+	override copy(properties: Partial<DropdownField>): DropdownField {
+		return new DropdownField(this.field, { ...this, ...properties })
 	}
 }
 
@@ -752,7 +776,7 @@ export class RadioButton extends Field {
 			codifications?: string[]
 			options?: { [key: string]: unknown }
 			value?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -773,6 +797,9 @@ export class RadioButton extends Field {
 			styleOptions,
 		})
 		this.sortOptions = sortOptions ?? undefined
+	}
+	override copy(properties: Partial<RadioButton>): RadioButton {
+		return new RadioButton(this.field, { ...this, ...properties })
 	}
 }
 
@@ -800,7 +827,7 @@ export class CheckBox extends Field {
 			codifications?: string[]
 			options?: { [key: string]: unknown }
 			value?: string
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -822,16 +849,25 @@ export class CheckBox extends Field {
 		})
 		this.sortOptions = sortOptions ?? undefined
 	}
+	override copy(properties: Partial<CheckBox>): CheckBox {
+		return new CheckBox(this.field, { ...this, ...properties })
+	}
 }
 export class Label extends Field {
 	constructor(label: string, { shortLabel, grows, columns }: { shortLabel?: string; grows?: boolean; columns?: number }) {
 		super('label', label, { shortLabel, grows, columns })
+	}
+	override copy(properties: Partial<Label>): Label {
+		return new Label(this.field, { ...this, ...properties })
 	}
 }
 
 export class ActionButton extends Field {
 	constructor(label: string, { shortLabel, grows, columns }: { shortLabel?: string; grows?: boolean; columns?: number }) {
 		super('action', label, { shortLabel, grows, columns })
+	}
+	override copy(properties: Partial<ActionButton>): ActionButton {
+		return new ActionButton(this.field, { ...this, ...properties })
 	}
 }
 export class Group {
@@ -841,7 +877,7 @@ export class Group {
 	translate: boolean
 	fields?: Array<Field | Group | SubForm>
 	columns?: number
-	computedProperties?: ComputedProperties
+	computedProperties?: { [key: string]: string }
 	width?: number
 	styleOptions?: { [key: string]: unknown }
 
@@ -859,7 +895,7 @@ export class Group {
 			borderless?: boolean
 			translate?: boolean
 			columns?: number
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			width?: number
 			styleOptions?: { [key: string]: unknown }
 		},
@@ -873,6 +909,10 @@ export class Group {
 		this.computedProperties = computedProperties
 		this.width = width
 		this.styleOptions = styleOptions
+	}
+
+	copy(properties: Partial<Group>): Group {
+		return new Group(this.group, this.fields ?? [], { ...this, ...properties })
 	}
 
 	static parse({
@@ -889,7 +929,7 @@ export class Group {
 		borderless?: boolean
 		translate?: boolean
 		columns?: number
-		computedProperties?: ComputedProperties
+		computedProperties?: { [key: string]: string }
 		width?: number
 	}): Group {
 		return new Group(
@@ -926,24 +966,23 @@ export class SubForm {
 	shortLabel?: string
 	forms: { [key: string]: Form }
 	columns?: number
-	computedProperties?: ComputedProperties
+	computedProperties?: { [key: string]: string }
 	width?: number
 	styleOptions?: { [key: string]: unknown }
 
 	constructor(
 		title: string,
+		forms: { [key: string]: Form },
 		{
 			shortLabel,
-			forms,
 			columns,
 			computedProperties,
 			width,
 			styleOptions,
 		}: {
 			shortLabel?: string
-			forms: { [key: string]: Form }
 			columns?: number
-			computedProperties?: ComputedProperties
+			computedProperties?: { [key: string]: string }
 			width?: number
 			styleOptions?: { [key: string]: unknown }
 		},
@@ -957,18 +996,21 @@ export class SubForm {
 		this.styleOptions = styleOptions
 	}
 
+	copy(properties: Partial<SubForm>): SubForm {
+		return new SubForm(this.title, this.forms, { ...this, ...properties })
+	}
+
 	static parse(json: {
 		subform: string
 		shortLabel?: string
 		forms: { [key: string]: Form }
 		columns?: number
-		computedProperties?: ComputedProperties
+		computedProperties?: { [key: string]: string }
 		width?: number
 		styleOptions?: { [key: string]: unknown }
 	}): SubForm {
-		return new SubForm(json.subform, {
+		return new SubForm(json.subform, json.forms, {
 			shortLabel: json.shortLabel,
-			forms: json.forms,
 			columns: json.columns,
 			computedProperties: json.computedProperties,
 			width: json.width,
