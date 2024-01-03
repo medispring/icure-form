@@ -1,4 +1,1 @@
-export interface OptionCode {
-	id: string
-	text: string
-}
+export * from './field'

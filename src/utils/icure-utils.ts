@@ -1,21 +1,37 @@
 import parse from 'date-fns/parse'
-import { CodeStub, Contact, Content, normalizeCode, Service } from '@icure/api'
-import { Field } from '../components/iqr-form/model'
-import { ServicesHistory } from '../components/iqr-form-loader'
-import { FormValuesContainer } from '../components/iqr-form-loader'
-import { VersionedMeta, VersionedValue } from '../components'
+import { CodeStub, Content, Service } from '@icure/api'
 
-export function fuzzyDate(epochOrLongCalendar?: number): Date | undefined {
-	if (!epochOrLongCalendar && epochOrLongCalendar !== 0) {
+export function anyDateToDate(dateOrEpochOrLongCalendar?: Date | number): Date | undefined {
+	if (dateOrEpochOrLongCalendar instanceof Date) {
+		return anyDateToDate(+dateOrEpochOrLongCalendar)
+	}
+	if (!dateOrEpochOrLongCalendar && dateOrEpochOrLongCalendar !== 0) {
 		return undefined
 	}
-	if (epochOrLongCalendar >= 18000101 && epochOrLongCalendar < 25400000) {
-		return parse('' + epochOrLongCalendar, 'YYYYMMDD', new Date())
-	} else if (epochOrLongCalendar >= 18000101000000) {
-		return parse('' + epochOrLongCalendar, 'YYYYMMDDHHmmss', new Date())
+	if (dateOrEpochOrLongCalendar >= 18000101 && dateOrEpochOrLongCalendar < 25400000) {
+		return parse('' + dateOrEpochOrLongCalendar, 'yyyyMMdd', new Date())
+	} else if (dateOrEpochOrLongCalendar >= 18000101000000) {
+		return parse('' + dateOrEpochOrLongCalendar, 'yyyyMMddHHmmss', new Date())
 	} else {
-		return new Date(epochOrLongCalendar)
+		return new Date(dateOrEpochOrLongCalendar)
 	}
+}
+
+export function dateToFuzzyDate(date: Date): number {
+	return parseInt(
+		`${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}${date.getHours().toString().padStart(2, '0')}:${date
+			.getMinutes()
+			.toString()
+			.padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`,
+	)
+}
+
+export function anyDateToFuzzyDate(dateOrEpochOrLongCalendar: Date | number) {
+	const date = anyDateToDate(dateOrEpochOrLongCalendar)
+	if (!date) {
+		return undefined
+	}
+	return dateToFuzzyDate(date)
 }
 
 export function currentTime() {
@@ -54,7 +70,13 @@ export function isServiceEqual(svc1: Service, svc2: Service): boolean {
 	)
 }
 
-export function isContentEqual(content1: Content, content2: Content): boolean {
+export function isContentEqual(content1: Content | undefined, content2: Content | undefined): boolean {
+	if (!content1 && !content2) {
+		return true
+	}
+	if (!content1 || !content2) {
+		return false
+	}
 	return (
 		((!content1.binaryValue && !content2.binaryValue) || content1.binaryValue === content2.binaryValue) &&
 		(((content1.booleanValue === null || content1.booleanValue === undefined) && (content2.booleanValue === null || content2.booleanValue === undefined)) ||
@@ -76,42 +98,4 @@ export function isContentEqual(content1: Content, content2: Content): boolean {
 
 export function isServiceContentEqual(content1: { [language: string]: Content }, content2: { [language: string]: Content }): boolean {
 	return Object.keys(content1).reduce((isEqual, lng) => isEqual && isContentEqual(content1[lng], content2[lng]), true as boolean)
-}
-
-export function convertServicesToVersionedValues(versions: ServicesHistory, extractValueFromContent: (content: Content) => string): VersionedValue[] {
-	return Object.entries(versions).map(([key, value]) => ({
-		id: key,
-		versions: value.map((s) => ({
-			revision: '' + s.service?.modified,
-			modified: s.service?.modified || 0,
-			value: Object.entries(s.service?.content || {}).reduce((acc, [lng, content]) => ({ ...acc, [lng]: extractValueFromContent(content) }), {}),
-		})),
-	}))
-}
-
-export function convertServicesToVersionedMetas(versions: ServicesHistory): VersionedMeta[] {
-	return Object.entries(versions).map(([key, value]) => ({
-		id: key,
-		metas: value.map((s) => ({
-			revision: '' + s.service?.modified,
-			modified: s.service?.modified || 0,
-			valueDate: s.service?.valueDate,
-			owner: s.service?.responsible ? { id: s.service?.responsible } : undefined,
-		})),
-	}))
-}
-
-export function getVersions(formsValueContainer: FormValuesContainer, field: Field): ServicesHistory {
-	return (
-		formsValueContainer?.getVersions((svc) =>
-			field.tags?.length ? field.tags.every((t) => (svc.tags || []).some((tt) => normalizeCode(tt).id === t)) : svc.label === field.label(),
-		) || {}
-	)
-}
-
-export function setServices(ctc: Contact, newServices: Service[], modifiedServices: Service[]): Contact {
-	return new Contact({
-		...ctc,
-		services: newServices.concat(ctc.services?.map((s) => modifiedServices.find((r) => r.id === s.id) || s) || []),
-	})
 }

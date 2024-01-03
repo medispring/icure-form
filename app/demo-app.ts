@@ -1,19 +1,19 @@
 import { css, html, LitElement } from 'lit'
-import { CodeStub, IccHcpartyXApi } from '@icure/api'
-// @ts-ignore
+import { CodeStub, IccHcpartyXApi, sleep } from '@icure/api'
 import * as YAML from 'yaml'
-import '../src/components/iqr-text-field'
-import '../src/components/iqr-dropdown'
-import '../src/components/iqr-form'
+import '../src/components/icure-form/fields/text-field'
+import '../src/components/icure-form/fields/dropdown'
+import '../src/components/icure-date-picker'
+import '../src/components/icure-form'
 import MiniSearch, { SearchResult } from 'minisearch'
-//@ts-ignore
-import { DatePicker, DateTimePicker, Form, Group, MeasureField, MultipleChoice, NumberField, Section, TextField, TimePicker } from '../src/components/iqr-form/model'
+import { Form } from '../src/components/model'
 import { codes } from './codes'
 // @ts-ignore
 import yamlForm from './gp.yaml'
-import { ICureFormValuesContainer } from '../src/components/iqr-form-loader/formValuesContainer'
 import { makeFormValuesContainer } from './form-values-container'
-import { property } from 'lit/decorators.js'
+import { state } from 'lit/decorators.js'
+import { BridgedFormValuesContainer } from '../src/icure'
+import { makeInterpreter } from '../src/utils/interpreter'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -72,7 +72,10 @@ const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'd
 
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
-	@property() formValuesContainer: ICureFormValuesContainer = makeFormValuesContainer()
+	private undoStack: BridgedFormValuesContainer[] = []
+	private redoStack: BridgedFormValuesContainer[] = []
+
+	@state() formValuesContainer: BridgedFormValuesContainer = new BridgedFormValuesContainer('user-id', makeFormValuesContainer(), makeInterpreter())
 
 	private miniSearch: MiniSearch = new MiniSearch({
 		fields: ['text'], // fields to index for full-text search
@@ -88,7 +91,7 @@ class DemoApp extends LitElement {
 
 	static get styles() {
 		return css`
-			iqr-text-field {
+			icure-text-field {
 				display: block;
 			}
 
@@ -99,10 +102,42 @@ class DemoApp extends LitElement {
 				margin-bottom: 0;
 				font-family: 'Roboto', Helvetica, sans-serif;
 			}
+
+			* {
+				box-sizing: border-box;
+			}
 		`
 	}
 
+	connectedCallback() {
+		super.connectedCallback()
+		window.onkeydown = (event) => {
+			console.log(event.key)
+
+			if (event.key === 'Z' && event.metaKey) {
+				event.preventDefault()
+				if (this.redoStack.length > 0) {
+					console.log('redo')
+					this.undoStack.push(this.formValuesContainer)
+					this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
+				}
+			} else if (event.key === 'z' && event.metaKey) {
+				event.preventDefault()
+				if (this.undoStack.length > 0) {
+					console.log('undo')
+					this.redoStack.push(this.formValuesContainer)
+					this.formValuesContainer = this.undoStack.pop() as BridgedFormValuesContainer
+				}
+			}
+		}
+	}
+
 	async firstUpdated() {
+		this.formValuesContainer.registerChangeListener((newValue) => {
+			this.redoStack = []
+			this.undoStack.push(this.formValuesContainer)
+			this.formValuesContainer = newValue
+		})
 		this.miniSearch.addAll(codes.map((x) => ({ id: x.id, code: x.code, text: x.label?.fr, links: x.links })))
 	}
 
@@ -162,11 +197,16 @@ class DemoApp extends LitElement {
 			text: [x.firstName, x.lastName].filter((x) => x?.length).join(' '),
 		}))
 	}
-
-	translationProvider(stringToTranslate: string) {
-		return stringToTranslate
+	async sleep(ms: number): Promise<any> {
+		return new Promise((resolve) => setTimeout(resolve, ms))
 	}
-	async codesProvider(codifications: string[], searchTerm?: string): Promise<CodeStub[]> {
+
+	async optionsProvider() {
+		await sleep(100)
+		return []
+	}
+
+	async codesProvider(codifications: string[]): Promise<CodeStub[]> {
 		const codes: CodeStub[] = []
 		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
 			ultrasound.map((x) => codes.push(new CodeStub(x)))
@@ -176,77 +216,27 @@ class DemoApp extends LitElement {
 
 	render() {
 		// noinspection DuplicatedCode
-		const form = new Form(
-			'Waiting room GP',
-			[
-				new Section('All fields', [
-					new TextField('This field is a TextField', 'allTextField', 1, true, 1),
-					new NumberField('This field is a NumberField', 'allNumberField', 1, true, 1),
-					new MeasureField('This field is a MeasureField', 'allMeasureField', 1, true, 1),
-					new DatePicker('This field is a DatePicker', 'allDatePicker', 2, true, 1),
-					new TimePicker('This field is a TimePicker', 'allTimePicker', 2, true, 1),
-					new DateTimePicker('This field is a DateTimePicker', 'allDateTimePicker', 3, true, 1),
-					new MultipleChoice('This field is a MultipleChoice', 'allMultipleChoice', 3, true, 1),
-				]),
-				new Section('Grouped fields', [
-					new Group(
-						'You can group fields together',
-						[
-							new TextField('This field is a TextField', 'groupTextField', 1, true, 2, undefined, undefined, ['CD-ITEM|diagnosis|1']),
-							new NumberField('This field is a NumberField', 'groupNumberField', 1, true, 2),
-							new MeasureField('This field is a MeasureField', 'groupMeasureField', 1, true, 2),
-							new DatePicker('This field is a DatePicker', 'groupDatePicker', 3, true, 2),
-							new TimePicker('This field is a TimePicker', 'groupTimePicker', 3, true, 2),
-							new DateTimePicker('This field is a DateTimePicker', 'groupDateTimePicker', 3, true, 2),
-							new MultipleChoice('This field is a MultipleChoice', 'groupMultipleChoice', 4, true, 2),
-						],
-						1,
-						1,
-					),
-					new Group(
-						'And you can add tags and codes',
-						[
-							new TextField('This field is a TextField with rows and columns', 'tagTextField', 1, true, 1, 'text-document', ['CD-ITEM|diagnosis|1'], ['BE-THESAURUS', 'ICD10'], {
-								option: 'blink',
-							}),
-							new NumberField('This field is a NumberField', 'tagNumberField', 1, true, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'], [], { option: 'bang' }),
-							new MeasureField('This field is a MeasureField', 'tagMeasureField', 1, true, 1, ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'], [], { unit: 'bpm' }),
-							new MultipleChoice('This field is a MultipleChoice', 'tagMultipleChoice', 4, true, 4, [], ['KATZ'], { many: 'no' }),
-						],
-						1,
-						1,
-						'',
-					),
-				]),
-			],
-			'Fill in the patient information inside the waiting room',
-		)
+		// @ts-ignore
+
+		const editable = true
+		const gpForm = Form.parse(YAML.parse(yamlForm))
+
+		console.log('redoStack', this.redoStack)
+		console.log('undoStack', this.undoStack)
+
 		return html`
-			<iqr-form
-				.form="${form}"
+			<icure-form
+				.form="${gpForm}"
+				.editable="${editable}"
 				labelPosition="above"
 				skin="kendo"
 				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.formValuesContainer = newVal
-				}}"
-			></iqr-form>
-			<iqr-form
-				.form="${Form.parse(YAML.parse(yamlForm))}"
-				labelPosition="above"
-				skin="kendo"
-				theme="gray"
-				renderer="form"
-				.formValuesContainer="${this.formValuesContainer}"
-				.formValuesContainerChanged="${(newVal: ICureFormValuesContainer) => {
-					this.formValuesContainer = newVal
-				}}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
-				.translationProvider="${this.translationProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
-			></iqr-form>
+				.optionsProvider="${this.optionsProvider.bind(this)}"
+			></icure-form>
 		`
 	}
 }
