@@ -159,7 +159,7 @@ export const render: Renderer = (
 		return html`<div class="subform" style="${calculateFieldOrGroupWidth(fgSpan, fg.width)}">
 			<div>${h(level, html`${fg.shortLabel}`)}</div>
 			<form-selection-button
-				class="float-right-btn"
+				class="float-right-btn top"
 				.forms="${Object.entries(fg.forms)}"
 				.formAdded="${(title: string, form: Form) => {
 					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.id)
@@ -168,7 +168,16 @@ export const render: Renderer = (
 			${children
 				?.map((child) => {
 					const childForm = Object.values(fg.forms).find((f) => f.id === child.getFormId())
-					return childForm && render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)
+					return (
+						childForm &&
+						html`
+							<div class="container">
+								${render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)}
+								<button class="float-right-btn bottom">-</button>
+								<hr />
+							</div>
+						`
+					)
 				})
 				.filter((x) => !!x)}
 		</div>`
@@ -367,7 +376,10 @@ export const render: Renderer = (
 		></icure-form-label>`
 	}
 
-	const renderFieldGroupOrSubform = function (fg: Field | Group | Subform, level: number): TemplateResult | TemplateResult[] {
+	const renderFieldGroupOrSubform = function (fg: Field | Group | Subform, level: number): TemplateResult | TemplateResult[] | typeof nothing {
+		if (!fg) {
+			return nothing
+		}
 		const computedProperties = Object.keys(fg.computedProperties ?? {}).reduce(
 			(acc, k) => ({ ...acc, [k]: fg.computedProperties?.[k] && formsValueContainer?.compute(fg.computedProperties[k]) }),
 			{},
