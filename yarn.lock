@@ -523,70 +523,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@icure/form@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@icure/form@workspace:."
-  dependencies:
-    "@icure/api": 5.3.7
-    "@types/jest": ^27.0.2
-    "@types/markdown-it": ^12.2.3
-    "@types/node": ^18.16.3
-    "@types/uuid": ^9.0.1
-    "@typescript-eslint/eslint-plugin": ^5.54.1
-    "@typescript-eslint/parser": ^5.54.1
-    "@webcomponents/webcomponentsjs": ^2.7.0
-    app-datepicker: ^6.0.0-rc.33
-    assert: ^2.0.0
-    babel: ^6.23.0
-    babel-eslint: 10.1.0
-    babel-preset-es2017: ^6.24.1
-    copy-webpack-plugin: ^11.0.0
-    css-loader: ^6.7.3
-    eslint: ^8.35.0
-    eslint-config-prettier: ^8.7.0
-    eslint-plugin-import: ^2.27.5
-    eslint-plugin-jsdoc: ^40.0.1
-    eslint-plugin-jsx-a11y: ^6.7.1
-    eslint-plugin-prettier: ^4.2.1
-    extract-loader: ^5.1.0
-    fast-deep-equal: ^3.1.3
-    html-webpack-plugin: ^5.5.0
-    husky: ^8.0.3
-    jest: ^27.1.0
-    lint-staged: ^13.1.2
-    lit: ^3.1.0
-    lit-scss-loader: ^2.0.1
-    markdown-it: ^14.0.0
-    minisearch: ^6.0.1
-    orderedmap: 2.1.1
-    prettier: ^2.8.4
-    pretty-quick: ^3.1.3
-    prosemirror-commands: 1.5.2
-    prosemirror-history: 1.3.2
-    prosemirror-keymap: 1.2.2
-    prosemirror-markdown: 1.12.0
-    prosemirror-model: 1.19.4
-    prosemirror-schema-basic: 1.2.2
-    prosemirror-schema-list: 1.3.0
-    prosemirror-state: 1.4.3
-    prosemirror-transform: 1.8.0
-    prosemirror-view: 1.32.7
-    raw-loader: ^4.0.2
-    sass: ^1.58.3
-    sass-loader: ^13.2.0
-    simple-statistics: ^7.8.3
-    ts-jest: ^27.0.4
-    ts-loader: ^9.4.2
-    ts-node: ^10.9.1
-    typescript: ^4.9.5
-    uuid: ^9.0.1
-    webpack: 5.88.2
-    webpack-cli: 5.1.4
-    webpack-dev-server: 4.15.1
-    yaml: 2.3.4
-  languageName: unknown
-  linkType: soft
-
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -912,28 +848,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-dom-shim@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
-  checksum: 73fd787893851d4ec4aaa5c775405ed2aae4ca0891b2dd3c973b32c2f4bf70ada5481dd0224e52b786d037aa8a00052186ad1623c44551affd66f6409cca8da6
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.6.0":
+"@lit/reactive-element@npm:1.6.2":
   version: 1.6.2
   resolution: "@lit/reactive-element@npm:1.6.2"
   dependencies:
     "@lit-labs/ssr-dom-shim": ^1.0.0
   checksum: 011a3ef0933fda86ec726d29ebc14e829e2f1ba23eca8ed8ed4d5c6f2a102c55cc6986000c5f4c8c3d0c549bc671f5d84d00ce91adc5bbd95970eec3662c0a92
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "@lit/reactive-element@npm:2.0.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.1.2
-  checksum: 0e0fbc8e92630d49707f9d08cf8962e84860f297b5d781c0894f47421189a30da56860081531859223f5394f36c5d5e95c00703d0f3d303e6c733e3a177c8655
   languageName: node
   linkType: hard
 
@@ -1469,6 +1389,70 @@ __metadata:
   checksum: fa2671df40aded95794a0a899f1a2dcb73a84f4c8c78476028a1f09642164c9eac27cd43a41118c2772ac0f01fb5c7e06de6cfa54e474c715fc38f6514332978
   languageName: node
   linkType: hard
+
+"@medispring/form@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@medispring/form@workspace:."
+  dependencies:
+    "@icure/api": 5.3.7
+    "@types/jest": ^27.0.2
+    "@types/markdown-it": ^12.2.3
+    "@types/node": ^18.16.3
+    "@types/uuid": ^9.0.1
+    "@typescript-eslint/eslint-plugin": ^5.54.1
+    "@typescript-eslint/parser": ^5.54.1
+    "@webcomponents/webcomponentsjs": ^2.7.0
+    app-datepicker: ^6.0.0-rc.33
+    assert: ^2.0.0
+    babel: ^6.23.0
+    babel-eslint: 10.1.0
+    babel-preset-es2017: ^6.24.1
+    copy-webpack-plugin: ^11.0.0
+    css-loader: ^6.7.3
+    eslint: ^8.35.0
+    eslint-config-prettier: ^8.7.0
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-jsdoc: ^40.0.1
+    eslint-plugin-jsx-a11y: ^6.7.1
+    eslint-plugin-prettier: ^4.2.1
+    extract-loader: ^5.1.0
+    fast-deep-equal: ^3.1.3
+    html-webpack-plugin: ^5.5.0
+    husky: ^8.0.3
+    jest: ^27.1.0
+    lint-staged: ^13.1.2
+    lit: ^3.1.0
+    lit-scss-loader: ^2.0.1
+    markdown-it: ^14.0.0
+    minisearch: ^6.0.1
+    orderedmap: 2.1.1
+    prettier: ^2.8.4
+    pretty-quick: ^3.1.3
+    prosemirror-commands: 1.5.2
+    prosemirror-history: 1.3.2
+    prosemirror-keymap: 1.2.2
+    prosemirror-markdown: 1.12.0
+    prosemirror-model: 1.19.4
+    prosemirror-schema-basic: 1.2.2
+    prosemirror-schema-list: 1.3.0
+    prosemirror-state: 1.4.3
+    prosemirror-transform: 1.8.0
+    prosemirror-view: 1.32.7
+    raw-loader: ^4.0.2
+    sass: ^1.58.3
+    sass-loader: ^13.2.0
+    simple-statistics: ^7.8.3
+    ts-jest: ^27.0.4
+    ts-loader: ^9.4.2
+    ts-node: ^10.9.1
+    typescript: ^4.9.5
+    uuid: ^9.0.1
+    webpack: 5.88.2
+    webpack-cli: 5.1.4
+    webpack-dev-server: 4.15.1
+    yaml: 2.3.4
+  languageName: unknown
+  linkType: soft
 
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
@@ -7385,7 +7369,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-element@npm:^3.3.0":
+"lit-element@npm:3.3.2":
   version: 3.3.2
   resolution: "lit-element@npm:3.3.2"
   dependencies:
@@ -7393,17 +7377,6 @@ __metadata:
     "@lit/reactive-element": ^1.3.0
     lit-html: ^2.7.0
   checksum: afe50825be05a8c83be418432dfed2f9a84ca1c6c1d1807e2090def9f94cc403dcbf832b338cdfe39cd168518664c02a6c7392868ca323e356e5744e3b4f45e6
-  languageName: node
-  linkType: hard
-
-"lit-element@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "lit-element@npm:4.0.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.1.2
-    "@lit/reactive-element": ^2.0.0
-    lit-html: ^3.1.0
-  checksum: 4b0d5b80a02df357c622c2396d5d7d44f93e351c67ce69f59ffd5960a0f223a0fe31aabafaf3859b6196f9e1c305923909b63671ed3d6c512086b34bc67fde79
   languageName: node
   linkType: hard
 

@@ -1,14 +1,14 @@
 {
-	"name": "@icure/form",
-	"version": "1.1.10",
-	"description": "",
+	"name": "@medispring/form",
+	"version": "1.1.4",
+	"description": "Parser YAML to dynamic HTML form",
 	"main": "lib/index.js",
 	"scripts": {
 		"start": "webpack serve --mode development",
 		"build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json",
 		"dist": "webpack --env.mode production",
-		"prepare": "rm -r lib && yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
-		"publish": "yarn version patch && yarn run prepare && cd dist && yarn npm publish --tolerate-republish --access public && cd ..",
+		"prepare": "yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types,access:.access, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
+		"publish": "yarn version patch && yarn run prepare && cd lib && npm publish --access public && cd ..",
 		"test": "jest",
 		"lint:commit": "eslint . --ext .ts",
 		"pre-commit": "lint-staged"
@@ -111,7 +111,9 @@
 	"resolutions": {
 		"prosemirror-model": "1.19.4",
 		"prosemirror-state": "1.4.3",
-		"prosemirror-view": "1.32.7"
+		"prosemirror-view": "1.32.7",
+		"@lit/reactive-element": "1.6.2",
+		"lit-element": "3.3.2"
 	},
 	"browserslist": {
 		"production": [
