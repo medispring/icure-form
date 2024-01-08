@@ -7,8 +7,6 @@ import { extractSingleValue } from '../icure-form/fields/utils'
 import { FieldWithOptionsMixin } from '../common/field-with-options'
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
-// @ts-ignore
-import kendoCss from '../common/styles/kendo.scss'
 
 export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 	@property() placeholder = ''
@@ -16,7 +14,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 	@state() protected displayMenu = false
 
 	static get styles(): CSSResultGroup[] {
-		return [baseCss, kendoCss]
+		return [baseCss]
 	}
 
 	togglePopup(): void {
@@ -108,5 +106,3 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 		`
 	}
 }
-
-customElements.define('icure-dropdown-field', IcureDropdownField)

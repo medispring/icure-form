@@ -29,8 +29,7 @@ import { generateLabels } from '../common/utils'
 
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
-// @ts-ignore
-import kendoCss from '../common/styles/kendo.scss'
+
 import { extractSingleValue } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
 
@@ -123,7 +122,7 @@ export class IcureTextField extends Field {
 	}
 
 	static get styles() {
-		return [baseCss, kendoCss]
+		return [baseCss]
 	}
 
 	private updateValue(tr: Transaction) {
@@ -152,7 +151,7 @@ export class IcureTextField extends Field {
 						const selection = this.view.state.selection
 						const selAnchor = selection.$anchor.pos
 						const selHead = selection.$head.pos
-						const lastPos = parsedDoc.content.size - 1
+						const lastPos = this.schema === 'text-document' ? parsedDoc.content.size - 1 : parsedDoc.content.size
 						const newState = EditorState.create({
 							schema: this.view.state.schema,
 							doc: parsedDoc,
@@ -490,4 +489,3 @@ export class IcureTextField extends Field {
 }
 
 // Register the new element with the browser.
-customElements.define('icure-text-field', IcureTextField)

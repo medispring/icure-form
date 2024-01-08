@@ -1,3 +1,5 @@
+import '../src/components/themes/default'
+
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
 import { property, state } from 'lit/decorators.js'
@@ -6,8 +8,6 @@ import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes } from './codes'
 import { Code, Form } from '../src/components/model'
-
-import '../src/components/icure-form'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -197,8 +197,6 @@ class DecoratedForm extends LitElement {
 			<icure-form
 				.form="${this.form}"
 				labelPosition="above"
-				skin="kendo"
-				theme="gray"
 				renderer="form"
 				.formValuesContainer="${this.formValuesContainer}"
 				.codesProvider="${this.codesProvider}"

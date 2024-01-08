@@ -1,8 +1,6 @@
 import { html } from 'lit'
 import { Field } from '../../../common'
 
-import '../../../icure-text-field'
-
 export class TokenField extends Field {
 	render() {
 		return html`<icure-text-field
@@ -19,5 +17,3 @@ export class TokenField extends Field {
 		></icure-text-field>`
 	}
 }
-
-customElements.define('icure-form-token-field', TokenField)

@@ -2,8 +2,6 @@ import { html } from 'lit'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 import { Field } from '../../../common'
 
-import '../../../icure-date-picker'
-
 export class DatePicker extends Field {
 	render() {
 		const versionedValues = this.valueProvider?.()
@@ -23,4 +21,3 @@ export class DatePicker extends Field {
 		})
 	}
 }
-customElements.define('icure-form-date-picker', DatePicker)

@@ -1,7 +1,6 @@
 import { html } from 'lit'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 
-import '../../../icure-text-field'
 import { Field } from '../../../common'
 
 export class DateTimePicker extends Field {
@@ -23,4 +22,3 @@ export class DateTimePicker extends Field {
 		})
 	}
 }
-customElements.define('icure-form-date-time-picker', DateTimePicker)

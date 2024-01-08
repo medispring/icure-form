@@ -44,7 +44,7 @@ class DemoApp extends LitElement {
 			.container {
 				display: flex;
 				border: 1px solid #ddd;
-				padding: 10px;
+				padding: 0;
 			}
 
 			.master {
@@ -71,7 +71,8 @@ class DemoApp extends LitElement {
 			}
 
 			.detail {
-				flex: 3;
+				background-color: #f2f9ff;
+				flex: 9;
 				padding: 10px;
 			}
 		`

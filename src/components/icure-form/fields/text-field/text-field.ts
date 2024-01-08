@@ -4,9 +4,7 @@ import { Field } from '../../../common'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 import { Suggestion } from '../../../../generic'
 
-import '../../../icure-text-field'
-
-class TextField extends Field {
+export class TextField extends Field {
 	//Boolean value is parsed as text, so we also need to use string type
 	@property() multiline: boolean | string = false
 	@property() rows = 1
@@ -48,5 +46,3 @@ class TextField extends Field {
 		})
 	}
 }
-
-customElements.define('icure-form-textfield', TextField)

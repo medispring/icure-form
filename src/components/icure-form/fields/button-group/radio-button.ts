@@ -4,8 +4,6 @@ import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvi
 import { property } from 'lit/decorators.js'
 import { Code } from '../../../model'
 
-import '../../../icure-button-group'
-
 export class RadioButton extends Field {
 	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Code[]> = async () => []
 	render() {
@@ -31,5 +29,3 @@ export class RadioButton extends Field {
 		})
 	}
 }
-
-customElements.define('icure-form-radio-button', RadioButton)

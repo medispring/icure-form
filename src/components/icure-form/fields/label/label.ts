@@ -22,5 +22,3 @@ export class Label extends LitElement {
 		return html`<icure-label .visible="${this.visible}" label="${this.label}" labelPosition="${this.labelPosition}"></icure-label>`
 	}
 }
-
-customElements.define('icure-form-label', Label)

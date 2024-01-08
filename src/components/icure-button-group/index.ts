@@ -1,9 +1,7 @@
 import { CSSResultGroup, html, nothing, TemplateResult } from 'lit'
 import { property } from 'lit/decorators.js'
 // @ts-ignore
-import baseCss from './styles/style.scss'
-// @ts-ignore
-import kendoCss from './styles/kendo.scss'
+import baseCss from '../common/styles/style.scss'
 import { Field } from '../common'
 import { generateLabels } from '../common/utils'
 import { extractSingleValue } from '../icure-form/fields/utils'
@@ -14,7 +12,7 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 
 	//override
 	static get styles(): CSSResultGroup[] {
-		return [baseCss, kendoCss]
+		return [baseCss]
 	}
 
 	getValueFromProvider(): [string, string[]] | [undefined, undefined] {
@@ -63,10 +61,21 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 		const inputValues = this.getValueFromProvider()[1] ?? []
 
 		return html`
-			<div class="icure-text-field">
-				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
+			<div class="icure-text-field icure-button-group">
+				${this.displayedLabels && this.displayedOptions?.length
+					? generateLabels(
+							Object.entries(this.displayedLabels ?? {})
+								.filter(
+									//If we have less than 2 options, we don't need to display the label except if it is different from the first option
+									([, l]) => (this.displayedOptions?.length ?? 0) > 1 || (this.displayedOptions?.length && l !== this.displayedOptions[0].label[this.language()]),
+								)
+								.reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {}),
+							this.language(),
+							this.translate ? this.translationProvider : undefined,
+					  )
+					: nothing}
 				<div style="${this.generateStyle()}">
-					${this.displayedOptions?.map((x) => {
+					${(this.displayedOptions?.length ? this.displayedOptions : [{ id: this.label, label: {} }]).map((x) => {
 						const text = (x.label ?? {})[this.language()] ?? ''
 						if (this.readonly) {
 							return html`<div>
@@ -96,11 +105,9 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 
 	private generateStyle() {
 		return this.styleOptions?.span
-			? `grid-template-span: repeat(${this.styleOptions?.span}, 1fr);`
+			? `grid-template-columns: repeat(${this.styleOptions?.span}, 1fr);`
 			: this.styleOptions?.rows
-			? `grid-template-span: repeat(${Number((this.displayedOptions?.length ?? 0) / (this.styleOptions?.rows as number))}, 1fr);`
+			? `grid-template-columns: repeat(${Number((this.displayedOptions?.length ?? 0) / (this.styleOptions?.rows as number))}, 1fr);`
 			: ''
 	}
 }
-
-customElements.define('icure-button-group', IcureButtonGroup)

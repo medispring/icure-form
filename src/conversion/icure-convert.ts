@@ -18,11 +18,12 @@ import { FormLayoutData } from '@icure/api/icc-api/model/FormLayoutData'
 import { cluster } from './ckmeans-grouping'
 
 export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): Form {
-	const TOTAL_COLUMNS = 48
+	const TOTAL_COLUMNS = 24
 	const makeTextField = (formData: FormLayoutData, width: number) => new TextField(formData.name ?? '', { shortLabel: formData.label, span: width })
 	const makeItemsListField = (formData: FormLayoutData, width: number) => new ItemsListField(formData.name ?? '', { shortLabel: formData.label, span: width })
 	const makeTokenField = (formData: FormLayoutData, width: number) => new TokenField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeCheckBox = (formData: FormLayoutData, width: number) => new CheckBox(formData.name ?? '', { shortLabel: formData.label, span: width })
+	const makeCheckBox = (formData: FormLayoutData, width: number) =>
+		new CheckBox(formData.name ?? '', { shortLabel: formData.label, options: { [formData.label ?? '']: formData.label }, span: width })
 	const makeMeasureField = (formData: FormLayoutData, width: number) => new MeasureField(formData.name ?? '', { shortLabel: formData.label, span: width })
 	const makeNumberField = (formData: FormLayoutData, width: number) => new NumberField(formData.name ?? '', { shortLabel: formData.label, span: width })
 	const makeDateTimeField = (formData: FormLayoutData, width: number) =>

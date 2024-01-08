@@ -1,3 +1,34 @@
+@import 'math';
+
+$label-color: #084B83;
+$color: #000000;
+$border-color: rgba(0, 0, 0, 0.08);
+$textbox-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.06) !default;
+$input-focused-text: #656565;
+$input-focused-border: rgba(0, 0, 0, 0.15);
+$input-hovered-border: rgba(0, 0, 0, 0.15);
+$accent: #656565;
+$highlight: rgba(0, 0, 0, 0.05);
+$highlight-contour: rgba(0, 0, 0, 0.1);
+$border-radius: 2px;
+$background-color: rgba(0, 0, 0, 0);
+$background-color-dark: #e7f0fd;
+
+$textbox-line-height: 1.4em !default;
+$textbox-default-width: 100%;
+$textbox-font-size: 14px !default;
+$label-font-size: 12px !default;
+
+$input-border-width: 1px;
+$input-padding-y: 4px;
+$input-padding-x: 8px;
+
+$floating-label-transition: 0.2s ease-out !default;
+$floating-label-scale: 1 !default;
+$floating-label-height: $textbox-line-height * $floating-label-scale;
+$font-weight-label: 500;
+
+
 :host {
 	--bg-color-1: #f44336;
 }
@@ -119,7 +150,7 @@ li.ProseMirror-selectednode:after {
 	position: fixed;
 	border-radius: 3px;
 	z-index: 11;
-	box-shadow: -0.5px 2px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
 }
 
 .ProseMirror-prompt h5 {
@@ -271,11 +302,11 @@ h3 {
 	align-items: center;
 	justify-content: flex-end;
 	width: 0;
-	transition: all 0.24s cubic-bezier(0.14, 0.69, 0.87, 0.54);
+	transition: all .24s cubic-bezier(.14, .69, .87, .54);
 }
 
 .extra:hover .buttons-container .menu-container .btn {
-	animation: slideIn 0.24s ease-in forwards;
+	animation: slideIn .24s ease-in forwards;
 	pointer-events: none;
 }
 
@@ -331,25 +362,25 @@ h3 {
 	fill: #274768;
 }
 
-// .extra .buttons-container .menu-container .btn:hover::after {
-// 	content: attr(data-content);
-// 	position: absolute;
-// 	top: -22px;
-// 	height: 16px;
-// 	left: 50%;
-// 	transform: translateX(-50%);
-// 	border-radius: 8px;
-// 	background: #274768;
-// 	color: white;
-// 	display: flex;
-// 	flex-flow: row wrap;
-// 	align-items: center;
-// 	text-transform: capitalize;
-// 	white-space: nowrap;
-// 	padding: 0 12px;
-// 	font-size: 12px;
-// 	line-height: 0;
-// }
+.extra .buttons-container .menu-container .btn:hover::after {
+	content: attr(data-content);
+	position: absolute;
+	top: -22px;
+	height: 16px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 8px;
+	background: #274768;
+	color: white;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	text-transform: capitalize;
+	white-space: nowrap;
+	padding: 0 12px;
+	font-size: 12px;
+	line-height: 0;
+}
 
 .extra .buttons-container .btn:focus,
 .extra .buttons-container .btn:focus-within {
@@ -357,15 +388,15 @@ h3 {
 	outline: none;
 }
 
-// .extra .buttons-container .menu-container .btn:hover::before {
-// 	content: '';
-// 	display: block;
-// 	border-color: #274768 transparent transparent transparent;
-// 	border-style: solid;
-// 	border-width: 4px;
-// 	position: absolute;
-// 	top: -6px;
-// }
+.extra .buttons-container .menu-container .btn:hover::before {
+	content: '';
+	display: block;
+	border-color: #274768 transparent transparent transparent;
+	border-style: solid;
+	border-width: 4px;
+	position: absolute;
+	top: -6px;
+}
 
 @keyframes slideIn {
 	0% {
@@ -419,7 +450,8 @@ h3 {
 }
 
 .menu .input-container:focus-within {
-	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2), 0 0 0 1px rgba(40, 151, 255, 1);
+	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2),
+	0 0 0 1px rgba(40, 151, 255, 1);
 }
 
 .menu .input-container input {
@@ -506,7 +538,7 @@ span[data-content]::before {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
-	opacity: 0.3;
+	opacity: .3;
 }
 
 .masked {
@@ -536,7 +568,7 @@ span[data-content]::before {
 }
 
 *::selection {
-	background-color: hsla(194, 100%, 50%, 0.2);
+	background-color: hsla(194, 100%, 50%, .2);
 }
 
 .suggestion-palette {
@@ -550,8 +582,12 @@ span[data-content]::before {
 	border: none;
 	border-radius: 8px;
 	background: white;
-	box-shadow: 0 1.1px 1.1px rgba(0, 0, 0, 0.022), 0 2.7px 2.7px rgba(0, 0, 0, 0.032), 0 5px 5px rgba(0, 0, 0, 0.04), 0 8.9px 8.9px rgba(0, 0, 0, 0.048),
-		0 16.7px 16.7px rgba(0, 0, 0, 0.058), 0 40px 40px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 1.1px 1.1px rgba(0, 0, 0, 0.022),
+	0 2.7px 2.7px rgba(0, 0, 0, 0.032),
+	0 5px 5px rgba(0, 0, 0, 0.04),
+	0 8.9px 8.9px rgba(0, 0, 0, 0.048),
+	0 16.7px 16.7px rgba(0, 0, 0, 0.058),
+	0 40px 40px rgba(0, 0, 0, 0.08);
 }
 
 .suggestion-palette ul {
@@ -596,18 +632,18 @@ span[data-content]::before {
 }
 
 .suggestion-palette ul li.focused svg.return-icn {
-	animation: growIn 0.24s ease-in forwards;
+	animation: growIn .24s ease-in forwards;
 }
 
 @keyframes growIn {
 	0% {
-		transform: scale(0.5);
+		transform: scale(0.5)
 	}
 	90% {
-		transform: scale(1.1);
+		transform: scale(1.1)
 	}
 	100% {
-		transform: scale(1);
+		transform: scale(1)
 	}
 }
 
@@ -639,12 +675,18 @@ span.code-count-3::before {
 	background: var(--bg-code-color-1);
 	color: var(--text-code-color-1);
 	/* STRIPES */
-	background: repeating-linear-gradient(45deg, var(--bg-code-color-1), var(--bg-code-color-1) 10px, var(--bg-code-color-2) 10px, var(--bg-code-color-2) 20px);
+	background: repeating-linear-gradient(
+			45deg,
+			var(--bg-code-color-1),
+			var(--bg-code-color-1) 10px,
+			var(--bg-code-color-2) 10px,
+			var(--bg-code-color-2) 20px
+	);
 	/* PAS STRIPES */
 	/* background: linear-gradient(90deg, var(--bg-code-color-1) 0%, var(--bg-code-color-2) 100%);*/
 }
 
-.selected-option {
+.selected-option{
 	padding: 2px;
 	margin-right: 5px;
 }
@@ -682,9 +724,9 @@ span.code-count-3::before {
 }
 
 app-date-picker {
-	--app-primary: #06a070;
-	--app-hover: #06a070;
-	--app-selected-hover: #06a070;
+	--app-primary: #084B83;
+	--app-hover: #5b7da2;
+	--app-selected-hover: #5b7da2;
 }
 
 .option {
@@ -733,4 +775,297 @@ app-date-picker {
 	display: none;
 }
 
-//select backgroud color #06b57e box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.12);
+
+.container {
+	position: relative;
+}
+
+.icure-form {
+	background-color: $background-color;
+	display: grid;
+	gap: 0 6px;
+	grid-template-columns: repeat(24, 1fr);
+}
+
+.subform {
+	position: relative;
+	margin: 0 -8px 0;
+	padding: 0 8px 0;
+	min-height: 64px;
+	background-color: $background-color-dark;
+}
+
+.icure-form {
+	hr {
+		border-top: 1px dashed $label-color;
+	}
+	h2 {
+		font-size: add-two($label-font-size, 0, 1.2);
+		font-weight: 700;
+		color: $label-color;
+		padding: 2px;
+	}
+
+	h3 {
+		font-size: add-two($label-font-size, 0, 1.1);
+		font-weight: 500;
+		color: $label-color;
+		padding: 6px;
+	}
+
+	.group.bordered {
+		background: #f6f6f6;
+		border-radius: 12px;
+	}
+
+	.float-right-btn {
+		position: absolute;
+		right: 10px;
+		cursor: pointer;
+
+		&.top {
+			top: 6px;
+		}
+
+		&.bottom {
+			bottom: -8px;
+		}
+	}
+}
+
+.icure-text-field, .icure-button-group {
+	> .icure-label {
+		z-index: 1;
+		pointer-events: none;
+		line-height: $textbox-line-height;
+		cursor: text;
+		font-size: $label-font-size;
+		left: add-two($input-padding-x, $input-border-width);
+		color: $label-color;
+		align-items: center;
+		height: 28px;
+		max-width: 55%;
+		min-width: 0;
+		&.float {
+			display: inline-block;
+			height: $textbox-line-height ;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	}
+}
+
+.icure-text-field {
+	position: relative;
+	width: $textbox-default-width;
+	flex-direction: row;
+	justify-content: stretch;
+	align-items: center;
+
+	> .icure-label {
+		transition: transform $floating-label-transition, color $floating-label-transition;
+	}
+
+	> .icure-input {
+		flex: 1 1 auto;
+		width: auto;
+	}
+
+	> .icure-label {
+		transform: translate(0, 0) scale(1);
+	}
+
+	> .icure-label.above,
+	&.has-content > .icure-label,
+	&:focus > .icure-label,
+	&:focus-within > .icure-label {
+		// persist alignment after scaling
+		$half-scale-percent: calc((1 - $floating-label-scale) * 100% / 2);
+
+		// sass-lint:disable indentation
+		// transform position to top-left corner of the textbox-container
+		// do not use single translate + calc() because of IE10/11
+		$fls: -$floating-label-scale;
+		// sass-lint:enable indentation
+
+		font-weight: 500;
+		height: $floating-label-height;
+		max-width: 100%;
+	}
+
+	> .icure-label.side {
+		position: relative;
+	}
+
+	> .icure-label.side.left {
+		order: -1;
+		margin-right: 1em;
+	}
+
+	> .icure-label.side.right {
+		order: 1;
+		margin-left: 1em;
+	}
+
+	.icure-input,
+	.input-container {
+		border-radius: $border-radius;
+		padding: $input-padding-y $input-padding-x;
+		width: $textbox-default-width;
+		box-sizing: border-box;
+		border-width: $input-border-width;
+		border-style: solid;
+		outline: 0;
+		font: inherit;
+		font-size: $textbox-font-size;
+		line-height: $textbox-line-height;
+		display: flex;
+		align-items: center;
+		vertical-align: middle;
+		position: relative;
+		-webkit-appearance: none;
+		background-color: #ffffff;
+		border-color: $border-color;
+		color: $color;
+		box-sizing: border-box;
+
+		&:focus,
+		&:focus-within {
+			box-shadow: $textbox-shadow;
+		}
+
+		&:hover {
+			border-color: $input-hovered-border;
+			box-shadow: none;
+
+			&:focus,
+			&:focus-within {
+				box-shadow: $textbox-shadow;
+			}
+		}
+
+		.ProseMirror {
+			padding: 0;
+			font-size: $textbox-font-size;
+			line-height: $textbox-line-height;
+			color: $color;
+
+			.date {
+				padding: 1px;
+			}
+
+			.time {
+				padding: 1px;
+			}
+		}
+
+		.ProseMirror:focus .focused {
+			background-color: $highlight;
+			border-radius: 3px;
+			border-color: $highlight-contour;
+		}
+
+		& > svg {
+			opacity: 0.5;
+
+			path {
+				fill: $accent;
+			}
+		}
+
+		.extra {
+			height: 20px;
+
+			& > .info {
+				color: $accent;
+				opacity: 0.5;
+			}
+
+			.buttons-container .btn svg path {
+				fill: $accent;
+				opacity: 0.5;
+
+				&:hover {
+					fill: $accent;
+					opacity: 1;
+				}
+			}
+
+			// .buttons-container .menu-container .btn:hover::after {
+			// 	background: $accent;
+			// 	border-radius: $border-radius;
+			// }
+			// .buttons-container .menu-container .btn:hover::before {
+			// 	border-color:$accent transparent transparent transparent;
+			// }
+		}
+	}
+}
+
+input[type='radio'] {
+	margin-top: -1px;
+	vertical-align: middle;
+}
+
+.icure-checkbox:checked {
+	accent-color: #06a070;
+}
+
+.icure-button-group {
+	> div {
+		display: grid;
+		> div {
+			display: flex;
+			align-items: center;
+			> .icure-button-group-label {
+				z-index: 1;
+				line-height: $textbox-line-height;
+				cursor: text;
+				font-size: $label-font-size;
+				top: add-three($floating-label-height, $input-border-width, $input-padding-y);
+				left: add-two($input-padding-x, $input-border-width);
+				transition: transform $floating-label-transition, color $floating-label-transition;
+				color: $label-color;
+				display: flex;
+				align-items: center;
+				height: 28px;
+				max-width: 100%;
+				min-width: 0;
+				> span {
+					display: block;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					padding-right: 8px;
+				}
+			}
+		}
+	}
+	> .icure-input {
+		flex: 1 1 auto;
+		width: auto;
+	}
+
+	> .icure-label {
+		transform: translate(0, 0) scale(1);
+	}
+
+	> .icure-label.above,
+	&.has-content > .icure-label,
+	&:focus > .icure-label,
+	&:focus-within > .icure-label {
+		// persist alignment after scaling
+		$half-scale-percent: calc((1 - $floating-label-scale) * 100% / 2);
+
+		// sass-lint:disable indentation
+		// transform position to top-left corner of the textbox-container
+		// do not use single translate + calc() because of IE10/11
+		$fls: -$floating-label-scale;
+		// sass-lint:enable indentation
+
+		font-weight: 500;
+		height: $floating-label-height;
+		max-width: 100%;
+	}
+}

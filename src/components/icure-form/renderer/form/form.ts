@@ -6,15 +6,12 @@ import { CodeStub, HealthcareParty } from '@icure/api'
 import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
 import { FormValuesContainer } from '../../../../generic'
 
-import '../../fields'
 import { defaultTranslationProvider } from '../../../../utils/languages'
 import { getLabels } from '../../../common/utils'
 import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
 
 // @ts-ignore
-import baseCss from '../../../styles/style.scss'
-// @ts-ignore
-import kendoCss from '../../../styles/kendo.scss'
+import baseCss from '../../../common/styles/style.scss'
 import { property, state } from 'lit/decorators.js'
 
 export class FormSelectionButton extends LitElement {

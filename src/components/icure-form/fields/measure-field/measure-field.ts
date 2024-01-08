@@ -2,8 +2,6 @@ import { html } from 'lit'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 import { Field } from '../../../common'
 
-import '../../../icure-text-field'
-
 export class MeasureField extends Field {
 	render() {
 		const versionedValues = this.valueProvider?.()
@@ -25,5 +23,3 @@ export class MeasureField extends Field {
 		})
 	}
 }
-
-customElements.define('icure-form-measure-field', MeasureField)

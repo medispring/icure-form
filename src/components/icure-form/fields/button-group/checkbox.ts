@@ -4,8 +4,6 @@ import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvi
 import { property } from 'lit/decorators.js'
 import { Code } from '../../../model'
 
-import '../../../icure-button-group'
-
 export class CheckBox extends Field {
 	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Code[]> = async () => []
 
@@ -32,5 +30,3 @@ export class CheckBox extends Field {
 		})
 	}
 }
-
-customElements.define('icure-form-checkbox', CheckBox)

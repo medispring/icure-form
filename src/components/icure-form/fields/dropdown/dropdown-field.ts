@@ -4,8 +4,6 @@ import { Field } from '../../../common'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 import { Code } from '../../../model'
 
-import '../../../icure-dropdown-field'
-
 export class DropdownField extends Field {
 	@property() ownersProvider: (speciality: string[]) => { id: string; name: string }[] = () => []
 	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Code[]> = async () => []
@@ -32,5 +30,3 @@ export class DropdownField extends Field {
 		})
 	}
 }
-
-customElements.define('icure-form-dropdown-field', DropdownField)

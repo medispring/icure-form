@@ -12,8 +12,6 @@ import { format } from 'date-fns'
 import { anyDateToDate } from '../../utils/icure-utils'
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
-// @ts-ignore
-import kendoCss from '../common/styles/kendo.scss'
 
 export class IcureDatePickerField extends Field {
 	//TODO: support different date formats
@@ -22,7 +20,7 @@ export class IcureDatePickerField extends Field {
 	@state() protected displayDatePicker = false
 
 	static get styles(): CSSResultGroup[] {
-		return [baseCss, kendoCss]
+		return [baseCss]
 	}
 
 	_handleClickOutside(event: MouseEvent): void {
@@ -107,5 +105,3 @@ export class IcureDatePickerField extends Field {
 		this.displayDatePicker = !this.displayDatePicker
 	}
 }
-
-customElements.define('icure-date-picker-field', IcureDatePickerField)

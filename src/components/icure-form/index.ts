@@ -7,21 +7,16 @@ import { render as renderAsForm } from './renderer/form/form'
 import { Code, FieldMetadata, FieldValue, Form } from '../model'
 import { FormValuesContainer } from '../../generic'
 
-import './fields'
-
 // @ts-ignore
-import baseCss from '../styles/style.scss'
-// @ts-ignore
-import kendoCss from '../styles/kendo.scss'
+import baseCss from '../common/styles/style.scss'
 import { defaultTranslationProvider } from '../../utils/languages'
 
 /**
  * Form element
  */
-class IcureForm extends LitElement {
+export class IcureForm extends LitElement {
 	@property() form?: Form
 	@property() skin = 'material'
-	@property() theme = 'default'
 	@property() renderer = 'form'
 	@property() visible = true
 	@property() readonly = false
@@ -37,7 +32,7 @@ class IcureForm extends LitElement {
 	}
 
 	static get styles() {
-		return [baseCss, kendoCss]
+		return [baseCss]
 	}
 
 	render() {
@@ -64,6 +59,3 @@ class IcureForm extends LitElement {
 			: html`<p>missing form</p>`
 	}
 }
-
-// Register the new element with the browser.
-customElements.define('icure-form', IcureForm)
