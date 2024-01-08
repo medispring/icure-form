@@ -574,7 +574,6 @@ __metadata:
     raw-loader: ^4.0.2
     sass: ^1.58.3
     sass-loader: ^13.2.0
-    simple-statistics: ^7.8.3
     ts-jest: ^27.0.4
     ts-loader: ^9.4.2
     ts-node: ^10.9.1
@@ -9507,13 +9506,6 @@ __metadata:
   version: 4.0.2
   resolution: "signal-exit@npm:4.0.2"
   checksum: 41f5928431cc6e91087bf0343db786a6313dd7c6fd7e551dbc141c95bb5fb26663444fd9df8ea47c5d7fc202f60aa7468c3162a9365cbb0615fc5e1b1328fe31
-  languageName: node
-  linkType: hard
-
-"simple-statistics@npm:^7.8.3":
-  version: 7.8.3
-  resolution: "simple-statistics@npm:7.8.3"
-  checksum: 4eec5fd87b733c072cdce4f911cd1736a6e3a89ddaab9df8785a0a36abc0818d43f90b93079df4c34bd4a4f010eefad962051c65debcde199cdae08403917282
   languageName: node
   linkType: hard
 

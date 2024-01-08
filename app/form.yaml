@@ -8,22 +8,22 @@ sections:
         shortLabel: TextField
         schema: styled-text-with-codes
         rows: 3
-        columns: 1
+        span: 1
       - field: This field is a NumberField
         type: number-field
         shortLabel: NumberField
         rows: 2
-        columns: 1
+        span: 1
       - field: This field is a MeasureField
         type: measure-field
         shortLabel: MeasureField
         rows: 3
-        columns: 2
+        span: 2
       - field: This field is a DatePicker
         type: date-picker
         shortLabel: DatePicker
         rows: 2
-        columns: 2
+        span: 2
       - field: This field is a TimePicker
         type: time-picker
         shortLabel: TimePicker
@@ -63,7 +63,7 @@ sections:
   - section: Grouped fields
     groups:
       - group: You can group fields together
-        columns: 1
+        span: 1
         rows: 1
         fields:
           - field: This field is a TextField
@@ -89,13 +89,13 @@ sections:
             type: multiple-choice
             shortLabel: MultipleChoice
       - group: And you can add tags and codes
-        columns: 1
+        span: 1
         rows: 1
         fields:
           - field: This field is a TextField
             type: textfield
             shortLabel: TextField
-            columns: 5
+            span: 5
             rows: 3
             grows: true
             schema: text-document
@@ -128,7 +128,7 @@ sections:
             type: multiple-choice
             shortLabel: MultipleChoice
             rows: 4
-            columns: 4
+            span: 4
             tags: []
             codifications:
               - KATZ

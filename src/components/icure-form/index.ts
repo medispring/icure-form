@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit'
 import { property } from 'lit/decorators.js'
 
 import { Renderer } from './renderer'
-import { render as renderAsForm } from './renderer/form'
+import { render as renderAsForm } from './renderer/form/form'
 import { Code, FieldMetadata, FieldValue, Form } from '../model'
 import { FormValuesContainer } from '../../generic'
 

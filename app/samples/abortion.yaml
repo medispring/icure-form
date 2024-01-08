@@ -1,4 +1,5 @@
 form: abortion-forms.PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
+id: ac88264f-2133-4f49-8794-eeb95c4005c3
 description: abortion-forms.PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
 codifications:
   - type: MS-ABORTION-PATIENT-PROFESSION
@@ -239,14 +240,14 @@ sections:
           - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|CONSULTATION-FOLLOWERS-NUMBER|1
       - group: boxes
         borderless: true
-        columns: 24
+        span: 24
         fields:
           - field: abortion-forms.field-labels.ACCOMPANIED-BY
             type: checkbox
-            columns: 12
+            span: 12
             shortLabel: accompaniedBy
             styleOptions:
-              columns: 3
+              span: 3
             optionCodeType: MS-ABORTION-COMPANION-TYPE
             options:
                 father: abortion-forms.field-options.FATHER
@@ -266,7 +267,7 @@ sections:
           - field: abortion-forms.field-labels.OTHER
             type: textfield
             shortLabel: other
-            columns: 24
+            span: 24
             computedProperties:
               hidden: |
                 return !self['abortion-forms.field-labels.ACCOMPANIED-BY']?.some(d => d.codes?.some(c => c.id === 'other'))
@@ -298,7 +299,7 @@ sections:
         shortLabel: patientFirstDecision
         styleOptions:
           direction: column
-          columns: 3
+          span: 3
         codifications:
           - MS-ABORTION-METHOD-TYPE
         tags:

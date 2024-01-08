@@ -1,7 +1,6 @@
-import { Contact, Service } from '@icure/api'
 import { ContactFormValuesContainer } from '../src/icure'
 import { v4 as uuid } from 'uuid'
-
+import { Contact, Service } from '@icure/api'
 export const makeFormValuesContainer = () => {
 	const cc = new Contact({
 		id: 'c2',
@@ -35,6 +34,19 @@ export const makeFormValuesContainer = () => {
 		],
 	})
 
+	const rootForm = {
+		id: 'f1',
+		rev: '12345',
+		formTemplateId: 'abortion',
+	}
+
 	const now = +new Date()
-	return new ContactFormValuesContainer(cc, [ctc], (label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now }))
+	return ContactFormValuesContainer.fromFormsHierarchy(
+		rootForm,
+		cc,
+		[ctc],
+		(label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now }),
+		async () => [],
+		async (fti, label) => ({ id: uuid(), created: +new Date(), modified: +new Date(), formTemplateId: fti, parent: rootForm.id, descr: label }),
+	)
 }

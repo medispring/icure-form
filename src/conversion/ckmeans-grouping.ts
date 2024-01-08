@@ -1,11 +1,11 @@
-import ckmeans from 'simple-statistics/src/ckmeans'
+import ckmeans from './ckmeans'
 
-export const cluster = (data: number[], maxDistance: number) => {
+export const cluster = (data: number[], maxDistanceInCluster: number, minDistanceBetweenClusters: number, slots?: number) => {
 	if (!data.length) {
 		return { centroids: [], clusters: [] }
 	}
 
-	let k = Math.max(Math.round(data.length / 5), 1) //Initialise k to a number of clusters equals to 1/5 of the number of data points
+	let k = slots ?? Math.max(Math.round(data.length / 5), 1) //Initialise k to a number of clusters equals to 1/5 of the number of data points
 
 	const history = []
 	let isNotStable = true
@@ -25,7 +25,7 @@ export const cluster = (data: number[], maxDistance: number) => {
 
 		for (let i = 0; i < positions.length - 1; i++) {
 			const dist = Math.abs(positions[i] - positions[i + 1])
-			if (dist < maxDistance) {
+			if (dist < minDistanceBetweenClusters) {
 				if (!history.includes(k - 1)) {
 					isNotStable = true
 					k--
@@ -38,7 +38,7 @@ export const cluster = (data: number[], maxDistance: number) => {
 		}
 		for (let i = 0; i < clusters.length; i++) {
 			const maxDistance = clusters[i].reduce((s, v) => Math.max(s, Math.abs(v - centroids[i])), 0)
-			if (maxDistance > maxDistance) {
+			if (maxDistance > maxDistanceInCluster) {
 				isNotStable = true
 				k++
 				break

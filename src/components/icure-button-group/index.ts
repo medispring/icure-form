@@ -95,10 +95,10 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 	}
 
 	private generateStyle() {
-		return this.styleOptions?.columns
-			? `grid-template-columns: repeat(${this.styleOptions?.columns}, 1fr);`
+		return this.styleOptions?.span
+			? `grid-template-span: repeat(${this.styleOptions?.span}, 1fr);`
 			: this.styleOptions?.rows
-			? `grid-template-columns: repeat(${Number((this.displayedOptions?.length ?? 0) / (this.styleOptions?.rows as number))}, 1fr);`
+			? `grid-template-span: repeat(${Number((this.displayedOptions?.length ?? 0) / (this.styleOptions?.rows as number))}, 1fr);`
 			: ''
 	}
 }

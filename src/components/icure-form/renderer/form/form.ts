@@ -1,15 +1,102 @@
-import { html, nothing, TemplateResult } from 'lit'
-import { Renderer, RendererProps } from './index'
-import { fieldValuesProvider, handleMetadataChanged, handleValueChanged } from '../../../utils/fields-values-provider'
-import { currentDate, currentDateTime, currentTime } from '../../../utils/icure-utils'
+import { css, html, LitElement, nothing, TemplateResult } from 'lit'
+import { Renderer, RendererProps } from '../index'
+import { fieldValuesProvider, handleMetadataChanged, handleValueChanged } from '../../../../utils/fields-values-provider'
+import { currentDate, currentDateTime, currentTime } from '../../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
-import { Code, FieldMetadata, FieldValue, Form, Field, Group, SubForm, SortOptions } from '../../model'
-import { FormValuesContainer } from '../../../generic'
+import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
+import { FormValuesContainer } from '../../../../generic'
 
-import '../fields'
-import { defaultTranslationProvider } from '../../../utils/languages'
-import { getLabels } from '../../common/utils'
-import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../utils/code-utils'
+import '../../fields'
+import { defaultTranslationProvider } from '../../../../utils/languages'
+import { getLabels } from '../../../common/utils'
+import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
+
+// @ts-ignore
+import baseCss from '../../../styles/style.scss'
+// @ts-ignore
+import kendoCss from '../../../styles/kendo.scss'
+import { property, state } from 'lit/decorators.js'
+
+export class FormSelectionButton extends LitElement {
+	@property() forms?: [string, Form][]
+	@property() formAdded: (title: string, form: Form) => void = () => {
+		/* Do nothing */
+	}
+	@state() private displayMenu = false
+	static get styles() {
+		return css`
+			.options-container {
+				position: relative;
+			}
+
+			.options {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				position: absolute;
+				top: 30px;
+				right: 0;
+				z-index: 2;
+				background: #fff;
+				box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+				width: auto;
+				min-width: 100%;
+				overflow-y: auto;
+				max-height: 280px;
+			}
+
+			.option {
+				height: 28px;
+				min-height: 28px;
+				width: 100%;
+				background: transparent;
+				border-radius: 4px;
+				font-size: 14px;
+				color: #545454;
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
+				justify-content: flex-start;
+				box-shadow: none;
+				border: none;
+				white-space: nowrap;
+				overflow-x: hidden;
+				text-overflow: ellipsis;
+				padding: 4px 8px;
+				-webkit-user-select: none; /* Safari */
+				-ms-user-select: none; /* IE 10 and IE 11 */
+				user-select: none; /* Standard syntax */
+			}
+
+			.option:hover {
+				color: #656565;
+				background-color: #ededed;
+			}
+		`
+	}
+	render() {
+		return html`<div class="options-container">
+			<button class="btn" @click="${() => (this.displayMenu = true)}">+</button>
+			${this.displayMenu
+				? html`<div class="options">
+						${this.forms?.map(
+							([id, form]) =>
+								html`<button
+									class="option"
+									@click=${() => {
+										this.formAdded(id, form)
+										this.displayMenu = false
+									}}
+								>
+									${id}
+								</button>`,
+						)}
+				  </div>`
+				: nothing}
+		</div>`
+	}
+}
+customElements.define('form-selection-button', FormSelectionButton)
 
 export const render: Renderer = (
 	form: Form,
@@ -60,29 +147,37 @@ export const render: Renderer = (
 			: html`<h6>${content}</h6>`
 	}
 
-	function renderGroup(fg: Group, fgColumns: number, level: number) {
-		return html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupWidth(fgColumns, fg.width)}">
+	function renderGroup(fg: Group, fgSpan: number, level: number) {
+		return html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupWidth(fgSpan, fg.width)}">
 			${fg.borderless ? nothing : html`<div>${h(level, html`${fg.group}`)}</div>`}
-			<div class="icure-form" style="grid-template-columns: repeat(${fgColumns}, 1fr)">
-				${(fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1))}
-			</div>
+			<div class="icure-form">${(fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1))}</div>
 		</div>`
 	}
 
-	function renderSubform(fg: SubForm, fgColumns: number) {
-		const children = formsValueContainer?.getChildren(fg.title)
-		return html`<div class="group" style="${calculateFieldOrGroupWidth(fgColumns, fg.width)}">
-			${Object.entries(children ?? {})?.flatMap(([formKey, children]) => {
-				const form = fg?.forms?.[formKey]
-				return children.map((child) => form && render(form, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)).filter((x) => !!x)
-			})}
+	function renderSubform(fg: Subform, fgSpan: number, level: number) {
+		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
+		return html`<div class="subform" style="${calculateFieldOrGroupWidth(fgSpan, fg.width)}">
+			<div>${h(level, html`${fg.shortLabel}`)}</div>
+			<form-selection-button
+				class="float-right-btn"
+				.forms="${Object.entries(fg.forms)}"
+				.formAdded="${(title: string, form: Form) => {
+					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.id)
+				}}"
+			></form-selection-button>
+			${children
+				?.map((child) => {
+					const childForm = Object.values(fg.forms).find((f) => f.id === child.getFormId())
+					return childForm && render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)
+				})
+				.filter((x) => !!x)}
 		</div>`
 	}
 
-	function renderTextField(fgColumns: number, fg: Field) {
+	function renderTextField(fgSpan: number, fg: Field) {
 		return html`<icure-form-textfield
 			class="icure-form-field"
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows, fg.styleOptions?.width)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows, fg.styleOptions?.width)}"
 			label="${fg.field}"
 			value="${fg.value}"
 			.displayedLabels="${getLabels(fg)}"
@@ -104,9 +199,9 @@ export const render: Renderer = (
 		></icure-form-textfield>`
 	}
 
-	function renderMeasureField(fgColumns: number, fg: Field) {
+	function renderMeasureField(fgSpan: number, fg: Field) {
 		return html`<icure-form-measure-field
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -122,9 +217,9 @@ export const render: Renderer = (
 		></icure-form-measure-field>`
 	}
 
-	function renderNumberField(fgColumns: number, fg: Field) {
+	function renderNumberField(fgSpan: number, fg: Field) {
 		return html`<icure-form-number-field
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -139,9 +234,9 @@ export const render: Renderer = (
 		></icure-form-number-field>`
 	}
 
-	function renderDatePicker(fgColumns: number, fg: Field) {
+	function renderDatePicker(fgSpan: number, fg: Field) {
 		return html`<icure-form-date-picker
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDate() : fg.value}"
@@ -156,9 +251,9 @@ export const render: Renderer = (
 		></icure-form-date-picker>`
 	}
 
-	function renderTimePicker(fgColumns: number, fg: Field) {
+	function renderTimePicker(fgSpan: number, fg: Field) {
 		return html`<icure-form-time-picker
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentTime() : fg.value}"
@@ -173,9 +268,9 @@ export const render: Renderer = (
 		></icure-form-time-picker>`
 	}
 
-	function renderDateTimePicker(fgColumns: number, fg: Field) {
+	function renderDateTimePicker(fgSpan: number, fg: Field) {
 		return html`<icure-form-date-time-picker
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDateTime() : fg.value}"
@@ -190,9 +285,9 @@ export const render: Renderer = (
 		></icure-form-date-time-picker>`
 	}
 
-	function renderDropdownField(fgColumns: number, fg: Field) {
+	function renderDropdownField(fgSpan: number, fg: Field) {
 		return html`<icure-form-dropdown-field
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			.label=${fg.field}
 			.displayedLabels=${getLabels(fg)}
 			defaultLanguage="${props.defaultLanguage}"
@@ -214,9 +309,9 @@ export const render: Renderer = (
 		></icure-form-dropdown-field>`
 	}
 
-	function renderRadioButtons(fgColumns: number, fg: Field) {
+	function renderRadioButtons(fgSpan: number, fg: Field) {
 		return html`<icure-form-radio-button
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			defaultLanguage="${props.defaultLanguage}"
@@ -237,9 +332,9 @@ export const render: Renderer = (
 		></icure-form-radio-button>`
 	}
 
-	function renderCheckboxes(fgColumns: number, fg: Field) {
+	function renderCheckboxes(fgSpan: number, fg: Field) {
 		return html` <icure-form-checkbox
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			defaultLanguage="${props.defaultLanguage}"
@@ -261,9 +356,9 @@ export const render: Renderer = (
 		></icure-form-checkbox>`
 	}
 
-	function renderLabel(fgColumns: number, fg: Field) {
+	function renderLabel(fgSpan: number, fg: Field) {
 		return html`<icure-form-label
-			style="${calculateFieldOrGroupWidth(fgColumns, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
 			labelPosition=${props.labelPosition}
 			label="${fg.field}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -272,7 +367,7 @@ export const render: Renderer = (
 		></icure-form-label>`
 	}
 
-	const renderFieldGroupOrSubform = function (fg: Field | Group | SubForm, level: number): TemplateResult | TemplateResult[] {
+	const renderFieldGroupOrSubform = function (fg: Field | Group | Subform, level: number): TemplateResult | TemplateResult[] {
 		const computedProperties = Object.keys(fg.computedProperties ?? {}).reduce(
 			(acc, k) => ({ ...acc, [k]: fg.computedProperties?.[k] && formsValueContainer?.compute(fg.computedProperties[k]) }),
 			{},
@@ -281,42 +376,42 @@ export const render: Renderer = (
 			return html``
 		}
 
-		const fgColumns = computedProperties['columns'] ?? fg.columns ?? 6
+		const fgSpan = computedProperties['span'] ?? fg.span ?? 6
 
 		if (fg.clazz === 'group' && fg.fields?.length) {
-			return renderGroup((fg as Group).copy({ ...computedProperties }), fgColumns, level)
-		} else if (fg.clazz === 'subform' && (fg.title || computedProperties['title'])) {
-			return renderSubform((fg as SubForm).copy({ ...computedProperties }), fgColumns)
+			return renderGroup((fg as Group).copy({ ...computedProperties }), fgSpan, level)
+		} else if (fg.clazz === 'subform' && (fg.id || computedProperties['title'])) {
+			return renderSubform((fg as Subform).copy({ ...computedProperties }), fgSpan, level)
 		} else if (fg.clazz === 'field') {
 			const field = fg.copy({ ...computedProperties })
 			return html`${fg.type === 'textfield'
-				? renderTextField(fgColumns, field)
+				? renderTextField(fgSpan, field)
 				: fg.type === 'measure-field'
-				? renderMeasureField(fgColumns, field)
+				? renderMeasureField(fgSpan, field)
 				: fg.type === 'number-field'
-				? renderNumberField(fgColumns, field)
+				? renderNumberField(fgSpan, field)
 				: fg.type === 'date-picker'
-				? renderDatePicker(fgColumns, field)
+				? renderDatePicker(fgSpan, field)
 				: fg.type === 'time-picker'
-				? renderTimePicker(fgColumns, field)
+				? renderTimePicker(fgSpan, field)
 				: fg.type === 'date-time-picker'
-				? renderDateTimePicker(fgColumns, field)
+				? renderDateTimePicker(fgSpan, field)
 				: fg.type === 'dropdown-field'
-				? renderDropdownField(fgColumns, field)
+				? renderDropdownField(fgSpan, field)
 				: fg.type === 'radio-button'
-				? renderRadioButtons(fgColumns, field)
+				? renderRadioButtons(fgSpan, field)
 				: fg.type === 'checkbox'
-				? renderCheckboxes(fgColumns, field)
+				? renderCheckboxes(fgSpan, field)
 				: fg.type === 'label'
-				? renderLabel(fgColumns, field)
+				? renderLabel(fgSpan, field)
 				: ''}`
 		}
 		return html``
 	}
 
-	const calculateFieldOrGroupWidth = (columns: number, fieldWidth?: number, shouldFieldGrow?: boolean, fixedWidth?: number | undefined) => {
+	const calculateFieldOrGroupWidth = (span: number, fieldWidth?: number, shouldFieldGrow?: boolean, fixedWidth?: number | undefined) => {
 		if (fixedWidth) return `width: ${fixedWidth}px`
-		return `grid-column: span ${columns};`
+		return `grid-column: span ${span};`
 	}
 
 	const renderForm = (form: Form) => {

@@ -65,7 +65,6 @@
 		"prosemirror-state": "1.4.3",
 		"prosemirror-transform": "1.8.0",
 		"prosemirror-view": "1.32.7",
-		"simple-statistics": "^7.8.3",
 		"uuid": "^9.0.1",
 		"yaml": "2.3.4"
 	},

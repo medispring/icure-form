@@ -16,6 +16,7 @@ $border-radius: 2px;
 $textbox-line-height: 1.4em !default;
 $textbox-default-width: 100%;
 $textbox-font-size: 14px !default;
+$label-font-size: 12px !default;
 
 $input-border-width: 1px;
 $input-padding-y: 4px;
@@ -40,14 +41,15 @@ $font-weight-label: 500;
 		pointer-events: none;
 		line-height: $textbox-line-height;
 		cursor: text;
-		font-size: $textbox-font-size;
+		font-size: $label-font-size;
 		left: add-two($input-padding-x, $input-border-width);
 		transition: transform $floating-label-transition, color $floating-label-transition;
 		color: $color;
 		align-items: center;
 		height: 28px;
 		max-width: 55%;
-		min-width: 220px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		> span {
 			display: block;
 			word-wrap: break-word;
@@ -113,7 +115,6 @@ $font-weight-label: 500;
 		border-color: $border-color;
 		color: $color;
 		box-sizing: border-box;
-		min-width: 220px;
 		&:focus,
 		&:focus-within {
 			box-shadow: $textbox-shadow;

@@ -1,4 +1,4 @@
-import { Contact, Content, Service } from '@icure/api'
+import { Contact, Content, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from '../icure'
@@ -28,13 +28,27 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		this.changeListeners = changeListeners
 		const listener = (newContactFormValuesContainer: ContactFormValuesContainer) => {
 			newContactFormValuesContainer.unregisterChangeListener(listener) //Will be added again on the next line
-			const newBridgedFormValueContainer = new BridgedFormValuesContainer(this.responsible, newContactFormValuesContainer, this.interpreter, this.contact, this.changeListeners)
+			const newBridgedFormValueContainer = new BridgedFormValuesContainer(
+				this.responsible,
+				newContactFormValuesContainer,
+				this.interpreter,
+				this.contact === this.contactFormValuesContainer.currentContact ? newContactFormValuesContainer.currentContact : this.contact,
+				this.changeListeners,
+			)
 			this.changeListeners.forEach((l) => l(newBridgedFormValueContainer))
 		}
 		this.contactFormValuesContainer.registerChangeListener(listener)
 	}
 
 	private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[]
+
+	getLabel(): string {
+		return this.contactFormValuesContainer.getLabel()
+	}
+
+	getFormId(): string | undefined {
+		return this.contactFormValuesContainer.getFormId()
+	}
 
 	getContactFormValuesContainer() {
 		return this.contactFormValuesContainer
@@ -209,40 +223,103 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		})
 		return this.interpreter?.(formula, sandbox ?? proxy)
 	}
-	getChildren(subform: string): { [form: string]: FormValuesContainer<FieldValue, FieldMetadata>[] } {
-		return Object.entries(this.contactFormValuesContainer.getChildren(subform)).reduce(
-			(acc, [form, fvc]) => ({
-				...acc,
-				[form]: fvc.map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact)),
-			}),
-			{},
-		)
+	getChildren(): FormValuesContainer<FieldValue, FieldMetadata>[] {
+		return this.contactFormValuesContainer.getChildren().map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact))
+	}
+
+	async addChild(parentId: string, templateId: string, label: string): Promise<BridgedFormValuesContainer> {
+		const newChild = await this.contactFormValuesContainer.addChild(parentId, templateId, label)
+		return new BridgedFormValuesContainer(this.responsible, newChild, this.interpreter, this.contact)
 	}
 }
 
 export class ContactFormValuesContainer implements FormValuesContainer<Service, ServiceMetadata> {
+	rootForm: ICureForm
 	currentContact: Contact //The contact of the moment, used to record new modifications
 	contactsHistory: Contact[] //Must be sorted (most recent first), contains all the contacts linked to this form
-
+	children: ContactFormValuesContainer[] //Direct children of the ContactFormValuesContainer
 	serviceFactory: (label: string, serviceId?: string) => Service
-	//Actions management
+	formFactory: (formTemplateId: string, label: string) => Promise<ICureForm>
 
 	changeListeners: ((newValue: ContactFormValuesContainer) => void)[]
 
 	constructor(
+		rootForm: ICureForm,
 		currentContact: Contact,
 		contactsHistory: Contact[],
 		serviceFactory: (label: string, serviceId?: string) => Service,
+		children: ContactFormValuesContainer[],
+		formFactory: (formTemplateId: string, label: string) => Promise<ICureForm>,
 		changeListeners: ((newValue: ContactFormValuesContainer) => void)[] = [],
 	) {
 		if (contactsHistory.includes(currentContact)) {
 			throw new Error('Illegal argument, the history must not contain the currentContact')
 		}
+		this.rootForm = rootForm
 		this.currentContact = currentContact
 		this.contactsHistory = sortedBy(contactsHistory, 'created', 'desc')
+		this.children = children
 		this.serviceFactory = serviceFactory
-
+		this.formFactory = formFactory
 		this.changeListeners = changeListeners
+	}
+
+	registerChildFormValuesContainer(childFVC: ContactFormValuesContainer) {
+		childFVC.registerChangeListener((newValue) => {
+			const newContactFormValuesContainer = new ContactFormValuesContainer(
+				this.rootForm,
+				this.currentContact,
+				this.contactsHistory,
+				this.serviceFactory,
+				this.children.map((c) => (c === childFVC ? newValue : c)),
+				this.formFactory,
+
+				this.changeListeners,
+			)
+			this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
+		})
+	}
+
+	static async fromFormsHierarchy(
+		rootForm: ICureForm,
+		currentContact: Contact,
+		contactsHistory: Contact[],
+		serviceFactory: (label: string, serviceId?: string) => Service,
+		formChildrenProvider: (parentId: string) => Promise<ICureForm[]>,
+		formFactory: (formTemplateId: string, label: string) => Promise<ICureForm>,
+		changeListeners: ((newValue: ContactFormValuesContainer) => void)[] = [],
+	): Promise<ContactFormValuesContainer> {
+		const contactFormValuesContainer = new ContactFormValuesContainer(
+			rootForm,
+			currentContact,
+			contactsHistory,
+			serviceFactory,
+			rootForm.id
+				? await Promise.all(
+						(
+							await formChildrenProvider(rootForm.id)
+						).map(
+							async (f) =>
+								// eslint-disable-next-line max-len
+								await ContactFormValuesContainer.fromFormsHierarchy(f, currentContact, contactsHistory, serviceFactory, formChildrenProvider, formFactory),
+						),
+				  )
+				: [],
+			formFactory,
+
+			changeListeners,
+		)
+		contactFormValuesContainer.children.forEach((childFVC) => contactFormValuesContainer.registerChildFormValuesContainer(childFVC))
+
+		return contactFormValuesContainer
+	}
+
+	getLabel(): string {
+		return this.rootForm.descr ?? ''
+	}
+
+	getFormId(): string | undefined {
+		return this.rootForm?.formTemplateId
 	}
 
 	registerChangeListener(listener: (newValue: ContactFormValuesContainer) => void): void {
@@ -253,8 +330,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		this.changeListeners = this.changeListeners.filter((l) => l !== listener)
 	}
 
-	getChildren(subform: string): { [form: string]: ContactFormValuesContainer[] } {
-		throw new Error('Method not implemented.')
+	getChildren(): ContactFormValuesContainer[] {
+		return this.children
 	}
 
 	getValues(revisionsFilter: (id: string, history: Version<ServiceMetadata>[]) => (string | null)[]): VersionedData<Service> {
@@ -322,9 +399,13 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			meta.tags && (newService.tags = meta.tags)
 
 			const newFormValuesContainer = new ContactFormValuesContainer(
+				this.rootForm,
 				{ ...this.currentContact, services: this.currentContact.services?.map((s) => (s.id === service.id ? newService : s)) },
 				this.contactsHistory,
 				this.serviceFactory,
+				this.children,
+				this.formFactory,
+
 				this.changeListeners,
 			)
 
@@ -365,9 +446,13 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 					: [...(this.currentContact.services ?? []), newService],
 			}
 			const newFormValuesContainer = new ContactFormValuesContainer(
+				this.rootForm,
 				newCurrentContact,
 				this.contactsHistory.map((c) => (c === this.currentContact ? newCurrentContact : c)),
 				this.serviceFactory,
+				this.children,
+				this.formFactory,
+
 				this.changeListeners,
 			)
 
@@ -381,16 +466,21 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		const service = this.getServiceInCurrentContact(serviceId)
 		if (service) {
 			const newFormValuesContainer = new ContactFormValuesContainer(
+				this.rootForm,
 				{ ...this.currentContact, services: this.currentContact.services?.map((s) => (s.id === serviceId ? new Service({ ...service, endOfLife: Date.now() }) : s)) },
 				this.contactsHistory,
 				this.serviceFactory,
+				this.children,
+				this.formFactory,
+
+				this.changeListeners,
 			)
 
 			this.changeListeners.forEach((l) => l(newFormValuesContainer))
 		}
 	}
 
-	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined {
+	compute<T, S extends { [key: string | symbol]: unknown }>(): T | undefined {
 		throw new Error('Compute not supported at contact level')
 	}
 
@@ -430,6 +520,22 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				return [id, history.filter(({ revision }) => keptRevisions.includes(revision))] as [string, Version<Service>[]]
 			})
 			.reduce((acc, [id, history]) => ({ ...acc, [id]: history }), {})
+	}
+
+	async addChild(parentId: string, templateId: string, label: string): Promise<ContactFormValuesContainer> {
+		const newForm = await this.formFactory(templateId, label)
+		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory)
+		const newContactFormValuesContainer = new ContactFormValuesContainer(
+			this.rootForm,
+			this.currentContact,
+			this.contactsHistory,
+			this.serviceFactory,
+			[...this.children, childFVC],
+			this.formFactory,
+		)
+		newContactFormValuesContainer.registerChildFormValuesContainer(childFVC)
+		this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
+		return newContactFormValuesContainer
 	}
 
 	private getServiceInCurrentContact(id: string): Service {

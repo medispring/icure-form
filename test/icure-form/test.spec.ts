@@ -27,7 +27,7 @@ describe('Form parsing tests', () => {
 				'        field: What symptoms, or more generally what reason motivated your visit\n' +
 				'        type: textfield\n' +
 				'        grows: false\n' +
-				'        columns: 1\n' +
+				'        span: 1\n' +
 				'        schema: styled-text-with-codes\n' +
 				'        now: false\n' +
 				'        translate: true\n',
@@ -44,7 +44,7 @@ describe('Form parsing tests', () => {
 			'        field: What symptoms, or more generally what reason motivated your visit\n' +
 			'        type: textfield\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        schema: styled-text-with-codes\n' +
 			'        now: false\n' +
 			'        translate: true\n' +
@@ -88,7 +88,7 @@ describe('Form parsing tests', () => {
 										new TextField('This field is a TextField', {
 											shortLabel: 'TextField',
 											grows: false,
-											columns: 1,
+											span: 1,
 											schema: 'text-document',
 											tags: ['CD-ITEM|diagnosis|1'],
 											codifications: ['BE-THESAURUS', 'ICD10'],
@@ -97,7 +97,7 @@ describe('Form parsing tests', () => {
 										new NumberField('This field is a NumberField', {
 											shortLabel: 'NumberField',
 											grows: false,
-											columns: 1,
+											span: 1,
 											tags: ['CD-ITEM|parameter|1', 'CD-PARAMETER|bmi|1'],
 											codifications: [],
 											options: { option: 'bang' },
@@ -105,7 +105,7 @@ describe('Form parsing tests', () => {
 										new MeasureField('This field is a MeasureField', {
 											shortLabel: 'MeasureField',
 											grows: false,
-											columns: 1,
+											span: 1,
 											tags: ['CD-ITEM|parameter|1', 'CD-PARAMETER|heartbeat|1'],
 											codifications: [],
 											options: { unit: 'bpm' },
@@ -133,7 +133,7 @@ sections:
         type: textfield
         shortLabel: TextField
         grows: false
-        columns: 1
+        span: 1
         schema: styled-text-with-codes
         now: false
         translate: true
@@ -142,7 +142,7 @@ sections:
         type: number-field
         shortLabel: NumberField
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         now: false
         translate: true
@@ -151,7 +151,7 @@ sections:
         type: measure-field
         shortLabel: MeasureField
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         now: false
         translate: true
@@ -160,7 +160,7 @@ sections:
         type: date-picker
         shortLabel: DatePicker
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         translate: true
       - clazz: field
@@ -168,7 +168,7 @@ sections:
         type: time-picker
         shortLabel: TimePicker
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         translate: true
       - clazz: field
@@ -176,7 +176,7 @@ sections:
         type: date-time-picker
         shortLabel: DateTimePicker
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         translate: true
       - clazz: field
@@ -184,7 +184,7 @@ sections:
         type: multiple-choice
         shortLabel: MultipleChoice
         grows: false
-        columns: 1
+        span: 1
         multiline: false
         now: false
         translate: true
@@ -198,7 +198,7 @@ sections:
             type: textfield
             shortLabel: TextField
             grows: false
-            columns: 1
+            span: 1
             schema: styled-text-with-codes
             now: false
             translate: true
@@ -207,7 +207,7 @@ sections:
             type: number-field
             shortLabel: NumberField
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             now: false
             translate: true
@@ -216,7 +216,7 @@ sections:
             type: measure-field
             shortLabel: MeasureField
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             now: false
             translate: true
@@ -225,7 +225,7 @@ sections:
             type: date-picker
             shortLabel: DatePicker
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             translate: true
           - clazz: field
@@ -233,7 +233,7 @@ sections:
             type: time-picker
             shortLabel: TimePicker
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             translate: true
           - clazz: field
@@ -241,7 +241,7 @@ sections:
             type: date-time-picker
             shortLabel: DateTimePicker
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             translate: true
           - clazz: field
@@ -249,7 +249,7 @@ sections:
             type: multiple-choice
             shortLabel: MultipleChoice
             grows: false
-            columns: 1
+            span: 1
             multiline: false
             now: false
             translate: true
@@ -261,7 +261,7 @@ sections:
             type: textfield
             shortLabel: TextField
             grows: false
-            columns: 1
+            span: 1
             schema: text-document
             tags:
               - CD-ITEM|diagnosis|1
@@ -277,7 +277,7 @@ sections:
             type: number-field
             shortLabel: NumberField
             grows: false
-            columns: 1
+            span: 1
             tags:
               - CD-ITEM|parameter|1
               - CD-PARAMETER|bmi|1
@@ -292,7 +292,7 @@ sections:
             type: measure-field
             shortLabel: MeasureField
             grows: false
-            columns: 1
+            span: 1
             tags:
               - CD-ITEM|parameter|1
               - CD-PARAMETER|heartbeat|1
@@ -307,7 +307,7 @@ sections:
             type: multiple-choice
             shortLabel: MultipleChoice
             grows: false
-            columns: 4
+            span: 4
             tags: []
             codifications:
               - KATZ
@@ -331,7 +331,7 @@ sections:
 			'        type: textfield\n' +
 			'        shortLabel: TextField\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        schema: styled-text-with-codes\n' +
 			'        now: false\n' +
 			'        translate: true\n' +
@@ -340,7 +340,7 @@ sections:
 			'        type: number-field\n' +
 			'        shortLabel: NumberField\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        now: false\n' +
 			'        translate: true\n' +
@@ -349,7 +349,7 @@ sections:
 			'        type: measure-field\n' +
 			'        shortLabel: MeasureField\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        now: false\n' +
 			'        translate: true\n' +
@@ -358,7 +358,7 @@ sections:
 			'        type: date-picker\n' +
 			'        shortLabel: DatePicker\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        translate: true\n' +
 			'      - clazz: field\n' +
@@ -366,7 +366,7 @@ sections:
 			'        type: time-picker\n' +
 			'        shortLabel: TimePicker\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        translate: true\n' +
 			'      - clazz: field\n' +
@@ -374,7 +374,7 @@ sections:
 			'        type: date-time-picker\n' +
 			'        shortLabel: DateTimePicker\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        translate: true\n' +
 			'      - clazz: field\n' +
@@ -382,7 +382,7 @@ sections:
 			'        type: multiple-choice\n' +
 			'        shortLabel: MultipleChoice\n' +
 			'        grows: false\n' +
-			'        columns: 1\n' +
+			'        span: 1\n' +
 			'        multiline: false\n' +
 			'        now: false\n' +
 			'        translate: true\n' +
@@ -396,7 +396,7 @@ sections:
 			'            type: textfield\n' +
 			'            shortLabel: TextField\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            schema: styled-text-with-codes\n' +
 			'            now: false\n' +
 			'            translate: true\n' +
@@ -405,7 +405,7 @@ sections:
 			'            type: number-field\n' +
 			'            shortLabel: NumberField\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            now: false\n' +
 			'            translate: true\n' +
@@ -414,7 +414,7 @@ sections:
 			'            type: measure-field\n' +
 			'            shortLabel: MeasureField\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            now: false\n' +
 			'            translate: true\n' +
@@ -423,7 +423,7 @@ sections:
 			'            type: date-picker\n' +
 			'            shortLabel: DatePicker\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            translate: true\n' +
 			'          - clazz: field\n' +
@@ -431,7 +431,7 @@ sections:
 			'            type: time-picker\n' +
 			'            shortLabel: TimePicker\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            translate: true\n' +
 			'          - clazz: field\n' +
@@ -439,7 +439,7 @@ sections:
 			'            type: date-time-picker\n' +
 			'            shortLabel: DateTimePicker\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            translate: true\n' +
 			'          - clazz: field\n' +
@@ -447,7 +447,7 @@ sections:
 			'            type: multiple-choice\n' +
 			'            shortLabel: MultipleChoice\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            multiline: false\n' +
 			'            now: false\n' +
 			'            translate: true\n' +
@@ -459,7 +459,7 @@ sections:
 			'            type: textfield\n' +
 			'            shortLabel: TextField\n' +
 			'            grows: true\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            schema: text-document\n' +
 			'            tags:\n' +
 			'              - CD-ITEM|diagnosis|1\n' +
@@ -475,7 +475,7 @@ sections:
 			'            type: number-field\n' +
 			'            shortLabel: NumberField\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            tags:\n' +
 			'              - CD-ITEM|parameter|1\n' +
 			'              - CD-PARAMETER|bmi|1\n' +
@@ -490,7 +490,7 @@ sections:
 			'            type: measure-field\n' +
 			'            shortLabel: MeasureField\n' +
 			'            grows: false\n' +
-			'            columns: 1\n' +
+			'            span: 1\n' +
 			'            tags:\n' +
 			'              - CD-ITEM|parameter|1\n' +
 			'              - CD-PARAMETER|heartbeat|1\n' +
@@ -505,7 +505,7 @@ sections:
 			'            type: multiple-choice\n' +
 			'            shortLabel: MultipleChoice\n' +
 			'            grows: false\n' +
-			'            columns: 4\n' +
+			'            span: 4\n' +
 			'            tags: []\n' +
 			'            codifications:\n' +
 			'              - KATZ\n' +
@@ -530,7 +530,7 @@ sections:
           "field": "Type de consultation",
           "shortLabel": "contactType",
           "rows": 1,
-          "columns": 1,
+          "span": 1,
           "tags": [
             "MS-IVG|CONTACT-TYPE|1"
           ],
@@ -552,7 +552,7 @@ sections:
             "CD-CUSTOM-IVG|WAITING-ROOM-FOLLOWERS-NUMBER|1"
           ],
           "rows": 2,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "0",
           "type": "number-field"
@@ -564,7 +564,7 @@ sections:
             "CD-CUSTOM-IVG|CONSULTATION-FOLLOWERS-NUMBER|1"
           ],
           "rows": 2,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "0",
           "type": "number-field"
@@ -573,7 +573,7 @@ sections:
           "field": "Personnes Accompagnants",
           "shortLabel": "PersonFollowerType",
           "rows": 3,
-          "columns": 1,
+          "span": 1,
           "tags": [
             "CD-CUSTOM-IVG|PERSON-FOLLOWER-TYPE|1"
           ],
@@ -591,7 +591,7 @@ sections:
           "field": "Profession de la patiente",
           "shortLabel": "PatientProfession",
           "rows": 4,
-          "columns": 1,
+          "span": 1,
           "tags": [
             "CD-CUSTOM-IVG|PATIENT-PROFESSION|1"
           ],
@@ -612,7 +612,7 @@ sections:
             "CD-CUSTOM-IVG|CHILD-NUMBER|1"
           ],
           "rows": 5,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "0",
           "type": "number-field"
@@ -624,7 +624,7 @@ sections:
             "CD-CUSTOM-IVG|CHILD-IN-CHARGE-NUMBER|1"
           ],
           "rows": 5,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "0",
           "type": "number-field"
@@ -636,7 +636,7 @@ sections:
             "CD-CUSTOM-IVG|MINUTES-TRACKING-NUMBER|1"
           ],
           "rows": 6,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "50",
           "type": "measure-field"
@@ -648,7 +648,7 @@ sections:
             "CD-CUSTOM-IVG|MINUTES-CONTRACEPTION-NUMBER|1"
           ],
           "rows": 6,
-          "columns": 1,
+          "span": 1,
           "required": true,
           "value": "10",
           "type": "measure-field"
@@ -660,7 +660,7 @@ sections:
           "tags": [
             "CD-CUSTOM-IVG|HISTORY|1"
           ],
-          "columns": 1,
+          "span": 1,
           "required": false,
           "type": "textfield"
         },
@@ -671,7 +671,7 @@ sections:
           "tags": [
             "CD-CUSTOM-IVG|SEXUAL-POSITION|1"
           ],
-          "columns": 1,
+          "span": 1,
           "required": false,
           "type": "textfield"
         },
@@ -682,7 +682,7 @@ sections:
           "tags": [
             "CD-CUSTOM-IVG|DECISION-PROCESSUS|1"
           ],
-          "columns": 1,
+          "span": 1,
           "required": false,
           "type": "textfield"
         },
@@ -690,7 +690,7 @@ sections:
           "field": "Première décision de la patiente",
           "shortLabel": "firstChoice",
           "rows": 9,
-          "columns": 1,
+          "span": 1,
           "tags": [
             "CD-CUSTOM-IVG|FIRST-CHOICE|1"
           ],
@@ -710,7 +710,7 @@ sections:
           "tags": [
             "CD-CUSTOM-IVG|NOTES|1"
           ],
-          "columns": 1,
+          "span": 1,
           "required": false,
           "type": "textfield"
         }
