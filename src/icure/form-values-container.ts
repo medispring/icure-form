@@ -20,7 +20,15 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	constructor(
 		private responsible: string,
 		private contactFormValuesContainer: ContactFormValuesContainer,
-		private interpreter?: <T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox: S) => T | undefined,
+		private interpreter?: <
+			T,
+			S extends {
+				[key: string | symbol]: unknown
+			},
+		>(
+			formula: string,
+			sandbox: S,
+		) => T | undefined,
 		contact?: Contact,
 		changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
 	) {
@@ -57,6 +65,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	registerChangeListener(listener: (newValue: BridgedFormValuesContainer) => void): void {
 		this.changeListeners.push(listener)
 	}
+
 	unregisterChangeListener(listener: (newValue: BridgedFormValuesContainer) => void): void {
 		this.changeListeners = this.changeListeners.filter((l) => l !== listener)
 	}
@@ -160,6 +169,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			}
 		}, {} as VersionedData<FieldValue>)
 	}
+
 	getMetadata(id: string, revisions: string[]): VersionedData<FieldMetadata> {
 		return Object.entries(this.contactFormValuesContainer.getMetadata(id, revisions)).reduce(
 			(acc, [id, history]) => ({
@@ -178,6 +188,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			{},
 		)
 	}
+
 	setValue(label: string, language: string, fv: FieldValue, id?: string, metadata?: FieldMetadata): string {
 		const value = fv.content[language]
 		return this.contactFormValuesContainer.setValue(
@@ -208,6 +219,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			id,
 		)
 	}
+
 	delete(serviceId: string): void {
 		this.contactFormValuesContainer.delete(serviceId)
 	}
@@ -223,12 +235,18 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		})
 		return this.interpreter?.(formula, sandbox ?? proxy)
 	}
+
 	getChildren(): FormValuesContainer<FieldValue, FieldMetadata>[] {
 		return this.contactFormValuesContainer.getChildren().map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact))
 	}
 
 	async addChild(parentId: string, templateId: string, label: string): Promise<BridgedFormValuesContainer> {
 		const newChild = await this.contactFormValuesContainer.addChild(parentId, templateId, label)
+		return new BridgedFormValuesContainer(this.responsible, newChild, this.interpreter, this.contact)
+	}
+
+	async removeChild(container: BridgedFormValuesContainer): Promise<BridgedFormValuesContainer> {
+		const newChild = await this.contactFormValuesContainer.removeChild(container.contactFormValuesContainer)
 		return new BridgedFormValuesContainer(this.responsible, newChild, this.interpreter, this.contact)
 	}
 }
@@ -544,5 +562,18 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			throw new Error('Service not found')
 		}
 		return service
+	}
+
+	async removeChild(container: ContactFormValuesContainer): Promise<ContactFormValuesContainer> {
+		const newContactFormValuesContainer = new ContactFormValuesContainer(
+			this.rootForm,
+			this.currentContact,
+			this.contactsHistory,
+			this.serviceFactory,
+			this.children.filter((c) => c !== container),
+			this.formFactory,
+		)
+		this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
+		return newContactFormValuesContainer
 	}
 }

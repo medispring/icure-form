@@ -1,6 +1,7 @@
 @import 'math';
 
 $label-color: #084B83;
+$hr-color: rgba(8, 75, 131, 0.13);
 $color: #000000;
 $border-color: rgba(0, 0, 0, 0.08);
 $textbox-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.06) !default;
@@ -789,7 +790,7 @@ app-date-picker {
 
 .subform {
 	position: relative;
-	margin: 0 -8px 0;
+	margin: 8px -8px 8px;
 	padding: 0 8px 0;
 	min-height: 64px;
 	background-color: $background-color-dark;
@@ -797,7 +798,10 @@ app-date-picker {
 
 .icure-form {
 	hr {
-		border-top: 1px dashed $label-color;
+		display: block;
+		margin-top: 20px;
+		border-top: 1px solid $hr-color;
+		margin-bottom: 20px;
 	}
 	h2 {
 		font-size: add-two($label-font-size, 0, 1.2);

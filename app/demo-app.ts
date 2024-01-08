@@ -17,6 +17,8 @@ import { state } from 'lit/decorators.js'
 import YAML from 'yaml'
 
 import './decorated-form'
+import { BridgedFormValuesContainer } from '../src/icure'
+import { DecoratedForm } from './decorated-form'
 
 const ultrasound = [
 	{ id: 'ULTRASOUND-EVALUATION|01|1', code: '01', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.EMPTY-CAVITY' } },
@@ -78,6 +80,29 @@ class DemoApp extends LitElement {
 		`
 	}
 
+	connectedCallback() {
+		super.connectedCallback()
+		window.onkeydown = (event) => {
+			console.log(event.key)
+			const target = this.shadowRoot?.getElementById(this.selectedForm.id ?? this.selectedForm.form)
+			if (!target) {
+				return
+			}
+			if (event.key === 'Z' && event.metaKey) {
+				event.preventDefault()
+				if ((target as DecoratedForm).redoStack.length > 0) {
+					;(target as DecoratedForm).undoStack.push((target as DecoratedForm).formValuesContainer!)
+					;(target as DecoratedForm).formValuesContainer = (target as DecoratedForm).redoStack.pop() as BridgedFormValuesContainer
+				}
+			} else if (event.key === 'z' && event.metaKey) {
+				event.preventDefault()
+				if ((target as DecoratedForm).undoStack.length > 0) {
+					;(target as DecoratedForm).redoStack.push((target as DecoratedForm).formValuesContainer!)
+					;(target as DecoratedForm).formValuesContainer = (target as DecoratedForm).undoStack.pop() as BridgedFormValuesContainer
+				}
+			}
+		}
+	}
 	async ownersProvider(terms: string[]) {
 		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
 		const candidates = await this.hcpApi.findByName(longestTerm)
@@ -112,7 +137,12 @@ class DemoApp extends LitElement {
 				<div class="detail">
 					${this.samples.map((s) => {
 						return html`<div style="${s.form === this.selectedForm ? '' : 'display: none;'}">
-							<decorated-form .form="${s.form}" .codesProvider="${this.codesProvider.bind(this)}" .optionsProvider="${this.optionsProvider.bind(this)}"></decorated-form>
+							<decorated-form
+								id="${s.form.id ?? s.form.form}"
+								.form="${s.form}"
+								.codesProvider="${this.codesProvider.bind(this)}"
+								.optionsProvider="${this.optionsProvider.bind(this)}"
+							></decorated-form>
 						</div>`
 					})}
 				</div>

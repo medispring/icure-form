@@ -42,7 +42,7 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 								[key: string]: unknown
 							},
 							v: string,
-						) => ({ ...acc, [v]: `LEGACY|${v}|1` }),
+						) => ({ ...acc, [`LEGACY|${v}|1`]: v }),
 						{},
 				  )
 				: undefined,
@@ -132,17 +132,24 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 			return new Section(
 				'Main',
 				formDataClusters.flatMap((formDataRow: FormLayoutData[]) => {
-					const cols = formDataRow.map((formData: FormLayoutData) => {
-						return columnsAccumulatedWidth[
-							columnsAccumulatedWidthWithInterColumns.reduce(
-								([idx, min]: [number, number], x, n) => {
-									const right = (formData.editor?.left ?? 0) + (formData.editor?.width ?? 0) - leftSide
-									return Math.abs(x - right) < min ? [n, Math.abs(x - right)] : [idx, min]
-								},
-								[0, 99999],
-							)[0]
-						]
-					})
+					const cols = formDataRow
+						.map((formData: FormLayoutData) => {
+							return columnsAccumulatedWidth[
+								columnsAccumulatedWidthWithInterColumns.reduce(
+									([idx, min]: [number, number], x, n) => {
+										const right = (formData.editor?.left ?? 0) + (formData.editor?.width ?? 0) - leftSide
+										return Math.abs(x - right) < min ? [n, Math.abs(x - right)] : [idx, min]
+									},
+									[0, 99999],
+								)[0]
+							]
+						})
+						.map((x, idx, cols) => {
+							//Try to solve inverted positions in columns by adding or removing one column
+							const prev = cols[idx - 1] ?? 0
+							const next = cols[idx + 1] ?? TOTAL_COLUMNS
+							return x > prev + 1 && x >= next - 1 ? x - 1 : x === prev ? x + 1 : x
+						})
 					const subRows = cols.reduce((acc, v, idx, cols) => {
 						if (idx === 0) {
 							return [[[idx, v]]]

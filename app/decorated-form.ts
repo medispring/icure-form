@@ -1,4 +1,4 @@
-import '../src/components/themes/default'
+import '../src/components/themes/kendo'
 
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
@@ -55,12 +55,13 @@ const icpc2 = {
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
-class DecoratedForm extends LitElement {
+export class DecoratedForm extends LitElement {
 	@property() form: Form
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 	@property() optionsProvider: (language: string, codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
-	private undoStack: BridgedFormValuesContainer[] = []
-	private redoStack: BridgedFormValuesContainer[] = []
+
+	undoStack: BridgedFormValuesContainer[] = []
+	redoStack: BridgedFormValuesContainer[] = []
 
 	@state() formValuesContainer: BridgedFormValuesContainer | undefined = undefined
 
@@ -96,28 +97,6 @@ class DecoratedForm extends LitElement {
 		`
 	}
 
-	connectedCallback() {
-		super.connectedCallback()
-		window.onkeydown = (event) => {
-			console.log(event.key)
-			if (!this.formValuesContainer) {
-				return
-			}
-			if (event.key === 'Z' && event.metaKey) {
-				event.preventDefault()
-				if (this.redoStack.length > 0) {
-					this.undoStack.push(this.formValuesContainer)
-					this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
-				}
-			} else if (event.key === 'z' && event.metaKey) {
-				event.preventDefault()
-				if (this.undoStack.length > 0) {
-					this.redoStack.push(this.formValuesContainer)
-					this.formValuesContainer = this.undoStack.pop() as BridgedFormValuesContainer
-				}
-			}
-		}
-	}
 	async firstUpdated() {
 		const contactFormValuesContainer = await makeFormValuesContainer()
 		const formValuesContainer = new BridgedFormValuesContainer('user-id', contactFormValuesContainer, makeInterpreter())

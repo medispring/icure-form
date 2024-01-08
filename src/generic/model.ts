@@ -22,6 +22,7 @@ export interface FormValuesContainer<Value, Metadata> {
 	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined
 	getChildren(): FormValuesContainer<Value, Metadata>[]
 	addChild(parentId: string, templateId: string, label: string): Promise<FormValuesContainer<Value, Metadata>>
+	removeChild(container: FormValuesContainer<Value, Metadata>): Promise<FormValuesContainer<Value, Metadata>>
 	registerChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
 	unregisterChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
 }

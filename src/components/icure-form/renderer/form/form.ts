@@ -170,7 +170,7 @@ export const render: Renderer = (
 						html`
 							<div class="container">
 								${render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)}
-								<button class="float-right-btn bottom">-</button>
+								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
 								<hr />
 							</div>
 						`
