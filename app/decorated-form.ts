@@ -60,8 +60,8 @@ export class DecoratedForm extends LitElement {
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 	@property() optionsProvider: (language: string, codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 
-	undoStack: BridgedFormValuesContainer[] = []
-	redoStack: BridgedFormValuesContainer[] = []
+	private undoStack: BridgedFormValuesContainer[] = []
+	private redoStack: BridgedFormValuesContainer[] = []
 
 	@state() formValuesContainer: BridgedFormValuesContainer | undefined = undefined
 
@@ -95,6 +95,20 @@ export class DecoratedForm extends LitElement {
 				box-sizing: border-box;
 			}
 		`
+	}
+
+	public undo() {
+		if (this.undoStack.length > 0) {
+			this.redoStack.push(this.formValuesContainer!)
+			this.formValuesContainer = this.undoStack.pop() as BridgedFormValuesContainer
+		}
+	}
+
+	public redo() {
+		if (this.redoStack.length > 0) {
+			this.undoStack.push(this.formValuesContainer!)
+			this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
+		}
 	}
 
 	async firstUpdated() {

@@ -110,7 +110,9 @@
 	"resolutions": {
 		"prosemirror-model": "1.19.4",
 		"prosemirror-state": "1.4.3",
-		"prosemirror-view": "1.32.7"
+		"prosemirror-view": "1.32.7",
+		"@lit/reactive-element": "1.6.2",
+		"lit-element": "3.3.2"
 	},
 	"browserslist": {
 		"production": [

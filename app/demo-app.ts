@@ -17,7 +17,7 @@ import { state } from 'lit/decorators.js'
 import YAML from 'yaml'
 
 import './decorated-form'
-import { BridgedFormValuesContainer } from '../src/icure'
+
 import { DecoratedForm } from './decorated-form'
 
 const ultrasound = [
@@ -73,7 +73,7 @@ class DemoApp extends LitElement {
 			}
 
 			.detail {
-				background-color: #f2f9ff;
+				background-color: #ffffff;
 				flex: 9;
 				padding: 10px;
 			}
@@ -83,22 +83,18 @@ class DemoApp extends LitElement {
 	connectedCallback() {
 		super.connectedCallback()
 		window.onkeydown = (event) => {
-			console.log(event.key)
-			const target = this.shadowRoot?.getElementById(this.selectedForm.id ?? this.selectedForm.form)
-			if (!target) {
-				return
-			}
-			if (event.key === 'Z' && event.metaKey) {
-				event.preventDefault()
-				if ((target as DecoratedForm).redoStack.length > 0) {
-					;(target as DecoratedForm).undoStack.push((target as DecoratedForm).formValuesContainer!)
-					;(target as DecoratedForm).formValuesContainer = (target as DecoratedForm).redoStack.pop() as BridgedFormValuesContainer
+			if ((event.key === 'Z' || event.key === 'z') && event.metaKey) {
+				console.log(event.key)
+				const target = this.shadowRoot?.getElementById(this.selectedForm.id ?? this.selectedForm.form)
+				if (!target) {
+					return
 				}
-			} else if (event.key === 'z' && event.metaKey) {
-				event.preventDefault()
-				if ((target as DecoratedForm).undoStack.length > 0) {
-					;(target as DecoratedForm).redoStack.push((target as DecoratedForm).formValuesContainer!)
-					;(target as DecoratedForm).formValuesContainer = (target as DecoratedForm).undoStack.pop() as BridgedFormValuesContainer
+				if (event.key === 'Z') {
+					event.preventDefault()
+					;(target as DecoratedForm).redo()
+				} else if (event.key === 'z') {
+					event.preventDefault()
+					;(target as DecoratedForm).undo()
 				}
 			}
 		}

@@ -911,28 +911,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-dom-shim@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
-  checksum: 73fd787893851d4ec4aaa5c775405ed2aae4ca0891b2dd3c973b32c2f4bf70ada5481dd0224e52b786d037aa8a00052186ad1623c44551affd66f6409cca8da6
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.6.0":
+"@lit/reactive-element@npm:1.6.2":
   version: 1.6.2
   resolution: "@lit/reactive-element@npm:1.6.2"
   dependencies:
     "@lit-labs/ssr-dom-shim": ^1.0.0
   checksum: 011a3ef0933fda86ec726d29ebc14e829e2f1ba23eca8ed8ed4d5c6f2a102c55cc6986000c5f4c8c3d0c549bc671f5d84d00ce91adc5bbd95970eec3662c0a92
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "@lit/reactive-element@npm:2.0.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.1.2
-  checksum: 0e0fbc8e92630d49707f9d08cf8962e84860f297b5d781c0894f47421189a30da56860081531859223f5394f36c5d5e95c00703d0f3d303e6c733e3a177c8655
   languageName: node
   linkType: hard
 
@@ -7384,7 +7368,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-element@npm:^3.3.0":
+"lit-element@npm:3.3.2":
   version: 3.3.2
   resolution: "lit-element@npm:3.3.2"
   dependencies:
@@ -7392,17 +7376,6 @@ __metadata:
     "@lit/reactive-element": ^1.3.0
     lit-html: ^2.7.0
   checksum: afe50825be05a8c83be418432dfed2f9a84ca1c6c1d1807e2090def9f94cc403dcbf832b338cdfe39cd168518664c02a6c7392868ca323e356e5744e3b4f45e6
-  languageName: node
-  linkType: hard
-
-"lit-element@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "lit-element@npm:4.0.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.1.2
-    "@lit/reactive-element": ^2.0.0
-    lit-html: ^3.1.0
-  checksum: 4b0d5b80a02df357c622c2396d5d7d44f93e351c67ce69f59ffd5960a0f223a0fe31aabafaf3859b6196f9e1c305923909b63671ed3d6c512086b34bc67fde79
   languageName: node
   linkType: hard
 

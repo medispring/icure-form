@@ -202,6 +202,13 @@ input[type='radio'] {
 	accent-color: #06a070;
 }
 
+app-date-picker {
+	--app-primary: #06a070;
+	--app-hover: #06a070;
+	--app-selected-hover: #06a070;
+}
+
+
 .icure-button-group {
 	> .icure-label {
 		z-index: 1;
