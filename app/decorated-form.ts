@@ -1,4 +1,4 @@
-import '../src/components/themes/kendo'
+import '../src/components/themes/default'
 
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
@@ -191,6 +191,7 @@ export class DecoratedForm extends LitElement {
 				.form="${this.form}"
 				labelPosition="above"
 				renderer="form"
+				displayedLanguage="fr"
 				.formValuesContainer="${this.formValuesContainer}"
 				.codesProvider="${this.codesProvider}"
 				.optionsProvider="${this.optionsProvider}"

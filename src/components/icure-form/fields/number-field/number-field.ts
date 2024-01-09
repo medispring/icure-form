@@ -11,6 +11,7 @@ export class NumberField extends Field {
 				label="${this.label}"
 				.displayedLabels="${this.displayedLabels}"
 				defaultLanguage="${this.defaultLanguage}"
+				displayedLanguage="${this.displayedLanguage}"
 				schema="decimal"
 				.translationProvider=${this.translationProvider}
 				.valueProvider=${singleValueProvider(this.valueProvider, id)}

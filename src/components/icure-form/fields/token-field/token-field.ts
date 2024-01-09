@@ -8,6 +8,7 @@ export class TokenField extends Field {
 			label="${this.label}"
 			.displayedLabels="${this.displayedLabels}"
 			defaultLanguage="${this.defaultLanguage}"
+			displayedLanguage="${this.displayedLanguage}"
 			schema="token-field"
 			.valueProvider=${() => this.valueProvider}
 			.metaProvider=${() => this.metadataProvider}

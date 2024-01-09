@@ -1,0 +1,147 @@
+form: abortion-forms.TIME-OF-APPOINTMENT
+id: 5837092f-9d7d-4ab6-964a-7a9f876eb784
+description: abortion-forms.TIME-OF-APPOINTMENT
+codifications:
+  - type: MS-ABORTION-CONTACT-VIA-TYPE
+    codes:
+      - id: physician
+        label:
+          en: physician
+          ft: médecin
+      - id: internet
+        label:
+          en: internet
+          fr: internet
+      - id: healthcareInstance
+        label:
+          en: healthcareInstance
+          fr: établissement de santé
+      - id: otherPatient
+        label:
+          en: other patient
+          fr: autre patient
+      - id: other
+        label:
+          en: other
+          fr: autre
+translations:
+  - language: en
+    translations:
+      folderNumber: Folder number
+      appointmentDate: Appointment date
+      wayOfContact: Way of contact
+      contactVia: Contact via
+      other: Other
+      followUpMin: Follow up min
+  - language: fr
+    translations:
+      folderNumber: Numéro de dossier
+      appointmentDate: Date du rendez-vous
+      wayOfContact: Moyen de contact
+      contactVia: Contact via
+      other: Autre
+      followUpMin: Suivi min
+sections:
+  - section: abortion-forms.section
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLDER-NUMBER
+            type: textfield
+            readonly: true
+            shortLabel: folderNumber
+            span: 6
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|folder-number|1
+          - field: abortion-forms.field-labels.APPOINTMENT-DATE
+            type: date-picker
+            shortLabel: appointmentDate
+            span: 6
+            now: true
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
+              - MS-ABORTION-ITEM|date|1
+              - MS-ABORTION-DATE|appointment|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.WAY-OF-CONTACT
+            type: checkbox
+            shortLabel: wayOfContact
+            span: 8
+            options:
+              phone: abortion-forms.field-options.PHONE
+              reception: abortion-forms.field-options.RECEPTION
+              email: abortion-forms.field-options.EMAIL
+            rows: 2
+            columns: 1
+            styleOptions:
+              direction: row
+              rows: 1
+              alignItems: "flex-end"
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - group: boxes
+            borderless: true
+            span: 8
+            fields:
+              - field: abortion-forms.field-labels.CONTACT-VIA
+                type: dropdown
+                shortLabel: contactVia
+                span: 12
+                sortOptions:
+                  sort: asc
+                  promotions: "*, other"
+                columns: 1
+                codifications:
+                  - MS-ABORTION-CONTACT-VIA-TYPE
+                tags:
+                  - MS-ABORTION-APPOINTMENT-TIME-ITEM|contactVia|1
+                  - MS-ABORTION-ITEM|contact-via|1
+              - field: abortion-forms.field-labels.OTHER
+                type: textfield
+                shortLabel: " "
+                span: 12
+                computedProperties:
+                  hidden: |
+                    return !self['abortion-forms.field-labels.CONTACT-VIA']?.some(d => d.codes?.some(c => c.id === 'other'))
+                tags:
+                  - MS-ABORTION-APPOINTMENT-TIME-ITEM|other|1
+                  - MS-ABORTION-ITEM|contact-via|1
+                  - MS-ABORTION-CONTACT-VIA-TYPE|custom|1
+          - field: abortion-forms.field-labels.PATIENT-ADRESSED-BY
+            type: dropdown
+            shortLabel: patientAdressedBy
+            span: 4
+            columns: 1
+            codifications:
+              - HCP-LIST
+            translate: false
+            sortOptions:
+              sort: natural
+            tags:
+              - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
+      - field: abortion-forms.field-labels.COMMENTARY
+        type: textfield
+        shortLabel: commentary
+        span: 8
+        multiline: true
+        tags:
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
+          - MS-ABORTION-ITEM|comment-note|1
+      - field: abortion-forms.field-labels.FOLLOW-UP-MIN
+        value: 10
+        type: number-field
+        shortLabel: followUpMin
+        span: 4
+        tags:
+          - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1
+          - MS-ABORTION-ITEM|follow-up|1
+          - MS-FOLLOW-UP-MIN|generic|1

@@ -876,28 +876,6 @@ app-date-picker {
 		width: auto;
 	}
 
-	> .icure-label {
-		transform: translate(0, 0) scale(1);
-	}
-
-	> .icure-label.above,
-	&.has-content > .icure-label,
-	&:focus > .icure-label,
-	&:focus-within > .icure-label {
-		// persist alignment after scaling
-		$half-scale-percent: calc((1 - $floating-label-scale) * 100% / 2);
-
-		// sass-lint:disable indentation
-		// transform position to top-left corner of the textbox-container
-		// do not use single translate + calc() because of IE10/11
-		$fls: -$floating-label-scale;
-		// sass-lint:enable indentation
-
-		font-weight: 500;
-		height: $floating-label-height;
-		max-width: 100%;
-	}
-
 	> .icure-label.side {
 		position: relative;
 	}

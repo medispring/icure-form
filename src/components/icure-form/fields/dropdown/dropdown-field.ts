@@ -25,6 +25,7 @@ export class DropdownField extends Field {
 					.translationProvider=${this.translationProvider}
 					.ownersProvider=${this.ownersProvider}
 					defaultLanguage="${this.defaultLanguage}"
+					displayedLanguage="${this.displayedLanguage}"
 				></icure-dropdown-field>
 			`
 		})

@@ -21,7 +21,8 @@ export class IcureForm extends LitElement {
 	@property() visible = true
 	@property() readonly = false
 	@property() labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'float' | undefined = undefined
-	@property() defaultLanguage?: string = undefined
+	@property() defaultLanguage?: string
+	@property() displayedLanguage?: string
 	@property() formValuesContainer?: FormValuesContainer<FieldValue, FieldMetadata> = undefined
 	@property() translationProvider?: (language: string, text: string) => string
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
@@ -46,7 +47,7 @@ export class IcureForm extends LitElement {
 		return renderer && this.form
 			? renderer(
 					this.form,
-					{ labelPosition: this.labelPosition, defaultLanguage: this.defaultLanguage },
+					{ labelPosition: this.labelPosition, defaultLanguage: this.defaultLanguage, displayedLanguage: this.displayedLanguage },
 					this.formValuesContainer,
 					this.translationProvider ?? (translationTables ? defaultTranslationProvider(translationTables) : undefined),
 					() => [],

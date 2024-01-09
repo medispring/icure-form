@@ -16,7 +16,8 @@ export class CheckBox extends Field {
 					.readonly="${this.readonly}"
 					.displayedLabels="${this.displayedLabels}"
 					label="${this.label}"
-					defaultLanguage="${this.defaultLanguage}"
+					.defaultLanguage="${this.defaultLanguage}"
+					displayedLanguage="${this.displayedLanguage}"
 					.translate="${this.translate}"
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}

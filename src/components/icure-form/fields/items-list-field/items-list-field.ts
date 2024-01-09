@@ -8,6 +8,7 @@ export class ItemsListField extends Field {
 			label="${this.label}"
 			.displayedLabels="${this.displayedLabels}"
 			defaultLanguage="${this.defaultLanguage}"
+			displayedLanguage="${this.displayedLanguage}"
 			schema="items-list-field"
 			.valueProvider=${() => this.valueProvider}
 			.metaProvider=${() => this.metadataProvider}

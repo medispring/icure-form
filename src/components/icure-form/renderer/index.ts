@@ -5,6 +5,7 @@ import { Code, FieldMetadata, FieldValue, Form } from '../../model'
 
 export interface RendererProps {
 	defaultLanguage?: string
+	displayedLanguage?: string
 	labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'float'
 	defaultOwner?: string
 }

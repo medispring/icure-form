@@ -1,5 +1,7 @@
 // @ts-ignore
-import abortionForm from './samples/abortion.yaml'
+import luna1 from './samples/Luna_1.yaml'
+// @ts-ignore
+import luna2 from './samples/Luna_2.yaml'
 import obstetrics from './samples/obstetrics.json'
 import prescription from './samples/prescription.json'
 import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
@@ -32,8 +34,9 @@ const ultrasound = [
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
+		{ title: 'Luna 1', form: Form.parse(YAML.parse(luna1)) },
+		{ title: 'Luna 2', form: Form.parse(YAML.parse(luna2)) },
 		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
-		{ title: 'Abortion', form: Form.parse(YAML.parse(abortionForm)) },
 	]
 
 	@state() private selectedForm: Form = this.samples[0].form

@@ -27,6 +27,7 @@ export class TextField extends Field {
 				label="${this.label}"
 				.displayedLabels="${this.displayedLabels}"
 				defaultLanguage="${this.defaultLanguage}"
+				displayedLanguage="${this.displayedLanguage}"
 				schema="${this.multiline ? 'text-document' : 'styled-text-with-codes'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}
