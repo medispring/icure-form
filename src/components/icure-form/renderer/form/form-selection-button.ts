@@ -1,5 +1,5 @@
 import { css, html, LitElement, nothing } from 'lit'
-import { property, state } from 'lit/decorators'
+import { property, state } from 'lit/decorators.js'
 import { Form } from '../../../model'
 
 export class FormSelectionButton extends LitElement {
