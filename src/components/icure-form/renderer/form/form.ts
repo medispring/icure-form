@@ -10,7 +10,7 @@ import { defaultTranslationProvider } from '../../../../utils/languages'
 import { getLabels } from '../../../common/utils'
 import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
 
-import '../form-selection-button'
+import './form-selection-button'
 
 export const render: Renderer = (
 	form: Form,
