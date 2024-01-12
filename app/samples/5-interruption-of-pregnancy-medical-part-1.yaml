@@ -6,28 +6,24 @@ codifications:
     codes:
       - id: father
         label:
-          en: Father
+          nl: Vader
           fr: Père
       - id: other
         label:
-          en: Other
+          nl: Andere
           fr: Autre
       - id: partner
         label:
-          en: Partner
+          nl: Partner
           fr: Partenaire
       - id: mother
         label:
-          en: Mother
+          nl: Moeder
           fr: Mère
       - id: friend
         label:
-          en: Friend
-          fr: Ami
-      - id: other
-        label:
-          en: Empty
-          fr: other
+          nl: Vriend(in)
+          fr: Ami(e)
   - type: MS-ABORTION-CONTRACEPTION
     codes:
       - id: coitus-interrupted
@@ -120,102 +116,102 @@ codifications:
     codes:
       - id: mifepristone-200-mg
         label:
-          nl:
-          fr:
+          nl: Mifepristone 200 mg
+          fr: Mifepristone 200 mg
       - id: mifepristone-400-mg
         label:
-          nl:
-          fr:
+          nl: Mifepristone 400 mg
+          fr: Mifepristone 400 mg
       - id: mifepristone-600-mg
         label:
-          nl:
-          fr:
+          nl: Mifepristone 600 mg
+          fr: Mifepristone 600 mg
   - type: MS-ABORTION-SECOND-BLOOD-TEST-PLACE
     codes:
       - id: doctor
         label:
-          nl:
-          fr:
+          nl: Arts
+          fr: Par un médecin
       - id: health-center
         label:
-          nl:
-          fr:
+          nl: In her centrum
+          fr: Au centre de planning familial
       - id: dont-come
         label:
-          nl:
-          fr:
+          nl: Niet verschenen zonder bericht op afspraak bloedname
+          fr: Ne s'est pas présentée
       - id: other
         label:
-          nl:
+          nl: Andere
           fr: Autre
   - type: MS-ABORTION-METHOD-TYPE
     codes:
       - id: drug-method
         label:
-          nl:
-          fr:
+          nl: Medicamenteuze methode
+          fr: Méthode médicamenteuse
       - id: surgical-method
         label:
-          nl:
-          fr:
+          nl: Chirurgische methode
+          fr: Méthode chirurgicale
   - type: MS-ABORTION-ANESTHESIA
     codes:
       - id: none
         label:
-          nl:
-          fr:
+          nl: Geen
+          fr: Aucune
       - id: local
         label:
-          nl:
-          fr:
+          nl: Lokaal
+          fr: Locale
       - id: region
         label:
-          nl:
-          fr:
+          nl: Regionaal (Epiduraal / Spinaal)
+          fr: Régionale (Epidural / Spinal)
       - id: general
         label:
-          nl:
-          fr:
+          nl: Algemeen
+          fr: Générale
       - id: other
         label:
-          nl:
-          fr:
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-TIME-OF-CARE
     codes:
       - id: ambulatory
         label:
-          nl:
-          fr: abortion-forms.field-options.AMBULATORY
+          nl: Geen (ambulant)
+          fr: AMBULATORY
       - id: less-twenty-four
         label:
-          nl:
-          fr: abortion-forms.field-options.LESS-TWENTY-FOUR
+          nl: 'Opname: 24 uur of minder'
+          fr: 'Enregistrement: 24 heures ou moins'
       - id: more-twenty-four
         label:
-          nl:
-          fr: abortion-forms.field-options.MORE-TWENTY-FOUR
+          nl: 'Opname: meer dan 24 uur'
+          fr: 'Enregistrement: supérieur à 24 heures'
   - type: MS-ABORTION-COMPLICATION
     codes:
       - id: none
         label:
-          nl:
-          fr: abortion-forms.field-options.NONE
+          nl: Geen
+          fr: Aucun
       - id: bleeding
         label:
-          nl:
-          fr: abortion-forms.field-options.BLOOD-LOSS-OVER-500ML
+          nl: Bloedverlies > 500 ml
+          fr: Perte de sang supérieure à 500 ml
       - id: perforation
         label:
-          nl:
-          fr: abortion-forms.field-options.PERFORATION
+          nl: Perforatie
+          fr: Perforation
       - id: cervix
         label:
-          nl:
-          fr: abortion-forms.field-options.CERVIX-HEUR
+          nl: Cervixscheur
+          fr: Cervix heur
       - id: other
         label:
-          nl:
-          fr: abortion-forms.field-options.OTHER
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-MEDICAL-REPORT
     codes:
       - id: yes
@@ -226,6 +222,75 @@ codifications:
         label:
           nl: Nee
           fr: Non
+translations:
+  - language: fr
+    translations:
+      abortion-forms.field-labels.DATE-STAGE-1: Date stage 1
+      abortion-forms.field-labels.PRESENT-DURING-INTERVENTION: Présent pendant l'intervention
+      abortion-forms.field-labels.PRESENT-DURING-INTERVENTION-OTHER: Autre
+      abortion-forms.field-labels.PREGNANCY-WEEKS: Durée de la grossesse (semaines)
+      abortion-forms.field-labels.PREGNANCY-DAYS: Durée de la grossesse (jours)
+      abortion-forms.field-labels.CONVERSATION-STAGE-1: Conversation étape 1
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Contraception future
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Autre
+      abortion-forms.field-labels.COMMENTARY: Commentaire
+      abortion-forms.field-labels.WAITING-TIME-REDUCTION: Reduction du temps d'attente obligatoire conformément à la loi
+      abortion-forms.field-labels.WAITING-TIME-REDUCTION-REASON: Raison de la réduction du temps d'attente
+      abortion-forms.field-labels.MEDICATION-AND-DOSE: Médicament et doses administrées
+      abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Numéro du lot
+      abortion-forms.field-labels.MEDICATION-HOUR-TAKEN: Heure de prise du médicament"
+      abortion-forms.field-labels.HCG-DOSAGE: Dosage HCG
+      abortion-forms.field-labels.PROGESTERONE-DOSAGE: Dosage Progestérone
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-DATE: Date du 2e prélèvement sanguin
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-PLACE: Lieu du 2e prélèvement sanguin
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-OTHER-PLACE: Autre
+      abortion-forms.field-labels.HCG-DOSAGE-AFTER-1-WEEK: Dosage HCG après 1 semaine
+      abortion-forms.field-labels.PROGESTERONE-DOSAGE-AFTER-1-WEEK: Dosage Progestérone après 1 semaine
+      abortion-forms.field-labels.ABORTION-METHOD: Méthode d'avortement
+      abortion-forms.field-labels.ANESTHESIA: Anesthésie
+      abortion-forms.field-labels.ANESTHESIA-OTHER: Autre
+      abortion-forms.field-labels.TIME-OF-CARE: Temps de prise en charge
+      abortion-forms.field-labels.COMPLICATION: Complication
+      abortion-forms.field-labels.COMPLICATION-OTHER: Autre
+      abortion-forms.field-labels.MEDICAL-REPORT: La patiente autorise-t-elle l'envoi d'un rapport médical à son médecin traitant?
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Suivi (min) (médecin)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION: Dont suivi (min) (contraception)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-TALK: Suivi (min) (conversation)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-TALK-CONTRACEPTION: Dont suivi (min) (contraception)
+  - language: nl
+    translations:
+      abortion-forms.field-labels.DATE-STAGE-1: Datum fase 1
+      abortion-forms.field-labels.PRESENT-DURING-INTERVENTION: Aanwezig tijdens de ingreep
+      abortion-forms.field-labels.PRESENT-DURING-INTERVENTION-OTHER: Andere
+      abortion-forms.field-labels.PREGNANCY-WEEKS: Duur va de zwangerschaps (weken)
+      abortion-forms.field-labels.PREGNANCY-DAYS: Duur van de zwangerschap (dagen)
+      abortion-forms.field-labels.CONVERSATION-STAGE-1: Gespreksfase 1
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
+      abortion-forms.field-labels.COMMENTARY: Opmerking
+      abortion-forms.field-labels.WAITING-TIME-REDUCTION: Verkorting van de verplichte wachttijd volgens de wet
+      abortion-forms.field-labels.WAITING-TIME-REDUCTION-REASON: Reden voor inkorting wachttijd
+      abortion-forms.field-labels.MEDICATION-AND-DOSE: Medicatie en dosering
+      abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Lotnummer van anticonceptie
+      abortion-forms.field-labels.MEDICATION-HOUR-TAKEN: Tijdstip van inname medicatie
+      abortion-forms.field-labels.HCG-DOSAGE: HCG bepaling dag mifepristone
+      abortion-forms.field-labels.PROGESTERONE-DOSAGE: (ev.) Progesteron
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-DATE: Datum 2de bloedname
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-PLACE: Plaats 2de bloedname
+      abortion-forms.field-labels.SECOND-BLOOD-TEST-OTHER-PLACE: Andere
+      abortion-forms.field-labels.HCG-DOSAGE-AFTER-1-WEEK: HCG bepaling na 1 week
+      abortion-forms.field-labels.PROGESTERONE-DOSAGE-AFTER-1-WEEK: (ev.) Progesteron na 1 week
+      abortion-forms.field-labels.ABORTION-METHOD: Methode van zwangerschapsafbreking
+      abortion-forms.field-labels.ANESTHESIA: Verdoving
+      abortion-forms.field-labels.ANESTHESIA-OTHER: Andere
+      abortion-forms.field-labels.TIME-OF-CARE: Opnameduur
+      abortion-forms.field-labels.COMPLICATION: Onmiddellijke medische complicatie
+      abortion-forms.field-labels.COMPLICATION-OTHER: Andere
+      abortion-forms.field-labels.MEDICAL-REPORT: Geeft de patiënt toestemming om een medisch rapport naar haar de huisarts/gyn. te sturen?
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Aantal minuten arts
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION: Waarvan minuten anticonceptie
+      abortion-forms.field-labels.FOLLOW-UP-MIN-TALK: Aantal minuten gesprek
+      abortion-forms.field-labels.FOLLOW-UP-MIN-TALK-CONTRACEPTION: Waarvan minuten anticonceptie
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:
@@ -339,10 +404,6 @@ sections:
         fields:
           - field: abortion-forms.field-labels.MEDICATION-AND-DOSE
             type: dropdown
-            options:
-              200: abortion-forms.field-options.MIFEPRISTONE-200-MG
-              400: abortion-forms.field-options.MIFEPRISTONE-400-MG
-              600: abortion-forms.field-options.MIFEPRISTONE-600-MG
             codifications:
               - MS-ABORTION-MEDICATION-AND-DOSE
             tags:
@@ -496,7 +557,6 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR
             type: number-field
-            shortLabel: followUpMin
             value: 30
             tags:
               - MS-FOLLOW-UP-MIN|doctor|1
@@ -504,7 +564,6 @@ sections:
               - MS-NIHII-CONVENTION-ITEM|followUpMinDoctor|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION
             type: number-field
-            shortLabel: followUpMin
             value: 10
             tags:
               - MS-FOLLOW-UP-MIN|doctorContraception|1
@@ -516,7 +575,6 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-TALK
             type: number-field
-            shortLabel: followUpMin
             value: 45
             tags:
               - MS-FOLLOW-UP-MIN|generic|1
@@ -524,7 +582,6 @@ sections:
               - MS-NIHII-CONVENTION-ITEM|followUpMinTalk|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-TALK-CONTRACEPTION
             type: number-field
-            shortLabel: followUpMin
             value: 10
             tags:
               - MS-FOLLOW-UP-MIN|contraception|1
