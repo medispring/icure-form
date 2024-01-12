@@ -1,26 +1,38 @@
-
-    form: abortion-forms.POST-CURETTAGE
-    description: abortion-forms.POST-CURETTAGE
-    actions:
-      - launchers:
-          - name: abortion-forms.field-labels.POST-CURETTAGE-REASON
-            triggerer: INIT
-            shouldPassValue: true
-          - name: abortion-forms.field-labels.POST-CURETTAGE-REASON
-            triggerer: CHANGE
-            shouldPassValue: true
-        expression: (id || '') == 'other'
-        states:
-          - name: abortion-forms.field-labels.POST-CURETTAGE-REASON-OTHER
-            stateToUpdate: VISIBLE
-            canLaunchLauncher: false
-    sections:
-      - section: abortion-forms.field-labels.SECTION-1
+form: abortion-forms.POST-CURETTAGE
+id: 4a4aeaba-3f08-4833-b084-d65debab7e9f
+description: abortion-forms.POST-CURETTAGE
+codifications:
+  - type: MS-ABORTION-POST-CURETTAGE-REASON
+    codes:
+      - id: pregnancy-evolution
+        label:
+          nl:
+          fr: abortion-forms.field-options.PREGNANCY-EVOLUTION
+      - id: tissue-retention
+        label:
+          nl:
+          fr: abortion-forms.field-options.TISSUE-RETENTION
+      - id: major-blood-loss
+        label:
+          nl:
+          fr: abortion-forms.field-options.MAJOR-BLOOD-LOSS
+      - id: uterine-atony
+        label:
+          nl:
+          fr: abortion-forms.field-options.UTERINE-ATONY
+      - id: other
+        label:
+          nl:
+          fr: abortion-forms.field-options.OTHER
+sections:
+  - section: abortion-forms.field-labels.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
         fields:
           - field: abortion-forms.field-labels.DOCTOR
             type: dropdown
-            rows: 1
-            columns: 1
             translate: false
             codifications:
               - HCP-LIST|persphysician
@@ -28,17 +40,17 @@
               - MS-ABORTION-POST-CURETTAGE-ITEM|doctor|1
           - field: abortion-forms.field-labels.NURSE
             type: dropdown
-            rows: 1
-            columns: 2
             translate: false
             codifications:
               - HCP-LIST|persnurse
             tags:
               - MS-ABORTION-POST-CURETTAGE-ITEM|nurse|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.DATE-POST-CURETTAGE
             type: date-picker
-            rows: 2
-            columns: 1
             now: true
             tags:
               - MS-ABORTION-POST-CURETTAGE-ITEM|datePostCurettage|1
@@ -46,37 +58,32 @@
               - MS-ABORTION-DATE|post-curettage|1
           - field: abortion-forms.field-labels.POST-CURETTAGE-REASON
             type: dropdown
-            options:
-              pregnancy-evolution: abortion-forms.field-options.PREGNANCY-EVOLUTION
-              tissue-retention: abortion-forms.field-options.TISSUE-RETENTION
-              persistent-major-blood-loss: abortion-forms.field-options.MAJOR-BLOOD-LOSS
-              uterine-atony: abortion-forms.field-options.UTERINE-ATONY
-              other: abortion-forms.field-options.OTHER
-            rows: 2
-            columns: 2
+            codifications:
+              - MS-ABORTION-POST-CURETTAGE-REASON
             tags:
               - MS-ABORTION-POST-CURETTAGE-ITEM|postCurettageReason|1
           - field: abortion-forms.field-labels.POST-CURETTAGE-REASON-OTHER
             type: textfield
-            rows: 2
-            columns: 3
             tags:
               - MS-ABORTION-POST-CURETTAGE-ITEM|postCurettageReasonOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.NOTES
             type: textfield
-            rows: 7
-            columns: 1
             styleOptions:
               width: 600
-            multiline: true
             tags:
               - MS-ABORTION-ITEM|comment-note|1
               - MS-ABORTION-POST-CURETTAGE-ITEM|notes|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR
             type: number-field
             shortLabel: followUpMin
-            rows: 8
-            columns: 1
             value: 30
             tags:
               - MS-FOLLOW-UP-MIN|doctor|1
@@ -85,8 +92,6 @@
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE
             type: number-field
             shortLabel: followUpMin
-            rows: 8
-            columns: 2
             value: 30
             tags:
               - MS-FOLLOW-UP-MIN|nurse|1

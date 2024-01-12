@@ -1,0 +1,532 @@
+form: abortion-forms.INTERRUPTION-OF-PREGNANCY-MEDICAL-PART-1
+id: ef261739-4de6-4b66-8f36-67a16936e4f5
+description: abortion-forms.INTERRUPTION-OF-PREGNANCY-MEDICAL-PART-1
+codifications:
+  - type: MS-ABORTION-COMPANION-TYPE
+    codes:
+      - id: father
+        label:
+          en: Father
+          fr: Père
+      - id: other
+        label:
+          en: Other
+          fr: Autre
+      - id: partner
+        label:
+          en: Partner
+          fr: Partenaire
+      - id: mother
+        label:
+          en: Mother
+          fr: Mère
+      - id: friend
+        label:
+          en: Friend
+          fr: Ami
+      - id: other
+        label:
+          en: Empty
+          fr: other
+  - type: MS-ABORTION-CONTRACEPTION
+    codes:
+      - id: coitus-interrupted
+        label:
+          nl: Onderbroken geslachtsgemeenschap
+          fr: Coït interrompu
+      - id: periodic-abstinence
+        label:
+          nl: Periodieke onthouding
+          fr: Abstinence périodique
+      - id: spermicides
+        label:
+          nl: Spermiciden
+          fr: Spermicides
+      - id: pessary
+        label:
+          nl: Spiraaltje
+          fr: Pessaire
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
+      - id: progestone-only-pill
+        label:
+          nl: POP
+          fr: Pilule progestative
+      - id: injection-pill
+        label:
+          nl: INJECTION-PILL
+          fr: Injection contraceptive
+      - id: kiud
+        label:
+          nl: KIUD
+          fr: KIUD
+      - id: hiud
+        label:
+          nl: HIUD
+          fr: HIUD
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie bij mannen
+          fr: Stérilisation masculine
+      - id: female-sterilization
+        label:
+          nl: Sterilisatie bij vrouwen
+          fr: Stérilisation féminine
+      - id: morning-after-pill
+        label:
+          nl: Morning-afterpil
+          fr: Pilule du lendemain
+      - id: implant
+        label:
+          nl: Implant
+          fr: Implant contraceptif
+      - id: patch
+        label:
+          nl: Anticonceptiepleister
+          fr: Patch contraceptif
+      - id: vaginal-ring
+        label:
+          nl: Vaginale ring
+          fr: Anneau vaginal
+      - id: symptothermal-method
+        label:
+          nl: Symptothermale methode
+          fr: Méthode symptothermique
+      - id: electronic-or-digital-methods
+        label:
+          nl: Elektronische of digitale methoden
+          fr: Méthodes électroniques ou numériques
+      - id: other-contraceptives
+        label:
+          nl: Andere anticonceptiemethoden
+          fr: Autres contraceptifs
+  - type: MS-ABORTION-WAITING-TIME-REDUCTION
+    codes:
+      - id: yes
+        label:
+          nl: Ja
+          fr: Oui
+      - id: no
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-ABORTION-MEDICATION-AND-DOSE
+    codes:
+      - id: mifepristone-200-mg
+        label:
+          nl:
+          fr:
+      - id: mifepristone-400-mg
+        label:
+          nl:
+          fr:
+      - id: mifepristone-600-mg
+        label:
+          nl:
+          fr:
+  - type: MS-ABORTION-SECOND-BLOOD-TEST-PLACE
+    codes:
+      - id: doctor
+        label:
+          nl:
+          fr:
+      - id: health-center
+        label:
+          nl:
+          fr:
+      - id: dont-come
+        label:
+          nl:
+          fr:
+      - id: other
+        label:
+          nl:
+          fr: Autre
+  - type: MS-ABORTION-METHOD-TYPE
+    codes:
+      - id: drug-method
+        label:
+          nl:
+          fr:
+      - id: surgical-method
+        label:
+          nl:
+          fr:
+  - type: MS-ABORTION-ANESTHESIA
+    codes:
+      - id: none
+        label:
+          nl:
+          fr:
+      - id: local
+        label:
+          nl:
+          fr:
+      - id: region
+        label:
+          nl:
+          fr:
+      - id: general
+        label:
+          nl:
+          fr:
+      - id: other
+        label:
+          nl:
+          fr:
+  - type: MS-ABORTION-TIME-OF-CARE
+    codes:
+      - id: ambulatory
+        label:
+          nl:
+          fr: abortion-forms.field-options.AMBULATORY
+      - id: less-twenty-four
+        label:
+          nl:
+          fr: abortion-forms.field-options.LESS-TWENTY-FOUR
+      - id: more-twenty-four
+        label:
+          nl:
+          fr: abortion-forms.field-options.MORE-TWENTY-FOUR
+  - type: MS-ABORTION-COMPLICATION
+    codes:
+      - id: none
+        label:
+          nl:
+          fr: abortion-forms.field-options.NONE
+      - id: bleeding
+        label:
+          nl:
+          fr: abortion-forms.field-options.BLOOD-LOSS-OVER-500ML
+      - id: perforation
+        label:
+          nl:
+          fr: abortion-forms.field-options.PERFORATION
+      - id: cervix
+        label:
+          nl:
+          fr: abortion-forms.field-options.CERVIX-HEUR
+      - id: other
+        label:
+          nl:
+          fr: abortion-forms.field-options.OTHER
+  - type: MS-ABORTION-MEDICAL-REPORT
+    codes:
+      - id: yes
+        label:
+          nl: Ja
+          fr: Oui
+      - id: no
+        label:
+          nl: Nee
+          fr: Non
+sections:
+  - section: abortion-forms.section-labels.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.DATE-STAGE-1
+            type: date-picker
+            now: true
+            tags:
+              - MS-ABORTION-ITEM|date|1
+              - MS-ABORTION-DATE|phase-1|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|date-phase-1|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.PRESENT-DURING-INTERVENTION
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 2
+            codifications:
+              - MS-ABORTION-COMPANION-TYPE
+            tags:
+              - MS-ABORTION-ITEM|companion|1
+              - MS-ABORTION-COMPANION|typeOfCompanion|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|presentDuringIntervention|1
+          - field: abortion-forms.field-labels.PRESENT-DURING-INTERVENTION-OTHER
+            type: textfield
+            tags:
+              - MS-ABORTION-ITEM|companion|1
+              - MS-ABORTION-COMPANION|typeOfCompanion|1
+              - MS-ABORTION-COMPANION-TYPE|custom|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|presentDuringInterventionOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.PREGNANCY-WEEKS
+            type: number-field
+            tags:
+              - MS-ABORTION-ITEM|amenorrheaWeeks|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|pregnancyWeeks|1
+          - field: abortion-forms.field-labels.PREGNANCY-DAYS
+            type: number-field
+            tags:
+              - MS-ABORTION-ITEM|amenorrheaDays|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|pregnancyDays|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONVERSATION-STAGE-1
+            type: textfield
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|conversationStep1|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 2
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
+          - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
+            type: textfield
+            tags:
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.COMMENTARY
+            type: textfield
+            multiline: true
+            tags:
+              - MS-ABORTION-ITEM|comment-note|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|commentOrObservation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.WAITING-TIME-REDUCTION
+            type: radio-button
+            styleOptions:
+              direction: row
+              rows: 1
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-WAITING-TIME-REDUCTION
+            tags:
+              - MS-ABORTION-CURETTAGE-ITEM|waitingTimeReduction|1
+          - field: abortion-forms.field-labels.WAITING-TIME-REDUCTION-REASON
+            type: textfield
+            tags:
+              - MS-ABORTION-CURETTAGE-ITEM|waitingTimeReductionReason|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.MEDICATION-AND-DOSE
+            type: dropdown
+            options:
+              200: abortion-forms.field-options.MIFEPRISTONE-200-MG
+              400: abortion-forms.field-options.MIFEPRISTONE-400-MG
+              600: abortion-forms.field-options.MIFEPRISTONE-600-MG
+            codifications:
+              - MS-ABORTION-MEDICATION-AND-DOSE
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|medicationAndDoses|1
+          - field: abortion-forms.field-labels.CONTRACEPTIVE-NUMBER
+            type: textfield
+            tags:
+              - MS-ABORTION-CURETTAGE-ITEM|lotNumber|1
+          - field: abortion-forms.field-labels.MEDICATION-HOUR-TAKEN
+            type: time-picker
+            now: true
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|timeOfTakenMedication|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.HCG-DOSAGE
+            type: measure-field
+            unit: UI/l
+            tags:
+              - CD-PARAMETER|HCG|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|HCG|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|HCGDosage|1
+          - field: abortion-forms.field-labels.PROGESTERONE-DOSAGE
+            type: measure-field
+            unit: ng/ml
+            tags:
+              - CD-PARAMETER|progesterone|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|progesterone|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|progesteroneDosage|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.SECOND-BLOOD-TEST-DATE
+            type: date-picker
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|secondBloodTestDate|1
+              - MS-ABORTION-ITEM|date|1
+              - MS-ABORTION-DATE|bloodTest|1
+          - field: abortion-forms.field-labels.SECOND-BLOOD-TEST-PLACE
+            type: dropdown
+            codifications:
+              - MS-ABORTION-SECOND-BLOOD-TEST-PLACE
+            sortOptions:
+              none: 0
+              empty: 0
+              other: -1
+              asc: true
+              alpha: true
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|secondBloodTestPlace|1
+          - field: abortion-forms.field-labels.SECOND-BLOOD-TEST-OTHER-PLACE
+            type: textfield
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|secondBloodTestOtherPlace|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.HCG-DOSAGE-AFTER-1-WEEK
+            type: measure-field
+            unit: UI/l
+            tags:
+              - CD-PARAMETER|HCG|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|HCG|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|HCGDosageAfter1Week|1
+          - field: abortion-forms.field-labels.PROGESTERONE-DOSAGE-AFTER-1-WEEK
+            type: measure-field
+            unit: ng/ml
+            tags:
+              - CD-PARAMETER|progesterone|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|progesterone|1
+              - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|progesteroneDosageAfter1Week|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.ABORTION-METHOD
+            type: dropdown
+            value: drugMethod
+            codifications:
+              - MS-ABORTION-METHOD-TYPE
+            tags:
+              - MS-ABORTION-ITEM|method|1
+              - MS-NIHII-CONVENTION-ITEM|abortionMethod|1
+          - field: abortion-forms.field-labels.ANESTHESIA
+            type: dropdown
+            codifications:
+              - MS-ABORTION-ANESTHESIA
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|anesthesia|1
+          - field: abortion-forms.field-labels.ANESTHESIA-OTHER
+            type: textfield
+            rows: 12
+            columns: 3
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|anesthesiaOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.TIME-OF-CARE
+            type: checkbox
+            value: ambulatory
+            codifications:
+              - MS-ABORTION-TIME-OF-CARE
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|timeOfCare|1
+          - field: abortion-forms.field-labels.COMPLICATION
+            type: checkbox
+            sortOptions:
+              none: 1
+              empty: 0
+              other: -1
+              asc: true
+              alpha: true
+            styleOptions:
+              direction: column
+              columns: 2
+              alignItems: 'flex-end'
+            codifications: MS-ABORTION-COMPLICATION
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|complication|1
+          - field: abortion-forms.field-labels.COMPLICATION-OTHER
+            type: textfield
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|complicationOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.MEDICAL-REPORT
+            type: radio-button
+            styleOptions:
+              direction: row
+              rows: 1
+            codifications:
+              - MS-ABORTION-MEDICAL-REPORT
+            tags:
+              - MS-NIHII-CONVENTION-ITEM|medicalReport|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR
+            type: number-field
+            shortLabel: followUpMin
+            value: 30
+            tags:
+              - MS-FOLLOW-UP-MIN|doctor|1
+              - MS-ABORTION-ITEM|follow-up|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinDoctor|1
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION
+            type: number-field
+            shortLabel: followUpMin
+            value: 10
+            tags:
+              - MS-FOLLOW-UP-MIN|doctorContraception|1
+              - MS-ABORTION-ITEM|follow-up|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinDoctorContraception|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-TALK
+            type: number-field
+            shortLabel: followUpMin
+            value: 45
+            tags:
+              - MS-FOLLOW-UP-MIN|generic|1
+              - MS-ABORTION-ITEM|follow-up|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinTalk|1
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-TALK-CONTRACEPTION
+            type: number-field
+            shortLabel: followUpMin
+            value: 10
+            tags:
+              - MS-FOLLOW-UP-MIN|contraception|1
+              - MS-ABORTION-ITEM|follow-up|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinTalkContraception|1

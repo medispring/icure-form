@@ -6,41 +6,59 @@ codifications:
     codes:
       - id: physician
         label:
-          en: physician
-          ft: médecin
+          nl: Arts
+          fr: Médecin
       - id: internet
         label:
-          en: internet
-          fr: internet
+          nl: Internet
+          fr: Internet
       - id: healthcareInstance
         label:
-          en: healthcareInstance
-          fr: établissement de santé
+          nl: Hulpverleningsinstantie
+          fr: Instance de soins de santé
       - id: otherPatient
         label:
-          en: other patient
-          fr: autre patient
+          nl: Was eerder cliënt in het abortuscentrum
+          fr: Par un autre patient du centre IVG
       - id: other
         label:
-          en: other
-          fr: autre
+          nl: Andere
+          fr: Autre
+  - type: MS-ABORTION-WAY-OF-CONTACT
+    codes:
+      - id: phone
+        label:
+          nl: Telefoon
+          fr: Téléphone
+      - id: reception
+        label:
+          nl: In het centrum
+          fr: Réception
+      - id: email
+        label:
+          nl: E-mail
+          fr: Internet
 translations:
-  - language: en
+  - language: nl
     translations:
-      folderNumber: Folder number
-      appointmentDate: Appointment date
-      wayOfContact: Way of contact
-      contactVia: Contact via
-      other: Other
-      followUpMin: Follow up min
+      abortion-forms.field-labels.FOLDER-NUMBER: Dossiernummer
+      abortion-forms.field-labels.APPOINTMENT-DATE: Datum 1 ste contactname
+      abortion-forms.field-labels.WAY-OF-CONTACT: Afspraak gemaakt via
+      abortion-forms.field-labels.CONTACT-VIA: Kent het centrum via en/of is verwezen
+      abortion-forms.field-labels.OTHER: Andere
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
+      abortion-forms.field-labels.PATIENT-ADRESSED-BY: Onthaalmedewerker
+      abortion-forms.field-labels.COMMENTARY: Opmerking
   - language: fr
     translations:
-      folderNumber: Numéro de dossier
-      appointmentDate: Date du rendez-vous
-      wayOfContact: Moyen de contact
-      contactVia: Contact via
-      other: Autre
-      followUpMin: Suivi min
+      abortion-forms.field-labels.FOLDER-NUMBER: Numéro de dossier
+      abortion-forms.field-labels.APPOINTMENT-DATE: Date du rendez-vous
+      abortion-forms.field-labels.WAY-OF-CONTACT: Méthode de contact
+      abortion-forms.field-labels.CONTACT-VIA: Contact via
+      abortion-forms.field-labels.OTHER: Autre
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
+      abortion-forms.field-labels.PATIENT-ADRESSED-BY: Patient adressé par
+      abortion-forms.field-labels.COMMENTARY: Commentaire
 sections:
   - section: abortion-forms.section
     fields:
@@ -51,13 +69,11 @@ sections:
           - field: abortion-forms.field-labels.FOLDER-NUMBER
             type: textfield
             readonly: true
-            shortLabel: folderNumber
             span: 6
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|folder-number|1
           - field: abortion-forms.field-labels.APPOINTMENT-DATE
             type: date-picker
-            shortLabel: appointmentDate
             span: 6
             now: true
             tags:
@@ -70,18 +86,13 @@ sections:
         fields:
           - field: abortion-forms.field-labels.WAY-OF-CONTACT
             type: checkbox
-            shortLabel: wayOfContact
             span: 8
-            options:
-              phone: abortion-forms.field-options.PHONE
-              reception: abortion-forms.field-options.RECEPTION
-              email: abortion-forms.field-options.EMAIL
-            rows: 2
-            columns: 1
             styleOptions:
               direction: row
               rows: 1
-              alignItems: "flex-end"
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-WAY-OF-CONTACT
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|wayOfContact|1
       - group: line
@@ -94,11 +105,10 @@ sections:
             fields:
               - field: abortion-forms.field-labels.CONTACT-VIA
                 type: dropdown
-                shortLabel: contactVia
                 span: 12
                 sortOptions:
                   sort: asc
-                  promotions: "*, other"
+                  promotions: '*, other'
                 columns: 1
                 codifications:
                   - MS-ABORTION-CONTACT-VIA-TYPE
@@ -107,7 +117,7 @@ sections:
                   - MS-ABORTION-ITEM|contact-via|1
               - field: abortion-forms.field-labels.OTHER
                 type: textfield
-                shortLabel: " "
+                shortLabel: ' '
                 span: 12
                 computedProperties:
                   hidden: |
@@ -118,7 +128,6 @@ sections:
                   - MS-ABORTION-CONTACT-VIA-TYPE|custom|1
           - field: abortion-forms.field-labels.PATIENT-ADRESSED-BY
             type: dropdown
-            shortLabel: patientAdressedBy
             span: 4
             columns: 1
             codifications:
@@ -130,7 +139,6 @@ sections:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|patientReferedBy|1
       - field: abortion-forms.field-labels.COMMENTARY
         type: textfield
-        shortLabel: commentary
         span: 8
         multiline: true
         tags:
@@ -139,7 +147,6 @@ sections:
       - field: abortion-forms.field-labels.FOLLOW-UP-MIN
         value: 10
         type: number-field
-        shortLabel: followUpMin
         span: 4
         tags:
           - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1
