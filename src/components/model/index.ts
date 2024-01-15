@@ -1,6 +1,6 @@
 import { DocumentSchema, InlineSchema, StyledSchema } from '../icure-text-field/schema/markdown-schema'
 import { TokensSchema } from '../icure-text-field/schema/token-schema'
-import { ItemsListSchema } from '../icure-text-field/schema/items-list'
+import { ItemsListSchema } from '../icure-text-field/schema/items-list-schema'
 import { DateSchema, DateTimeSchema, TimeSchema } from '../icure-text-field/schema/date-time-schema'
 import { DecimalSchema } from '../icure-text-field/schema/decimal-schema'
 import { MeasureSchema } from '../icure-text-field/schema/measure-schema'
@@ -105,6 +105,7 @@ export abstract class Field {
 	type: FieldType
 	shortLabel?: string
 	span?: number
+	rowSpan?: number
 	grows: boolean
 	schema?: IcureTextFieldSchema
 	tags?: string[]
@@ -132,6 +133,7 @@ export abstract class Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			schema,
 			tags,
 			codifications,
@@ -149,6 +151,7 @@ export abstract class Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			schema?: IcureTextFieldSchema
 			tags?: string[]
 			codifications?: string[]
@@ -169,6 +172,7 @@ export abstract class Field {
 		this.shortLabel = shortLabel
 		this.grows = grows === undefined ? true : grows
 		this.span = span
+		this.rowSpan = rowSpan
 		this.schema = schema
 		this.tags = tags
 		this.codifications = codifications
@@ -271,6 +275,7 @@ export class TextField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			schema,
 			tags,
 			codifications,
@@ -287,6 +292,7 @@ export class TextField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			schema?: IcureTextFieldSchema
 			tags?: string[]
 			codifications?: string[]
@@ -305,6 +311,7 @@ export class TextField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			schema: schema || 'styled-text-with-codes',
 			tags,
 			codifications,
@@ -332,6 +339,7 @@ export class MeasureField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -346,6 +354,7 @@ export class MeasureField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -362,6 +371,7 @@ export class MeasureField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -386,6 +396,7 @@ export class NumberField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -400,6 +411,7 @@ export class NumberField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -416,6 +428,7 @@ export class NumberField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -440,6 +453,7 @@ export class TokenField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -454,6 +468,7 @@ export class TokenField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -470,6 +485,7 @@ export class TokenField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -494,6 +510,7 @@ export class ItemsListField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -508,6 +525,7 @@ export class ItemsListField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -524,6 +542,7 @@ export class ItemsListField extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -548,6 +567,7 @@ export class DatePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -563,6 +583,7 @@ export class DatePicker extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -580,6 +601,7 @@ export class DatePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -605,6 +627,7 @@ export class TimePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -620,6 +643,7 @@ export class TimePicker extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -637,6 +661,7 @@ export class TimePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -662,6 +687,7 @@ export class DateTimePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -677,6 +703,7 @@ export class DateTimePicker extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -694,6 +721,7 @@ export class DateTimePicker extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -719,6 +747,7 @@ export class DropdownField extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -759,6 +788,7 @@ export class RadioButton extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -772,6 +802,7 @@ export class RadioButton extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -787,6 +818,7 @@ export class RadioButton extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -810,6 +842,7 @@ export class CheckBox extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -823,6 +856,7 @@ export class CheckBox extends Field {
 			shortLabel?: string
 			grows?: boolean
 			span?: number
+			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
 			options?: { [key: string]: unknown }
@@ -838,6 +872,7 @@ export class CheckBox extends Field {
 			shortLabel,
 			grows,
 			span,
+			rowSpan,
 			tags,
 			codifications,
 			options,
@@ -854,7 +889,7 @@ export class CheckBox extends Field {
 	}
 }
 export class Label extends Field {
-	constructor(label: string, { shortLabel, grows, span }: { shortLabel?: string; grows?: boolean; span?: number }) {
+	constructor(label: string, { shortLabel, grows, span }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number }) {
 		super('label', label, { shortLabel, grows, span })
 	}
 	override copy(properties: Partial<Label>): Label {
@@ -863,7 +898,7 @@ export class Label extends Field {
 }
 
 export class ActionButton extends Field {
-	constructor(label: string, { shortLabel, grows, span }: { shortLabel?: string; grows?: boolean; span?: number }) {
+	constructor(label: string, { shortLabel, grows, span }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number }) {
 		super('action', label, { shortLabel, grows, span })
 	}
 	override copy(properties: Partial<ActionButton>): ActionButton {
@@ -877,6 +912,7 @@ export class Group {
 	translate: boolean
 	fields?: Array<Field | Group | Subform>
 	span?: number
+	rowSpan?: number
 	computedProperties?: { [key: string]: string }
 	width?: number
 	styleOptions?: { [key: string]: unknown }
@@ -886,6 +922,7 @@ export class Group {
 		fields: Array<Field | Group | Subform>,
 		{
 			span,
+			rowSpan,
 			borderless,
 			translate,
 			computedProperties,
@@ -895,6 +932,7 @@ export class Group {
 			borderless?: boolean
 			translate?: boolean
 			span?: number
+			rowSpan?: number
 			computedProperties?: { [key: string]: string }
 			width?: number
 			styleOptions?: { [key: string]: unknown }
@@ -906,6 +944,7 @@ export class Group {
 		this.translate = translate ?? true
 		this.fields = fields
 		this.span = span
+		this.rowSpan = rowSpan
 		this.computedProperties = computedProperties
 		this.width = width
 		this.styleOptions = styleOptions
@@ -929,6 +968,7 @@ export class Group {
 		borderless?: boolean
 		translate?: boolean
 		span?: number
+		rowSpan?: number
 		computedProperties?: { [key: string]: string }
 		width?: number
 	}): Group {
@@ -966,6 +1006,7 @@ export class Subform {
 	shortLabel?: string
 	forms: { [key: string]: Form }
 	span?: number
+	rowSpan?: number
 	computedProperties?: { [key: string]: string }
 	width?: number
 	styleOptions?: { [key: string]: unknown }
@@ -976,12 +1017,14 @@ export class Subform {
 		{
 			shortLabel,
 			span,
+			rowSpan,
 			computedProperties,
 			width,
 			styleOptions,
 		}: {
 			shortLabel?: string
 			span?: number
+			rowSpan?: number
 			computedProperties?: { [key: string]: string }
 			width?: number
 			styleOptions?: { [key: string]: unknown }
@@ -991,6 +1034,7 @@ export class Subform {
 		this.shortLabel = shortLabel
 		this.forms = forms
 		this.span = span
+		this.rowSpan = rowSpan
 		this.computedProperties = computedProperties
 		this.width = width
 		this.styleOptions = styleOptions
@@ -1005,6 +1049,7 @@ export class Subform {
 		shortLabel?: string
 		forms: { [key: string]: Form }
 		span?: number
+		rowSpan?: number
 		computedProperties?: { [key: string]: string }
 		width?: number
 		styleOptions?: { [key: string]: unknown }

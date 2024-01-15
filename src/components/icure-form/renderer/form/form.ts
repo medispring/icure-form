@@ -62,7 +62,7 @@ export const render: Renderer = (
 	}
 
 	function renderGroup(fg: Group, fgSpan: number, level: number) {
-		return html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupWidth(fgSpan, fg.width)}">
+		return html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
 			${fg.borderless ? nothing : html`<div>${h(level, html`${fg.group}`)}</div>`}
 			<div class="icure-form">${(fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1))}</div>
 		</div>`
@@ -70,7 +70,7 @@ export const render: Renderer = (
 
 	function renderSubform(fg: Subform, fgSpan: number, level: number) {
 		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
-		return html`<div class="subform" style="${calculateFieldOrGroupWidth(fgSpan, fg.width)}">
+		return html`<div class="subform" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
 			<div>${h(level, html`${fg.shortLabel}`)}</div>
 			<form-selection-button
 				class="float-right-btn top"
@@ -97,14 +97,15 @@ export const render: Renderer = (
 		</div>`
 	}
 
-	function renderTextField(fgSpan: number, fg: Field) {
-		return html`<icure-form-textfield
+	function renderTextField(fgSpan: number, fgRowSpan: number, fg: Field) {
+		return html`<icure-form-text-field
 			class="icure-form-field"
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows, fg.styleOptions?.width)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan, fg.styleOptions?.width)}"
 			label="${fg.field}"
 			value="${fg.value}"
 			.displayedLabels="${getLabels(fg)}"
 			.multiline="${fg.multiline || false}"
+			.lines=${fgRowSpan}
 			.defaultLanguage="${props.defaultLanguage}"
 			.displayedLanguage="${props.displayedLanguage}"
 			.linksProvider=${fg.options?.linksProvider}
@@ -120,12 +121,58 @@ export const render: Renderer = (
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
-		></icure-form-textfield>`
+		></icure-form-text-field>`
 	}
 
-	function renderMeasureField(fgSpan: number, fg: Field) {
+	function renderTokenField(fgSpan: number, fgRowSpan: number, fg: Field) {
+		return html`<icure-form-token-field
+			class="icure-form-field"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan, fg.styleOptions?.width)}"
+			label="${fg.field}"
+			value="${fg.value}"
+			.displayedLabels="${getLabels(fg)}"
+			.multiline="${fg.multiline || false}"
+			.lines=${fgRowSpan}
+			.defaultLanguage="${props.defaultLanguage}"
+			.displayedLanguage="${props.displayedLanguage}"
+			.suggestionProvider=${fg.options?.suggestionProvider}
+			.ownersProvider=${fg.options?.ownersProvider}
+			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
+			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
+			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata}
+			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
+			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.styleOptions="${fg.styleOptions}"
+			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+		></icure-form-token-field>`
+	}
+
+	function renderItemsListField(fgSpan: number, fgRowSpan: number, fg: Field) {
+		return html`<icure-form-token-field
+			class="icure-form-field"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan, fg.styleOptions?.width)}"
+			label="${fg.field}"
+			value="${fg.value}"
+			.displayedLabels="${getLabels(fg)}"
+			.multiline="${fg.multiline || false}"
+			.lines=${fgRowSpan}
+			.defaultLanguage="${props.defaultLanguage}"
+			.displayedLanguage="${props.displayedLanguage}"
+			.suggestionProvider=${fg.options?.suggestionProvider}
+			.ownersProvider=${fg.options?.ownersProvider}
+			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
+			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
+			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata}
+			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
+			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.styleOptions="${fg.styleOptions}"
+			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+		></icure-form-token-field>`
+	}
+
+	function renderMeasureField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-measure-field
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -142,9 +189,9 @@ export const render: Renderer = (
 		></icure-form-measure-field>`
 	}
 
-	function renderNumberField(fgSpan: number, fg: Field) {
+	function renderNumberField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-number-field
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -160,9 +207,9 @@ export const render: Renderer = (
 		></icure-form-number-field>`
 	}
 
-	function renderDatePicker(fgSpan: number, fg: Field) {
+	function renderDatePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-date-picker
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDate() : fg.value}"
@@ -178,9 +225,9 @@ export const render: Renderer = (
 		></icure-form-date-picker>`
 	}
 
-	function renderTimePicker(fgSpan: number, fg: Field) {
+	function renderTimePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-time-picker
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentTime() : fg.value}"
@@ -196,9 +243,9 @@ export const render: Renderer = (
 		></icure-form-time-picker>`
 	}
 
-	function renderDateTimePicker(fgSpan: number, fg: Field) {
+	function renderDateTimePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-date-time-picker
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDateTime() : fg.value}"
@@ -214,9 +261,9 @@ export const render: Renderer = (
 		></icure-form-date-time-picker>`
 	}
 
-	function renderDropdownField(fgSpan: number, fg: Field) {
+	function renderDropdownField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-dropdown-field
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			.label=${fg.field}
 			.displayedLabels=${getLabels(fg)}
 			.defaultLanguage="${props.defaultLanguage}"
@@ -239,9 +286,9 @@ export const render: Renderer = (
 		></icure-form-dropdown-field>`
 	}
 
-	function renderRadioButtons(fgSpan: number, fg: Field) {
+	function renderRadioButtons(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-radio-button
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			.defaultLanguage="${props.defaultLanguage}"
@@ -263,9 +310,9 @@ export const render: Renderer = (
 		></icure-form-radio-button>`
 	}
 
-	function renderCheckboxes(fgSpan: number, fg: Field) {
+	function renderCheckboxes(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html` <icure-form-checkbox
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			.defaultLanguage="${props.defaultLanguage}"
@@ -288,9 +335,9 @@ export const render: Renderer = (
 		></icure-form-checkbox>`
 	}
 
-	function renderLabel(fgSpan: number, fg: Field) {
+	function renderLabel(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-label
-			style="${calculateFieldOrGroupWidth(fgSpan, fg.width, fg.grows)}"
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			labelPosition=${props.labelPosition}
 			label="${fg.field}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -312,6 +359,7 @@ export const render: Renderer = (
 		}
 
 		const fgSpan = computedProperties['span'] ?? fg.span ?? 6
+		const fgRowSpan = computedProperties['rowSpan'] ?? fg.rowSpan ?? 1
 
 		if (fg.clazz === 'group' && fg.fields?.length) {
 			return renderGroup((fg as Group).copy({ ...computedProperties }), fgSpan, level)
@@ -320,33 +368,37 @@ export const render: Renderer = (
 		} else if (fg.clazz === 'field') {
 			const field = fg.copy({ ...computedProperties })
 			return html`${fg.type === 'textfield'
-				? renderTextField(fgSpan, field)
+				? renderTextField(fgSpan, fgRowSpan, field)
 				: fg.type === 'measure-field'
-				? renderMeasureField(fgSpan, field)
+				? renderMeasureField(fgSpan, fgRowSpan, field)
+				: fg.type === 'token-field'
+				? renderTokenField(fgSpan, fgRowSpan, field)
+				: fg.type === 'items-list-field'
+				? renderItemsListField(fgSpan, fgRowSpan, field)
 				: fg.type === 'number-field'
-				? renderNumberField(fgSpan, field)
+				? renderNumberField(fgSpan, fgRowSpan, field)
 				: fg.type === 'date-picker'
-				? renderDatePicker(fgSpan, field)
+				? renderDatePicker(fgSpan, fgRowSpan, field)
 				: fg.type === 'time-picker'
-				? renderTimePicker(fgSpan, field)
+				? renderTimePicker(fgSpan, fgRowSpan, field)
 				: fg.type === 'date-time-picker'
-				? renderDateTimePicker(fgSpan, field)
+				? renderDateTimePicker(fgSpan, fgRowSpan, field)
 				: fg.type === 'dropdown-field'
-				? renderDropdownField(fgSpan, field)
+				? renderDropdownField(fgSpan, fgRowSpan, field)
 				: fg.type === 'radio-button'
-				? renderRadioButtons(fgSpan, field)
+				? renderRadioButtons(fgSpan, fgRowSpan, field)
 				: fg.type === 'checkbox'
-				? renderCheckboxes(fgSpan, field)
+				? renderCheckboxes(fgSpan, fgRowSpan, field)
 				: fg.type === 'label'
-				? renderLabel(fgSpan, field)
+				? renderLabel(fgSpan, fgRowSpan, field)
 				: ''}`
 		}
 		return html``
 	}
 
-	const calculateFieldOrGroupWidth = (span: number, fieldWidth?: number, shouldFieldGrow?: boolean, fixedWidth?: number | undefined) => {
+	const calculateFieldOrGroupSize = (span: number, rowSpan: number, fixedWidth?: number | undefined) => {
 		if (fixedWidth) return `width: ${fixedWidth}px`
-		return `grid-column: span ${span};`
+		return `grid-column: span ${span}; ${rowSpan > 1 ? `grid-row: span ${rowSpan}` : ''}`
 	}
 
 	const renderForm = (form: Form) => {

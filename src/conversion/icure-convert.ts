@@ -19,19 +19,24 @@ import { cluster } from './ckmeans-grouping'
 
 export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): Form {
 	const TOTAL_COLUMNS = 24
-	const makeTextField = (formData: FormLayoutData, width: number) => new TextField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeItemsListField = (formData: FormLayoutData, width: number) => new ItemsListField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeTokenField = (formData: FormLayoutData, width: number) => new TokenField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeCheckBox = (formData: FormLayoutData, width: number) =>
-		new CheckBox(formData.name ?? '', { shortLabel: formData.label, options: { [formData.label ?? '']: formData.label }, span: width })
-	const makeMeasureField = (formData: FormLayoutData, width: number) => new MeasureField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeNumberField = (formData: FormLayoutData, width: number) => new NumberField(formData.name ?? '', { shortLabel: formData.label, span: width })
-	const makeDateTimeField = (formData: FormLayoutData, width: number) =>
+	const makeTextField = (formData: FormLayoutData, width: number, height: number) =>
+		new TextField(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeItemsListField = (formData: FormLayoutData, width: number, height: number) =>
+		new ItemsListField(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeTokenField = (formData: FormLayoutData, width: number, height: number) =>
+		new TokenField(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeCheckBox = (formData: FormLayoutData, width: number, height: number) =>
+		new CheckBox(formData.name ?? '', { shortLabel: formData.label, options: { [formData.label ?? '']: formData.label }, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeMeasureField = (formData: FormLayoutData, width: number, height: number) =>
+		new MeasureField(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeNumberField = (formData: FormLayoutData, width: number, height: number) =>
+		new NumberField(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+	const makeDateTimeField = (formData: FormLayoutData, width: number, height: number) =>
 		(formData.editor as any)?.displayTime
-			? new DateTimePicker(formData.name ?? '', { shortLabel: formData.label, span: width })
-			: new DatePicker(formData.name ?? '', { shortLabel: formData.label, span: width })
+			? new DateTimePicker(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+			: new DatePicker(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
 
-	const makeDropdownField = (formData: FormLayoutData, width: number) =>
+	const makeDropdownField = (formData: FormLayoutData, width: number, height: number) =>
 		new DropdownField(formData.name ?? '', {
 			shortLabel: formData.label,
 			span: width,
@@ -48,7 +53,7 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 				: undefined,
 		})
 
-	const makeSubForm = (formData: FormLayoutData, width: number) => {
+	const makeSubForm = (formData: FormLayoutData, width: number, height: number) => {
 		const subForms = ((formData.editor as any)?.optionalFormGuids as string[])?.map((guid: string) => {
 			const subForm = formsLibrary.find((it) => it.guid === guid)
 			if (!subForm) {
@@ -62,11 +67,13 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 			{
 				shortLabel: formData.label,
 				span: width,
+				rowSpan: height,
 			},
 		)
 	}
 
-	const makeActionButton = (formData: FormLayoutData, width: number) => new ActionButton(formData.name ?? '', { shortLabel: formData.label, span: width })
+	const makeActionButton = (formData: FormLayoutData, width: number, height: number) =>
+		new ActionButton(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
 
 	// noinspection UnnecessaryLocalVariableJS
 	const translated = new Form(
@@ -81,6 +88,11 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 				16,
 			)
 			const rows = rowClusters.clusters
+
+			const intraCentroids = rowClusters.centroids.map((v, idx, centroids) => (idx > 0 ? v - centroids[idx - 1] : 0)).filter((x) => x > 0)
+			const meanHeightWithOutliers = intraCentroids.reduce((sum, v) => v + sum, 0) / intraCentroids.length
+			const intraCentroidsWithoutOutliers = intraCentroids.filter((x) => x < meanHeightWithOutliers * 2)
+			const meanHeight = intraCentroidsWithoutOutliers.reduce((sum, v) => v + sum, 0) / intraCentroidsWithoutOutliers.length
 
 			const formDataClusters = sortedList
 				.reduce(
@@ -202,7 +214,7 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 									TokenFieldEditor: makeTokenField,
 									SubFormEditor: makeSubForm,
 									ActionButton: makeActionButton,
-								}[formData.editor?.key ?? '']?.(formData, width)
+								}[formData.editor?.key ?? '']?.(formData, width, Math.max(1, Math.floor((formData.editor?.height ?? 0) / meanHeight)))
 							})
 					})
 				}),

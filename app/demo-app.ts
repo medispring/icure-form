@@ -48,6 +48,7 @@ const ultrasound = [
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
+		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 		{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
 		{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 		{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
@@ -57,7 +58,6 @@ class DemoApp extends LitElement {
 		{ title: '7 - Post curetage', form: Form.parse(YAML.parse(post_curetage)) },
 		{ title: '9 - Extra', form: Form.parse(YAML.parse(extra)) },
 		{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },
-		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 	]
 
 	@state() private selectedForm: Form = this.samples[0].form

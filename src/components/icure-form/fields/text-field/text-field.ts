@@ -7,6 +7,7 @@ import { Suggestion } from '../../../../generic'
 export class TextField extends Field {
 	//Boolean value is parsed as text, so we also need to use string type
 	@property() multiline: boolean | string = false
+	@property() lines = 1
 	@property() rows = 1
 	@property() grows = false
 	@property() unit?: string = ''
@@ -25,6 +26,8 @@ export class TextField extends Field {
 			return html`<icure-text-field
 				.readonly="${this.readonly}"
 				label="${this.label}"
+				.multiline="${this.multiline}"
+				.lines="${this.lines}"
 				.displayedLabels="${this.displayedLabels}"
 				defaultLanguage="${this.defaultLanguage}"
 				displayedLanguage="${this.displayedLanguage}"

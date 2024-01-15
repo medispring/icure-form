@@ -4,7 +4,7 @@ import { getDateSpec, getDateTimeSpec, getTimeSpec } from './date-time-schema'
 import { getTokensSpec } from './token-schema'
 import { getMeasureSpec } from './measure-schema'
 import { getDecimalSpec } from './decimal-schema'
-import { getItemsListSpec } from './items-list'
+import { getItemsListSpec } from './items-list-schema'
 import { IcureTextFieldSchema } from '../../model'
 
 export function createSchema(
