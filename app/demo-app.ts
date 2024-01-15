@@ -1,7 +1,21 @@
 // @ts-ignore
-import luna1 from './samples/Luna_1.yaml'
+import time_of_appointment from './samples/1-time-of-appointment.yaml'
 // @ts-ignore
-import luna2 from './samples/Luna_2.yaml'
+import preliminary_psycho_social_interview from './samples/2-preliminary-psycho-social-interview.yaml'
+// @ts-ignore
+import preliminary_medical_interview from './samples/3-preliminary-medical-interview.yaml'
+// @ts-ignore
+import termination_of_pregnancy_curetage from './samples/4-termination-of-pregnancy-curetage.yaml'
+// @ts-ignore
+import interruption_of_pregnancy_medical_part_1 from './samples/5-interruption-of-pregnancy-medical-part-1.yaml'
+// @ts-ignore
+import interruption_of_pregnancy_medical_part_2 from './samples/6-interruption-of-pregnancy-medical-part-2.yaml'
+// @ts-ignore
+import post_curetage from './samples/7-post-curetage.yaml'
+// @ts-ignore
+import extra from './samples/9-extra.yaml'
+// @ts-ignore
+import control from './samples/10-control.yaml'
 import obstetrics from './samples/obstetrics.json'
 import prescription from './samples/prescription.json'
 import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
@@ -35,8 +49,15 @@ class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
 		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
-		{ title: 'Luna 1', form: Form.parse(YAML.parse(luna1)) },
-		{ title: 'Luna 2', form: Form.parse(YAML.parse(luna2)) },
+		{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
+		{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
+		{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
+		{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
+		{ title: '5 - Interuption of pregnancy medical part 1', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_1)) },
+		{ title: '6 - Interuption of pregnancy medical part 2', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_2)) },
+		{ title: '7 - Post curetage', form: Form.parse(YAML.parse(post_curetage)) },
+		{ title: '9 - Extra', form: Form.parse(YAML.parse(extra)) },
+		{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },
 	]
 
 	@state() private selectedForm: Form = this.samples[0].form

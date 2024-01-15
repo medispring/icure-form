@@ -1,0 +1,344 @@
+form: abortion-forms.CONTROL
+id: 092be26a-d685-4430-9cd7-2f2e8cc8508a
+description: abortion-forms.CONTROL
+codifications:
+  - type: MS-ABORTION-CONTRACEPTION-AFTER-ABORTION
+    codes:
+      - id: yes
+        label:
+          nl:
+          fr: Oui
+      - id: no
+        label:
+          nl:
+          fr: Non
+  - type: MS-ABORTION-CONTRACEPTION
+    codes:
+      - id: coitus-interrupted
+        label:
+          nl: Onderbroken geslachtsgemeenschap
+          fr: Coït interrompu
+      - id: periodic-abstinence
+        label:
+          nl: Periodieke onthouding
+          fr: Abstinence périodique
+      - id: spermicides
+        label:
+          nl: Spermiciden
+          fr: Spermicides
+      - id: pessary
+        label:
+          nl: Spiraaltje
+          fr: Pessaire
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
+      - id: progestone-only-pill
+        label:
+          nl: POP
+          fr: Pilule progestative
+      - id: injection-pill
+        label:
+          nl: INJECTION-PILL
+          fr: Injection contraceptive
+      - id: kiud
+        label:
+          nl: KIUD
+          fr: KIUD
+      - id: hiud
+        label:
+          nl: HIUD
+          fr: HIUD
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie bij mannen
+          fr: Stérilisation masculine
+      - id: female-sterilization
+        label:
+          nl: Sterilisatie bij vrouwen
+          fr: Stérilisation féminine
+      - id: morning-after-pill
+        label:
+          nl: Morning-afterpil
+          fr: Pilule du lendemain
+      - id: implant
+        label:
+          nl: Implant
+          fr: Implant contraceptif
+      - id: patch
+        label:
+          nl: Anticonceptiepleister
+          fr: Patch contraceptif
+      - id: vaginal-ring
+        label:
+          nl: Vaginale ring
+          fr: Anneau vaginal
+      - id: symptothermal-method
+        label:
+          nl: Symptothermale methode
+          fr: Méthode symptothermique
+      - id: electronic-or-digital-methods
+        label:
+          nl: Elektronische of digitale methoden
+          fr: Méthodes électroniques ou numériques
+      - id: other-contraceptives
+        label:
+          nl: Andere anticonceptiemethoden
+          fr: Autres contraceptifs
+  - type: MS-ABORTION-CONTRACEPTIVE-DURING-CONTROL
+    codes:
+      - id: kiud
+        label:
+          nl: KIUD
+          fr:
+      - id: hiud
+        label:
+          nl: KIUD
+          fr:
+      - id: implant
+        label:
+          nl: abortion-forms.field-options.IMPLANT
+          fr:
+      - id: contraceptive-injection
+        label:
+          nl: abortion-forms.field-options.CONTRACEPTIVE-INJECTION
+          fr:
+  - type: MS-ABORTION-ULTRASOUND-RESULT
+    codes:
+      - id: empty-cavity
+        label:
+          nl: abortion-forms.field-options.EMPTY-CAVITY
+          fr:
+      - id: clots
+        label:
+          nl: abortion-forms.field-options.CLOTS
+          fr:
+      - id: retention
+        label:
+          nl: abortion-forms.field-options.RETENTION
+          fr:
+      - id: non-evolution-pregnancy
+        label:
+          nl: abortion-forms.field-options.NON-EVOLUTION-PREGNANCY
+          fr:
+      - id: evolution-pregnancy
+        label:
+          nl: abortion-forms.field-options.EVOLUTION-PREGNANCY
+          fr:
+      - id: diffuse-image
+        label:
+          nl: abortion-forms.field-options.DIFFUSE-IMAGE
+          fr:
+  - type: MS-ABORTION-COMPLICATION
+    codes:
+      - id:
+        label:
+          nl: abortion-forms.field-options.FAILED-CURETTAGE
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.BLEEDING-REQUIRING-STYPTIC-CURETTAGE
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.UTERINE-PERFORATION
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.CERVICAL-RUPTURE
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.INFECTIOUS-COMPLICATION
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.FAILURE-OF-DRUG-TREATMENT
+          fr:
+      - id:
+        label:
+          nl: abortion-forms.field-options.OTHER
+          fr:
+sections:
+  - section: abortion-forms.section-labels.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.HEALTHCARE-PARTY
+            type: dropdown
+            codifications:
+              - HCP-LIST|persphysician
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|healthcareParty|1
+          - field: abortion-forms.field-labels.PYSCHO-HEALTHCARE-PARTY
+            type: dropdown
+            codifications:
+              - HCP-LIST|deptpsychiatry
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|psychologicalHealthcareParty|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.PATIENT-EVALUATION
+            type: textfield
+            multiline: true
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|evaluationOfPatient|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION
+            type: radio-button
+            sortable: false
+            styleOptions:
+              direction: row
+              rows: 1
+            codifications:
+              - MS-ABORTION-CONTRACEPTION-AFTER-ABORTION
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTRACEPTION-YES
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 4
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptiveAfterAbortion|1
+              - MS-ABORTION-ITEM|contraception|1
+          - field: abortion-forms.field-labels.CONTRACEPTION-YES-OTHER
+            type: textfield
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptiveAfterAbortionOther|1
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTRACEPTIVE-DURING-CONTROL
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 2
+            codifications:
+              - MS-ABORTION-CONTRACEPTIVE-DURING-CONTROL
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptiveDuringControl|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTRACEPTIVE-BRAND
+            type: textfield
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|brandNameContraceptive|1
+          - field: abortion-forms.field-labels.CONTRACEPTIVE-NUMBER
+            type: textfield
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|brandNameContraceptiveNumber|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 4
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptionFuture|1
+              - MS-ABORTION-ITEM|contraception|1
+          - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
+            type: textfield
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|contraceptionFutureOther|1
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
+            type: dropdown
+            codifications:
+              - MS-ABORTION-ULTRASOUND-RESULT
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|resultOfUltrasound|1
+          - field: abortion-forms.field-labels.NOTES
+            type: textfield
+            styleOptions:
+              width: 600
+            multiline: true
+            tags:
+              - MS-ABORTION-ITEM|comment-note|1
+              - MS-ABORTION-CONTROL-ITEM|medicalNotes|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.COMPLICATION
+            type: dropdown
+            codifications:
+              - MS-ABORTION-COMPLICATION
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|complication|1
+          - field: abortion-forms.field-labels.COMPLICATION-OTHER
+            type: textfield
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|complicationOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.HCG-DATE
+            type: date-picker
+            now: true
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|HCGDate|1
+              - MS-ABORTION-ITEM|date|1
+              - MS-ABORTION-DATE|hcg|1
+          - field: abortion-forms.field-labels.HCG-DOSAGE
+            type: measure-field
+            unit: UI/l
+            tags:
+              - CD-PARAMETER|HCG|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|HCG|1
+              - MS-ABORTION-CONTROL-ITEM|HCGDosage|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN
+            type: number-field
+            value: 30
+            tags:
+              - MS-FOLLOW-UP-MIN|generic|1
+              - MS-ABORTION-CONTROL-ITEM|followUpMin|1
+              - MS-ABORTION-ITEM|follow-up|1
+          - field: abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN
+            type: number-field
+            value: 10
+            tags:
+              - MS-FOLLOW-UP-MIN|contraception|1
+              - MS-ABORTION-CONTROL-ITEM|followUpContraceptionMin|1
+              - MS-ABORTION-ITEM|follow-up|1

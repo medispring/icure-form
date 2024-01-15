@@ -1,0 +1,411 @@
+form: PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
+id: ac88264f-2133-4f49-8794-eeb95c4005c3
+description: PRELIMINARY-PSYCHO-SOCIAL-INTERVIEW
+codifications:
+  - type: MS-ABORTION-PATIENT-PROFESSION
+    codes:
+      - id: employee
+        label:
+          nl: Employee
+          fr: Employé
+      - id: independent
+        label:
+          nl: Independent
+          fr: Indépendant
+      - id: unemployed
+        label:
+          nl: Unemployed
+          fr: Sans emploi
+      - id: housewife
+        label:
+          nl: Housewife
+          fr: Femme au foyer
+      - id: schoolGirl
+        label:
+          nl: Schoolgirl
+          fr: Écolière
+      - id: student
+        label:
+          nl: Student
+          fr: Étudiante
+      - id: other
+        label:
+          nl: Other
+          fr: Autre
+  - type: MS-ABORTION-PATIENT-SCHOOL-LEVEL
+    codes:
+      - id: primary
+        label:
+          nl: Primary
+          fr: Enseignement primaire
+      - id: secondary
+        label:
+          nl: Secondary
+          fr: Enseignement secondaire
+      - id: higher
+        label:
+          nl: Higher
+          fr: Enseignement supérieur
+      - id: university
+        label:
+          nl: University
+          fr: Enseignement universitaire (master)
+      - id: other
+        label:
+          nl: Other
+          fr: Autre
+  - type: MS-ABORTION-EXTRA-INFO
+    codes:
+      - id: gestation
+        label:
+          nl: Gestation
+          fr: Age avancé de la grossesse
+      - id: anesthesia
+        label:
+          nl: Anesthesia
+          fr: Problème avec l'anesthésie
+      - id: other
+        label:
+          nl: Other
+          fr: Autre
+  - type: MS-ABORTION-METHOD-TYPE
+    codes:
+      - id: medication
+        label:
+          nl: Medication
+          fr: Médicamenteuse
+      - id: curettage
+        label:
+          nl: Curettage
+          fr: Curetage
+      - id: doubt
+        label:
+          nl: Doubt
+          fr: A des doutes
+      - id: keepIt
+        label:
+          nl: Keep it
+          fr: Garde l'enfant
+  - type: MS-ABORTION-CONTACT-VIA-TYPE
+    codes:
+      - id: onSite
+        label:
+          nl: On site
+          fr: Sur place
+      - id: visio
+        label:
+          nl: Visio
+          fr: Visioconférence
+      - id: phone
+        label:
+          nl: Phone
+          fr: Téléphone
+  - type: MS-ABORTION-COMPANION-TYPE
+    codes:
+      - id: none
+        label:
+          nl: None
+          fr: Aucun
+      - id: father
+        label:
+          nl: Father
+          fr: Père
+      - id: other
+        label:
+          nl: Other
+          fr: Autre
+      - id: partner
+        label:
+          nl: Partner
+          fr: Partenaire
+      - id: mother
+        label:
+          nl: Mother
+          fr: Mère
+      - id: friend
+        label:
+          nl: Friend
+          fr: Ami(e)
+      - id: educator
+        label:
+          nl: Educator
+          fr: Éducateur(trice)
+      - id: empty
+        label:
+          nl: Empty
+          fr: Vide
+translations:
+  - language: nl
+    translations:
+      field-labels.CONSULTATION-TYPE: Type consultatie
+      field-labels.ACCOMPANIED-BY: Vergezeld van X perso(o)n(en)
+      field-labels.OTHER: Andere
+      field-labels.OTHER-INFORMATION: Andere
+      field-labels.INFOS-ABORTION: Zwangerschap
+      field-labels.SCHOOL-LEVEL: Hoogste opleidingsniveau
+      field-labels.OTHER-SCHOOL-LEVEL: Andere
+      field-labels.PATIENT-PROFESSION: Beroep
+      field-labels.OTHER-PROFESSION: Andere
+      field-labels.ACTUAL-LIFE-SITUATION: Feitelijke leefsituatie
+      field-labels.OTHER-ACTUAL-LIFE-SITUATION: Andere
+      field-labels.SECTION-1: Section 1
+      field-labels.IN-TAKE-DATE: Datum intake
+      field-labels.ACCOMPANIED-BY-PERSONS-PRELIMINARY-INTERVIEW: Vergezeld van X perso(o)n(en) (tijdens intake)
+      field-labels.ACCOMPANIED-BY-PERSONS-WAITING-ROOM: Vergezeld van X perso(o)n(en) (wachtkamer)
+      field-labels.HISTORY: Verhaal / leefsituatie
+      field-labels.PARTNER-POSITION: Invloed partner / omgeving
+      field-labels.DECISION-PROCESSUS: Beslissingsproces / keuze m.b.t. methode / attitude m.b.t. abortus (indien van toepassing)
+      field-labels.PATIENT-FIRST-DECISION: Eerste keuze / behandelmethode
+      field-labels.COMMENTARY: Opmerking
+      field-labels.MARITAL-STATUS: Burgerlijke staat
+      field-labels.CHILD-NUMBER: Aantal kinderen
+      field-labels.CHILD-DEPENDANT-NUMBER: Aantal kinderen in het gezin
+      field-labels.COUNTRY-BIRTH: Geboorteland van de vrouw
+      field-labels.FOLLOW-UP-INTAKE-MIN: Aantal minuten intake
+      field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
+  - language: fr
+    translations:
+      field-labels.CONSULTATION-TYPE: Type de consultation
+      field-labels.ACCOMPANIED-BY: Accompagnée de
+      field-labels.OTHER: Autre
+      field-labels.OTHER-INFORMATION: Autre
+      field-labels.INFOS-ABORTION: Informations sur l'avortement
+      field-labels.SCHOOL-LEVEL: Niveau scolaire
+      field-labels.OTHER-SCHOOL-LEVEL: Autre
+      field-labels.PATIENT-PROFESSION: Profession de la patiente
+      field-labels.OTHER-PROFESSION: Autre
+      field-labels.ACTUAL-LIFE-SITUATION: Situation de vie actuelle
+      field-labels.OTHER-ACTUAL-LIFE-SITUATION: Autre
+      field-labels.SECTION-1: Section 1
+      field-labels.IN-TAKE-DATE: Date d'admission
+      field-labels.ACCOMPANIED-BY-PERSONS-PRELIMINARY-INTERVIEW: Accompagné de X personne(s) (entretien préliminaire)
+      field-labels.ACCOMPANIED-BY-PERSONS-WAITING-ROOM: Accompagné de X personne(s) (salle d'attente)
+      field-labels.HISTORY: Histoire/Situation
+      field-labels.PARTNER-POSITION: Position du partenaire pendant la grossesse
+      field-labels.DECISION-PROCESSUS: Processus de prise de décision / choix / attitude par rapport à l'avortement (le cas échéant)
+      field-labels.PATIENT-FIRST-DECISION: 'Première décision de la patiente'
+      field-labels.COMMENTARY: Commentaire
+      field-labels.MARITAL-STATUS: État civil
+      field-labels.CHILD-NUMBER: Nombre d'enfant
+      field-labels.CHILD-DEPENDANT-NUMBER: Nombre d'enfant à charge
+      field-labels.COUNTRY-BIRTH: Pays de naissance
+      field-labels.FOLLOW-UP-INTAKE-MIN: Suivi (min) (admission)
+      field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
+sections:
+  - section: field-labels.SECTION-1
+    fields:
+      - field: field-labels.CONSULTATION-TYPE
+        type: dropdown
+        codifications:
+          - MS-ABORTION-CONTACT-VIA-TYPE
+        tags:
+          - MS-ABORTION-item|contact-via|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|CONTACT-TYPE|1
+      - field: field-labels.IN-TAKE-DATE
+        type: date-picker
+        now: true
+        tags:
+          - MS-ABORTION-DATE|intake|1
+          - MS-ABORTION-ITEM|date|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1
+      - field: field-labels.ACCOMPANIED-BY-PERSONS-WAITING-ROOM
+        type: number-field
+        tags:
+          - MS-ABORTION-COMPANION|numberWaitingRoom|1
+          - MS-ABORTION-ITEM|companion|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|WAITING-ROOM-FOLLOWERS-NUMBER|1
+      - field: field-labels.ACCOMPANIED-BY-PERSONS-PRELIMINARY-INTERVIEW
+        type: number-field
+        tags:
+          - MS-ABORTION-COMPANION|numberDuringIntervention|1
+          - MS-ABORTION-ITEM|companion|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|CONSULTATION-FOLLOWERS-NUMBER|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.ACCOMPANIED-BY
+            type: checkbox
+            span: 12
+            styleOptions:
+              span: 3
+            codifications:
+              - MS-ABORTION-COMPANION-TYPE
+            sortOptions:
+              sort: natural
+              promotions: empty, *, none, other
+            tags:
+              - MS-ABORTION-COMPANION|typeOfCompanion|1
+              - MS-ABORTION-ITEM|companion|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PERSON-FOLLOWER-TYPE|1
+          - field: field-labels.OTHER
+            type: textfield
+            span: 24
+            computedProperties:
+              hidden: |
+                return !self['field-labels.ACCOMPANIED-BY']?.some(d => d.codes?.some(c => c.id === 'other'))
+            tags:
+              - MS-ABORTION-COMPANION-TYPE|custom|1
+              - MS-ABORTION-COMPANION|typeOfCompanion|1
+              - MS-ABORTION-ITEM|companion|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PERSON-FOLLOWER-OTHER|1
+      - field: field-labels.HISTORY
+        type: textfield
+        multiline: true
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1
+      - field: field-labels.PARTNER-POSITION
+        type: textfield
+        multiline: true
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PARTNER-POSITION|1
+      - field: field-labels.DECISION-PROCESSUS
+        type: textfield
+        multiline: true
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|DECISION-PROCESSUS|1
+      - field: field-labels.PATIENT-FIRST-DECISION
+        type: radio-button
+        styleOptions:
+          direction: column
+          span: 3
+        codifications:
+          - MS-ABORTION-METHOD-TYPE
+        tags:
+          - MS-ABORTION-ITEM|method|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|FIRST-CHOICE|1
+      - group: boxes
+        borderless: true
+        fields:
+          - field: field-labels.INFOS-ABORTION
+            type: dropdown
+            options:
+              gestation: field-options.GESTATION
+              anesthesia: field-options.ANESTHESIA
+              other: field-options.OTHER
+            codifications:
+              - MS-ABORTION-EXTRA-INFO
+            tags:
+              - MS-ABORTION-ITEM|extra-info|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ABORTION-INFORMATION|1
+          - field: field-labels.OTHER-INFORMATION
+            type: textfield
+            tags:
+              - MS-ABORTION-EXTRA-INFO|custom|1
+              - MS-ABORTION-ITEM|extra-info|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ABORTION-INFORMATION-OTHER|1
+            computedProperties:
+              hidden: |
+                return !self['field-labels.INFOS-ABORTION']?.some(d => d.codes?.some(c => c.id === 'other'))
+      - field: field-labels.COMMENTARY
+        type: textfield
+        multiline: true
+        tags:
+          - MS-ABORTION-ITEM|comment-note|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|COMMENT|1
+      - group: boxes
+        borderless: true
+        fields:
+          - field: field-labels.SCHOOL-LEVEL
+            type: dropdown
+            codifications:
+              - MS-ABORTION-PATIENT-SCHOOL-LEVEL
+            tags:
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT-INFO|school-level|1
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|SCHOOL-LEVEL|1
+          - field: field-labels.OTHER-SCHOOL-LEVEL
+            type: textfield
+            tags:
+              - MS-ABORTION-PATIENT-SCHOOL-LEVEL|custom|1
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT-INFO|school-level|1
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|SCHOOL-LEVEL-OTHER|1
+            computedProperties:
+              hidden: |
+                return !self['field-labels.SCHOOL-LEVEL']?.some(d => d.codes?.some(c => c.id === 'other'))
+      - group: boxes
+        borderless: true
+        fields:
+          - field: field-labels.PATIENT-PROFESSION
+            type: dropdown
+            codifications:
+              - MS-ABORTION-PATIENT-PROFESSION
+            tags:
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT|profession|1
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PATIENT-PROFESSION|1
+          - field: field-labels.OTHER-PROFESSION
+            type: textfield
+            tags:
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PATIENT-PROFESSION-OTHER|1
+              - MS-ABORTION-PATIENT-PROFESSION|custom|1
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT|profession|1
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+            computedProperties:
+              hidden: |
+                return !self['field-labels.PATIENT-PROFESSION']?.some(d => d.codes?.some(c => c.id === 'other'))
+      - field: field-labels.MARITAL-STATUS
+        type: dropdown
+        options:
+          married: field-options.MARRIED
+          cohabiting: field-options.COHABITING
+          single: field-options.SINGLE
+          divorced: field-options.DIVORCED
+          widowed: field-options.WIDOWED
+        codifications:
+          - MS-ABORTION-PATIENT-MARITAL-STATUS
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|MARITAL-STATUS|1
+          - MS-ABORTION-ITEM|administrative-patient-info|1
+          - MS-ABORTION-ADMINISTRATIVE-PATIENT|marital-status|1
+      - field: field-labels.ACTUAL-LIFE-SITUATION
+        type: dropdown
+        options:
+          alone: field-options.ALONE
+          couple: field-options.COUPLE
+          parent: field-options.PARENT
+          other: field-options.OTHER
+        codifications:
+          - MS-ABORTION-PATIENT-LIFE-SITUATION
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION|1
+          - MS-ABORTION-ITEM|administrative-patient-info|1
+          - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
+      - field: field-labels.OTHER-ACTUAL-LIFE-SITUATION
+        type: textfield
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION-OTHER|1
+          - MS-ABORTION-PATIENT-LIFE-SITUATION|custom|1
+          - MS-ABORTION-ITEM|administrative-patient-info|1
+          - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
+      - field: field-labels.CHILD-NUMBER
+        type: number-field
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|CHILD-NUMBER|1
+      - field: field-labels.CHILD-DEPENDANT-NUMBER
+        type: number-field
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|CHILD-DEPENDANT-NUMBER|1
+      - field: field-labels.COUNTRY-BIRTH
+        type: dropdown
+        codifications:
+          - CD-FED-COUNTRY
+        tags:
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|COUNTRY-BIRTH|1
+          - MS-ABORTION-ITEM|administrative-patient-info|1
+          - MS-ABORTION-ADMINISTRATIVE-PATIENT|country-birth|1
+      - field: field-labels.FOLLOW-UP-INTAKE-MIN
+        type: number-field
+        value: 50
+        tags:
+          - MS-FOLLOW-UP-MIN|intake|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|MINUTES-TRACKING-NUMBER|1
+          - MS-ABORTION-ITEM|follow-up|1
+      - field: field-labels.FOLLOW-UP-CONTRACEPTION-MIN
+        type: number-field
+        value: 10
+        tags:
+          - MS-FOLLOW-UP-MIN|contraception|1
+          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|MINUTES-CONTRACEPTION-NUMBER|1
+          - MS-ABORTION-ITEM|follow-up|1

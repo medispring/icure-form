@@ -1,0 +1,374 @@
+form: abortion-forms.INTERRUPTION-OF-PREGNANCY-MEDICAL-PART-2
+id: 21387ead-0c22-4c6a-94d2-04865a9cd941
+description: abortion-forms.INTERRUPTION-OF-PREGNANCY-MEDICAL-PART-2
+codifications:
+  - type: MS-ABORTION-CONSULTATION-TYPE
+    codes:
+      - id: home
+        label:
+          nl: abortion-forms.field-options.HOME
+          fr:
+      - id: reception
+        label:
+          nl: abortion-forms.field-options.RECEPTION
+          fr:
+  - type: MS-ABORTION-ADMINISTRATED-MEDICATION
+    codes:
+      - id: vaginal
+        label:
+          nl: abortion-forms.field-options.VAGINAL
+          fr:
+      - id: buccal
+        label:
+          nl: abortion-forms.field-options.BUCCAL
+          fr:
+      - id: sublingual
+        label:
+          nl: abortion-forms.field-options.SUBLINGUAL
+          fr:
+  - type: MS-ABORTION-PAIN-MEDICATION
+    codes:
+      - id: none
+        label:
+          nl: abortion-forms.field-options.NONE
+          fr:
+      - id: paracetamol
+        label:
+          nl: abortion-forms.field-options.PARACETAMOL
+          fr:
+      - id: ibuprofen
+        label:
+          nl: abortion-forms.field-options.IBUPROFEN
+          fr:
+      - id: codeine
+        label:
+          nl: abortion-forms.field-options.CODEINE
+          fr:
+      - id: tramadol
+        label:
+          nl: abortion-forms.field-options.TRAMADOL
+          fr:
+      - id: other
+        label:
+          nl: abortion-forms.field-options.OTHER
+          fr:
+  - type: MS-ABORTION-CONTRACEPTION
+    codes:
+      - id: coitus-interrupted
+        label:
+          nl: Onderbroken geslachtsgemeenschap
+          fr: Coït interrompu
+      - id: periodic-abstinence
+        label:
+          nl: Periodieke onthouding
+          fr: Abstinence périodique
+      - id: spermicides
+        label:
+          nl: Spermiciden
+          fr: Spermicides
+      - id: pessary
+        label:
+          nl: Spiraaltje
+          fr: Pessaire
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
+      - id: progestone-only-pill
+        label:
+          nl: POP
+          fr: Pilule progestative
+      - id: injection-pill
+        label:
+          nl: INJECTION-PILL
+          fr: Injection contraceptive
+      - id: kiud
+        label:
+          nl: KIUD
+          fr: KIUD
+      - id: hiud
+        label:
+          nl: HIUD
+          fr: HIUD
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie bij mannen
+          fr: Stérilisation masculine
+      - id: female-sterilization
+        label:
+          nl: Sterilisatie bij vrouwen
+          fr: Stérilisation féminine
+      - id: morning-after-pill
+        label:
+          nl: Morning-afterpil
+          fr: Pilule du lendemain
+      - id: implant
+        label:
+          nl: Implant
+          fr: Implant contraceptif
+      - id: patch
+        label:
+          nl: Anticonceptiepleister
+          fr: Patch contraceptif
+      - id: vaginal-ring
+        label:
+          nl: Vaginale ring
+          fr: Anneau vaginal
+      - id: symptothermal-method
+        label:
+          nl: Symptothermale methode
+          fr: Méthode symptothermique
+      - id: electronic-or-digital-methods
+        label:
+          nl: Elektronische of digitale methoden
+          fr: Méthodes électroniques ou numériques
+      - id: other-contraceptives
+        label:
+          nl: Andere anticonceptiemethoden
+          fr: Autres contraceptifs
+  - type: MS-ABORTION-SECOND-PART-EVALUATION
+    codes:
+      - id: expulsion-after-medication
+        label:
+          nl: abortion-forms.field-options.EXPULSION-AFTER-MEDICATION
+          fr:
+      - id: expulsion-after-first-dose
+        label:
+          nl: abortion-forms.field-options.EXPULSION-AFTER-FIRST-DOSE
+          fr:
+      - id: expulsion-after-second-dose
+        label:
+          nl: abortion-forms.field-options.EXPULSION-AFTER-SECOND-DOSE
+          fr:
+      - id: no-expulsion
+        label:
+          nl: abortion-forms.field-options.NO-EXPULSION
+          fr:
+      - id: unsure-expulsion
+        label:
+          nl: abortion-forms.field-options.UNSURE-EXPULSION
+          fr:
+  - type: MS-ABORTION-SECOND-PART-EVALUATION-OTHER
+    codes:
+      - id: check-house
+        label:
+          nl: abortion-forms.field-options.CHECK-HOUSE
+          fr:
+      - id: echo-in-centrum
+        label:
+          nl: abortion-forms.field-options.ECHO-IN-CENTRUM
+          fr:
+      - id: controle-with-ac
+        label:
+          nl: abortion-forms.field-options.CONTROLE-WITH-AC
+          fr:
+      - id: follow-up
+        label:
+          nl: abortion-forms.field-options.FOLLOW-UP
+          fr:
+      - id: controle-hcp
+        label:
+          nl: abortion-forms.field-options.CONTROLE-HCP
+          fr:
+      - id: other
+        label:
+          nl: abortion-forms.field-options.OTHER
+          fr:
+sections:
+  - section: abortion-forms.section-labels.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONSULTATION-TYPE
+            type: dropdown
+            codification: MS-ABORTION-CONSULTATION-TYPE
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|consultationType|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.MISOPROSTOL-FIRST-DOSIS
+            type: measure-field
+            unit: µg
+            value: 800 µg
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|misoprostolFirstDosis|1
+          - field: abortion-forms.field-labels.ADMINISTRATED-MEDICATION-1
+            type: radio-button
+            codification:
+              - MS-ABORTION-ADMINISTRATED-MEDICATION
+            styleOptions:
+              direction: row
+              rows: 1
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|administratedMedicationOne|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.SECOND-DOSIS
+            type: measure-field
+            unit: µg
+            value: 400 µg
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|misoprostolSecondDosis|1
+          - field: abortion-forms.field-labels.ADMINISTRATED-MEDICATION-2
+            type: radio-button
+            options:
+              vaginale: abortion-forms.field-options.VAGINAL
+              buccale: abortion-forms.field-options.BUCCAL
+              sublinguale: abortion-forms.field-options.SUBLINGUAL
+            styleOptions:
+              direction: row
+              rows: 1
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|administratedMedicationTwo|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.PAIN-MEDICATION
+            type: checkbox
+            sortOptions:
+              none: 0
+              empty: 0
+              other: -1
+              asc: true
+              alpha: true
+            styleOptions:
+              direction: column
+              columns: 2
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-PAIN-MEDICATION
+            tags:
+              - MS-ABORTION-ITEM|medication|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|painMedication|1
+          - field: abortion-forms.field-labels.PAIN-MEDICATION-OTHER
+            type: textfield
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|painMedicationOther|1
+              - MS-ABORTION-ITEM|medication|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2
+            type: textfield
+            rows: 5
+            columns: 1
+            multiline: true
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|conversationStageTwo|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
+            type: checkbox
+            styleOptions:
+              direction: column
+              columns: 4
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
+          - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
+            type: textfield
+            tags:
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.STAGE-2-EVALUATION
+            type: radio-button
+            styleOptions:
+              direction: column
+              columns: 3
+              alignItems: 'flex-end'
+            codification:
+              - MS-ABORTION-SECOND-PART-EVALUATION
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|stageTwoEvaluation|1
+          - field: abortion-forms.field-options.CONTROLE
+            type: radio-button
+            codification:
+              - MS-ABORTION-SECOND-PART-EVALUATION-OTHER
+            styleOptions:
+              direction: column
+              columns: 3
+              alignItems: 'flex-end'
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|control|1
+          - field: abortion-forms.field-labels.STAGE-2-EVALUATION-OTHER
+            type: textfield
+            tags:
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|control_other|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR
+            type: number-field
+            shortLabel: followUpMin
+            value: 30
+            tags:
+              - MS-FOLLOW-UP-MIN|doctor|1
+              - MS-ABORTION-ITEM|follow-up|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinDoctor|1
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION
+            type: number-field
+            shortLabel: followUpMin
+            value: 10
+            tags:
+              - MS-FOLLOW-UP-MIN|doctorContraception|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinDoctorContraception|1
+              - MS-ABORTION-ITEM|follow-up|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-HCP
+            type: number-field
+            shortLabel: followUpMin
+            value: 45
+            tags:
+              - MS-FOLLOW-UP-MIN|generic|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinTalk|1
+              - MS-ABORTION-ITEM|follow-up|1
+          - field: abortion-forms.field-labels.FOLLOW-UP-MIN-HCP-CONTRACEPTION
+            type: number-field
+            shortLabel: followUpMin
+            value: 10
+            tags:
+              - MS-FOLLOW-UP-MIN|contraception|1
+              - MS-NIHII-CONVENTION-ITEM|followUpMinTalkContraception|1
+              - MS-ABORTION-ITEM|follow-up|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.NOTES
+            type: textfield
+            styleOptions:
+              width: 600
+            multiline: true
+            tags:
+              - MS-ABORTION-ITEM|comment-note|1
+              - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|notes|1

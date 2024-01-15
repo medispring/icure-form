@@ -116,7 +116,7 @@ sections:
         styleOptions:
           direction: column
           columns: 2
-          alignItems: "flex-end"
+          alignItems: 'flex-end'
         tags:
           - MS-ABORTION-ITEM|medication|1
           - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|painMedication|1
@@ -137,28 +137,28 @@ sections:
       - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
         type: checkbox
         options:
-          "c01": abortion-forms.field-options.ORAL-PILL
-          "c02": abortion-forms.field-options.VAGINAL-RING
-          "c03": abortion-forms.field-options.PATCH
-          "c04": abortion-forms.field-options.KIUD
-          "c05": abortion-forms.field-options.HIUD
-          "c06": abortion-forms.field-options.IMPLANT
-          "c07": abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          "c08": abortion-forms.field-options.MALE-STERILIZATION
-          "c09": abortion-forms.field-options.FEMALE-STERILIZATION
-          "c10": abortion-forms.field-options.CONDOM
-          "c11": abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
-          "c12": abortion-forms.field-options.SYMPTOTHERMAL-METHOD
-          "c13": abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
-          "c14": abortion-forms.field-options.PROGESTERONE-ONLY-PILL
-          "other": abortion-forms.field-options.OTHER-CONTRACEPTIVES
+          'c01': abortion-forms.field-options.ORAL-PILL
+          'c02': abortion-forms.field-options.VAGINAL-RING
+          'c03': abortion-forms.field-options.PATCH
+          'c04': KIUD
+          'c05': KIUD
+          'c06': abortion-forms.field-options.IMPLANT
+          'c07': abortion-forms.field-options.CONTRACEPTIVE-INJECTION
+          'c08': abortion-forms.field-options.MALE-STERILIZATION
+          'c09': abortion-forms.field-options.FEMALE-STERILIZATION
+          'c10': abortion-forms.field-options.CONDOM
+          'c11': abortion-forms.field-options.ELECTRONIC-OR-DIGITAL-METHODS
+          'c12': abortion-forms.field-options.SYMPTOTHERMAL-METHOD
+          'c13': abortion-forms.field-options.COPPER-INTRAUTERINE-DEVICE
+          'c14': abortion-forms.field-options.PROGESTERONE-ONLY-PILL
+          'other': abortion-forms.field-options.OTHER-CONTRACEPTIVES
         rows: 6
         sortable: false
         columns: 1
         styleOptions:
           direction: column
           columns: 4
-          alignItems: "flex-end"
+          alignItems: 'flex-end'
         codifications:
           - MS-ABORTION-CONTRACEPTION
         tags:
@@ -186,7 +186,7 @@ sections:
         styleOptions:
           direction: column
           columns: 3
-          alignItems: "flex-end"
+          alignItems: 'flex-end'
         tags:
           - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|stageTwoEvaluation|1
       - field: abortion-forms.field-options.CONTROLE
@@ -204,7 +204,7 @@ sections:
         styleOptions:
           direction: column
           columns: 3
-          alignItems: "flex-end"
+          alignItems: 'flex-end'
         tags:
           - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|control|1
       - field: abortion-forms.field-labels.STAGE-2-EVALUATION-OTHER

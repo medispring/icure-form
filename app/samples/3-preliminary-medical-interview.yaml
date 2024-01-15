@@ -1,0 +1,579 @@
+form: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
+id: 6648c92d-eb7b-4223-aa65-4fcb3f4f4937
+description: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
+codifications:
+  - type: MS-ABORTION-PREGNANCY-TYPE
+    codes:
+      - id: g
+        label:
+          nl: G
+          fr: G
+      - id: p
+        label:
+          nl: P
+          fr: P
+      - id: abortion
+        label:
+          nl: Abortus
+          fr: IVG
+      - id: miscarriage
+        label:
+          nl: Miskraam
+          fr: Fausse-couche
+      - id: extra-uterine
+        label:
+          nl: Buitenbaarmoederlijke zw.
+          fr: Extra-utérine
+  - type: MS-ABORTION-PLANNED-PREGNANCY
+    codes:
+      - id: yes
+        label:
+          nl: Ja
+          fr: Oui
+      - id: no
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-ABORTION-USED-CONTRACEPTION
+    codes:
+      - id: yes
+        label:
+          nl: Ja
+          fr: Oui
+      - id: no
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-ABORTION-NO-USED-CONTRACEPTION
+    codes:
+      - id: unintended-pregnancy
+        label:
+          nl: Zwangerschap niet gewenst
+          fr: Grossesse non désirée
+      - id: intended-pregnancy
+        label:
+          nl: Zwangerschap gewenst
+          fr: Grossesse désirée
+      - id: presumed-infertility
+        label:
+          nl: Veronderstelde onvruchtbaarheid
+          fr: Infertilité présumée
+      - id: man-refused-contraception
+        label:
+          nl: Partner weigerde anticonceptie
+          fr: L'homme à refusé la contraception
+      - id: other
+        label:
+          nl: Andere
+          fr: Autre
+  - type: MS-ABORTION-CONTRACEPTION
+    codes:
+      - id: coitus-interrupted
+        label:
+          nl: Onderbroken geslachtsgemeenschap
+          fr: Coït interrompu
+      - id: periodic-abstinence
+        label:
+          nl: Periodieke onthouding
+          fr: Abstinence périodique
+      - id: spermicides
+        label:
+          nl: Spermiciden
+          fr: Spermicides
+      - id: pessary
+        label:
+          nl: Spiraaltje
+          fr: Pessaire
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
+      - id: progestone-only-pill
+        label:
+          nl: POP
+          fr: Pilule progestative
+      - id: injection-pill
+        label:
+          nl: INJECTION-PILL
+          fr: Injection contraceptive
+      - id: kiud
+        label:
+          nl: KIUD
+          fr: KIUD
+      - id: hiud
+        label:
+          nl: HIUD
+          fr: HIUD
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie bij mannen
+          fr: Stérilisation masculine
+      - id: female-sterilization
+        label:
+          nl: Sterilisatie bij vrouwen
+          fr: Stérilisation féminine
+      - id: morning-after-pill
+        label:
+          nl: Morning-afterpil
+          fr: Pilule du lendemain
+      - id: implant
+        label:
+          nl: Implant
+          fr: Implant contraceptif
+      - id: patch
+        label:
+          nl: Anticonceptiepleister
+          fr: Patch contraceptif
+      - id: vaginal-ring
+        label:
+          nl: Vaginale ring
+          fr: Anneau vaginal
+      - id: symptothermal-method
+        label:
+          nl: Symptothermale methode
+          fr: Méthode symptothermique
+      - id: electronic-or-digital-methods
+        label:
+          nl: Elektronische of digitale methoden
+          fr: Méthodes électroniques ou numériques
+      - id: other-contraceptives
+        label:
+          nl: Andere anticonceptiemethoden
+          fr: Autres contraceptifs
+  - types: MS-ABORTION-REASON-OF-FAILURE
+    codes:
+      - id: did-not-use-contraception
+        label:
+          nl: Heeft geen anticonceptie toegepast
+          fr: N'a pas utilisé de contraception
+      - id: irregular-or-improper-use-against-design
+        label:
+          nl: AC onregelmatig of niet correct verkeerd gebruikt
+          fr: Utilisation irrégulière ou inappropriée contre la conception
+      - id: anti-design-failed-despite-good-use
+        label:
+          nl: AC onregelmatig of niet correct verkeerd gebruikt
+          fr: Anti-design a échoué malgré une bonne utilisation
+      - id: does-not-know
+        label:
+          nl: Weet het niet
+          fr: Ne sait pas
+  - types: MS-ABORTION-POSITIONING-OF-THE-UTERUS
+    codes:
+      - id: anteversion
+        label:
+          nl: Anteversie
+          fr: Antéversion
+      - id: retroversion
+        label:
+          nl: Retroversie
+          fr: Rétroversion
+      - id: stretching-position
+        label:
+          nl: Strekstand
+          fr: Position de distension
+  - types: MS-ABORTION-MEDICATION-GIVEN-TO-PATIENT
+    codes:
+      - id: misoprostol
+        label:
+          nl: Misoprostol
+          fr: Misoprostol
+      - id: mifegyne
+        label:
+          nl: Mifegyne
+          fr: Mifegyne
+      - id: mifegyne-misoprostol
+        label:
+          nl: Mifegyne + Misoprostol
+          fr: Mifegyne + Misoprostol
+      - id: other
+        label:
+          nl: Andere
+          fr: autre
+  - types: MS-ABORTION-RESULT-OF-THE-PRELIMINARY-INVESTIGATION
+    codes:
+      - id: medication
+        label:
+          nl: Medicamenteuze behandeling
+          fr: médicamenteuse
+      - id: curettage
+        label:
+          nl: Zuigcurettage
+          fr: Curetage
+      - id: waiting-time
+        label:
+          nl: Wachttijd
+          fr: Temps d'attente
+      - id: preserving-the-pregnancy
+        label:
+          nl: Behoud van zwangerschap
+          fr: Préservation de la grossesse
+      - id: miscarriage
+        label:
+          nl: Miskraam
+          fr: Fausse-couche
+      - id: no-pregnancy
+        label:
+          nl: Geen zwangerschap
+          fr: Pas de grossesse
+      - id: luna-referral
+        label:
+          nl: Doorverwijzing naar een andere LUNA-locatie
+          fr: Procédure de renvoi vers un autre emplacement LUNA
+      - id: surgery-referral
+        label:
+          nl: Doorverwijzing voor buitenlandse chirurgische ingreep vanwege duur van de zwangerschap
+          fr: Référence pour une intervention chirurgicale en raison de la durée de la grossesse à l'étranger
+      - id: hospital-referral
+        label:
+          nl: Doorverwijzing naar ziekenhuis vanwege verzoek om anesthesie
+          fr: Renvoi à l'hôpital en raison d'une demande d'anesthésie
+      - id: gynecologist-referral
+        label:
+          nl: Doorverwijzing naar gynaecoloog
+          fr: Orientation vers un gynécologue
+      - id: adoption-referral
+        label:
+          nl: Doorverwijzing naar adoptiecentrum
+          fr: Centre d'adoption de référence
+      - id: other-referral
+        label:
+          nl: Andere doorverwijzing
+          fr: Autre type de référence
+translations:
+  - language: nl
+    translations:
+      field-labels.PREGNANCY-SECTION: Section 1
+      field-labels.PREGNANCY-TYPE: Obstetrische geschiedenis
+      field-labels.AMENORRHEA-DATE: Eerste dag Laatste Menstruatie (ELM)
+      field-labels.PLANNED-PREGNANCY: Geplande zwangerschap
+      field-labels.USED-CONTRACEPTION: Gebruikte anticonceptie
+      field-labels.NO: Nee
+      field-labels.OTHER-NO: Andere
+      field-labels.YES: Ja
+      field-labels.OTHER-YES: Andere
+      field-labels.REASON-OF-FAILURE: Oorzaak van de zwangerschap
+      field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
+      field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
+      field-labels.NUMBER-OF-FETUSES: Aantal
+      field-labels.POSITIONING-OF-THE-UTERUS: Ligging uterus
+      field-labels.MEDICATION-GIVEN-TO-PATIENT: Medicatie/premedicatie meegegeven
+      field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION: Resultaat van het vooronderzoek
+      field-labels.REFERRAL-PLACE: Plaats
+      field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
+      field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
+      field-labels.COMMENTARY: Opmerking
+      field-labels.HCG: HCG
+      field-labels.HCG-DATE: Datum HCG
+      field-labels.PROG: PROG
+      field-labels.PROG-DATE: Datum PROG
+      field-labels.GS: GS
+      field-labels.CRL: CRL
+      field-labels.BPD: BPD
+      field-labels.FL: FL
+  - language: fr
+    translations:
+      field-labels.PREGNANCY-SECTION: Section 1
+      field-labels.PREGNANCY-TYPE: Type de grossesse
+      field-labels.AMENORRHEA-DATE: Date d'aménorrhée
+      field-labels.PLANNED-PREGNANCY: Grossesse planifiée
+      field-labels.USED-CONTRACEPTION: Contraception utilisée
+      field-labels.NO: Non
+      field-labels.OTHER-NO: Autre (Non)
+      field-labels.YES: Oui
+      field-labels.OTHER-YES: Autre (Oui)
+      field-labels.REASON-OF-FAILURE: Raison de l'échec
+      field-labels.FUTURE-CONTRACEPTION: Contraception future
+      field-labels.OTHER-FUTURE-CONTRACEPTION: Autre
+      field-labels.NUMBER-OF-FETUSES: Nombre de fœtus
+      field-labels.POSITIONING-OF-THE-UTERUS: Position de l'utérus
+      field-labels.MEDICATION-GIVEN-TO-PATIENT: Médicament donné à la patiente
+      field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION: Résultat de l'enquête préliminaire
+      field-labels.REFERRAL-PLACE: Lieu de référence
+      field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
+      field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
+      field-labels.COMMENTARY: Commentaire
+      field-labels.HCG: HCG
+      field-labels.HCG-DATE: Date HCG
+      field-labels.PROG: PROG
+      field-labels.PROG-DATE: Date PROG
+      field-labels.GS: GS
+      field-labels.CRL: CRL
+      field-labels.BPD: BPD
+      field-labels.FL: FL
+sections:
+  - section: field-labels.PREGNANCY-SECTION
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.PREGNANCY-TYPE
+            type: checkbox
+            span: 4
+            styleOptions:
+              direction: column
+              span: 2
+            codifications:
+              - MS-ABORTION-PREGNANCY-TYPE
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyType|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.AMENORRHEA-DATE
+            type: date-picker
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|amenorrheaDate|1
+              - MS-ABORTION-ITEM|amenorrhea|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.PLANNED-PREGNANCY
+            type: radio-button
+            styleOptions:
+              direction: row
+              span: 1
+            codifications:
+              - MS-ABORTION-PLANNED-PREGNANCY
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|plannedPregnancy|1
+          - field: field-labels.USED-CONTRACEPTION
+            type: radio-button
+            styleOptions:
+              direction: row
+              span: 1
+            codifications:
+              - MS-ABORTION-USED-CONTRACEPTION
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|usedContraception|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.NO
+            type: radio-button
+            sortOptions:
+              sort: asc
+              promotions: '*, other'
+            styleOptions:
+              direction: column
+              span: 2
+              alignItems: 'flex-end'
+            computedProperties:
+              hidden: |
+                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'no'))
+            codifications:
+              - MS-ABORTION-NO-USED-CONTRACEPTION
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|no-used-contraception|1
+          - field: field-labels.OTHER-NO
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id === 'other'))
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-no-used-contraception|1
+          - field: field-labels.YES
+            type: checkbox
+            styleOptions:
+              direction: column
+              span: 4
+              alignItems: 'flex-end'
+            computedProperties:
+              hidden: |
+                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'yes'))
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|yes-used-contraception|1
+              - MS-ABORTION-ITEM|contraception|1
+          - field: field-labels.OTHER-YES
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['field-labels.YES']?.some(d => d.codes?.some(c => c.id === 'other'))
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-yes-used-contraception|1
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.REASON-OF-FAILURE
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 2
+            codifications:
+              - MS-ABORTION-REASON-OF-FAILURE
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|reasonOfFailure|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.FUTURE-CONTRACEPTION
+            type: checkbox
+            styleOptions:
+              direction: column
+              span: 4
+              alignItems: 'flex-end'
+            codifications:
+              - MS-ABORTION-CONTRACEPTION
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
+              - MS-ABORTION-ITEM|contraception|1
+          - field: field-labels.OTHER-FUTURE-CONTRACEPTION
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['field-labels.FUTURE-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'other-contraceptives'))
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
+              - MS-ABORTION-ITEM|contraception|1
+              - MS-ABORTION-CONTRACEPTION|custom|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.GS
+            type: measure-field
+            unit: mm
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|GS-Measure|1
+          - field: field-labels.CRL
+            type: measure-field
+            unit: mm
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|CRL-Measure|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.BPD
+            type: measure-field
+            unit: mm
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|BPD-Measure|1
+          - field: field-labels.FL
+            type: measure-field
+            unit: mm
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|FL-Measure|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.NUMBER-OF-FETUSES
+            type: number-field
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfFoetus|1
+          - field: field-labels.POSITIONING-OF-THE-UTERUS
+            type: dropdown
+            span: 12
+            sortOptions:
+              sort: asc
+              promotions: '*, other'
+            codifications:
+              - MS-ABORTION-POSITIONING-OF-THE-UTERUS
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|uterusPosition|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.MEDICATION-GIVEN-TO-PATIENT
+            type: dropdown
+            sortOptions:
+              none: -1
+              empty: 0
+              other: 1
+              alpha: true
+              asc: true
+            codifications:
+              - MS-ABORTION-MEDICATION-GIVEN-TO-PATIENT
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|medicationGiven|1
+              - MS-ABORTION-ITEM|medication|1
+          - field: field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION
+            type: dropdown
+            sortable: false
+            codifications:
+              - MS-ABORTION-RESULT-OF-THE-PRELIMINARY-INVESTIGATION
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|preliminaryInvestigationResult|1
+          - field: field-labels.REFERRAL-PLACE
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION']?.some(d => d.codes?.some(c => c.id === 'other-referral'))
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|referralPlace|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.FOLLOW-UP-MIN
+            type: number-field
+            value: 30
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfFollowUp|1
+              - MS-ABORTION-ITEM|followUp|1
+              - MS-FOLLOW-UP-MIN|generic|1
+          - field: field-labels.FOLLOW-UP-CONTRACEPTION-MIN
+            type: number-field
+            value: 10
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfContraception|1
+              - MS-ABORTION-ITEM|followUp|1
+              - MS-FOLLOW-UP-MIN|contraception|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.COMMENTARY
+            type: textfield
+            multiline: true
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|comment|1
+              - MS-ABORTION-ITEM|comment-note|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.HCG
+            type: measure-field
+            unit: UI/l
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|hcg|1
+              - CD-PARAMETER|HCG|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|HCG|1
+          - field: field-labels.HCG-DATE
+            type: date-picker
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|hcgDate|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.PROG
+            type: measure-field
+            unit: ng/ml
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|prog|1
+              - CD-PARAMETER|progesterone|1
+              - CD-ITEM|parameter|1
+              - MS-ABORTION-ITEM|progesterone|1
+          - field: field-labels.PROG-DATE
+            type: date-picker
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|progDate|1
