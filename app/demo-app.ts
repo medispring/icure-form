@@ -16,17 +16,17 @@ import post_curetage from './samples/7-post-curetage.yaml'
 import extra from './samples/9-extra.yaml'
 // @ts-ignore
 import control from './samples/10-control.yaml'
-//import obstetrics from './samples/obstetrics.json'
-//import prescription from './samples/prescription.json'
-//import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
-//import obstetrics_followup_short from './samples/obstetrics-followup-short.json'
-//import obstetrics_followup_midwife from './samples/obstetrics-followup-midwife.json'
-//import incapacity from './samples/incapacity.json'
-import { CodeStub, IccHcpartyXApi, sleep } from '@icure/api'
+import obstetrics from './samples/obstetrics.json'
+import prescription from './samples/prescription.json'
+import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
+import obstetrics_followup_short from './samples/obstetrics-followup-short.json'
+import obstetrics_followup_midwife from './samples/obstetrics-followup-midwife.json'
+import incapacity from './samples/incapacity.json'
+import { CodeStub, FormLayout, IccHcpartyXApi, sleep } from '@icure/api'
 import { css, html, LitElement } from 'lit'
-//import { convertLegacy } from '../src/conversion/icure-convert'
+import { convertLegacy } from '../src/conversion/icure-convert'
 
-//const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
+const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -48,16 +48,16 @@ const ultrasound = [
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
-		//{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
+		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 		{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
-		/*{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
+		{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 		{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
 		{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
 		{ title: '5 - Interuption of pregnancy medical part 1', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_1)) },
 		{ title: '6 - Interuption of pregnancy medical part 2', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_2)) },
 		{ title: '7 - Post curetage', form: Form.parse(YAML.parse(post_curetage)) },
 		{ title: '9 - Extra', form: Form.parse(YAML.parse(extra)) },
-		{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },*/
+		{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },
 	]
 
 	@state() private selectedForm: Form = this.samples[0].form
