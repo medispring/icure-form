@@ -63,6 +63,8 @@ export class IcureTextField extends Field {
 		return this.renderRoot.querySelector('#ownerSearch')
 	}
 	@property() placeholder = ''
+	@property() multiline: boolean | string = false
+	@property() lines = 1
 	@property() suggestionStopWords: Set<string> = new Set<string>()
 	@property({ type: Boolean }) displayOwnerMenu = false
 	@property({ type: Boolean }) suggestions = false
@@ -168,7 +170,7 @@ export class IcureTextField extends Field {
 			<div id="root" class="${this.visible ? 'icure-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input">
-					<div id="editor"></div>
+					<div id="editor" style="min-height: calc(${this.lines}rem + 5px)"></div>
 				</div>
 			</div>
 		`
