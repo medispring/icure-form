@@ -8,6 +8,7 @@ import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes } from './codes'
 import { Code, Form } from '../src/components/model'
+import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -59,6 +60,8 @@ export class DecoratedForm extends LitElement {
 	@property() form: Form
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 	@property() optionsProvider: (language: string, codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
+
+	@property() displayedLanguage?: string = 'fr'
 
 	private undoStack: BridgedFormValuesContainer[] = []
 	private redoStack: BridgedFormValuesContainer[] = []
@@ -113,17 +116,25 @@ export class DecoratedForm extends LitElement {
 
 	async firstUpdated() {
 		const contactFormValuesContainer = await makeFormValuesContainer()
-		const formValuesContainer = new BridgedFormValuesContainer('user-id', contactFormValuesContainer, makeInterpreter())
-		this.formValuesContainer = formValuesContainer
-		formValuesContainer.registerChangeListener((newValue) => {
+		const responsible = 'user-id'
+
+		const initialisedFormValueContainer = initializeWithFormDefaultValues(
+			new BridgedFormValuesContainer(responsible, contactFormValuesContainer, makeInterpreter()),
+			this.form,
+			this.displayedLanguage,
+			responsible,
+		) as BridgedFormValuesContainer
+
+		this.formValuesContainer = initialisedFormValueContainer
+		initialisedFormValueContainer.registerChangeListener((newValue) => {
 			this.redoStack = []
-			this.undoStack.push(formValuesContainer)
+			this.undoStack.push(initialisedFormValueContainer)
 			this.formValuesContainer = newValue
 
 			const toSave = this.formValuesContainer.getContactFormValuesContainer()
 
 			setTimeout(() => {
-				if (toSave === formValuesContainer.getContactFormValuesContainer()) {
+				if (toSave === initialisedFormValueContainer.getContactFormValuesContainer()) {
 					console.log('saving')
 				}
 			}, 10000)
@@ -191,7 +202,7 @@ export class DecoratedForm extends LitElement {
 				.form="${this.form}"
 				labelPosition="above"
 				renderer="form"
-				displayedLanguage="fr"
+				displayedLanguage="${this.displayedLanguage}"
 				.formValuesContainer="${this.formValuesContainer}"
 				.codesProvider="${this.codesProvider}"
 				.optionsProvider="${this.optionsProvider}"

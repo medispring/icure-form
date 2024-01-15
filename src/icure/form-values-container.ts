@@ -229,9 +229,16 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	}
 
 	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined {
+		const native = { parseInt: parseInt, parseFloat: parseFloat, Date: Date, Math: Math, Number: Number, String: String, Boolean: Boolean, Array: Array, Object: Object }
 		const proxy: S = new Proxy({} as S, {
-			has: (target: S, key: string | symbol) => key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
-			get: (target: S, key: string | symbol) => (key === 'self' ? proxy : Object.values(this.getVersionedValuesForKey(key)).map((v) => v[0]?.value)),
+			has: (target: S, key: string | symbol) => !!native[key] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
+			get: (target: S, key: string | symbol) => {
+				const nativeValue = native[key]
+				if (!!nativeValue) {
+					return nativeValue
+				}
+				return key === 'self' ? proxy : Object.values(this.getVersionedValuesForKey(key)).map((v) => v[0]?.value)
+			},
 		})
 		return this.interpreter?.(formula, sandbox ?? proxy)
 	}

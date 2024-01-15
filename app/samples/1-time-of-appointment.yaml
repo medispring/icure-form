@@ -75,7 +75,9 @@ sections:
           - field: abortion-forms.field-labels.APPOINTMENT-DATE
             type: date-picker
             span: 6
-            now: true
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
               - MS-ABORTION-ITEM|date|1

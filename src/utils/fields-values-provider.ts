@@ -16,6 +16,18 @@ export const fieldValuesProvider =
 	() =>
 		formValuesContainer.getValues(getRevisionsFilter(field))
 
+export function makeMetadata(field: Field, owner?: string) {
+	return {
+		label: field.label(),
+		valueDate: dateToFuzzyDate(new Date()),
+		owner: owner,
+		tags: field.tags?.map((t) => ({
+			id: t,
+			label: {},
+		})),
+	}
+}
+
 export const handleValueChanged =
 	(formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, owner?: string, field?: Field) => (label: string, language: string, value: FieldValue, id?: string) => {
 		if (formsValueContainer) {
@@ -25,15 +37,7 @@ export const handleValueChanged =
 				value,
 				id,
 				!id && field // If the id is not set, we are creating a new value. In this case, we set the metadata.
-					? {
-							label: field.label(),
-							valueDate: dateToFuzzyDate(new Date()),
-							owner: owner,
-							tags: field.tags?.map((t) => ({
-								id: t,
-								label: {},
-							})),
-					  }
+					? makeMetadata(field, owner)
 					: undefined,
 			)
 		}
