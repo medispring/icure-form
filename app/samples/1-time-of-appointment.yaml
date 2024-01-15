@@ -147,9 +147,11 @@ sections:
           - MS-ABORTION-APPOINTMENT-TIME-ITEM|commentary|1
           - MS-ABORTION-ITEM|comment-note|1
       - field: abortion-forms.field-labels.FOLLOW-UP-MIN
-        value: 10
         type: number-field
         span: 4
+        computedProperties:
+          defaultValue: |
+            return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
         tags:
           - MS-ABORTION-APPOINTMENT-TIME-ITEM|followUp|1
           - MS-ABORTION-ITEM|follow-up|1

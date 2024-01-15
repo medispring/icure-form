@@ -32,11 +32,16 @@ import baseCss from '../common/styles/style.scss'
 
 import { extractSingleValue } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
+import { anyDateToDate } from '../../utils/icure-utils'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
 
-	parse(value: string): ProsemirrorNode | null {
+	parse(primitiveValue: PrimitiveType): ProsemirrorNode | null {
+		if (primitiveValue.type !== 'string') {
+			return null
+		}
+		const value = primitiveValue.value
 		const node = this.mkdp.parse(value)
 		const trailingSpaces = value.match(/([ ]+)$/)?.[1]
 		if (node && trailingSpaces) {
@@ -90,7 +95,7 @@ export class IcureTextField extends Field {
 	@state() protected availableLanguages = [this.displayedLanguage]
 
 	private proseMirrorSchema?: Schema
-	private parser?: SpacePreservingMarkdownParser | { parse: (value: string) => ProsemirrorNode }
+	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType) => ProsemirrorNode | undefined }
 	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = {
 		serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
 	}
@@ -147,8 +152,8 @@ export class IcureTextField extends Field {
 			const [, versions] = extractSingleValue(this.valueProvider?.())
 			if (versions) {
 				const valueForLanguage = versions[0]?.value?.content?.[this.language()] ?? ''
-				if (valueForLanguage && valueForLanguage.type === 'string' && valueForLanguage.value) {
-					const parsedDoc = this.parser?.parse(valueForLanguage.value) ?? undefined
+				if (valueForLanguage) {
+					const parsedDoc = this.parser?.parse(valueForLanguage) ?? undefined
 					if (parsedDoc) {
 						const selection = this.view.state.selection
 						const selAnchor = selection.$anchor.pos
@@ -349,17 +354,31 @@ export class IcureTextField extends Field {
 		const tokenizer = MarkdownIt('commonmark', { html: false })
 		return schemaName === 'date'
 			? {
-					parse: (value: string) => pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(value)] : [])]),
+					parse: (value: PrimitiveType) => {
+						if (value?.type === 'datetime') {
+							const dateString = anyDateToDate(value.value)?.toISOString().replace(/T.*/, '')
+							return pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(dateString ?? '')] : [])])
+						} else if (value?.type === 'timestamp') {
+							const dateString = new Date(value.value)?.toISOString().replace(/T.*/, '')
+							return pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(dateString ?? '')] : [])])
+						}
+						return undefined
+					},
 			  }
 			: schemaName === 'time'
 			? {
-					parse: (value: string) => pms.node('paragraph', {}, [pms.node('time', {}, value ? [pms.text(value)] : [])]),
+					parse: (value: PrimitiveType) =>
+						value.type === 'number' ? pms.node('paragraph', {}, [pms.node('time', {}, value ? [pms.text(value.value / 100 + ':' + (value.value % 100))] : [])]) : undefined,
 			  }
 			: schemaName === 'measure'
 			? {
-					parse: (value: string) => {
-						const decimal = value ? value.split(' ')[0] : ''
-						const unit = value ? value.split(' ')[1] : ''
+					parse: (value: PrimitiveType) => {
+						if (value.type !== 'measure') {
+							return undefined
+						}
+
+						const decimal = value.value.toString()
+						const unit = value.unit
 
 						return pms.node('paragraph', {}, [
 							pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [pms.text(' ')]),
@@ -369,15 +388,20 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'decimal'
 			? {
-					parse: (value: string) => {
-						return pms.node('paragraph', {}, [pms.node('decimal', {}, value && value.length ? [pms.text(value)] : [pms.text(' ')])])
+					parse: (value: PrimitiveType) => {
+						return value.type === 'number' ? pms.node('paragraph', {}, [pms.node('decimal', {}, [pms.text(value.value.toString())])]) : undefined
 					},
 			  }
 			: schemaName === 'date-time'
 			? {
-					parse: (value: string) => {
-						const date = value ? value.split(' ')[0] : ''
-						const time = value ? value.split(' ')[1] : ''
+					parse: (value: PrimitiveType) => {
+						if (value.type !== 'datetime') {
+							return undefined
+						}
+						const date = anyDateToDate(value.value)?.toISOString().replace(/T.*/, '')
+						const time = anyDateToDate(value.value)
+							?.toISOString()
+							.replace(/.+?T(..):(..).*/, '$1:$2')
 
 						return pms.node('paragraph', {}, [
 							pms.node('date', {}, date && date.length ? [pms.text(date)] : [pms.text(' ')]),
