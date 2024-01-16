@@ -444,7 +444,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.DATE-PHASE-1
             type: date-picker
-            now: true
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|date|1
               - MS-ABORTION-ITEM|date|1
@@ -502,10 +504,12 @@ sections:
         fields:
           - field: abortion-forms.field-labels.HEALTHCARE-PARTY-TALK
             type: textfield
+            multiline: true
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|healthcarePartyTalk|1
           - field: abortion-forms.field-labels.PYSCHO-HEALTHCARE-PARTY-TALK
             type: textfield
+            multiline: true
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|psychoHealthcarePartyTalk|1
       - group: line
@@ -536,6 +540,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.ABORTION-REASON-CODE-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return ![...self['field-labels.ABORTION-REASON-CODE-1'],...self['field-labels.ABORTION-REASON-CODE-2'],...self['field-labels.ABORTION-REASON-CODE-3']]?.some(d => d.codes?.some(c => c.id === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCodeOther|1
               - MS-ABORTION-REASON-CODE|custom|1
@@ -548,21 +555,20 @@ sections:
             codifications:
               - MS-ABORTION-PRE-MEDICATION
             sortOptions:
-              none: -1
-              other: 1
-              empty: 0
-              asc: true
-              alpha: true
+              sort: natural
+              promotions: none, *, other
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|preMedication|1
               - MS-ABORTION-ITEM|medication|1
           - field: abortion-forms.field-labels.PRE-MEDICATION-OTHER
             type: textfield
             multiline: true
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.PRE-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|preMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -578,21 +584,20 @@ sections:
             columns: 1
             sortable: true
             sortOptions:
-              none: -1
-              other: 1
-              empty: 0
-              asc: true
-              alpha: true
+              sort: natural
+              promotions: none, *, other
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|painMedication|1
               - MS-ABORTION-ITEM|medication|1
           - field: abortion-forms.field-labels.PAIN-MEDICATION-OTHER
             type: textfield
             multiline: true
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.PAIN-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|painMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -604,8 +609,9 @@ sections:
             type: radio-button
             styleOptions:
               direction: row
-              rows: 1
-              alignItems: 'flex-end'
+              span: 1
+            codifications:
+              - MS-ABORTION-AB-PROPHYLAXIS
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxis|1
           - field: abortion-forms.field-labels.AB-PROPHYLAXIS-NO
@@ -613,17 +619,22 @@ sections:
             codifications:
               - MS-ABORTION-AB-PROPHYLAXIS-NO
             sortOptions:
-              none: -1
-              other: 1
-              empty: 0
-              asc: true
-              alpha: true
-            columns: 2
+              sort: natural
+              promotions: none, *, other
+            styleOptions:
+              direction: column
+              span: 2
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id === 'no'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxisNo|1
               - MS-ABORTION-ITEM|medication|1
           - field: abortion-forms.field-labels.AB-PROPHYLAXIS-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !(self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id === 'no')) && self['abortion-forms.field-labels.AB-PROPHYLAXIS-NO']?.some(d => d.codes?.some(c => c.id === 'other')))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxisOther|1
               - MS-ABORTION-ITEM|medication|1

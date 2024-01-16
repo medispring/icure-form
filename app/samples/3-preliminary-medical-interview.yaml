@@ -144,7 +144,7 @@ codifications:
         label:
           nl: Andere anticonceptiemethoden
           fr: Autres contraceptifs
-  - types: MS-ABORTION-REASON-OF-FAILURE
+  - type: MS-ABORTION-REASON-OF-FAILURE
     codes:
       - id: did-not-use-contraception
         label:
@@ -162,7 +162,7 @@ codifications:
         label:
           nl: Weet het niet
           fr: Ne sait pas
-  - types: MS-ABORTION-POSITIONING-OF-THE-UTERUS
+  - type: MS-ABORTION-POSITIONING-OF-THE-UTERUS
     codes:
       - id: anteversion
         label:
@@ -176,7 +176,7 @@ codifications:
         label:
           nl: Strekstand
           fr: Position de distension
-  - types: MS-ABORTION-MEDICATION-GIVEN-TO-PATIENT
+  - type: MS-ABORTION-MEDICATION-GIVEN-TO-PATIENT
     codes:
       - id: misoprostol
         label:
@@ -194,7 +194,7 @@ codifications:
         label:
           nl: Andere
           fr: autre
-  - types: MS-ABORTION-RESULT-OF-THE-PRELIMINARY-INVESTIGATION
+  - type: MS-ABORTION-RESULT-OF-THE-PRELIMINARY-INVESTIGATION
     codes:
       - id: medication
         label:
@@ -317,17 +317,16 @@ sections:
             span: 4
             styleOptions:
               direction: column
-              span: 2
+              span: 3
             codifications:
               - MS-ABORTION-PREGNANCY-TYPE
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyType|1
-      - group: line
-        borderless: true
-        span: 24
-        fields:
           - field: field-labels.AMENORRHEA-DATE
             type: date-picker
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|amenorrheaDate|1
               - MS-ABORTION-ITEM|amenorrhea|1
@@ -339,7 +338,7 @@ sections:
             type: radio-button
             styleOptions:
               direction: row
-              span: 1
+              span: 2
             codifications:
               - MS-ABORTION-PLANNED-PREGNANCY
             tags:
@@ -348,7 +347,7 @@ sections:
             type: radio-button
             styleOptions:
               direction: row
-              span: 1
+              span: 2
             codifications:
               - MS-ABORTION-USED-CONTRACEPTION
             tags:
@@ -377,11 +376,12 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id === 'other')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'yes'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-no-used-contraception|1
           - field: field-labels.YES
             type: checkbox
+            span: 12
             styleOptions:
               direction: column
               span: 4
@@ -395,10 +395,11 @@ sections:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|yes-used-contraception|1
               - MS-ABORTION-ITEM|contraception|1
           - field: field-labels.OTHER-YES
+            span: 12
             type: textfield
             computedProperties:
               hidden: |
-                return !self['field-labels.YES']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.YES']?.some(d => d.codes?.some(c => c.id === 'other-contraceptives')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'no'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-yes-used-contraception|1
               - MS-ABORTION-ITEM|contraception|1
@@ -422,6 +423,7 @@ sections:
         fields:
           - field: field-labels.FUTURE-CONTRACEPTION
             type: checkbox
+            span: 12
             styleOptions:
               direction: column
               span: 4
@@ -493,11 +495,8 @@ sections:
           - field: field-labels.MEDICATION-GIVEN-TO-PATIENT
             type: dropdown
             sortOptions:
-              none: -1
-              empty: 0
-              other: 1
-              alpha: true
-              asc: true
+              sort: asc
+              promotions: '*, other'
             codifications:
               - MS-ABORTION-MEDICATION-GIVEN-TO-PATIENT
             tags:
@@ -523,14 +522,18 @@ sections:
         fields:
           - field: field-labels.FOLLOW-UP-MIN
             type: number-field
-            value: 30
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfFollowUp|1
               - MS-ABORTION-ITEM|followUp|1
               - MS-FOLLOW-UP-MIN|generic|1
           - field: field-labels.FOLLOW-UP-CONTRACEPTION-MIN
             type: number-field
-            value: 10
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfMinutesOfContraception|1
               - MS-ABORTION-ITEM|followUp|1
@@ -542,6 +545,7 @@ sections:
           - field: field-labels.COMMENTARY
             type: textfield
             multiline: true
+            span: 12
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|comment|1
               - MS-ABORTION-ITEM|comment-note|1
