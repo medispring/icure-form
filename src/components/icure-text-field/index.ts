@@ -150,24 +150,29 @@ export class IcureTextField extends Field {
 	render() {
 		if (this.view) {
 			const [, versions] = extractSingleValue(this.valueProvider?.())
-			if (versions) {
-				const valueForLanguage = versions[0]?.value?.content?.[this.language()] ?? ''
-				if (valueForLanguage) {
-					const parsedDoc = this.parser?.parse(valueForLanguage) ?? undefined
-					if (parsedDoc) {
-						const selection = this.view.state.selection
-						const selAnchor = selection.$anchor.pos
-						const selHead = selection.$head.pos
-						const lastPos = this.schema === 'text-document' ? parsedDoc.content.size - 1 : parsedDoc.content.size
-						const newState = EditorState.create({
-							schema: this.view.state.schema,
-							doc: parsedDoc,
-							plugins: this.view.state.plugins,
-							selection: new TextSelection(parsedDoc.resolve(Math.min(selAnchor, lastPos)), parsedDoc.resolve(Math.min(selHead, lastPos))),
-						})
-						this.view.updateState(newState)
-					}
-				}
+			const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
+			const parsedDoc = (valueForLanguage && this.parser?.parse(valueForLanguage)) ?? undefined
+			if (parsedDoc) {
+				const selection = this.view.state.selection
+				const selAnchor = selection.$anchor.pos
+				const selHead = selection.$head.pos
+				const lastPos = this.schema === 'text-document' ? parsedDoc.content.size - 1 : parsedDoc.content.size
+				const newState = EditorState.create({
+					schema: this.view.state.schema,
+					doc: parsedDoc,
+					plugins: this.view.state.plugins,
+					selection: new TextSelection(parsedDoc.resolve(Math.min(selAnchor, lastPos)), parsedDoc.resolve(Math.min(selHead, lastPos))),
+				})
+				this.view.updateState(newState)
+			} else {
+				this.view.updateState(
+					EditorState.create({
+						schema: this.view.state.schema,
+						doc: undefined,
+						plugins: this.view.state.plugins,
+						selection: undefined,
+					}),
+				)
 			}
 		}
 

@@ -531,7 +531,8 @@ sections:
               direction: column
               columns: 2
               alignItems: 'flex-end'
-            codifications: MS-ABORTION-COMPLICATION
+            codifications:
+              - MS-ABORTION-COMPLICATION
             tags:
               - MS-NIHII-CONVENTION-ITEM|complication|1
           - field: abortion-forms.field-labels.COMPLICATION-OTHER

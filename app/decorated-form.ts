@@ -103,7 +103,11 @@ export class DecoratedForm extends LitElement {
 	public undo() {
 		if (this.undoStack.length > 0) {
 			this.redoStack.push(this.formValuesContainer!)
-			this.formValuesContainer = this.undoStack.pop() as BridgedFormValuesContainer
+			const popped = this.undoStack.pop() as BridgedFormValuesContainer
+			console.log('popped', popped)
+			this.formValuesContainer = popped
+		} else {
+			console.log('undo stack is empty')
 		}
 	}
 
@@ -111,6 +115,8 @@ export class DecoratedForm extends LitElement {
 		if (this.redoStack.length > 0) {
 			this.undoStack.push(this.formValuesContainer!)
 			this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
+		} else {
+			console.log('redo stack is empty')
 		}
 	}
 
@@ -127,14 +133,15 @@ export class DecoratedForm extends LitElement {
 
 		this.formValuesContainer = initialisedFormValueContainer
 		initialisedFormValueContainer.registerChangeListener((newValue) => {
+			const fvc = this.formValuesContainer
 			this.redoStack = []
-			this.undoStack.push(initialisedFormValueContainer)
+			fvc && this.undoStack.push(fvc)
 			this.formValuesContainer = newValue
 
 			const toSave = this.formValuesContainer.getContactFormValuesContainer()
 
 			setTimeout(() => {
-				if (toSave === initialisedFormValueContainer.getContactFormValuesContainer()) {
+				if (toSave === this.formValuesContainer?.getContactFormValuesContainer()) {
 					console.log('saving')
 				}
 			}, 10000)

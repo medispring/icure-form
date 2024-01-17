@@ -1,6 +1,6 @@
 import { Contact, Content, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
-import { FormValuesContainer, Version, VersionedData } from '../generic'
+import { FormValuesContainer, FormValuesContainerMutation, ID, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from '../icure'
 import { BooleanType, CompoundType, DateTimeType, FieldMetadata, FieldValue, MeasureType, NumberType, PrimitiveType, StringType, TimestampType } from '../components/model'
 import { areCodesEqual, isContentEqual } from '../utils/icure-utils'
@@ -8,6 +8,16 @@ import { codeStubToCode } from '../utils/code-utils'
 
 export class BridgedFormValuesContainer implements FormValuesContainer<FieldValue, FieldMetadata> {
 	private contact: Contact
+	private contactFormValuesContainer: ContactFormValuesContainer
+	private _children: BridgedFormValuesContainer[] | undefined
+	get children(): BridgedFormValuesContainer[] {
+		return (
+			this._children ??
+			(this._children = this.contactFormValuesContainer
+				.getChildren()
+				.map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact, this.dependentValues, this.changeListeners)))
+		)
+	}
 
 	/**
 	 * Creates an instance of BridgedFormValuesContainer.
@@ -15,11 +25,12 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	 * @param contact The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
 	 * @param contactFormValuesContainer
 	 * @param interpreter
+	 * @param dependentValues
 	 * @param changeListeners
 	 */
 	constructor(
 		private responsible: string,
-		private contactFormValuesContainer: ContactFormValuesContainer,
+		contactFormValuesContainer: ContactFormValuesContainer,
 		private interpreter?: <
 			T,
 			S extends {
@@ -30,22 +41,21 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			sandbox: S,
 		) => T | undefined,
 		contact?: Contact,
+		private dependentValues: { metadate: FieldMetadata; formula: string }[] = [],
 		changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
 	) {
+		this.contactFormValuesContainer = contactFormValuesContainer
 		this.contact = contact ?? contactFormValuesContainer.currentContact
+
+		//Before start to broadcast changes, we need to fill in the contactFormValuesContainer with the dependent values
+		this.dependentValues.forEach(({ metadate, formula }) => {
+			const value = this.compute(formula) as FieldValue | undefined
+			if (value !== undefined) {
+				this.setValue(metadate.label, 'en', value, undefined, metadate)
+			}
+		})
+
 		this.changeListeners = changeListeners
-		const listener = (newContactFormValuesContainer: ContactFormValuesContainer) => {
-			newContactFormValuesContainer.unregisterChangeListener(listener) //Will be added again on the next line
-			const newBridgedFormValueContainer = new BridgedFormValuesContainer(
-				this.responsible,
-				newContactFormValuesContainer,
-				this.interpreter,
-				this.contact === this.contactFormValuesContainer.currentContact ? newContactFormValuesContainer.currentContact : this.contact,
-				this.changeListeners,
-			)
-			this.changeListeners.forEach((l) => l(newBridgedFormValueContainer))
-		}
-		this.contactFormValuesContainer.registerChangeListener(listener)
 	}
 
 	private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[]
@@ -189,9 +199,28 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		)
 	}
 
-	setValue(label: string, language: string, fv: FieldValue, id?: string, metadata?: FieldMetadata): string {
+	private mutateAndNotify(newContactFormValuesContainer: ContactFormValuesContainer) {
+		const newBridgedFormValueContainer = new BridgedFormValuesContainer(
+			this.responsible,
+			newContactFormValuesContainer,
+			this.interpreter,
+			this.contact === this.contactFormValuesContainer.currentContact ? newContactFormValuesContainer.currentContact : this.contact,
+			this.dependentValues,
+			this.changeListeners,
+		)
+		this.changeListeners.forEach((l) => l(newBridgedFormValueContainer))
+		return newBridgedFormValueContainer
+	}
+
+	setValue(
+		label: string,
+		language: string,
+		fv: FieldValue,
+		id?: string,
+		metadata?: FieldMetadata,
+	): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
 		const value = fv.content[language]
-		return this.contactFormValuesContainer.setValue(
+		const mutation = this.contactFormValuesContainer.setValue(
 			label,
 			language,
 			{
@@ -204,10 +233,11 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			id,
 			metadata,
 		)
+		return { result: mutation.result, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 
-	setMetadata(label: string, meta: FieldMetadata, id?: string | undefined): string {
-		return this.contactFormValuesContainer.setMetadata(
+	setMetadata(label: string, meta: FieldMetadata, id?: string | undefined): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
+		const mutation = this.contactFormValuesContainer.setMetadata(
 			label,
 			{
 				label: meta.label,
@@ -218,10 +248,12 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			},
 			id,
 		)
+		return { result: mutation.result, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 
-	delete(serviceId: string): void {
-		this.contactFormValuesContainer.delete(serviceId)
+	delete(serviceId: string): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, void> {
+		const mutation = this.contactFormValuesContainer.delete(serviceId)
+		return { result: undefined, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 
 	private getVersionedValuesForKey(key: string | symbol) {
@@ -247,14 +279,23 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		return this.contactFormValuesContainer.getChildren().map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact))
 	}
 
-	async addChild(parentId: string, templateId: string, label: string): Promise<BridgedFormValuesContainer> {
-		const newChild = await this.contactFormValuesContainer.addChild(parentId, templateId, label)
-		return new BridgedFormValuesContainer(this.responsible, newChild, this.interpreter, this.contact)
+	async addChild(
+		parentId: string,
+		templateId: string,
+		label: string,
+	): Promise<FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, BridgedFormValuesContainer>> {
+		const mutation = await this.contactFormValuesContainer.addChild(parentId, templateId, label)
+		const newBridgedFormValueContainer = this.mutateAndNotify(mutation.formValuesContainer)
+		const newChild = newBridgedFormValueContainer.children.find((c) => c.contactFormValuesContainer === mutation.result)
+		if (!newChild) {
+			throw new Error('Illegal state, the new child must be found')
+		}
+		return { result: newChild, formValuesContainer: newBridgedFormValueContainer }
 	}
 
-	async removeChild(container: BridgedFormValuesContainer): Promise<BridgedFormValuesContainer> {
-		const newChild = await this.contactFormValuesContainer.removeChild(container.contactFormValuesContainer)
-		return new BridgedFormValuesContainer(this.responsible, newChild, this.interpreter, this.contact)
+	async removeChild(container: BridgedFormValuesContainer): Promise<FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, void>> {
+		const mutation = await this.contactFormValuesContainer.removeChild(container.contactFormValuesContainer)
+		return { result: undefined, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 }
 
@@ -404,7 +445,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			) //index services in history by id
 	}
 
-	setMetadata(label: string, meta: ServiceMetadata, id?: string): string {
+	setMetadata(label: string, meta: ServiceMetadata, id?: string): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
 		const service = (id && this.getServiceInCurrentContact(id)) || this.serviceFactory(label, id)
 		if (!service.id) {
 			throw new Error('Service id must be defined')
@@ -435,12 +476,19 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			)
 
 			this.changeListeners.forEach((l) => l(newFormValuesContainer))
+			return { result: service.id, formValuesContainer: newFormValuesContainer }
 		}
 
-		return service.id
+		return { result: service.id, formValuesContainer: this }
 	}
 
-	setValue(label: string, language: string, value: Service, id?: string, metadata?: ServiceMetadata): string {
+	setValue(
+		label: string,
+		language: string,
+		value: Service,
+		id?: string,
+		metadata?: ServiceMetadata,
+	): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
 		const service = (id && this.getServiceInCurrentContact(id)) || this.serviceFactory(label, id)
 		if (!service.id) {
 			throw new Error('Service id must be defined')
@@ -482,12 +530,14 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			)
 
 			this.changeListeners.forEach((l) => l(newFormValuesContainer))
+
+			return { result: service.id!, formValuesContainer: newFormValuesContainer }
 		}
 
-		return service.id
+		return { result: service.id, formValuesContainer: this }
 	}
 
-	delete(serviceId: string): void {
+	delete(serviceId: string): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, void> {
 		const service = this.getServiceInCurrentContact(serviceId)
 		if (service) {
 			const newFormValuesContainer = new ContactFormValuesContainer(
@@ -502,7 +552,9 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			)
 
 			this.changeListeners.forEach((l) => l(newFormValuesContainer))
+			return { result: undefined, formValuesContainer: newFormValuesContainer }
 		}
+		return { result: undefined, formValuesContainer: this }
 	}
 
 	compute<T, S extends { [key: string | symbol]: unknown }>(): T | undefined {
@@ -547,7 +599,11 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			.reduce((acc, [id, history]) => ({ ...acc, [id]: history }), {})
 	}
 
-	async addChild(parentId: string, templateId: string, label: string): Promise<ContactFormValuesContainer> {
+	async addChild(
+		parentId: string,
+		templateId: string,
+		label: string,
+	): Promise<FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ContactFormValuesContainer>> {
 		const newForm = await this.formFactory(templateId, label)
 		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory)
 		const newContactFormValuesContainer = new ContactFormValuesContainer(
@@ -560,7 +616,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		)
 		newContactFormValuesContainer.registerChildFormValuesContainer(childFVC)
 		this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
-		return newContactFormValuesContainer
+		return { result: childFVC, formValuesContainer: newContactFormValuesContainer }
 	}
 
 	private getServiceInCurrentContact(id: string): Service {
@@ -571,7 +627,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		return service
 	}
 
-	async removeChild(container: ContactFormValuesContainer): Promise<ContactFormValuesContainer> {
+	async removeChild(container: ContactFormValuesContainer): Promise<FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, void>> {
 		const newContactFormValuesContainer = new ContactFormValuesContainer(
 			this.rootForm,
 			this.currentContact,
@@ -581,6 +637,6 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			this.formFactory,
 		)
 		this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
-		return newContactFormValuesContainer
+		return { result: undefined, formValuesContainer: newContactFormValuesContainer }
 	}
 }

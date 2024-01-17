@@ -48,8 +48,8 @@ const ultrasound = [
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
-		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 		{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
+		{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 		{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 		{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
 		{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
@@ -114,9 +114,11 @@ class DemoApp extends LitElement {
 					return
 				}
 				if (event.key === 'Z') {
+					console.log('redo')
 					event.preventDefault()
 					;(target as DecoratedForm).redo()
 				} else if (event.key === 'z') {
+					console.log('undo')
 					event.preventDefault()
 					;(target as DecoratedForm).undo()
 				}
@@ -132,8 +134,9 @@ class DemoApp extends LitElement {
 		}))
 	}
 
-	async optionsProvider() {
+	async optionsProvider(language: string, codifications: string[], searchTerms: string[]) {
 		await sleep(100)
+		console.log(`searching for ${codifications.join(',')} in ${language}: `, searchTerms)
 		return []
 	}
 

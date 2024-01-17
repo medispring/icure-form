@@ -730,7 +730,8 @@ sections:
         fields:
           - field: abortion-forms.field-labels.BLOOD-LOSS
             type: dropdown
-            codifications: MS-ABORTION-BLOOD-LOSS
+            codifications:
+              - MS-ABORTION-BLOOD-LOSS
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|bloodLoss|1
           - field: abortion-forms.field-labels.ANTI-D
@@ -742,7 +743,8 @@ sections:
               - MS-ABORTION-CURETTAGE-ITEM|antiD|1
           - field: abortion-forms.field-labels.CONTRACEPTIVE-AFTER-CUPPING
             type: dropdown
-            codifications: MS-ABORTION-CONTRACEPTIVE
+            codifications:
+              - MS-ABORTION-CONTRACEPTIVE
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|contraceptive|1
               - MS-ABORTION-ITEM|contraception|1
@@ -793,7 +795,8 @@ sections:
               - MS-ABORTION-ITEM|method|1
           - field: abortion-forms.field-labels.ANESTHESIA
             type: dropdown
-            codifications: MS-ABORTION-ANESTHESIA
+            codifications:
+              - MS-ABORTION-ANESTHESIA
             sortable: false
             styleOptions:
               direction: column
@@ -821,7 +824,8 @@ sections:
               - MS-NIHII-CONVENTION-ITEM|timeOfCare|1
           - field: abortion-forms.field-labels.COMPLICATION
             type: checkbox
-            codifications: MS-ABORTION-COMPLICATION
+            codifications:
+              - MS-ABORTION-COMPLICATION
             sortOptions:
               none: -1
               other: 1
