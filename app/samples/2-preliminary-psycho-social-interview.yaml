@@ -134,6 +134,46 @@ codifications:
         label:
           nl: Empty
           fr: Vide
+  - type: MS-ABORTION-PATIENT-MARITAL-STATUS
+    codes:
+      - id: married
+        label:
+          nl: Married
+          fr: Marié(e)
+      - id: cohabiting
+        label:
+          nl: Cohabiting
+          fr: Cohabite
+      - id: single
+        label:
+          nl: Single
+          fr: Célibataire
+      - id: divorced
+        label:
+          nl: Divorced
+          fr: Divorcé(e)
+      - id: widowed
+        label:
+          nl: Widowed
+          fr: Veuf(ve)
+  - type: MS-ABORTION-PATIENT-LIFE-SITUATION
+    codes:
+      - id: alone
+        label:
+          nl: Alone
+          fr: Seule
+      - id: couple
+        label:
+          nl: Couple
+          fr: En couple
+      - id: parent
+        label:
+          nl: Parent
+          fr: Parent
+      - id: other
+        label:
+          nl: Other
+          fr: Autre
 translations:
   - language: nl
     translations:
@@ -279,6 +319,7 @@ sections:
         fields:
           - field: field-labels.INFOS-ABORTION
             type: dropdown
+            span: 18
             options:
               gestation: field-options.GESTATION
               anesthesia: field-options.ANESTHESIA
@@ -290,6 +331,7 @@ sections:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ABORTION-INFORMATION|1
           - field: field-labels.OTHER-INFORMATION
             type: textfield
+            shortLabel: ' '
             tags:
               - MS-ABORTION-EXTRA-INFO|custom|1
               - MS-ABORTION-ITEM|extra-info|1
@@ -308,6 +350,7 @@ sections:
         fields:
           - field: field-labels.SCHOOL-LEVEL
             type: dropdown
+            span: 18
             codifications:
               - MS-ABORTION-PATIENT-SCHOOL-LEVEL
             tags:
@@ -316,6 +359,7 @@ sections:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|SCHOOL-LEVEL|1
           - field: field-labels.OTHER-SCHOOL-LEVEL
             type: textfield
+            shortLabel: ' '
             tags:
               - MS-ABORTION-PATIENT-SCHOOL-LEVEL|custom|1
               - MS-ABORTION-ADMINISTRATIVE-PATIENT-INFO|school-level|1
@@ -329,6 +373,7 @@ sections:
         fields:
           - field: field-labels.PATIENT-PROFESSION
             type: dropdown
+            span: 18
             codifications:
               - MS-ABORTION-PATIENT-PROFESSION
             tags:
@@ -337,6 +382,7 @@ sections:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PATIENT-PROFESSION|1
           - field: field-labels.OTHER-PROFESSION
             type: textfield
+            shortLabel: ' '
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PATIENT-PROFESSION-OTHER|1
               - MS-ABORTION-PATIENT-PROFESSION|custom|1
@@ -347,38 +393,35 @@ sections:
                 return !self['field-labels.PATIENT-PROFESSION']?.some(d => d.codes?.some(c => c.id === 'other'))
       - field: field-labels.MARITAL-STATUS
         type: dropdown
-        options:
-          married: field-options.MARRIED
-          cohabiting: field-options.COHABITING
-          single: field-options.SINGLE
-          divorced: field-options.DIVORCED
-          widowed: field-options.WIDOWED
         codifications:
           - MS-ABORTION-PATIENT-MARITAL-STATUS
         tags:
           - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|MARITAL-STATUS|1
           - MS-ABORTION-ITEM|administrative-patient-info|1
           - MS-ABORTION-ADMINISTRATIVE-PATIENT|marital-status|1
-      - field: field-labels.ACTUAL-LIFE-SITUATION
-        type: dropdown
-        options:
-          alone: field-options.ALONE
-          couple: field-options.COUPLE
-          parent: field-options.PARENT
-          other: field-options.OTHER
-        codifications:
-          - MS-ABORTION-PATIENT-LIFE-SITUATION
-        tags:
-          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION|1
-          - MS-ABORTION-ITEM|administrative-patient-info|1
-          - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
-      - field: field-labels.OTHER-ACTUAL-LIFE-SITUATION
-        type: textfield
-        tags:
-          - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION-OTHER|1
-          - MS-ABORTION-PATIENT-LIFE-SITUATION|custom|1
-          - MS-ABORTION-ITEM|administrative-patient-info|1
-          - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
+      - group: boxes
+        borderless: true
+        fields:
+          - field: field-labels.ACTUAL-LIFE-SITUATION
+            type: dropdown
+            span: 18
+            codifications:
+              - MS-ABORTION-PATIENT-LIFE-SITUATION
+            tags:
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION|1
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
+          - field: field-labels.OTHER-ACTUAL-LIFE-SITUATION
+            type: textfield
+            shortLabel: ' '
+            computedProperties:
+              hidden: |
+                return !self['field-labels.ACTUAL-LIFE-SITUATION']?.some(d => d.codes?.some(c => c.id === 'other'))
+            tags:
+              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION-OTHER|1
+              - MS-ABORTION-PATIENT-LIFE-SITUATION|custom|1
+              - MS-ABORTION-ITEM|administrative-patient-info|1
+              - MS-ABORTION-ADMINISTRATIVE-PATIENT|life-situation|1
       - field: field-labels.CHILD-NUMBER
         type: number-field
         tags:

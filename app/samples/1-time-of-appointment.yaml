@@ -70,6 +70,9 @@ sections:
             type: textfield
             readonly: true
             span: 6
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'string', value: '2064' } }, codes: [] }
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|folder-number|1
           - field: abortion-forms.field-labels.APPOINTMENT-DATE
@@ -134,7 +137,6 @@ sections:
             columns: 1
             codifications:
               - HCP-LIST
-            translate: false
             sortOptions:
               sort: natural
             tags:
