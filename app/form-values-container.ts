@@ -47,6 +47,13 @@ export const makeFormValuesContainer = () => {
 		[ctc],
 		(label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now }),
 		async () => [],
-		async (fti, label) => ({ id: uuid(), created: +new Date(), modified: +new Date(), formTemplateId: fti, parent: rootForm.id, descr: label }),
+		async (anchorId: string, fti, label) => ({
+			id: uuid(),
+			created: +new Date(),
+			modified: +new Date(),
+			formTemplateId: fti,
+			parent: rootForm.id,
+			descr: anchorId /* TODO, this hack is used to anchor a form inside a form template. Fix it by introducing an anchorId in Form */,
+		}),
 	)
 }

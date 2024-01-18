@@ -24,8 +24,9 @@ export interface FormValuesContainer<Value, Metadata> {
 	setValue(label: string, language: string, data: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
 	setMetadata(label: string, metadata: Metadata, id?: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
 	delete(serviceId: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>
+	//hierarchy
 	addChild(
-		parentId: string,
+		anchorId: string,
 		templateId: string,
 		label: string,
 	): Promise<FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, FormValuesContainer<Value, Metadata>>>

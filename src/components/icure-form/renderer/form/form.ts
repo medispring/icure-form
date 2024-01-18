@@ -76,7 +76,7 @@ export const render: Renderer = (
 				class="float-right-btn top"
 				.forms="${Object.entries(fg.forms)}"
 				.formAdded="${(title: string, form: Form) => {
-					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.id)
+					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
 				}}"
 			></form-selection-button>
 			${children
