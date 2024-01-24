@@ -367,7 +367,7 @@ export const render: Renderer = (
 			return renderSubform((fg as Subform).copy({ ...computedProperties }), fgSpan, level)
 		} else if (fg.clazz === 'field') {
 			const field = fg.copy({ ...computedProperties })
-			return html`${fg.type === 'textfield'
+			return html`${fg.type === 'text-field'
 				? renderTextField(fgSpan, fgRowSpan, field)
 				: fg.type === 'measure-field'
 				? renderMeasureField(fgSpan, fgRowSpan, field)

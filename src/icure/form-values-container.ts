@@ -1,10 +1,11 @@
-import { Contact, Content, Form as ICureForm, Service } from '@icure/api'
+import { Contact, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, FormValuesContainerMutation, ID, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from '../icure'
-import { BooleanType, CompoundType, DateTimeType, FieldMetadata, FieldValue, MeasureType, NumberType, PrimitiveType, StringType, TimestampType } from '../components/model'
+import { FieldMetadata, FieldValue, PrimitiveType } from '../components/model'
 import { areCodesEqual, isContentEqual } from '../utils/icure-utils'
 import { codeStubToCode } from '../utils/code-utils'
+import { contentToPrimitiveType, parsePrimitive, primitiveTypeToContent } from '../utils/primitive'
 
 export class BridgedFormValuesContainer implements FormValuesContainer<FieldValue, FieldMetadata> {
 	private contact: Contact
@@ -15,7 +16,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			this._children ??
 			(this._children = this.contactFormValuesContainer
 				.getChildren()
-				.map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact, this.dependentValuesProvider, this.changeListeners)))
+				.map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact, this.dependentValuesProvider, this.language, this.changeListeners)))
 		)
 	}
 
@@ -26,6 +27,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	 * @param contactFormValuesContainer
 	 * @param interpreter
 	 * @param dependentValuesProvider
+	 * @param language
 	 * @param changeListeners
 	 */
 	constructor(
@@ -41,26 +43,15 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			sandbox: S,
 		) => T | undefined,
 		contact?: Contact,
-		private dependentValuesProvider: (anchorId: string | undefined, templateId: string) => { metadate: FieldMetadata; formula: string }[] = () => [],
-		changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
+		private dependentValuesProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; formula: string }[] = () => [],
+		private language = 'en',
+		private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
 	) {
-		this.contactFormValuesContainer = contactFormValuesContainer
-
 		//Before start to broadcast changes, we need to fill in the contactFormValuesContainer with the dependent values
-		this.contactFormValuesContainer.rootForm.formTemplateId &&
-			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadate, formula }) => {
-				const value = this.compute(formula) as FieldValue | undefined
-				if (value !== undefined) {
-					this.contactFormValuesContainer = this.setValueOnContactFormValuesContainer(metadate.label, 'en', value, undefined, metadate).formValuesContainer
-				}
-			})
-
+		this.contactFormValuesContainer = contactFormValuesContainer
 		this.contact = contact ?? contactFormValuesContainer.currentContact
-
-		this.changeListeners = changeListeners
+		this.computeDependentValues()
 	}
-
-	private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[]
 
 	getLabel(): string {
 		return this.contactFormValuesContainer.getLabel()
@@ -80,87 +71,6 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 
 	unregisterChangeListener(listener: (newValue: BridgedFormValuesContainer) => void): void {
 		this.changeListeners = this.changeListeners.filter((l) => l !== listener)
-	}
-
-	private setValueOnContactFormValuesContainer(label: string, language: string, fv: FieldValue, id: string | undefined, metadata: FieldMetadata | undefined) {
-		const value = fv.content[language]
-		const mutation = this.contactFormValuesContainer.setValue(
-			label,
-			language,
-			{
-				id: id,
-				codes: fv.codes,
-				content: {
-					[language]: this.primitiveTypeToContent(language, value),
-				},
-			},
-			id,
-			metadata,
-		)
-		return mutation
-	}
-
-	private primitiveTypeToContent(language: string, value: PrimitiveType): Content {
-		return {
-			...(value.type === 'number' ? { numberValue: (value as NumberType).value } : {}),
-			...(value.type === 'measure'
-				? {
-						measureValue: {
-							value: (value as MeasureType).value,
-							unit: (value as MeasureType).unit,
-						},
-				  }
-				: {}),
-			...(value.type === 'string' ? { stringValue: (value as StringType).value } : {}),
-			...(value.type === 'datetime' ? { fuzzyDateValue: (value as DateTimeType).value } : {}),
-			...(value.type === 'boolean' ? { booleanValue: (value as BooleanType).value } : {}),
-			...(value.type === 'timestamp' ? { instantValue: (value as TimestampType).value } : {}),
-			...(value.type === 'compound'
-				? {
-						compoundValue: Object.entries((value as CompoundType).value).map(([label, value]) => ({
-							label,
-							content: {
-								[language]: this.primitiveTypeToContent(language, value),
-							},
-						})),
-				  }
-				: {}),
-		}
-	}
-
-	contentToPrimitiveType(language: string, content: Content | undefined): PrimitiveType | undefined {
-		if (!content) {
-			return undefined
-		}
-		if (content.numberValue || content.numberValue === 0) {
-			return { type: 'number', value: content.numberValue }
-		}
-		if (content.measureValue?.value || content.measureValue?.value === 0) {
-			return { type: 'measure', value: content.measureValue?.value, unit: content.measureValue?.unit }
-		}
-		if (content.stringValue) {
-			return { type: 'string', value: content.stringValue }
-		}
-		if (content.fuzzyDateValue) {
-			return { type: 'datetime', value: content.fuzzyDateValue }
-		}
-		if (content.booleanValue) {
-			return { type: 'boolean', value: content.booleanValue }
-		}
-		if (content.instantValue) {
-			return { type: 'timestamp', value: content.instantValue }
-		}
-		if (content.compoundValue) {
-			return {
-				type: 'compound',
-				value: content.compoundValue.reduce((acc: { [label: string]: PrimitiveType }, { label, content }) => {
-					const primitiveValue = this.contentToPrimitiveType(language, content?.[language])
-					return label && primitiveValue ? { ...acc, [label]: primitiveValue } : acc
-				}, {}),
-			}
-		}
-
-		return undefined
 	}
 
 	getValues(revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]): VersionedData<FieldValue> {
@@ -190,7 +100,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 					modified,
 					value: {
 						content: Object.entries(s.content ?? {}).reduce((acc, [lng, cnt]) => {
-							const converted = this.contentToPrimitiveType(lng, cnt)
+							const converted = contentToPrimitiveType(lng, cnt)
 							return converted ? { ...acc, [lng]: converted } : acc
 						}, {}),
 						codes: s.codes?.map(codeStubToCode),
@@ -220,24 +130,52 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	}
 
 	private mutateAndNotify(newContactFormValuesContainer: ContactFormValuesContainer) {
-		newContactFormValuesContainer.rootForm.formTemplateId &&
-			this.dependentValuesProvider(newContactFormValuesContainer.rootForm.descr, newContactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadate, formula }) => {
-				const value = this.compute(formula) as FieldValue | undefined
-				if (value !== undefined) {
-					newContactFormValuesContainer = this.setValueOnContactFormValuesContainer(metadate.label, 'en', value, undefined, metadate).formValuesContainer
-				}
-			})
-
 		const newBridgedFormValueContainer = new BridgedFormValuesContainer(
 			this.responsible,
 			newContactFormValuesContainer,
 			this.interpreter,
 			this.contact === this.contactFormValuesContainer.currentContact ? newContactFormValuesContainer.currentContact : this.contact,
 			this.dependentValuesProvider,
+			this.language,
 			this.changeListeners,
 		)
 		this.changeListeners.forEach((l) => l(newBridgedFormValueContainer))
 		return newBridgedFormValueContainer
+	}
+
+	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
+	private computeDependentValues() {
+		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
+			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadata, formula }) => {
+				try {
+					const currentValue = this.getVersionedValuesForKey(metadata.label)
+					const newValue = this.compute(formula) as FieldValue | undefined
+					if (newValue !== undefined) {
+						const lng = this.language ?? 'en'
+						if (!newValue.content[lng] && newValue.content['*']) {
+							newValue.content[lng] = newValue.content['*']
+						}
+						delete newValue.content['*']
+						if (newValue.content[lng] !== undefined) {
+							const currentContact = this.contactFormValuesContainer.currentContact
+							this.contactFormValuesContainer = setValueOnContactFormValuesContainer(
+								this.contactFormValuesContainer,
+								metadata.label,
+								lng,
+								newValue,
+								Object.keys(currentValue ?? {})[0],
+								metadata,
+							).formValuesContainer
+							if (this.contact === currentContact) {
+								this.contact = this.contactFormValuesContainer.currentContact
+							}
+						}
+					}
+				} catch (e) {
+					console.log(`Error while computing formula : ${formula}`, e)
+				}
+			})
+		}
 	}
 
 	setValue(
@@ -247,7 +185,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		id?: string,
 		metadata?: FieldMetadata,
 	): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
-		const mutation = this.setValueOnContactFormValuesContainer(label, language, fv, id, metadata)
+		const mutation = setValueOnContactFormValuesContainer(this.contactFormValuesContainer, label, language, fv, id, metadata)
 		return { result: mutation.result, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 
@@ -276,10 +214,31 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	}
 
 	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined {
-		const native = { parseInt: parseInt, parseFloat: parseFloat, Date: Date, Math: Math, Number: Number, String: String, Boolean: Boolean, Array: Array, Object: Object }
+		// noinspection JSUnusedGlobalSymbols
+		const native = {
+			parseInt: parseInt,
+			parseFloat: parseFloat,
+			Date: Date,
+			Math: Math,
+			Number: Number,
+			String: String,
+			Boolean: Boolean,
+			Array: Array,
+			Object: Object,
+			parseContent: (content?: { [key: string]: PrimitiveType }) => {
+				if (!content) {
+					return undefined
+				}
+				const primitive = content[this.language] ?? content['*'] ?? content[Object.keys(content)[0]]
+				return primitive && parsePrimitive(primitive)
+			},
+		}
 		const proxy: S = new Proxy({} as S, {
 			has: (target: S, key: string | symbol) => !!native[key] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
 			get: (target: S, key: string | symbol) => {
+				if (key === 'undefined') {
+					return undefined
+				}
 				const nativeValue = native[key]
 				if (!!nativeValue) {
 					return nativeValue
@@ -654,4 +613,29 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		this.changeListeners.forEach((l) => l(newContactFormValuesContainer))
 		return { result: undefined, formValuesContainer: newContactFormValuesContainer }
 	}
+}
+
+const setValueOnContactFormValuesContainer = (
+	cfvc: ContactFormValuesContainer,
+	label: string,
+	language: string,
+	fv: FieldValue,
+	id: string | undefined,
+	metadata: FieldMetadata | undefined,
+) => {
+	const value = fv.content[language]
+	const mutation = cfvc.setValue(
+		label,
+		language,
+		{
+			id: id,
+			codes: fv.codes,
+			content: {
+				[language]: primitiveTypeToContent(language, value),
+			},
+		},
+		id,
+		metadata,
+	)
+	return mutation
 }

@@ -7,8 +7,9 @@ import { makeFormValuesContainer } from './form-values-container'
 import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes } from './codes'
-import { Code, Form } from '../src/components/model'
+import { Code, Field, FieldMetadata, Form, Group, Subform } from '../src/components/model'
 import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
+import { normalizeCode, sleep } from '@icure/api'
 
 const icd10 = [
 	['I', new RegExp('^[AB][0–9]')],
@@ -59,7 +60,6 @@ const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'd
 export class DecoratedForm extends LitElement {
 	@property() form: Form
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
-	@property() optionsProvider: (language: string, codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 
 	@property() displayedLanguage?: string = 'fr'
 
@@ -125,7 +125,54 @@ export class DecoratedForm extends LitElement {
 		const responsible = 'user-id'
 
 		const initialisedFormValueContainer = initializeWithFormDefaultValues(
-			new BridgedFormValuesContainer(responsible, contactFormValuesContainer, makeInterpreter()),
+			new BridgedFormValuesContainer(
+				responsible,
+				contactFormValuesContainer,
+				makeInterpreter(),
+				undefined,
+				(anchorId, templateId) => {
+					const findForm = (form: Form, anchorId: string | undefined, templateId: string): Form | undefined => {
+						if (anchorId === undefined) {
+							return form
+						}
+						return form.sections
+							.flatMap((s) => s.fields)
+							.map((fg) => {
+								if (fg.clazz === 'subform') {
+									if (fg.id === anchorId) {
+										return fg.forms[templateId]
+									} else {
+										const candidate = Object.values(fg.forms)
+											.map((f) => findForm(f, anchorId, templateId))
+											.find((f) => !!f)
+										if (candidate) {
+											return candidate
+										}
+									}
+								}
+								return undefined
+							})
+							.find((f) => !!f)
+					}
+
+					const form = findForm(this.form, anchorId, templateId)
+
+					const extractFormulas = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; formula: string }[] =>
+						fgss.flatMap((fg) => {
+							if (fg.clazz === 'group') {
+								return extractFormulas(fg.fields ?? [])
+							} else if (fg.clazz === 'field') {
+								const formula = fg.computedProperties?.['value']
+								return formula ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, formula }] : []
+							} else {
+								return []
+							}
+						}) ?? []
+
+					return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? []) : []
+				},
+				this.displayedLanguage,
+			),
 			this.form,
 			this.displayedLanguage,
 			responsible,
@@ -197,6 +244,18 @@ export class DecoratedForm extends LitElement {
 		return { href: links.map((c) => `c-${c.type}://${c.code}`).join(','), title: links.map((c) => c.text).join('; ') }
 	}
 
+	async optionsProvider(language: string, codifications: string[], searchTerms: string[]) {
+		await sleep(100)
+		return codifications.flatMap((c) => {
+			const formCodifications = this.form?.codifications
+			if (formCodifications?.map((c) => c.type)?.includes(c)) {
+				return []
+			} else {
+				return []
+			}
+		})
+	}
+
 	render() {
 		// noinspection DuplicatedCode
 		// @ts-ignore
@@ -211,8 +270,8 @@ export class DecoratedForm extends LitElement {
 				renderer="form"
 				displayedLanguage="${this.displayedLanguage}"
 				.formValuesContainer="${this.formValuesContainer}"
-				.codesProvider="${this.codesProvider}"
-				.optionsProvider="${this.optionsProvider}"
+				.codesProvider="${this.codesProvider.bind(this)}"
+				.optionsProvider="${this.optionsProvider.bind(this)}"
 			></icure-form>
 		`
 	}

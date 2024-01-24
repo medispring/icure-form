@@ -11,17 +11,18 @@ export const makeInterpreter = () => {
 			src = 'with (sandbox) {' + src + '}'
 			const code = new Function('sandbox', src)
 
-			const result = function (sandbox: S) {
+			const wrapper = function (sandbox: S) {
 				if (!sb.has(sandbox)) {
 					const sandboxProxy = new Proxy<S>(sandbox, { has, get })
 					sb.set(sandbox, sandboxProxy)
 				}
-				return code(sb.get(sandbox))
+				const result = code(sb.get(sandbox))
+				return result
 			}
 
-			cs.set(src, result)
+			cs.set(src, wrapper)
 
-			return result
+			return wrapper
 		}
 
 		function has() {
@@ -41,7 +42,8 @@ export const makeInterpreter = () => {
 			return undefined
 		}
 		try {
-			return compiledCode(sandbox)
+			const result = compiledCode(sandbox)
+			return result
 		} catch (e) {
 			console.info('Error while executing formula: ' + formula, e)
 			return undefined

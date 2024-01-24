@@ -82,7 +82,7 @@ export type IcureTextFieldSchema =
 	| MeasureSchema
 
 type FieldType =
-	| 'textfield'
+	| 'text-field'
 	| 'measure-field'
 	| 'number-field'
 	| 'token-field'
@@ -193,7 +193,7 @@ export abstract class Field {
 	static parse(json: Field): Field {
 		return (
 			{
-				textfield: () => new TextField(json.field, { ...json }),
+				'text-field': () => new TextField(json.field, { ...json }),
 				'measure-field': () => new MeasureField(json.field, { ...json }),
 				'token-field': () => new TokenField(json.field, { ...json }),
 				'items-list-field': () => new ItemsListField(json.field, { ...json }),
@@ -215,7 +215,7 @@ export abstract class Field {
 		span: number | undefined
 		codifications: string[] | undefined
 		type:
-			| 'textfield'
+			| 'text-field'
 			| 'measure-field'
 			| 'number-field'
 			| 'token-field'
@@ -307,7 +307,7 @@ export class TextField extends Field {
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
 		},
 	) {
-		super('textfield', label, {
+		super('text-field', label, {
 			shortLabel,
 			grows,
 			span,

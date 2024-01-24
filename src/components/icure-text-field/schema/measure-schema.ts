@@ -7,7 +7,8 @@ export function getMeasureSpec(): SchemaSpec {
 		topNode: 'paragraph',
 		nodes: {
 			paragraph: {
-				content: 'decimal unit',
+				content: 'decimal unit?',
+				parseDOM: [{ tag: 'p' }],
 			},
 
 			decimal: {
@@ -17,13 +18,13 @@ export function getMeasureSpec(): SchemaSpec {
 				toDOM() {
 					return ['span', { class: 'measure' }, 0]
 				},
-				regexp: '[\\>\\<,. 0-9-]',
+				regexp: '[\\>\\<,.0-9-]',
 			},
 
 			unit: {
 				content: 'inline*',
 				group: 'block',
-				parseDOM: [{ tag: 'span' }],
+				parseDOM: [{ tag: 'span.unit' }],
 				toDOM() {
 					return ['span', { class: 'unit' }, 0]
 				},

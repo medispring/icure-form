@@ -345,7 +345,7 @@ export class IcureTextField extends Field {
 							if (this.trToSave === tr) {
 								this.updateValue(tr)
 							}
-						}, 800)
+						}, 2000)
 					}
 				},
 				editable: () => {
@@ -485,7 +485,7 @@ export class IcureTextField extends Field {
 	private makeCodesExtractor(schemaName: string): (doc?: ProsemirrorNode) => Code[] {
 		return schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => {
-					const unit = doc?.child(1)?.textContent
+					const unit = (doc?.childCount ?? 0) > 1 ? doc?.child(1)?.textContent : undefined
 					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? 'en']: unit } }] : []
 			  }
 			: schemaName === 'measure'
@@ -504,7 +504,10 @@ export class IcureTextField extends Field {
 			? (doc?: ProsemirrorNode) =>
 					doc?.firstChild?.textContent ? { type: 'datetime', value: parseInt(format(parse(doc.firstChild.textContent, 'HH:mm:ss', new Date()), 'HHmmss')) } : undefined
 			: schemaName === 'measure'
-			? (doc?: ProsemirrorNode) => (doc?.firstChild?.textContent ? { type: 'measure', value: parseFloat(doc.firstChild.textContent), unit: doc?.child(1)?.textContent } : undefined)
+			? (doc?: ProsemirrorNode) =>
+					doc?.firstChild?.textContent
+						? { type: 'measure', value: parseFloat(doc.firstChild.textContent.replaceAll(',', '.')), unit: (doc?.childCount ?? 0) > 1 ? doc.child(1)?.textContent : undefined }
+						: undefined
 			: schemaName === 'decimal'
 			? (doc?: ProsemirrorNode) => (doc?.firstChild?.textContent ? { type: 'number', value: parseFloat(doc.firstChild.textContent.replace(/,/g, '.')) } : undefined)
 			: schemaName === 'date-time'

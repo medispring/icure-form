@@ -25,7 +25,7 @@ describe('Form parsing tests', () => {
 				'    fields:\n' +
 				'      - clazz: field\n' +
 				'        field: What symptoms, or more generally what reason motivated your visit\n' +
-				'        type: textfield\n' +
+				'        type: text-field\n' +
 				'        grows: false\n' +
 				'        span: 1\n' +
 				'        schema: styled-text-with-codes\n' +
@@ -42,7 +42,7 @@ describe('Form parsing tests', () => {
 			'    fields:\n' +
 			'      - clazz: field\n' +
 			'        field: What symptoms, or more generally what reason motivated your visit\n' +
-			'        type: textfield\n' +
+			'        type: text-field\n' +
 			'        grows: false\n' +
 			'        span: 1\n' +
 			'        schema: styled-text-with-codes\n' +
@@ -130,7 +130,7 @@ sections:
     fields:
       - clazz: field
         field: This field is a TextField
-        type: textfield
+        type: text-field
         shortLabel: TextField
         grows: false
         span: 1
@@ -195,7 +195,7 @@ sections:
         fields:
           - clazz: field
             field: This field is a TextField
-            type: textfield
+            type: text-field
             shortLabel: TextField
             grows: false
             span: 1
@@ -258,7 +258,7 @@ sections:
         fields:
           - clazz: field
             field: This field is a TextField
-            type: textfield
+            type: text-field
             shortLabel: TextField
             grows: false
             span: 1
@@ -328,7 +328,7 @@ sections:
 			'    fields:\n' +
 			'      - clazz: field\n' +
 			'        field: This field is a TextField\n' +
-			'        type: textfield\n' +
+			'        type: text-field\n' +
 			'        shortLabel: TextField\n' +
 			'        grows: false\n' +
 			'        span: 1\n' +
@@ -393,7 +393,7 @@ sections:
 			'        fields:\n' +
 			'          - clazz: field\n' +
 			'            field: This field is a TextField\n' +
-			'            type: textfield\n' +
+			'            type: text-field\n' +
 			'            shortLabel: TextField\n' +
 			'            grows: false\n' +
 			'            span: 1\n' +
@@ -456,7 +456,7 @@ sections:
 			'        fields:\n' +
 			'          - clazz: field\n' +
 			'            field: This field is a TextField\n' +
-			'            type: textfield\n' +
+			'            type: text-field\n' +
 			'            shortLabel: TextField\n' +
 			'            grows: true\n' +
 			'            span: 1\n' +
@@ -662,7 +662,7 @@ sections:
           ],
           "span": 1,
           "required": false,
-          "type": "textfield"
+          "type": "text-field"
         },
         {
           "field": "Position du partenaire pendant la grossesse",
@@ -673,7 +673,7 @@ sections:
           ],
           "span": 1,
           "required": false,
-          "type": "textfield"
+          "type": "text-field"
         },
         {
           "field": "Processus de prise de décision / choix / attitude par rapport à l'avortement (le cas échéant)",
@@ -684,7 +684,7 @@ sections:
           ],
           "span": 1,
           "required": false,
-          "type": "textfield"
+          "type": "text-field"
         },
         {
           "field": "Première décision de la patiente",
@@ -712,7 +712,7 @@ sections:
           ],
           "span": 1,
           "required": false,
-          "type": "textfield"
+          "type": "text-field"
         }
       ]
     }
