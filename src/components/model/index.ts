@@ -110,6 +110,7 @@ export abstract class Field {
 	schema?: IcureTextFieldSchema
 	tags?: string[]
 	codifications?: string[]
+	readonly?: boolean
 	options?: { [key: string]: unknown }
 	labels?: Labels
 	value?: string
@@ -137,6 +138,7 @@ export abstract class Field {
 			schema,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -155,6 +157,7 @@ export abstract class Field {
 			schema?: IcureTextFieldSchema
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -176,6 +179,7 @@ export abstract class Field {
 		this.schema = schema
 		this.tags = tags
 		this.codifications = codifications
+		this.readonly = readonly || false
 		this.options = options
 		this.labels = labels
 		this.value = value
@@ -279,6 +283,7 @@ export class TextField extends Field {
 			schema,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -296,6 +301,7 @@ export class TextField extends Field {
 			schema?: IcureTextFieldSchema
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -315,6 +321,7 @@ export class TextField extends Field {
 			schema: schema || 'styled-text-with-codes',
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -342,6 +349,7 @@ export class MeasureField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -357,6 +365,7 @@ export class MeasureField extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -374,6 +383,7 @@ export class MeasureField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -399,6 +409,7 @@ export class NumberField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -414,6 +425,7 @@ export class NumberField extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -431,6 +443,7 @@ export class NumberField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -456,6 +469,7 @@ export class TokenField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -471,6 +485,7 @@ export class TokenField extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -488,6 +503,7 @@ export class TokenField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -513,6 +529,7 @@ export class ItemsListField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -528,6 +545,7 @@ export class ItemsListField extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -545,6 +563,7 @@ export class ItemsListField extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -570,6 +589,7 @@ export class DatePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -586,6 +606,7 @@ export class DatePicker extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -604,6 +625,7 @@ export class DatePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -630,6 +652,7 @@ export class TimePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -646,6 +669,7 @@ export class TimePicker extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -664,6 +688,7 @@ export class TimePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -690,6 +715,7 @@ export class DateTimePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -706,6 +732,7 @@ export class DateTimePicker extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -724,6 +751,7 @@ export class DateTimePicker extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			labels,
 			value,
@@ -750,6 +778,7 @@ export class DropdownField extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			labels?: Labels
 			value?: string
@@ -791,6 +820,7 @@ export class RadioButton extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			value,
 			computedProperties,
@@ -805,6 +835,7 @@ export class RadioButton extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			value?: string
 			computedProperties?: { [key: string]: string }
@@ -821,6 +852,7 @@ export class RadioButton extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			value,
 			computedProperties,
@@ -845,6 +877,7 @@ export class CheckBox extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			value,
 			computedProperties,
@@ -859,6 +892,7 @@ export class CheckBox extends Field {
 			rowSpan?: number
 			tags?: string[]
 			codifications?: string[]
+			readonly?: boolean
 			options?: { [key: string]: unknown }
 			value?: string
 			computedProperties?: { [key: string]: string }
@@ -875,6 +909,7 @@ export class CheckBox extends Field {
 			rowSpan,
 			tags,
 			codifications,
+			readonly,
 			options,
 			value,
 			computedProperties,

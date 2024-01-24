@@ -120,7 +120,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-text-field>`
 	}
 
@@ -143,7 +143,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-token-field>`
 	}
 
@@ -166,7 +166,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-token-field>`
 	}
 
@@ -185,7 +185,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-measure-field>`
 	}
 
@@ -203,7 +203,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-number-field>`
 	}
 
@@ -221,7 +221,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-date-picker>`
 	}
 
@@ -239,7 +239,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-time-picker>`
 	}
 
@@ -257,7 +257,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-date-time-picker>`
 	}
 
@@ -282,7 +282,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-dropdown-field>`
 	}
 
@@ -306,7 +306,7 @@ export const render: Renderer = (
 			.handleValueChanged=${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-radio-button>`
 	}
 
@@ -331,7 +331,7 @@ export const render: Renderer = (
 			.handleValueChanged="${handleValueChanged(formsValueContainer, props.defaultOwner, fg)}"
 			.handleMetadataChanged="${handleMetadataChanged(formsValueContainer)}"
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-checkbox>`
 	}
 
@@ -342,7 +342,7 @@ export const render: Renderer = (
 			label="${fg.field}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.styleOptions="${fg.styleOptions}"
-			.readonly="${readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
+			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-label>`
 	}
 
