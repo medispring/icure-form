@@ -6,52 +6,52 @@ codifications:
     codes:
       - id: home
         label:
-          nl: abortion-forms.field-options.HOME
-          fr:
+          nl: Thuis
+          fr: Domicile
       - id: reception
         label:
-          nl: abortion-forms.field-options.RECEPTION
-          fr:
+          nl: In het centrum
+          fr: Réception
   - type: MS-ABORTION-ADMINISTRATED-MEDICATION
     codes:
       - id: vaginal
         label:
-          nl: abortion-forms.field-options.VAGINAL
-          fr:
+          nl: Vaginaal
+          fr: Vaginal
       - id: buccal
         label:
-          nl: abortion-forms.field-options.BUCCAL
-          fr:
+          nl: Buccaal
+          fr: Buccale
       - id: sublingual
         label:
-          nl: abortion-forms.field-options.SUBLINGUAL
-          fr:
+          nl: Sublinguaal
+          fr: Sublinguale
   - type: MS-ABORTION-PAIN-MEDICATION
     codes:
       - id: none
         label:
-          nl: abortion-forms.field-options.NONE
-          fr:
+          nl: Geen
+          fr: Aucun
       - id: paracetamol
         label:
-          nl: abortion-forms.field-options.PARACETAMOL
-          fr:
+          nl: Paracetamol
+          fr: Paracetamol
       - id: ibuprofen
         label:
-          nl: abortion-forms.field-options.IBUPROFEN
-          fr:
+          nl: Ibuprofen
+          fr: Ibuprofen
       - id: codeine
         label:
-          nl: abortion-forms.field-options.CODEINE
-          fr:
+          nl: Codeïne
+          fr: Codeïne
       - id: tramadol
         label:
-          nl: abortion-forms.field-options.TRAMADOL
-          fr:
+          nl: Tramadol
+          fr: Tramadol
       - id: other
         label:
-          nl: abortion-forms.field-options.OTHER
-          fr:
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-CONTRACEPTION
     codes:
       - id: coitus-interrupted
@@ -134,50 +134,92 @@ codifications:
     codes:
       - id: expulsion-after-medication
         label:
-          nl: abortion-forms.field-options.EXPULSION-AFTER-MEDICATION
-          fr:
+          nl: Expulsie na mifepristone
+          fr: Expulsion après médication
       - id: expulsion-after-first-dose
         label:
-          nl: abortion-forms.field-options.EXPULSION-AFTER-FIRST-DOSE
-          fr:
+          nl: Expulsie na eerste dosis misoprostol
+          fr: Expulsion après la première dose
       - id: expulsion-after-second-dose
         label:
-          nl: abortion-forms.field-options.EXPULSION-AFTER-SECOND-DOSE
-          fr:
+          nl: Expulsie na tweede dosis misoprostol
+          fr: Expulsion après la deuxième dose
       - id: no-expulsion
         label:
-          nl: abortion-forms.field-options.NO-EXPULSION
-          fr:
+          nl: Geen expulsie
+          fr: Pas d'expulsion
       - id: unsure-expulsion
         label:
-          nl: abortion-forms.field-options.UNSURE-EXPULSION
-          fr:
+          nl: twijfel over expulsie
+          fr: Expulsion incertaine
   - type: MS-ABORTION-SECOND-PART-EVALUATION-OTHER
     codes:
       - id: check-house
         label:
-          nl: abortion-forms.field-options.CHECK-HOUSE
-          fr:
+          nl: CheckTop thuis
+          fr: Contrôle à domicile
       - id: echo-in-centrum
         label:
-          nl: abortion-forms.field-options.ECHO-IN-CENTRUM
-          fr:
+          nl: Cliënt voorkeur echo in het centrum
+          fr: Client a fait une écho dans un autre centre
       - id: controle-with-ac
         label:
-          nl: abortion-forms.field-options.CONTROLE-WITH-AC
-          fr:
+          nl: Controle met plaatsing AC
+          fr: Contrôle dans un centre contreceptif
       - id: follow-up
         label:
-          nl: abortion-forms.field-options.FOLLOW-UP
-          fr:
+          nl: Follow-up VEMA
+          fr: Suivi VEMA
       - id: controle-hcp
         label:
-          nl: abortion-forms.field-options.CONTROLE-HCP
-          fr:
+          nl: Controle bij eigen arts
+          fr: Contrôle chez le médecin généraliste
       - id: other
         label:
-          nl: abortion-forms.field-options.OTHER
-          fr:
+          nl: Andere
+          fr: Autre
+translations:
+  - language: nl
+    translations:
+      abortion-forms.field-labels.CONSULTATION-TYPE: Type consultatie
+      abortion-forms.field-labels.MISOPROSTOL-FIRST-DOSIS: Eerste dosis misoprostol
+      abortion-forms.field-labels.ADMINISTRATED-MEDICATION-1: Toegediende medicatie 1
+      abortion-forms.field-labels.SECOND-DOSIS: Tweede dosis misoprostol
+      abortion-forms.field-labels.ADMINISTRATED-MEDICATION-2: Toegediende medicatie 2
+      abortion-forms.field-labels.PAIN-MEDICATION: Pijnmedicatie
+      abortion-forms.field-labels.PAIN-MEDICATION-OTHER: Andere pijnmedicatie
+      abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2: Gespreks-/procesfase 2
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
+      abortion-forms.field-labels.STAGE-2-EVALUATION: Evaluatie fase 2
+      abortion-forms.field-options.CONTROLE: Controle
+      abortion-forms.field-labels.STAGE-2-EVALUATION-OTHER: Andere
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Aantal minuten arts
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION: Waarvan minuten anticonceptie
+      abortion-forms.field-labels.FOLLOW-UP-MIN-HCP: Aantal minuten hulpverlener
+      abortion-forms.field-labels.FOLLOW-UP-MIN-HCP-CONTRACEPTION: Waarvan minuten anticonceptie
+      abortion-forms.field-labels.NOTES: Notities
+  - language: fr
+    translations:
+      abortion-forms.field-labels.CONSULTATION-TYPE: Type de consultation
+      abortion-forms.field-labels.MISOPROSTOL-FIRST-DOSIS: Première dose misoprostol
+      abortion-forms.field-labels.ADMINISTRATED-MEDICATION-1: Médicament administré 1
+      abortion-forms.field-labels.SECOND-DOSIS: Deuxième dose misoprostol
+      abortion-forms.field-labels.ADMINISTRATED-MEDICATION-2: Médicament administré 2
+      abortion-forms.field-labels.PAIN-MEDICATION: Médication contre la douleur
+      abortion-forms.field-labels.PAIN-MEDICATION-OTHER: Autre médication contre la douleur
+      abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2: Conversation/Processus - Étape 2
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Contraception future
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Autre
+      abortion-forms.field-labels.STAGE-2-EVALUATION: Évaluation étape 2
+      abortion-forms.field-options.CONTROLE: Contrôle
+      abortion-forms.field-labels.STAGE-2-EVALUATION-OTHER: Autre
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Suivi (min) (médecin)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION: Dont suivi (min) (contraception)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-HCP: Suivi (min) (soignant)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-HCP-CONTRACEPTION: Dont suivi (min) (contraception)
+      abortion-forms.field-labels.NOTES: Notes
+
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:

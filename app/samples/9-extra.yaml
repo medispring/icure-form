@@ -6,36 +6,59 @@ codifications:
     codes:
       - id: onSite
         label:
-          nl: On site
+          nl: Ter plaatse
           fr: Sur place
       - id: email
         label:
-          nl: Email
+          nl: E-mail
           fr: E-Mail
       - id: phone
         label:
-          nl: Phone
+          nl: Telefoon
           fr: Téléphone
   - type: MS-ABORTION-CONVERSATION-NATURE
     codes:
       - id: conversation-choice
         label:
-          nl: abortion-forms.field-options.CONVERSATION-CHOICE
-          fr:
+          nl: Gesprek over keuze
+          fr: Convesation concernant le choix
       - id: conversation-contraception
         label:
-          nl: abortion-forms.field-options.CONVERSATION-CONTRACEPTION
-          fr:
+          nl: Gesprek over anticonceptie
+          fr: Conversation concernant la contraception
       - id: other
         label:
-          nl: abortion-forms.field-options.OTHER
-          fr:
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-MISSED-APPOINTMENT
     codes:
       - id: did-not-come
         label:
-          nl: abortion-forms.field-options.MISSED-APPOINTMENT
-          fr:
+          nl: Gemiste afspraak
+          fr: N'est pas venue au rendez-vous
+translations:
+  - language: nl
+    translations:
+      abortion-forms.field-labels.DOCTOR: Arts
+      abortion-forms.field-labels.WAY-OF-CONTACT: Afspraak gemaakt via
+      abortion-forms.field-labels.CONVERSATION-NATURE: Aard van het gesprek
+      abortion-forms.field-labels.CONVERSATION-NATURE-OTHER: Andere
+      abortion-forms.field-labels.NOTES: Notities
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Arts
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
+      abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
+      abortion-forms.field-labels.MISSED-APPOINTMENT: Gemiste afspraak
+  - language: fr
+    translations:
+      abortion-forms.field-labels.DOCTOR: Médecin
+      abortion-forms.field-labels.WAY-OF-CONTACT: Méthode de contact
+      abortion-forms.field-labels.CONVERSATION-NATURE: Nature de la conversation
+      abortion-forms.field-labels.CONVERSATION-NATURE-OTHER: Autre
+      abortion-forms.field-labels.NOTES: Notes
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Médecin
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
+      abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
+      abortion-forms.field-labels.MISSED-APPOINTMENT: N'est pas venue au rendez-vous
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:
