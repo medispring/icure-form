@@ -6,11 +6,11 @@ codifications:
     codes:
       - id: yes
         label:
-          nl:
+          nl: Ja
           fr: Oui
       - id: no
         label:
-          nl:
+          nl: Nee
           fr: Non
   - type: MS-ABORTION-CONTRACEPTION
     codes:
@@ -95,75 +95,118 @@ codifications:
       - id: kiud
         label:
           nl: KIUD
-          fr:
+          fr: KIUD
       - id: hiud
         label:
-          nl: KIUD
-          fr:
+          nl: HIUD
+          fr: HIUD
       - id: implant
         label:
-          nl: abortion-forms.field-options.IMPLANT
-          fr:
+          nl: Implant
+          fr: Implant contraceptif
       - id: contraceptive-injection
         label:
-          nl: abortion-forms.field-options.CONTRACEPTIVE-INJECTION
-          fr:
+          nl: Anticonceptie-injectie
+          fr: Injection contraceptive
   - type: MS-ABORTION-ULTRASOUND-RESULT
     codes:
       - id: empty-cavity
         label:
-          nl: abortion-forms.field-options.EMPTY-CAVITY
-          fr:
+          nl: Lege holte
+          fr: Cavité vide
       - id: clots
         label:
-          nl: abortion-forms.field-options.CLOTS
-          fr:
+          nl: Bloedstolsels
+          fr: Caillots
       - id: retention
         label:
-          nl: abortion-forms.field-options.RETENTION
-          fr:
+          nl: Retentie
+          fr: Rétention
       - id: non-evolution-pregnancy
         label:
-          nl: abortion-forms.field-options.NON-EVOLUTION-PREGNANCY
-          fr:
+          nl: Niet-progressieve zwangerschap
+          fr: Grossesse non progressive
       - id: evolution-pregnancy
         label:
-          nl: abortion-forms.field-options.EVOLUTION-PREGNANCY
-          fr:
+          nl: Progressieve zwangerschap
+          fr: Grossesse progressive
       - id: diffuse-image
         label:
-          nl: abortion-forms.field-options.DIFFUSE-IMAGE
-          fr:
+          nl: Diffuse afbeelding
+          fr: Image diffuse
   - type: MS-ABORTION-COMPLICATION
     codes:
       - id:
         label:
-          nl: abortion-forms.field-options.FAILED-CURETTAGE
-          fr:
+          nl: Mislukken zuigcurettage
+          fr: Curetage échoué
       - id:
         label:
-          nl: abortion-forms.field-options.BLEEDING-REQUIRING-STYPTIC-CURETTAGE
-          fr:
+          nl: Bloeding die een bloedstelpende curettage vereist
+          fr: Saignement nécessitant un curetage stypique
       - id:
         label:
-          nl: abortion-forms.field-options.UTERINE-PERFORATION
-          fr:
+          nl: Baarmoederperforatie
+          fr: Perforation utérine
       - id:
         label:
-          nl: abortion-forms.field-options.CERVICAL-RUPTURE
-          fr:
+          nl: Scheuring van de baarmoederhals
+          fr: Rupture du col
       - id:
         label:
-          nl: abortion-forms.field-options.INFECTIOUS-COMPLICATION
-          fr:
+          nl: Infectieuze complicatie
+          fr: Complication infectieuse
       - id:
         label:
-          nl: abortion-forms.field-options.FAILURE-OF-DRUG-TREATMENT
-          fr:
+          nl: Falen van de medicamenteuze behandeling
+          fr: Échec du traitement médicamenteux
       - id:
         label:
-          nl: abortion-forms.field-options.OTHER
-          fr:
+          nl: Andere
+          fr: Autre
+translations:
+  - language: nl
+    translations:
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Arts
+      abortion-forms.field-labels.PYSCHO-HEALTHCARE-PARTY: Psychosociale medewerker
+      abortion-forms.field-labels.PATIENT-EVALUATION: Evaluatie door de cliënt
+      abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION: Gestart met anticonceptie na de ingreep
+      abortion-forms.field-labels.CONTRACEPTION-YES: Welke anticonceptie
+      abortion-forms.field-labels.CONTRACEPTION-YES-OTHER: Andere
+      abortion-forms.field-labels.CONTRACEPTIVE-DURING-CONTROL: Anticonceptie geplaatst tijdens de controle?
+      abortion-forms.field-labels.CONTRACEPTIVE-BRAND: Merknaam van anticonceptie
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
+      abortion-forms.field-labels.ULTRASOUND-EVALUATION: Echografische evaluatie
+      abortion-forms.field-labels.NOTES: Notities
+      abortion-forms.field-labels.COMPLICATION: Onmiddellijke medische complicatie
+      abortion-forms.field-labels.COMPLICATION-OTHER: Andere
+      abortion-forms.field-labels.HCG-DATE: Datum HCG
+      abortion-forms.field-labels.HCG-DOSAGE: HCG bepaling dag mifepristone
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
+      abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
+      abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Lotnummer van anticonceptie
+  - language: fr
+    translations:
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Médecin
+      abortion-forms.field-labels.PYSCHO-HEALTHCARE-PARTY: Soignant psychosocial
+      abortion-forms.field-labels.PATIENT-EVALUATION: Évaluation de la patiente
+      abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION: Contraception après l'avortement
+      abortion-forms.field-labels.CONTRACEPTION-YES: Quelle contraception ?
+      abortion-forms.field-labels.CONTRACEPTION-YES-OTHER: Autre
+      abortion-forms.field-labels.CONTRACEPTIVE-DURING-CONTROL: Mise en place d'un contraceptif durant le contrôle ?
+      abortion-forms.field-labels.CONTRACEPTIVE-BRAND: Marque de la contraception
+      abortion-forms.field-labels.FUTURE-CONTRACEPTION: Contraception future
+      abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Autre
+      abortion-forms.field-labels.ULTRASOUND-EVALUATION: Évaluation échographique
+      abortion-forms.field-labels.NOTES: Notes
+      abortion-forms.field-labels.COMPLICATION: Complication
+      abortion-forms.field-labels.COMPLICATION-OTHER: Autre
+      abortion-forms.field-labels.HCG-DATE: Date HCG
+      abortion-forms.field-labels.HCG-DOSAGE: Dosage HCG
+      abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
+      abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
+      abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Numéro du lot
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:

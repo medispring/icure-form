@@ -6,24 +6,45 @@ codifications:
     codes:
       - id: pregnancy-evolution
         label:
-          nl:
-          fr: abortion-forms.field-options.PREGNANCY-EVOLUTION
+          nl: Evolutieve zwangerschap
+          fr: Évolution de la grossesse
       - id: tissue-retention
         label:
-          nl:
-          fr: abortion-forms.field-options.TISSUE-RETENTION
+          nl: Retentie
+          fr: Rétention de tissu
       - id: major-blood-loss
         label:
-          nl:
-          fr: abortion-forms.field-options.MAJOR-BLOOD-LOSS
+          nl: Aanhoudend bloedverlies
+          fr: Perte de sang majeure
       - id: uterine-atony
         label:
-          nl:
-          fr: abortion-forms.field-options.UTERINE-ATONY
+          nl: Uteriene atonie
+          fr: Atonie utérine
       - id: other
         label:
-          nl:
-          fr: abortion-forms.field-options.OTHER
+          nl: Andere
+          fr: Autre
+translations:
+  - language: fr
+    translations:
+      abortion-forms.field-labels.DOCTOR: Médecin
+      abortion-forms.field-labels.NURSE: Infirmier(e)
+      abortion-forms.field-labels.DATE-POST-CURETTAGE: Date post-curettage
+      abortion-forms.field-labels.POST-CURETTAGE-REASON: Raison post-curettage
+      abortion-forms.field-labels.POST-CURETTAGE-REASON-OTHER: Autre
+      abortion-forms.field-labels.NOTES: Notes
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Suivi (min) (médecin)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Suivi (min) (infirmier(e))
+  - language: nl
+    translations:
+      abortion-forms.field-labels.DOCTOR: Arts
+      abortion-forms.field-labels.NURSE: Verpleging
+      abortion-forms.field-labels.DATE-POST-CURETTAGE: Datum van na-curettage
+      abortion-forms.field-labels.POST-CURETTAGE-REASON: Reden van na-curettage
+      abortion-forms.field-labels.POST-CURETTAGE-REASON-OTHER: Andere
+      abortion-forms.field-labels.NOTES: Notities
+      abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR: Aantal minuten arts
+      abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Aantal minuten verpleging
 sections:
   - section: abortion-forms.field-labels.SECTION-1
     fields:
