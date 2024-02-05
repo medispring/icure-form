@@ -219,7 +219,6 @@ translations:
       abortion-forms.field-labels.FOLLOW-UP-MIN-HCP: Suivi (min) (soignant)
       abortion-forms.field-labels.FOLLOW-UP-MIN-HCP-CONTRACEPTION: Dont suivi (min) (contraception)
       abortion-forms.field-labels.NOTES: Notes
-
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:
@@ -229,7 +228,8 @@ sections:
         fields:
           - field: abortion-forms.field-labels.CONSULTATION-TYPE
             type: dropdown
-            codification: MS-ABORTION-CONSULTATION-TYPE
+            codifications:
+              - MS-ABORTION-CONSULTATION-TYPE
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|consultationType|1
       - group: line
@@ -239,17 +239,19 @@ sections:
           - field: abortion-forms.field-labels.MISOPROSTOL-FIRST-DOSIS
             type: measure-field
             unit: µg
-            value: 800 µg
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', value: 800, unit: 'µg' } }, codes: [] }
             tags:
               - MS-ABORTION-ITEM|medication|1
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|misoprostolFirstDosis|1
           - field: abortion-forms.field-labels.ADMINISTRATED-MEDICATION-1
             type: radio-button
-            codification:
+            codifications:
               - MS-ABORTION-ADMINISTRATED-MEDICATION
             styleOptions:
-              direction: row
-              rows: 1
+              direction: column
+              span: 2
             tags:
               - MS-ABORTION-ITEM|medication|1
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|administratedMedicationOne|1
@@ -260,19 +262,19 @@ sections:
           - field: abortion-forms.field-labels.SECOND-DOSIS
             type: measure-field
             unit: µg
-            value: 400 µg
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', value: 400, unit: 'µg' } }, codes: [] }
             tags:
               - MS-ABORTION-ITEM|medication|1
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|misoprostolSecondDosis|1
           - field: abortion-forms.field-labels.ADMINISTRATED-MEDICATION-2
             type: radio-button
-            options:
-              vaginale: abortion-forms.field-options.VAGINAL
-              buccale: abortion-forms.field-options.BUCCAL
-              sublinguale: abortion-forms.field-options.SUBLINGUAL
+            codifications:
+              - MS-ABORTION-ADMINISTRATED-MEDICATION
             styleOptions:
-              direction: row
-              rows: 1
+              direction: column
+              span: 2
             tags:
               - MS-ABORTION-ITEM|medication|1
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|administratedMedicationTwo|1
@@ -283,15 +285,11 @@ sections:
           - field: abortion-forms.field-labels.PAIN-MEDICATION
             type: checkbox
             sortOptions:
-              none: 0
-              empty: 0
-              other: -1
-              asc: true
-              alpha: true
+              asc: natural
+              promotions: none, empty, *, other
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             codifications:
               - MS-ABORTION-PAIN-MEDICATION
             tags:
@@ -299,6 +297,9 @@ sections:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|painMedication|1
           - field: abortion-forms.field-labels.PAIN-MEDICATION-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.PAIN-MEDICATION']?.some((item) => item?.codes.some(code => code.id === 'other'))
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|painMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -308,8 +309,7 @@ sections:
         fields:
           - field: abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2
             type: textfield
-            rows: 5
-            columns: 1
+            span: 12
             multiline: true
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|conversationStageTwo|1
@@ -321,15 +321,23 @@ sections:
             type: checkbox
             styleOptions:
               direction: column
-              columns: 4
-              alignItems: 'flex-end'
+              span: 4
+            span: 12
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
               - MS-ABORTION-ITEM|contraception|1
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
             type: textfield
+            span: 6
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']?.some((item) => item?.codes.some(code => code.id === 'other-contraceptives'))
             tags:
               - MS-ABORTION-ITEM|contraception|1
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
@@ -342,24 +350,36 @@ sections:
             type: radio-button
             styleOptions:
               direction: column
-              columns: 3
-              alignItems: 'flex-end'
-            codification:
+              span: 3
+            span: 12
+            codifications:
               - MS-ABORTION-SECOND-PART-EVALUATION
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|stageTwoEvaluation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-options.CONTROLE
             type: radio-button
-            codification:
+            span: 12
+            codifications:
               - MS-ABORTION-SECOND-PART-EVALUATION-OTHER
             styleOptions:
               direction: column
-              columns: 3
-              alignItems: 'flex-end'
+              span: 3
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|control|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.STAGE-2-EVALUATION-OTHER
             type: textfield
+            span: 6
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-options.CONTROLE']?.some((item) => item?.codes.some(code => code.id === 'other'))
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|control_other|1
       - group: line
@@ -368,16 +388,18 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR
             type: number-field
-            shortLabel: followUpMin
-            value: 30
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|doctor|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-NIHII-CONVENTION-ITEM|followUpMinDoctor|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-DOCTOR-CONTRACEPTION
             type: number-field
-            shortLabel: followUpMin
-            value: 10
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|doctorContraception|1
               - MS-NIHII-CONVENTION-ITEM|followUpMinDoctorContraception|1
@@ -388,16 +410,18 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-HCP
             type: number-field
-            shortLabel: followUpMin
-            value: 45
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 45 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|generic|1
               - MS-NIHII-CONVENTION-ITEM|followUpMinTalk|1
               - MS-ABORTION-ITEM|follow-up|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-HCP-CONTRACEPTION
             type: number-field
-            shortLabel: followUpMin
-            value: 10
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|contraception|1
               - MS-NIHII-CONVENTION-ITEM|followUpMinTalkContraception|1
@@ -408,8 +432,7 @@ sections:
         fields:
           - field: abortion-forms.field-labels.NOTES
             type: textfield
-            styleOptions:
-              width: 600
+            span: 12
             multiline: true
             tags:
               - MS-ABORTION-ITEM|comment-note|1
