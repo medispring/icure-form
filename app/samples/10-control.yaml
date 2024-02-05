@@ -136,31 +136,35 @@ codifications:
           fr: Image diffuse
   - type: MS-ABORTION-COMPLICATION
     codes:
-      - id:
+      - id: none
+        label:
+          nl: Geen
+          fr: Aucune
+      - id: failed-suction-curettage
         label:
           nl: Mislukken zuigcurettage
           fr: Curetage échoué
-      - id:
+      - id: bleeding
         label:
           nl: Bloeding die een bloedstelpende curettage vereist
           fr: Saignement nécessitant un curetage stypique
-      - id:
+      - id: uterine-perforation
         label:
           nl: Baarmoederperforatie
           fr: Perforation utérine
-      - id:
+      - id: cervical-laceration
         label:
           nl: Scheuring van de baarmoederhals
           fr: Rupture du col
-      - id:
+      - id: infection
         label:
           nl: Infectieuze complicatie
           fr: Complication infectieuse
-      - id:
+      - id: medical-treatment-failure
         label:
           nl: Falen van de medicamenteuze behandeling
           fr: Échec du traitement médicamenteux
-      - id:
+      - id: other
         label:
           nl: Andere
           fr: Autre
@@ -233,6 +237,7 @@ sections:
           - field: abortion-forms.field-labels.PATIENT-EVALUATION
             type: textfield
             multiline: true
+            span: 12
             tags:
               - MS-ABORTION-CONTROL-ITEM|evaluationOfPatient|1
       - group: line
@@ -241,10 +246,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION
             type: radio-button
-            sortable: false
             styleOptions:
-              direction: row
-              rows: 1
+              direction: column
+              span: 3
             codifications:
               - MS-ABORTION-CONTRACEPTION-AFTER-ABORTION
             tags:
@@ -255,17 +259,26 @@ sections:
         fields:
           - field: abortion-forms.field-labels.CONTRACEPTION-YES
             type: checkbox
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION']?.some((item) => item?.codes.some(code => code.id === 'yes'))
             styleOptions:
               direction: column
-              columns: 4
-              alignItems: 'flex-end'
+              span: 4
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
               - MS-ABORTION-CONTROL-ITEM|contraceptiveAfterAbortion|1
               - MS-ABORTION-ITEM|contraception|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.CONTRACEPTION-YES-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION']?.some((item) => item?.codes.some(code => code.id === 'yes')) || !self['abortion-forms.field-labels.CONTRACEPTION-YES']?.some((item) => item?.codes.some(code => code.id === 'other-contraceptives'))
             tags:
               - MS-ABORTION-CONTROL-ITEM|contraceptiveAfterAbortionOther|1
               - MS-ABORTION-ITEM|contraception|1
@@ -278,7 +291,7 @@ sections:
             type: checkbox
             styleOptions:
               direction: column
-              columns: 2
+              span: 2
             codifications:
               - MS-ABORTION-CONTRACEPTIVE-DURING-CONTROL
             tags:
@@ -303,15 +316,21 @@ sections:
             type: checkbox
             styleOptions:
               direction: column
-              columns: 4
-              alignItems: 'flex-end'
+              span: 4
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
               - MS-ABORTION-CONTROL-ITEM|contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']?.some((item) => item?.codes.some(code => code.id === 'other-contraceptives'))
             tags:
               - MS-ABORTION-CONTROL-ITEM|contraceptionFutureOther|1
               - MS-ABORTION-ITEM|contraception|1
@@ -326,10 +345,13 @@ sections:
               - MS-ABORTION-ULTRASOUND-RESULT
             tags:
               - MS-ABORTION-CONTROL-ITEM|resultOfUltrasound|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.NOTES
             type: textfield
-            styleOptions:
-              width: 600
+            span: 12
             multiline: true
             tags:
               - MS-ABORTION-ITEM|comment-note|1
@@ -339,22 +361,35 @@ sections:
         span: 24
         fields:
           - field: abortion-forms.field-labels.COMPLICATION
-            type: dropdown
+            type: checkbox
             codifications:
               - MS-ABORTION-COMPLICATION
+            span: 12
+            sortOptions:
+              promotions: none, *, empty, other
+              sort: natural
+            styleOptions:
+              direction: column
+              span: 2
             tags:
-              - MS-ABORTION-CONTROL-ITEM|complication|1
+              - MS-NIHII-CONVENTION-ITEM|complication|1
           - field: abortion-forms.field-labels.COMPLICATION-OTHER
             type: textfield
+            span: 6
+            computedProperties:
+              hidden: |
+                return ![...self['abortion-forms.field-labels.COMPLICATION']].some(field => field.codes?.some(c => c.id === 'other'))
             tags:
-              - MS-ABORTION-CONTROL-ITEM|complicationOther|1
+              - MS-NIHII-CONVENTION-ITEM|complicationOther|1
       - group: line
         borderless: true
         span: 24
         fields:
           - field: abortion-forms.field-labels.HCG-DATE
             type: date-picker
-            now: true
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-CONTROL-ITEM|HCGDate|1
               - MS-ABORTION-ITEM|date|1
@@ -373,14 +408,18 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN
             type: number-field
-            value: 30
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|generic|1
               - MS-ABORTION-CONTROL-ITEM|followUpMin|1
               - MS-ABORTION-ITEM|follow-up|1
           - field: abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN
             type: number-field
-            value: 10
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|contraception|1
               - MS-ABORTION-CONTROL-ITEM|followUpContraceptionMin|1
