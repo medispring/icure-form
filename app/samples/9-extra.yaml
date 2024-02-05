@@ -47,7 +47,7 @@ translations:
       abortion-forms.field-labels.HEALTHCARE-PARTY: Arts
       abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
-      abortion-forms.field-labels.MISSED-APPOINTMENT: Gemiste afspraak
+      abortion-forms.field-labels.MISSED-APPOINTMENT: ''
   - language: fr
     translations:
       abortion-forms.field-labels.DOCTOR: Médecin
@@ -58,7 +58,7 @@ translations:
       abortion-forms.field-labels.HEALTHCARE-PARTY: Médecin
       abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
-      abortion-forms.field-labels.MISSED-APPOINTMENT: N'est pas venue au rendez-vous
+      abortion-forms.field-labels.MISSED-APPOINTMENT: ''
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:
@@ -69,8 +69,8 @@ sections:
           - field: abortion-forms.field-labels.WAY-OF-CONTACT
             type: checkbox
             styleOptions:
-              direction: row
-              rows: 1
+              direction: column
+              span: 3
             codifications:
               - MS-ABORTION-CONTACT-VIA-TYPE
             tags:
@@ -84,13 +84,13 @@ sections:
             type: checkbox
             codifications:
               - MS-ABORTION-CONVERSATION-NATURE
-            styleOptions:
-              direction: row
-              rows: 1
             tags:
               - MS-ABORTION-EXTRA-ITEM|natureOfConversation|1
           - field: abortion-forms.field-labels.CONVERSATION-NATURE-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.CONVERSATION-NATURE']?.some((item) => item?.codes.some(code => code.id === 'other'))
             tags:
               - MS-ABORTION-EXTRA-ITEM|natureOfConversationOther|1
       - group: line
@@ -99,39 +99,47 @@ sections:
         fields:
           - field: abortion-forms.field-labels.NOTES
             type: textfield
-            styleOptions:
-              width: 600
+            span: 12
             multiline: true
             tags:
               - MS-ABORTION-ITEM|comment-note|1
               - MS-ABORTION-EXTRA-ITEM|notes|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.HEALTHCARE-PARTY
             type: dropdown
             codifications:
               - HCP-LIST|persphysician
             tags:
               - MS-ABORTION-EXTRA-ITEM|healthcareParty|1
+          - field: abortion-forms.field-labels.MISSED-APPOINTMENT
+            type: checkbox
+            shortLabel: ''
+            codifications:
+              - MS-ABORTION-MISSED-APPOINTMENT
+            tags:
+              - MS-ABORTION-EXTRA-ITEM|missedAppointment|1
       - group: line
         borderless: true
         span: 24
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN
             type: number-field
-            value: 30
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|generic|1
               - MS-ABORTION-EXTRA-ITEM|followUpMin|1
               - MS-ABORTION-ITEM|follow-up|1
           - field: abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN
             type: number-field
-            value: 10
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 10 } }, codes: [] }
             tags:
               - MS-FOLLOW-UP-MIN|contraception|1
               - MS-ABORTION-EXTRA-ITEM|followUpContraceptionMin|1
               - MS-ABORTION-ITEM|follow-up|1
-          - field: abortion-forms.field-labels.MISSED-APPOINTMENT
-            type: checkbox
-            codifications:
-              - MS-ABORTION-MISSED-APPOINTMENT
-            tags:
-              - MS-ABORTION-EXTRA-ITEM|missedAppointment|1
