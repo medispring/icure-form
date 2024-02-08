@@ -79,11 +79,8 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 						const text = (x.label ?? {})[this.language()] ?? ''
 						if (this.readonly) {
 							return html`<div>
-								<input class="icure-checkbox" disabled type="${this.type}" id="${x.id}" name="${this.label}" value="${text}" .checked=${inputValues.includes(x.id)} /><label
-									class="icure-button-group-label"
-									for="${x.id}"
-									><span>${text}</span></label
-								>
+								<input class="icure-checkbox" disabled type="${this.type}" id="${x.id}" name="${this.label}" value="${text}" .checked=${inputValues.includes(x.id)} />
+								<label class="icure-button-group-label" for="${x.id}"><span>${text}</span></label>
 							</div>`
 						}
 						return html`<div>

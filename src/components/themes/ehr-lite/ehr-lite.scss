@@ -1,0 +1,325 @@
+@import 'math';
+
+// colors
+$gray-900: #1D2235;
+$gray-800: #303443;
+$gray-600: #9CA8B2;
+$gray-400: #DDE3E7;
+
+$blue-800: #084B83;
+$blue-400: #DCE7F2;
+
+// theme
+$label-color: $gray-900;
+$color: $gray-900;
+$border-color: $gray-400;
+$textbox-shadow:  0px 0px 0px 2px rgba(61, 135, 197, 0.20) !default;
+$input-focused-text: #656565;
+$input-focused-border-color: $blue-800;
+$input-hovered-border-color: $blue-800;
+$accent: #656565;
+$highlight: rgba(0, 0, 0, 0.05);
+$highlight-contour: $blue-800;
+$border-radius: 6px;
+$icon-color: $gray-600;
+$active-color: $blue-800;
+
+$textbox-line-height: 1.4em !default;
+$textbox-default-width: 100%;
+$textbox-font-size: 13px !default;
+$label-font-size: 14px !default;
+
+$input-border-width: 1px;
+$input-padding-y: 4px;
+$input-padding-x: 8px;
+
+$floating-label-transition: 0.2s ease-out !default;
+$floating-label-scale: 1 !default;
+$floating-label-height: $textbox-line-height * $floating-label-scale;
+$font-weight-label: 400;
+
+//Check-box
+$checkbox-checked-color: $active-color;
+
+//Date-picker
+$date-picker-accent-color: $active-color;
+
+// Select Dropdown
+$select-dropdown-padding:2px;
+$select-dropdown-background: white;
+$select-dropdown-box-shadow:0px 3px 6px 0px rgba(0, 0, 0, 0.12), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 9px 28px 0px rgba(0, 0, 0, 0.05);
+
+$select-dropdown-row-padding:8px;
+$select-dropdown-row-border-radius: 4px;
+$select-dropdown-row-background: white;
+$select-dropdown-row-font-size: 12px;
+$select-dropdown-row-font-weight: 400;
+$select-dropdown-row-hover-background: $blue-400;
+
+.icure-form{
+	row-gap: 24px;
+}
+
+.icure-text-field, .icure-button-group {
+	width: $textbox-default-width;
+	> .icure-label {
+		color: $color;
+		font-size: $label-font-size;
+		font-weight: $font-weight-label;
+
+		> span {
+			display: block;
+			word-wrap: break-word;
+			overflow: auto;
+			font-weight: $font-weight-label;
+		}
+	}
+
+	> .icure-input {
+		flex: 1 1 auto;
+		width: auto;
+	}
+
+	> .icure-label {
+		transform: translate(0, 0) scale(1);
+	}
+
+	.icure-input,
+	.input-container {
+		cursor: pointer;
+		border-radius: $border-radius;
+		padding: $input-padding-y $input-padding-x;
+		width: $textbox-default-width;
+		box-sizing: border-box;
+		border-width: $input-border-width;
+		border-style: solid;
+		outline: 0;
+		font: inherit;
+		font-size: $textbox-font-size;
+		line-height: $textbox-line-height;
+		display: flex;
+		align-items: center;
+		vertical-align: middle;
+		position: relative;
+		-webkit-appearance: none;
+		background-color: #ffffff;
+		border-color: $border-color;
+		color: $color;
+		box-sizing: border-box;
+
+		&:focus,
+		&:focus-within {
+			box-shadow: $textbox-shadow;
+			border-color:$input-focused-border-color;
+		}
+
+		&:hover {
+			border-color: $input-hovered-border-color;
+			box-shadow: none;
+
+			&:focus,
+			&:focus-within {
+				box-shadow: $textbox-shadow;
+				border-color: $input-focused-border-color;
+			}
+		}
+
+		.ProseMirror {
+			padding: 0;
+			font-size: $textbox-font-size;
+			line-height: $textbox-line-height;
+			color: $color;
+
+			.date {
+				padding: 1px;
+			}
+
+			.time {
+				padding: 1px;
+			}
+		}
+
+		.ProseMirror:focus .focused, .ProseMirror:hover {
+			border-color: $highlight-contour;
+		}
+
+		& > svg {
+			opacity: 0.5;
+
+			path {
+				fill: $accent;
+			}
+		}
+
+		.extra {
+			height: 20px;
+
+			& > .info {
+				color: $accent;
+				opacity: 0.5;
+			}
+
+			.buttons-container .btn svg path {
+				fill: $accent;
+				opacity: 0.5;
+
+				&:hover {
+					fill: $accent;
+					opacity: 1;
+				}
+			}
+
+			// .buttons-container .menu-container .btn:hover::after {
+			// 	background: $accent;
+			// 	border-radius: $border-radius;
+			// }
+			// .buttons-container .menu-container .btn:hover::before {
+			// 	border-color:$accent transparent transparent transparent;
+			// }
+		}
+	}
+}
+
+input[type='radio'] {
+	margin-top: -1px;
+	vertical-align: middle;
+}
+
+
+.icure-checkbox {
+	&:hover {
+		border-color: $blue-400;
+	}
+	&:checked {
+		accent-color: $checkbox-checked-color;
+	}
+}
+
+.icure-button-group {
+	> .icure-label {
+		z-index: 1;
+		pointer-events: none;
+		line-height: $textbox-line-height;
+		cursor: text;
+		font-size: $textbox-font-size;
+		top: add-three($floating-label-height, $input-border-width, $input-padding-y);
+		left: add-two($input-padding-x, $input-border-width);
+		color: $color;
+		align-items: center;
+		height: 28px;
+		max-width: 55%;
+		min-width: 0;
+		padding-bottom: 8px;
+
+		> span {
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			padding-right: 8px;
+		}
+	}
+
+	> div {
+		display: grid;
+
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+
+			> .icure-button-group-label {
+				z-index: 1;
+				line-height: $textbox-line-height;
+				cursor: text;
+				font-size: $textbox-font-size;
+				top: add-three($floating-label-height, $input-border-width, $input-padding-y);
+				left: add-two($input-padding-x, $input-border-width);
+				transition: transform $floating-label-transition, color $floating-label-transition;
+				color: $color;
+				display: flex;
+				align-items: center;
+				max-width: 100%;
+				min-width: 0;
+
+				> span {
+					display: block;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					padding-right: 8px;
+				}
+			}
+		}
+	}
+
+	> .icure-input {
+		flex: 1 1 auto;
+		width: auto;
+	}
+}
+
+.icure-input {
+	#editor{
+		color: $color;
+	}
+
+	.extra {
+		padding-right: 0;
+	}
+	.select-arrow  {
+		opacity: 1;
+		svg {
+			width: 15px;
+			height: 15px;
+
+			path {
+				fill: $icon-color;
+			}
+		}
+	}
+
+	.options{
+		padding: $select-dropdown-padding;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 2px;
+		border-radius: $border-radius;
+		background: $select-dropdown-background;
+		box-shadow: $select-dropdown-box-shadow;
+
+		.option{
+			height: auto;
+			min-height: unset;
+			display: flex;
+			padding: $select-dropdown-row-padding;
+			align-items: center;
+			align-self: stretch;
+			border-radius: $select-dropdown-row-border-radius;
+			background: $select-dropdown-row-background;
+
+			color: $color;
+			font-size: $select-dropdown-row-font-size;
+			font-style: normal;
+			font-weight: $select-dropdown-row-font-weight;
+			line-height: normal;
+			cursor: pointer;
+
+			&:hover {
+				background: $select-dropdown-row-hover-background;
+				color: $active-color;
+			}
+		}
+	}
+
+	&:hover, &:focus {
+		.select-arrow {
+			svg {
+				path {
+					fill: $active-color;
+				}
+			}
+		}
+	}
+}

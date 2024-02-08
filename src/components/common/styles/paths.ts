@@ -48,9 +48,16 @@ export const markPicto = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 	<path fill="none" stroke="white" stroke-linecap="square" stroke-linejoin="square" stroke-width="2" d="M3,8 l3,3 l7-7" />
 </svg>`
 
-export const dropdownPicto = html`<?xml version="1.0" ?><svg height="30" viewBox="0 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg">
-		<path d="M2 10l10 10 10-10z" />
-	</svg>`
+export const dropdownPicto = html`<?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+	<g clip-path="url(#clip0_1_841)">
+		<path d="M5.5575 6.4425L9 9.8775L12.4425 6.4425L13.5 7.5L9 12L4.5 7.5L5.5575 6.4425Z" fill="#9CA8B2"/>
+	</g>
+	<defs>
+		<clipPath id="clip0_1_841">
+			<rect width="18" height="18" fill="white"/>
+		</clipPath>
+	</defs>
+</svg>`
 
 export const okPicto = html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 	<path fill="none" stroke="white" stroke-linecap="square" stroke-linejoin="square" stroke-width="2" d="M3,8 l3,3 l7-7" />

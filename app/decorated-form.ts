@@ -1,4 +1,4 @@
-import '../src/components/themes/default'
+import '../src/components/themes/ehr-lite'
 
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
