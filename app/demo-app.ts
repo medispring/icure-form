@@ -90,6 +90,7 @@ class DemoApp extends LitElement {
 			}
 
 			.master ul li {
+				font-family: 'Roboto', Helvetica, sans-serif;
 				padding: 8px;
 				margin-bottom: 5px;
 				background-color: #f4f4f4;
