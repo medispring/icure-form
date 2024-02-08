@@ -1,5 +1,6 @@
 import { Node, SchemaSpec } from 'prosemirror-model'
 import { TextSelection, Transaction } from 'prosemirror-state'
+import { EditorView } from 'prosemirror-view'
 
 export type MeasureSchema = 'measure'
 
@@ -57,7 +58,7 @@ export const measureTransactionMapper = (tr: Transaction) => {
 	const combinedText = (decimalText ?? '') + (unitText ?? '')
 
 	const newUnitText = combinedText.replace(/^[0-9.,-]*/, '').trimStart()
-	const newDecimalText = combinedText.replace(/^([0-9.,-]*) *.*$/, '$1')
+	const newDecimalText = combinedText.replace(/^([0-9.,-]*) *.*$/, '$1').trim()
 
 	if (newDecimalText === decimalText && newUnitText === unitText) {
 		return tr
@@ -76,4 +77,17 @@ export const measureTransactionMapper = (tr: Transaction) => {
 	const newFrom = patchedTr.steps.slice(tr.steps.length).reduce((acc, step) => step.getMap().map(acc), from) + (newUnitText?.charAt(0) !== unitText?.charAt(0) ? 2 : 0)
 
 	return patchedTr.setSelection(TextSelection.create(patchedTr.doc, Math.min(newFrom, tr.doc.content.size - 1)))
+}
+
+export const measureOnFocusHandler = (view: EditorView) => {
+	const doc = view.state.tr.doc
+	const decimal = doc.childCount && doc.child(0).type.name === 'decimal' ? doc.child(0) : null
+	const decimalText = decimal?.textContent ?? ''
+	const unit = doc.childCount > 1 && doc.child(1).type.name === 'unit' ? doc.child(1) : null
+	const unitText = unit?.textContent
+
+	if (unitText?.length && !decimalText?.length) {
+		console.log('Setting selection to 1')
+		view.dispatch(view.state.tr.setSelection(TextSelection.create(view.state.tr.doc, 1)))
+	}
 }

@@ -7,6 +7,9 @@ sections:
       - field: weight
         type: measure-field
         shortLabel: Weight
+        computedProperties:
+          defaultValue: |
+            return { content: { '*': { type: 'measure', unit: 'kg' } }, codes: [] }
       - field: height
         type: measure-field
         shortLabel: Height

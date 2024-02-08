@@ -51,7 +51,7 @@ export interface DateTimeType {
 
 export interface MeasureType {
 	type: 'measure'
-	value: number
+	value?: number
 	unit?: string
 }
 
