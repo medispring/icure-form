@@ -201,7 +201,7 @@ input[type='radio'] {
 		pointer-events: none;
 		line-height: $textbox-line-height;
 		cursor: text;
-		font-size: $textbox-font-size;
+		font-size: $label-font-size;
 		top: add-three($floating-label-height, $input-border-width, $input-padding-y);
 		left: add-two($input-padding-x, $input-border-width);
 		color: $color;
@@ -232,7 +232,7 @@ input[type='radio'] {
 				z-index: 1;
 				line-height: $textbox-line-height;
 				cursor: text;
-				font-size: $textbox-font-size;
+				font-size: $label-font-size;
 				top: add-three($floating-label-height, $input-border-width, $input-padding-y);
 				left: add-two($input-padding-x, $input-border-width);
 				transition: transform $floating-label-transition, color $floating-label-transition;
