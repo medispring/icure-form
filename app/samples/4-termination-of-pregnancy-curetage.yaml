@@ -90,10 +90,6 @@ codifications:
         label:
           nl: Vader
           fr: Père
-      - id: other
-        label:
-          nl: Andere
-          fr: Autre
       - id: partner
         label:
           nl: Partner
@@ -106,6 +102,10 @@ codifications:
         label:
           nl: Vriend(in)
           fr: Ami(e)
+      - id: other
+        label:
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-ANESTHISIA-MEDICATION
     codes:
       - id: none
@@ -162,6 +162,16 @@ codifications:
         label:
           nl: Meer dan 200 ml
           fr: Plus de 200 ml
+  - type: MS-ABORTION-ANTI-D
+    codes:
+      - id: none
+        label:
+          nl: Geen
+          fr: Aucun
+      - id: rhogam
+        label:
+          nl: Rhogam
+          fr: Rhogam
   - type: MS-ABORTION-CONTRACEPTIVE
     codes:
       - id: kiud
@@ -273,7 +283,7 @@ codifications:
       - id: ambulatory
         label:
           nl: Geen (ambulant)
-          fr: AMBULATORY
+          fr: Aucun (ambulatoire)
       - id: less-twenty-four
         label:
           nl: 'Opname: 24 uur of minder'
@@ -385,6 +395,7 @@ translations:
       abortion-forms.field-labels.COMPLICATION-OTHER: Andere
       abortion-forms.field-labels.MEDICAL-REPORT: Geeft de patiënt toestemming om een medisch rapport naar haar de huisarts/gyn. te sturen?
       abortion-forms.field-labels.FOLLOW-UP-MIN-INTERVENTION: Aantal minuten ingreep
+      abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION: Aantal minuten gesprek
       abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Aantal minuten verpleging
   - language: fr
     translations:
@@ -434,6 +445,7 @@ translations:
       abortion-forms.field-labels.COMPLICATION-OTHER: Autre
       abortion-forms.field-labels.MEDICAL-REPORT: La patiente autorise-t-elle l'envoi d'un rapport médical à son médecin traitant?
       abortion-forms.field-labels.FOLLOW-UP-MIN-INTERVENTION: Suivi (min) (intervention)
+      abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION: Suivi (min) (conversation)
       abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Suivi (min) (infirmier(e))
 sections:
   - section: abortion-forms.section-labels.section-1
@@ -457,18 +469,21 @@ sections:
         fields:
           - field: abortion-forms.field-labels.HEALTHCARE-PARTY
             type: dropdown
+            span: 6
             codifications:
               - HCP-LIST|persphysician
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|healthcareParty|1
           - field: abortion-forms.field-labels.PYSCHO-HEALTHCARE-PARTY
             type: dropdown
+            span: 6
             codifications:
               - HCP-LIST|persnurse
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|psychoHealthcareParty|1
           - field: abortion-forms.field-labels.NURSE-HEALTHCARE-PARTY
             type: dropdown
+            span: 6
             codifications:
               - HCP-LIST|deptpsychiatry
             tags:
@@ -542,7 +557,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return ![...self['field-labels.ABORTION-REASON-CODE-1'],...self['field-labels.ABORTION-REASON-CODE-2'],...self['field-labels.ABORTION-REASON-CODE-3']]?.some(d => d.codes?.some(c => c.id === 'other'))
+                return ![...self['abortion-forms.field-labels.ABORTION-REASON-CODE-1'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-2'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-3']]?.some(d => d.codes?.some(c => c.id === 'MS-ABORTION-REASON-CODE|99|1'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCodeOther|1
               - MS-ABORTION-REASON-CODE|custom|1
@@ -606,15 +621,17 @@ sections:
         span: 24
         fields:
           - field: abortion-forms.field-labels.AB-PROPHYLAXIS
+            span: 6
             type: radio-button
             styleOptions:
-              direction: row
-              span: 1
+              direction: column
+              span: 2
             codifications:
               - MS-ABORTION-AB-PROPHYLAXIS
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxis|1
           - field: abortion-forms.field-labels.AB-PROPHYLAXIS-NO
+            span: 6
             type: dropdown
             codifications:
               - MS-ABORTION-AB-PROPHYLAXIS-NO
@@ -632,6 +649,7 @@ sections:
               - MS-ABORTION-ITEM|medication|1
           - field: abortion-forms.field-labels.AB-PROPHYLAXIS-OTHER
             type: textfield
+            span: 6
             computedProperties:
               hidden: |
                 return !(self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id === 'no')) && self['abortion-forms.field-labels.AB-PROPHYLAXIS-NO']?.some(d => d.codes?.some(c => c.id === 'other')))
@@ -645,9 +663,8 @@ sections:
           - field: abortion-forms.field-labels.WAITING-TIME-REDUCTION
             type: radio-button
             styleOptions:
-              direction: row
-              rows: 1
-              alignItems: 'flex-end'
+              direction: column
+              span: 2
             codifications:
               - MS-ABORTION-WAITING-TIME-REDUCTION
             tags:
@@ -664,8 +681,7 @@ sections:
             type: checkbox
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             codifications:
               - MS-ABORTION-COMPANION-TYPE
             tags:
@@ -674,6 +690,9 @@ sections:
               - MS-ABORTION-COMPANION|typeOfCompanion|1
           - field: abortion-forms.field-labels.PRESENT-DURING-INTERVENTION-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.PRESENT-DURING-INTERVENTION']?.some(d => d.codes?.some(c => c.id === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|presentDuringInterventionOther|1
               - MS-ABORTION-ITEM|companion|1
@@ -688,20 +707,19 @@ sections:
             codifications:
               - MS-ABORTION-ANESTHISIA-MEDICATION
             sortOptions:
-              none: 1
-              other: 2
-              empty: 0
-              asc: true
-              alpha: true
+              promotions: none, empty, *, other
+              sort: natural
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|anesthesiaMedication|1
               - MS-ABORTION-ITEM|medication|1
           - field: abortion-forms.field-labels.ANESTHESIA-MEDICATION-OTHER
             type: textfield
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.ANESTHESIA-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|anesthesiaMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -725,14 +743,17 @@ sections:
         fields:
           - field: abortion-forms.field-labels.CLINICAL-EVALUATION
             type: textfield
+            span: 6
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|clinicalEvaluation|1
           - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
             type: textfield
+            span: 6
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|ultrasoundEvaluation|1
           - field: abortion-forms.field-labels.MACROSCROPIC-EVALUATION
             type: textfield
+            span: 6
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|macroscopicEvaluation|1
       - group: line
@@ -741,19 +762,21 @@ sections:
         fields:
           - field: abortion-forms.field-labels.BLOOD-LOSS
             type: dropdown
+            span: 6
             codifications:
               - MS-ABORTION-BLOOD-LOSS
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|bloodLoss|1
           - field: abortion-forms.field-labels.ANTI-D
             type: dropdown
-            options:
-              none: abortion-forms.field-options.NONE
-              rhogam: abortion-forms.field-options.RHOGAM-IM
+            span: 6
+            codifications:
+              - MS-ABORTION-ANTI-D
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|antiD|1
           - field: abortion-forms.field-labels.CONTRACEPTIVE-AFTER-CUPPING
             type: dropdown
+            span: 6
             codifications:
               - MS-ABORTION-CONTRACEPTIVE
             tags:
@@ -777,17 +800,21 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
             type: checkbox
+            span: 12
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
           - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
+            span: 6
             type: textfield
+            computedProperties:
+              hidden: |
+                return ![...self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']].some(field => field.codes?.some(c => c.id === 'other-contraceptives'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
@@ -798,7 +825,10 @@ sections:
         fields:
           - field: abortion-forms.field-labels.ABORTION-METHOD
             type: dropdown
-            value: surgicalMethod
+            span: 6
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Méthode chirurgicale' }, nl: { type: 'string', value: 'Chirurgische methode'} }, codes: [{ id: 'surgical-method' }] }
             codifications:
               - MS-ABORTION-METHOD-TYPE
             tags:
@@ -809,15 +839,19 @@ sections:
             codifications:
               - MS-ABORTION-ANESTHESIA
             sortable: false
+            span: 6
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             tags:
               - MS-NIHII-CONVENTION-ITEM|anesthesia|1
               - MS-ABORTION-ITEM|anesthesia|1
           - field: abortion-forms.field-labels.ANESTHESIA-OTHER
             type: textfield
+            span: 6
+            computedProperties:
+              hidden: |
+                return ![...self['abortion-forms.field-labels.ANESTHESIA']].some(field => field.codes?.some(c => c.id === 'other'))
             tags:
               - MS-NIHII-CONVENTION-ITEM|anesthesiaOther|1
       - group: line
@@ -826,32 +860,39 @@ sections:
         fields:
           - field: abortion-forms.field-labels.TIME-OF-CARE
             type: checkbox
-            value: ambulatory
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Aucun (ambulatoire)' }, nl: { type: 'string', value: 'Geen (ambulant)'} }, codes: [{ id: 'ambulatory' }] }
+            span: 6
             codifications:
               - MS-ABORTION-TIME-OF-CARE
             styleOptions:
               direction: column
             tags:
               - MS-NIHII-CONVENTION-ITEM|timeOfCare|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.COMPLICATION
             type: checkbox
             codifications:
               - MS-ABORTION-COMPLICATION
+            span: 12
             sortOptions:
-              none: -1
-              other: 1
-              empty: 0
-              asc: true
-              alpha: true
-            columns: 2
+              promotions: none, *, empty, other
+              sort: natural
             styleOptions:
               direction: column
-              columns: 2
-              alignItems: 'flex-end'
+              span: 2
             tags:
               - MS-NIHII-CONVENTION-ITEM|complication|1
           - field: abortion-forms.field-labels.COMPLICATION-OTHER
             type: textfield
+            span: 6
+            computedProperties:
+              hidden: |
+                return ![...self['abortion-forms.field-labels.COMPLICATION']].some(field => field.codes?.some(c => c.id === 'other'))
             tags:
               - MS-NIHII-CONVENTION-ITEM|complicationOther|1
       - group: line
@@ -860,11 +901,11 @@ sections:
         fields:
           - field: abortion-forms.field-labels.MEDICAL-REPORT
             type: radio-button
-            codification:
+            codifications:
               - MS-ABORTION-MEDICAL-REPORT
             styleOptions:
-              direction: row
-              rows: 1
+              direction: column
+              span: 2
             tags:
               - MS-NIHII-CONVENTION-ITEM|medicalReport|1
       - group: line
@@ -873,24 +914,30 @@ sections:
         fields:
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-INTERVENTION
             type: number-field
-            shortLabel: followUpMin
-            value: 30
+            span: 6
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
               - MS-NIHII-CONVENTION-ITEM|followUpMinIntervention|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-FOLLOW-UP-MIN|intervention|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION
             type: number-field
-            shortLabel: followUpMin
-            value: 20
+            span: 6
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 20 } }, codes: [] }
             tags:
               - MS-NIHII-CONVENTION-ITEM|followUpMinConversation|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-FOLLOW-UP-MIN|generic|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE
             type: number-field
-            shortLabel: followUpMin
-            value: 20
+            span: 6
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 20 } }, codes: [] }
             tags:
               - MS-NIHII-CONVENTION-ITEM|followUpMinNurse|1
               - MS-ABORTION-ITEM|follow-up|1
