@@ -68,37 +68,42 @@ class DemoApp extends LitElement {
 	@state() private selectedForm: Form = this.samples[0].form
 	static get styles() {
 		return css`
-			body {
-				font-family: Arial, sans-serif;
-			}
-
+			
 			.container {
 				display: flex;
-				border: 1px solid #ddd;
-				padding: 0;
+				border: 1px solid #CAD0D5;
 			}
 
 			.master {
 				flex: 1;
-				padding: 10px;
-				border-right: 1px solid #ddd;
+				padding: 6px;
+				border-right: 1px solid #CAD0D5;
 			}
 
 			.master ul {
 				list-style-type: none;
 				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				margin: 8px 0;
 			}
 
 			.master ul li {
 				padding: 8px;
-				margin-bottom: 5px;
-				background-color: #f4f4f4;
-				border: 1px solid #ddd;
+				background-color: #FCFCFD;
+				border: 1px solid #DDE3E7;
 				cursor: pointer;
+				border-radius: 2px;
+				
+				&.selected{
+					background-color: #DCE7F2;
+					border-color: #DCE7F2;
+				}
 			}
 
 			.master ul li:hover {
-				background-color: #e9e9e9;
+				background-color: #DCE7F2;
 			}
 
 			.detail {
