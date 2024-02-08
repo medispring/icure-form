@@ -10,7 +10,7 @@ export const singleValueProvider = (valueProvider?: () => VersionedData<FieldVal
 			  }
 			: {})
 
-export const handleSingleValueChanged = (handleValueChanged?: (label: string, language: string, value: FieldValue, id?: string) => string | undefined, id?: string) =>
+export const handleSingleValueChanged = (handleValueChanged?: (label: string, language: string, value?: FieldValue, id?: string) => string | undefined, id?: string) =>
 	handleValueChanged && ((label: string, language: string, value: FieldValue) => handleValueChanged?.(label, language, value, id))
 
 export const handleSingleMetadataChanged = (handleMetadataChanged?: (label: string, metadata: FieldMetadata, id?: string) => string | undefined, id?: string) =>

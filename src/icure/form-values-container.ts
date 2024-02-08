@@ -150,25 +150,25 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 				try {
 					const currentValue = this.getVersionedValuesForKey(metadata.label)
 					const newValue = this.compute(formula) as FieldValue | undefined
-					if (newValue !== undefined) {
+					if (newValue !== undefined || currentValue != undefined) {
 						const lng = this.language ?? 'en'
-						if (!newValue.content[lng] && newValue.content['*']) {
+						if (newValue && !newValue.content[lng] && newValue.content['*']) {
 							newValue.content[lng] = newValue.content['*']
 						}
-						delete newValue.content['*']
-						if (newValue.content[lng] !== undefined) {
-							const currentContact = this.contactFormValuesContainer.currentContact
-							this.contactFormValuesContainer = setValueOnContactFormValuesContainer(
-								this.contactFormValuesContainer,
-								metadata.label,
-								lng,
-								newValue,
-								Object.keys(currentValue ?? {})[0],
-								metadata,
-							).formValuesContainer
-							if (this.contact === currentContact) {
-								this.contact = this.contactFormValuesContainer.currentContact
-							}
+						if (newValue) {
+							delete newValue.content['*']
+						}
+						const currentContact = this.contactFormValuesContainer.currentContact
+						this.contactFormValuesContainer = setValueOnContactFormValuesContainer(
+							this.contactFormValuesContainer,
+							metadata.label,
+							lng,
+							newValue,
+							Object.keys(currentValue ?? {})[0],
+							metadata,
+						).formValuesContainer
+						if (this.contact === currentContact) {
+							this.contact = this.contactFormValuesContainer.currentContact
 						}
 					}
 				} catch (e) {
@@ -181,7 +181,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	setValue(
 		label: string,
 		language: string,
-		fv: FieldValue,
+		fv?: FieldValue,
 		id?: string,
 		metadata?: FieldMetadata,
 	): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
@@ -459,7 +459,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	setValue(
 		label: string,
 		language: string,
-		value: Service,
+		value?: Service,
 		id?: string,
 		metadata?: ServiceMetadata,
 	): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
@@ -467,14 +467,15 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		if (!service.id) {
 			throw new Error('Service id must be defined')
 		}
-		const newContent = value.content?.[language]
-		const newCodes = value.codes ?? []
-		if ((newContent && !isContentEqual(service.content?.[language], newContent)) || (newCodes && !areCodesEqual(newCodes, service.codes ?? []))) {
+		const newContent = value?.content?.[language]
+		const newCodes = value?.codes ?? []
+		if (!isContentEqual(service.content?.[language], newContent) || (newCodes && !areCodesEqual(newCodes, service.codes ?? []))) {
 			const newService = new Service({ ...service, modified: Date.now() })
 			const newContents = newContent ? { ...(service.content || {}), [language]: newContent } : { ...(service.content || {}) }
 			if (!newContent) {
 				delete newContents[language]
 			}
+
 			newService.content = newContents
 			newService.codes = newCodes
 
@@ -615,24 +616,19 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	}
 }
 
-const setValueOnContactFormValuesContainer = (
-	cfvc: ContactFormValuesContainer,
-	label: string,
-	language: string,
-	fv: FieldValue,
-	id: string | undefined,
-	metadata: FieldMetadata | undefined,
-) => {
-	const value = fv.content[language]
+const setValueOnContactFormValuesContainer = (cfvc: ContactFormValuesContainer, label: string, language: string, fv?: FieldValue, id?: string, metadata?: FieldMetadata) => {
+	const value = fv?.content[language]
 	const mutation = cfvc.setValue(
 		label,
 		language,
 		{
 			id: id,
-			codes: fv.codes,
-			content: {
-				[language]: primitiveTypeToContent(language, value),
-			},
+			codes: fv?.codes ?? [],
+			content: value
+				? {
+						[language]: primitiveTypeToContent(language, value),
+				  }
+				: undefined,
 		},
 		id,
 		metadata,

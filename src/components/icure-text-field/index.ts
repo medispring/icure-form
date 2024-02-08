@@ -1,5 +1,5 @@
 // Import the LitElement base class and html helper function
-import { html, nothing } from 'lit'
+import { css, html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -15,7 +15,6 @@ import { defaultMarkdownSerializer, MarkdownParser, MarkdownSerializer } from 'p
 import { unwrapFrom, wrapInIfNeeded } from './prosemirror-commands'
 import { SelectionCompanion } from './selection-companion'
 import { SuggestionPalette } from './suggestion-palette'
-import { caretFixPlugin } from './plugin/caret-fix-plugin'
 import { hasMark } from './prosemirror-utils'
 
 import { maskPlugin } from './plugin/mask-plugin'
@@ -33,6 +32,7 @@ import baseCss from '../common/styles/style.scss'
 import { extractSingleValue } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
 import { anyDateToDate } from '../../utils/icure-utils'
+import { measureTransactionMapper } from './schema/measure-schema'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
@@ -129,22 +129,30 @@ export class IcureTextField extends Field {
 	}
 
 	static get styles() {
-		return [baseCss]
+		return [
+			css`
+				.unit::before {
+					content: ' ';
+				}
+			`,
+			baseCss,
+		]
 	}
 
 	private updateValue(tr: Transaction) {
 		const [valueId] = extractSingleValue(this.valueProvider?.())
 		const value = this.primitiveTypeExtractor?.(tr.doc)
-		value &&
-			this.handleValueChanged?.(
-				this.label,
-				this.language(),
-				{
-					content: { [this.language()]: value },
-					codes: this.codesExtractor?.(tr.doc) ?? [],
-				},
-				valueId,
-			)
+		this.handleValueChanged?.(
+			this.label,
+			this.language(),
+			value
+				? {
+						content: { [this.language()]: value },
+						codes: this.codesExtractor?.(tr.doc) ?? [],
+				  }
+				: undefined,
+			valueId,
+		)
 	}
 
 	render() {
@@ -267,7 +275,6 @@ export class IcureTextField extends Field {
 					doc: undefined,
 					schema: this.proseMirrorSchema,
 					plugins: [
-						caretFixPlugin(),
 						history(),
 						this.links
 							? new Plugin({
@@ -336,7 +343,14 @@ export class IcureTextField extends Field {
 						.filter((x) => !!x)
 						.map((x) => x as Plugin),
 				}),
-				dispatchTransaction: (tr) => {
+				handleDOMEvents: {
+					blur: (view) => {
+						this.trToSave = undefined
+						this.updateValue(view.state.tr)
+					},
+				},
+				dispatchTransaction: (tro) => {
+					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : tro
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
@@ -385,10 +399,13 @@ export class IcureTextField extends Field {
 						const decimal = value.value.toString()
 						const unit = value.unit
 
-						return pms.node('paragraph', {}, [
-							pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [pms.text(' ')]),
-							pms.node('unit', {}, unit && unit.length ? [pms.text(unit)] : [pms.text(' ')]),
-						])
+						return pms.node(
+							'paragraph',
+							{},
+							[pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [pms.text(' ')])].concat(
+								unit && unit.length ? [pms.node('unit', {}, [pms.text(unit)])] : [],
+							),
+						)
 					},
 			  }
 			: schemaName === 'decimal'

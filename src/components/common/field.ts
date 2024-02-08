@@ -42,7 +42,7 @@ export class Field extends LitElement {
 	 */
 	@property() valueProvider?: () => VersionedData<FieldValue> = undefined
 	@property() metadataProvider?: (id: string, revisions: string[]) => VersionedData<FieldMetadata> = undefined
-	@property() handleValueChanged?: (label: string, language: string, value: FieldValue, id?: string) => string | undefined = undefined
+	@property() handleValueChanged?: (label: string, language: string, value?: FieldValue, id?: string) => string | undefined = undefined
 	@property() handleMetadataChanged?: (label: string, metadata: FieldMetadata, id?: string) => string | undefined = undefined
 
 	@property() public visible = true

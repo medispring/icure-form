@@ -29,7 +29,7 @@ export function makeMetadata(field: Field, owner?: string) {
 }
 
 export const handleValueChanged =
-	(formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, owner?: string, field?: Field) => (label: string, language: string, value: FieldValue, id?: string) => {
+	(formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, owner?: string, field?: Field) => (label: string, language: string, value?: FieldValue, id?: string) => {
 		if (formsValueContainer) {
 			return formsValueContainer?.setValue(
 				label,
