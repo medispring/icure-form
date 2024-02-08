@@ -47,7 +47,7 @@ export type ParsedPrimitiveType = number | string | boolean | Date | ParsedPrimi
 export const parsePrimitive = (value: PrimitiveType): ParsedPrimitiveType | undefined => {
 	switch (value.type) {
 		case 'measure':
-			const normalizedValue = normalizeUnit(+value.value, value.unit)
+			const normalizedValue = value.value ? normalizeUnit(+value.value, value.unit) : undefined
 			return normalizedValue
 		case 'datetime':
 			return anyDateToDate(value.value)
@@ -101,7 +101,7 @@ export const contentToPrimitiveType = (language: string, content: Content | unde
 	if (content.numberValue || content.numberValue === 0) {
 		return { type: 'number', value: content.numberValue }
 	}
-	if (content.measureValue?.value || content.measureValue?.value === 0) {
+	if (content.measureValue?.value || content.measureValue?.value === 0 || content.measureValue?.unit?.length) {
 		return { type: 'measure', value: content.measureValue?.value, unit: content.measureValue?.unit }
 	}
 	if (content.stringValue) {

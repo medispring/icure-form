@@ -21,7 +21,7 @@ export interface FormValuesContainer<Value, Metadata> {
 	getMetadata(id: string, revisions: string[]): VersionedData<Metadata>
 	getChildren(): FormValuesContainer<Value, Metadata>[]
 	//modification
-	setValue(label: string, language: string, data: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
+	setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
 	setMetadata(label: string, metadata: Metadata, id?: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
 	delete(serviceId: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>
 	//hierarchy

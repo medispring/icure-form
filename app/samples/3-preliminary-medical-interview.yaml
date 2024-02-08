@@ -314,7 +314,7 @@ sections:
         fields:
           - field: field-labels.PREGNANCY-TYPE
             type: checkbox
-            span: 4
+            span: 6
             styleOptions:
               direction: column
               span: 3
@@ -324,6 +324,7 @@ sections:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyType|1
           - field: field-labels.AMENORRHEA-DATE
             type: date-picker
+            span: 6
             computedProperties:
               defaultValue: |
                 return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
@@ -358,6 +359,7 @@ sections:
         fields:
           - field: field-labels.NO
             type: radio-button
+            span: 12
             sortOptions:
               sort: asc
               promotions: '*, other'
@@ -372,8 +374,13 @@ sections:
               - MS-ABORTION-NO-USED-CONTRACEPTION
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|no-used-contraception|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
           - field: field-labels.OTHER-NO
             type: textfield
+            span: 12
             computedProperties:
               hidden: |
                 return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id === 'other')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'yes'))
@@ -394,6 +401,10 @@ sections:
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|yes-used-contraception|1
               - MS-ABORTION-ITEM|contraception|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
           - field: field-labels.OTHER-YES
             span: 12
             type: textfield
@@ -433,8 +444,13 @@ sections:
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
           - field: field-labels.OTHER-FUTURE-CONTRACEPTION
             type: textfield
+            span: 12
             computedProperties:
               hidden: |
                 return !self['field-labels.FUTURE-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'other-contraceptives'))
@@ -476,11 +492,12 @@ sections:
         fields:
           - field: field-labels.NUMBER-OF-FETUSES
             type: number-field
+            span: 6
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|numberOfFoetus|1
           - field: field-labels.POSITIONING-OF-THE-UTERUS
             type: dropdown
-            span: 12
+            span: 6
             sortOptions:
               sort: asc
               promotions: '*, other'

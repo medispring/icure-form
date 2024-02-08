@@ -1,5 +1,5 @@
 // Import the LitElement base class and html helper function
-import { html, nothing } from 'lit'
+import { css, html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -15,7 +15,6 @@ import { defaultMarkdownSerializer, MarkdownParser, MarkdownSerializer } from 'p
 import { unwrapFrom, wrapInIfNeeded } from './prosemirror-commands'
 import { SelectionCompanion } from './selection-companion'
 import { SuggestionPalette } from './suggestion-palette'
-import { caretFixPlugin } from './plugin/caret-fix-plugin'
 import { hasMark } from './prosemirror-utils'
 
 import { maskPlugin } from './plugin/mask-plugin'
@@ -33,6 +32,7 @@ import baseCss from '../common/styles/style.scss'
 import { extractSingleValue } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
 import { anyDateToDate } from '../../utils/icure-utils'
+import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
@@ -129,22 +129,30 @@ export class IcureTextField extends Field {
 	}
 
 	static get styles() {
-		return [baseCss]
+		return [
+			css`
+				.unit::before {
+					content: ' ';
+				}
+			`,
+			baseCss,
+		]
 	}
 
 	private updateValue(tr: Transaction) {
 		const [valueId] = extractSingleValue(this.valueProvider?.())
 		const value = this.primitiveTypeExtractor?.(tr.doc)
-		value &&
-			this.handleValueChanged?.(
-				this.label,
-				this.language(),
-				{
-					content: { [this.language()]: value },
-					codes: this.codesExtractor?.(tr.doc) ?? [],
-				},
-				valueId,
-			)
+		this.handleValueChanged?.(
+			this.label,
+			this.language(),
+			value
+				? {
+						content: { [this.language()]: value },
+						codes: this.codesExtractor?.(tr.doc) ?? [],
+				  }
+				: undefined,
+			valueId,
+		)
 	}
 
 	render() {
@@ -157,6 +165,11 @@ export class IcureTextField extends Field {
 				const selAnchor = selection.$anchor.pos
 				const selHead = selection.$head.pos
 				const lastPos = this.schema === 'text-document' ? parsedDoc.content.size - 1 : parsedDoc.content.size
+
+				if (lastPos < selAnchor || lastPos < selHead) {
+					console.log(`Constraining selection to ${Math.min(selAnchor, lastPos)} - ${Math.min(selHead, lastPos)}`)
+				}
+
 				const newState = EditorState.create({
 					schema: this.view.state.schema,
 					doc: parsedDoc,
@@ -267,7 +280,6 @@ export class IcureTextField extends Field {
 					doc: undefined,
 					schema: this.proseMirrorSchema,
 					plugins: [
-						caretFixPlugin(),
 						history(),
 						this.links
 							? new Plugin({
@@ -336,7 +348,18 @@ export class IcureTextField extends Field {
 						.filter((x) => !!x)
 						.map((x) => x as Plugin),
 				}),
-				dispatchTransaction: (tr) => {
+				handleDOMEvents: {
+					blur: (view) => {
+						this.trToSave = undefined
+						this.updateValue(view.state.tr)
+					},
+					focus: (view) => {
+						this.schema === 'measure' && measureOnFocusHandler(view)
+					},
+				},
+				dispatchTransaction: (tro) => {
+					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : tro
+					console.log(`Setting selection to ${tr.selection.from} - ${tr.selection.to}`)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
 						this.trToSave = tr
@@ -372,8 +395,48 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'time'
 			? {
-					parse: (value: PrimitiveType) =>
-						value.type === 'number' ? pms.node('paragraph', {}, [pms.node('time', {}, value ? [pms.text(value.value / 100 + ':' + (value.value % 100))] : [])]) : undefined,
+					parse: (value: PrimitiveType) => {
+						const time =
+							value.type === 'number'
+								? pms.node('paragraph', {}, [
+										pms.node(
+											'time',
+											{},
+											value
+												? [
+														pms.text(
+															('00' + Math.floor(value.value / 10000)).slice(-2) +
+																':' +
+																('00' + Math.floor((value.value / 100) % 100)).slice(-2) +
+																':' +
+																('00' + (value.value % 100)).slice(-2),
+														),
+												  ]
+												: [],
+										),
+								  ])
+								: value.type === 'datetime'
+								? pms.node('paragraph', {}, [
+										pms.node(
+											'time',
+											{},
+											value
+												? [
+														pms.text(
+															('00' + Math.floor(value.value / 10000)).slice(-2) +
+																':' +
+																('00' + Math.floor((value.value / 100) % 100)).slice(-2) +
+																':' +
+																('00' + (value.value % 100)).slice(-2),
+														),
+												  ]
+												: [],
+										),
+								  ])
+								: undefined
+						console.log(`Parsing time ${value.value} to: ${time}`)
+						return time
+					},
 			  }
 			: schemaName === 'measure'
 			? {
@@ -382,13 +445,14 @@ export class IcureTextField extends Field {
 							return undefined
 						}
 
-						const decimal = value.value.toString()
+						const decimal = value.value?.toString() ?? ''
 						const unit = value.unit
 
-						return pms.node('paragraph', {}, [
-							pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [pms.text(' ')]),
-							pms.node('unit', {}, unit && unit.length ? [pms.text(unit)] : [pms.text(' ')]),
-						])
+						return pms.node(
+							'paragraph',
+							{},
+							[pms.node('decimal', {}, decimal && decimal.length ? [pms.text(decimal)] : [])].concat(unit && unit.length ? [pms.node('unit', {}, [pms.text(unit)])] : []),
+						)
 					},
 			  }
 			: schemaName === 'decimal'
@@ -501,15 +565,33 @@ export class IcureTextField extends Field {
 			? (doc?: ProsemirrorNode) =>
 					doc?.firstChild?.textContent ? { type: 'datetime', value: parseInt(format(parse(doc.firstChild.textContent, 'dd/MM/yyyy', new Date()), 'yyyyMMdd')) } : undefined
 			: schemaName === 'time'
-			? (doc?: ProsemirrorNode) =>
-					doc?.firstChild?.textContent ? { type: 'datetime', value: parseInt(format(parse(doc.firstChild.textContent, 'HH:mm:ss', new Date()), 'HHmmss')) } : undefined
+			? (doc?: ProsemirrorNode) => {
+					if (doc?.firstChild?.textContent && !doc.firstChild.textContent.startsWith('--:')) {
+						const value = parseInt(format(parse(doc.firstChild.textContent.replaceAll('-', '0'), 'HH:mm:ss', new Date()), 'HHmmss'))
+						console.log(`Converted time to: ${value}`)
+						return {
+							type: 'datetime',
+							value: value,
+						}
+					} else {
+						return undefined
+					}
+			  }
 			: schemaName === 'measure'
-			? (doc?: ProsemirrorNode) =>
-					doc?.firstChild?.textContent
-						? { type: 'measure', value: parseFloat(doc.firstChild.textContent.replaceAll(',', '.')), unit: (doc?.childCount ?? 0) > 1 ? doc.child(1)?.textContent : undefined }
-						: undefined
+			? (doc?: ProsemirrorNode) => ({
+					type: 'measure',
+					value: (() => {
+						if (doc?.firstChild?.textContent?.length) {
+							const parsed = parseFloat(doc.firstChild.textContent.replaceAll(',', '.'))
+							return isNaN(parsed) ? undefined : parsed
+						} else {
+							return undefined
+						}
+					})(),
+					unit: (doc?.childCount ?? 0) > 1 ? doc?.child(1)?.textContent : undefined,
+			  })
 			: schemaName === 'decimal'
-			? (doc?: ProsemirrorNode) => (doc?.firstChild?.textContent ? { type: 'number', value: parseFloat(doc.firstChild.textContent.replace(/,/g, '.')) } : undefined)
+			? (doc?: ProsemirrorNode) => (doc?.firstChild?.textContent?.length ? { type: 'number', value: parseFloat(doc.firstChild.textContent.replace(/,/g, '.')) } : undefined)
 			: schemaName === 'date-time'
 			? (doc?: ProsemirrorNode) =>
 					doc?.firstChild?.textContent && doc?.lastChild?.textContent
