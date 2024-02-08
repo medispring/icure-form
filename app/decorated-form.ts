@@ -260,8 +260,8 @@ export class DecoratedForm extends LitElement {
 		// noinspection DuplicatedCode
 		// @ts-ignore
 
-		console.log('redoStack', this.redoStack)
-		console.log('undoStack', this.undoStack)
+		//console.log('redoStack', this.redoStack)
+		//console.log('undoStack', this.undoStack)
 
 		return html`
 			<icure-form

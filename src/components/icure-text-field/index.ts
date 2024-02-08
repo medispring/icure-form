@@ -395,8 +395,48 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'time'
 			? {
-					parse: (value: PrimitiveType) =>
-						value.type === 'number' ? pms.node('paragraph', {}, [pms.node('time', {}, value ? [pms.text(value.value / 100 + ':' + (value.value % 100))] : [])]) : undefined,
+					parse: (value: PrimitiveType) => {
+						const time =
+							value.type === 'number'
+								? pms.node('paragraph', {}, [
+										pms.node(
+											'time',
+											{},
+											value
+												? [
+														pms.text(
+															('00' + Math.floor(value.value / 10000)).slice(-2) +
+																':' +
+																('00' + Math.floor((value.value / 100) % 100)).slice(-2) +
+																':' +
+																('00' + (value.value % 100)).slice(-2),
+														),
+												  ]
+												: [],
+										),
+								  ])
+								: value.type === 'datetime'
+								? pms.node('paragraph', {}, [
+										pms.node(
+											'time',
+											{},
+											value
+												? [
+														pms.text(
+															('00' + Math.floor(value.value / 10000)).slice(-2) +
+																':' +
+																('00' + Math.floor((value.value / 100) % 100)).slice(-2) +
+																':' +
+																('00' + (value.value % 100)).slice(-2),
+														),
+												  ]
+												: [],
+										),
+								  ])
+								: undefined
+						console.log(`Parsing time ${value.value} to: ${time}`)
+						return time
+					},
 			  }
 			: schemaName === 'measure'
 			? {
@@ -525,8 +565,18 @@ export class IcureTextField extends Field {
 			? (doc?: ProsemirrorNode) =>
 					doc?.firstChild?.textContent ? { type: 'datetime', value: parseInt(format(parse(doc.firstChild.textContent, 'dd/MM/yyyy', new Date()), 'yyyyMMdd')) } : undefined
 			: schemaName === 'time'
-			? (doc?: ProsemirrorNode) =>
-					doc?.firstChild?.textContent ? { type: 'datetime', value: parseInt(format(parse(doc.firstChild.textContent, 'HH:mm:ss', new Date()), 'HHmmss')) } : undefined
+			? (doc?: ProsemirrorNode) => {
+					if (doc?.firstChild?.textContent && !doc.firstChild.textContent.startsWith('--:')) {
+						const value = parseInt(format(parse(doc.firstChild.textContent.replaceAll('-', '0'), 'HH:mm:ss', new Date()), 'HHmmss'))
+						console.log(`Converted time to: ${value}`)
+						return {
+							type: 'datetime',
+							value: value,
+						}
+					} else {
+						return undefined
+					}
+			  }
 			: schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => ({
 					type: 'measure',
