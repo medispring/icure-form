@@ -67,12 +67,11 @@ sections:
         span: 24
         fields:
           - field: abortion-forms.field-labels.FOLDER-NUMBER
-            type: textfield
+            type: dropdown
             readonly: true
             span: 6
-            computedProperties:
-              defaultValue: |
-                return { content: { '*': { type: 'string', value: '2064' } }, codes: [] }
+            codifications:
+              - ENTITY-LIST|ABORTION-FOLDER
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|folder-number|1
           - field: abortion-forms.field-labels.APPOINTMENT-DATE
