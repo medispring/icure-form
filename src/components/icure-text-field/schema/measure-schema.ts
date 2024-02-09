@@ -74,7 +74,10 @@ export const measureTransactionMapper = (tr: Transaction) => {
 		),
 	])
 
-	const newFrom = patchedTr.steps.slice(tr.steps.length).reduce((acc, step) => step.getMap().map(acc), from) + (newUnitText?.charAt(0) !== unitText?.charAt(0) ? 2 : 0)
+	const newFrom =
+		patchedTr.steps.slice(tr.steps.length).reduce((acc, step) => step.getMap().map(acc), from) +
+		(newUnitText?.charAt(0) !== unitText?.charAt(0) && (newUnitText?.length ?? 0) > (unitText?.length ?? 0) ? 2 : 0) +
+		((newDecimalText?.length ?? 0) > (decimalText?.length ?? 0) && (newUnitText?.length ?? 0) < (unitText?.length ?? 0) ? -2 : 0)
 
 	return patchedTr.setSelection(TextSelection.create(patchedTr.doc, Math.min(newFrom, tr.doc.content.size - 1)))
 }

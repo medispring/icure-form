@@ -39,6 +39,7 @@ $font-weight-label: 500;
 }
 
 .ProseMirror {
+	width: 100%;
 	word-wrap: break-word;
 	white-space: pre-wrap;
 	-webkit-font-variant-ligatures: none;
@@ -254,6 +255,8 @@ li.ProseMirror-selectednode:after {
 	border: none;
 	padding: 0;
 	flex-grow: 1;
+	display: flex;
+	align-items: stretch;
 }
 
 #content {
@@ -850,7 +853,7 @@ app-date-picker {
 		color: $label-color;
 		align-items: center;
 		height: 28px;
-		max-width: 55%;
+		max-width: 85%;
 		min-width: 0;
 		&.float {
 			display: inline-block;
@@ -1014,7 +1017,7 @@ input[type='radio'] {
 				display: flex;
 				align-items: center;
 				height: 28px;
-				max-width: 100%;
+				max-width: 85%;
 				min-width: 0;
 				> span {
 					display: block;
@@ -1050,6 +1053,5 @@ input[type='radio'] {
 
 		font-weight: 500;
 		height: $floating-label-height;
-		max-width: 100%;
 	}
 }
