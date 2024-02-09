@@ -464,12 +464,16 @@ sections:
         fields:
           - field: field-labels.GS
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|GS-Measure|1
           - field: field-labels.CRL
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|CRL-Measure|1
       - group: line
@@ -478,12 +482,16 @@ sections:
         fields:
           - field: field-labels.BPD
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|BPD-Measure|1
           - field: field-labels.FL
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|FL-Measure|1
       - group: line
@@ -572,7 +580,9 @@ sections:
         fields:
           - field: field-labels.HCG
             type: measure-field
-            unit: UI/l
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'UI/l' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|hcg|1
               - CD-PARAMETER|HCG|1
@@ -588,7 +598,9 @@ sections:
         fields:
           - field: field-labels.PROG
             type: measure-field
-            unit: ng/ml
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'ng/ml' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|prog|1
               - CD-PARAMETER|progesterone|1

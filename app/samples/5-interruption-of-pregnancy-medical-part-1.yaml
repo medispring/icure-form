@@ -433,7 +433,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.HCG-DOSAGE
             type: measure-field
-            unit: UI/l
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'UI/l' } }, codes: [] }
             tags:
               - CD-PARAMETER|HCG|1
               - CD-ITEM|parameter|1
@@ -441,7 +443,9 @@ sections:
               - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|HCGDosage|1
           - field: abortion-forms.field-labels.PROGESTERONE-DOSAGE
             type: measure-field
-            unit: ng/ml
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'ng/ml' } }, codes: [] }
             tags:
               - CD-PARAMETER|progesterone|1
               - CD-ITEM|parameter|1
@@ -479,7 +483,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.HCG-DOSAGE-AFTER-1-WEEK
             type: measure-field
-            unit: UI/l
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'UI/l' } }, codes: [] }
             tags:
               - CD-PARAMETER|HCG|1
               - CD-ITEM|parameter|1
@@ -487,7 +493,10 @@ sections:
               - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|HCGDosageAfter1Week|1
           - field: abortion-forms.field-labels.PROGESTERONE-DOSAGE-AFTER-1-WEEK
             type: measure-field
-            unit: ng/ml
+            unit:
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'ng/ml' } }, codes: [] }
             tags:
               - CD-PARAMETER|progesterone|1
               - CD-ITEM|parameter|1

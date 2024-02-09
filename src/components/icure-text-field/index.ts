@@ -1,4 +1,5 @@
 // Import the LitElement base class and html helper function
+//@ts-ignore
 import { css, html, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-state'
