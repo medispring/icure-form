@@ -7,3 +7,8 @@ sections:
       - field: tokens
         type: token-field
         shortLabel: Tokens
+        multiline: true
+        rowSpan: 3
+        span: 24
+
+
