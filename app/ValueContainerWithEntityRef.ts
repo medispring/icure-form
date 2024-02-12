@@ -30,7 +30,7 @@ export class BridgedFormValuesContainerWithEntityRef extends BridgedFormValuesCo
 		return super.getValues(revisionsFilter)
 	}
 
-	getMetadata(id: string, revisions: string[]): VersionedData<FieldMetadata> {
+	getMetadata(id: string, revisions: (string | null)[]): VersionedData<FieldMetadata> {
 		return super.getMetadata(id, revisions)
 	}
 }

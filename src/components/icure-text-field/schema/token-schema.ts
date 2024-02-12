@@ -1,6 +1,7 @@
 import { MarkSpec, SchemaSpec } from 'prosemirror-model'
 import { reduceMarks, reduceNodes } from './utils'
 import { getMarks } from './common-marks'
+import { Transaction } from 'prosemirror-state'
 
 export type TokensSchema = 'tokens-list' | 'styled-tokens-list' | 'tokens-list-with-codes' | 'styled-tokens-list-with-codes'
 
@@ -20,19 +21,16 @@ export function getTokensSpec(
 	return {
 		nodes: reduceNodes({
 			doc: {
-				content: 'token+',
-				parseDOM: [{ tag: 'ul' }],
-				toDOM() {
-					return ['ul', 0]
-				},
+				content: 'token*',
 			},
 
 			token: {
 				content: 'inline*',
 				group: 'block',
+				attrs: { id: { default: undefined } },
 				parseDOM: [{ tag: 'li' }],
 				toDOM() {
-					return ['li', 0]
+					return ['li', {}, ['span', { class: 'token' }, 0]]
 				},
 			},
 
@@ -42,4 +40,8 @@ export function getTokensSpec(
 		}),
 		marks: reduceMarks(getMarks(contentProvider, colorProvider), marksSelector),
 	}
+}
+
+export const tokensListTransactionMapper = (tr: Transaction) => {
+	return tr
 }

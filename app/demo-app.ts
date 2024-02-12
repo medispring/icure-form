@@ -1,5 +1,7 @@
 // @ts-ignore
-import bmi from './samples/0-BMI.yaml'
+import tokenFields from './samples/00-token-fields.yaml'
+// @ts-ignore
+import bmi from './samples/1-BMI.yaml'
 // @ts-ignore
 import time_of_appointment from './samples/1-time-of-appointment.yaml'
 // @ts-ignore
@@ -51,7 +53,8 @@ class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
 		...[
-			{ title: '0 - BMI', form: Form.parse(YAML.parse(bmi)) },
+			{ title: '00 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
+			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
 			{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
 			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },

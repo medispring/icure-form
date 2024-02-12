@@ -16,11 +16,12 @@ export const fieldValuesProvider =
 	() =>
 		formValuesContainer.getValues(getRevisionsFilter(field))
 
-export function makeMetadata(field: Field, owner?: string) {
+export function makeMetadata(field: Field, owner?: string, index?: number) {
 	return {
 		label: field.label(),
 		valueDate: dateToFuzzyDate(new Date()),
 		owner: owner,
+		index: index,
 		tags: field.tags?.map((t) => ({
 			id: t,
 			label: {},
@@ -28,10 +29,12 @@ export function makeMetadata(field: Field, owner?: string) {
 	}
 }
 
-export const handleValueChanged =
-	(formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, owner?: string, field?: Field) => (label: string, language: string, value?: FieldValue, id?: string) => {
-		if (formsValueContainer) {
-			return formsValueContainer?.setValue(
+export const handleValueChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
+	const wrapper = formsValueContainer ? [formsValueContainer] : []
+	return (label: string, language: string, value?: FieldValue, id?: string, index?: number) => {
+		const fvc = wrapper[0]
+		if (fvc) {
+			const { result, formValuesContainer: newFvc } = fvc.setValue(
 				label,
 				language,
 				value,
@@ -40,9 +43,12 @@ export const handleValueChanged =
 					? makeMetadata(field, owner)
 					: undefined,
 			)
+			wrapper[0] = newFvc
+			return { result, formValuesContainer: newFvc }
 		}
 		return undefined
 	}
+}
 
 export const handleMetadataChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>) => (label: string, metadata: FieldMetadata, id?: string) => {
 	if (formsValueContainer) {

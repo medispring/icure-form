@@ -110,7 +110,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		}, {} as VersionedData<FieldValue>)
 	}
 
-	getMetadata(id: string, revisions: string[]): VersionedData<FieldMetadata> {
+	getMetadata(id: string, revisions: (string | null)[]): VersionedData<FieldMetadata> {
 		return Object.entries(this.contactFormValuesContainer.getMetadata(id, revisions)).reduce(
 			(acc, [id, history]) => ({
 				...acc,
@@ -387,10 +387,10 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		)
 	}
 
-	getMetadata(id: string, revisions: string[]): VersionedData<ServiceMetadata> {
+	getMetadata(id: string, revisions: (string | null)[]): VersionedData<ServiceMetadata> {
 		return [this.currentContact]
 			.concat(this.contactsHistory)
-			.filter((ctc) => ctc.rev && revisions.includes(ctc.rev))
+			.filter((ctc) => ctc.rev !== undefined && revisions.includes(ctc.rev))
 			.reduce(
 				(acc, ctc) =>
 					(ctc.services ?? [])
@@ -467,6 +467,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		if (!service.id) {
 			throw new Error('Service id must be defined')
 		}
+		console.log('Setting value of service', service.id, 'with', value, 'and metadata', metadata)
 		const newContent = value?.content?.[language]
 		const newCodes = value?.codes ?? []
 		if (!isContentEqual(service.content?.[language], newContent) || (newCodes && !areCodesEqual(newCodes, service.codes ?? []))) {
@@ -476,22 +477,32 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				delete newContents[language]
 			}
 
-			newService.content = newContents
-			newService.codes = newCodes
+			let newCurrentContact: Contact
+			if (!Object.entries(newContents).filter(([_, cnt]) => cnt !== undefined).length) {
+				newCurrentContact = {
+					...this.currentContact,
+					services: (this.currentContact.services ?? []).some((s) => s.id === service.id)
+						? (this.currentContact.services ?? []).filter((s) => s.id !== service.id)
+						: [...(this.currentContact.services ?? [])],
+				}
+			} else {
+				newService.content = newContents
+				newService.codes = newCodes
 
-			if (metadata) {
-				newService.responsible = metadata.responsible ?? newService.responsible
-				newService.author = metadata.owner ?? newService.author
-				newService.valueDate = metadata.valueDate ?? newService.valueDate
-				newService.tags = metadata.tags ?? newService.tags
-				newService.label = metadata.label ?? newService.label
-			}
+				if (metadata) {
+					newService.responsible = metadata.responsible ?? newService.responsible
+					newService.author = metadata.owner ?? newService.author
+					newService.valueDate = metadata.valueDate ?? newService.valueDate
+					newService.tags = metadata.tags ?? newService.tags
+					newService.label = metadata.label ?? newService.label
+				}
 
-			const newCurrentContact = {
-				...this.currentContact,
-				services: (this.currentContact.services ?? []).some((s) => s.id === service.id)
-					? (this.currentContact.services ?? []).map((s) => (s.id === service.id ? newService : s))
-					: [...(this.currentContact.services ?? []), newService],
+				newCurrentContact = {
+					...this.currentContact,
+					services: (this.currentContact.services ?? []).some((s) => s.id === service.id)
+						? (this.currentContact.services ?? []).map((s) => (s.id === service.id ? newService : s))
+						: [...(this.currentContact.services ?? []), newService],
+				}
 			}
 			const newFormValuesContainer = new ContactFormValuesContainer(
 				this.rootForm,
@@ -532,7 +543,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		return { result: undefined, formValuesContainer: this }
 	}
 
-	compute<T, S extends { [key: string | symbol]: unknown }>(): T | undefined {
+	compute<T>(): T | undefined {
 		throw new Error('Compute not supported at contact level')
 	}
 
@@ -594,12 +605,9 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		return { result: childFVC, formValuesContainer: newContactFormValuesContainer }
 	}
 
-	private getServiceInCurrentContact(id: string): Service {
+	private getServiceInCurrentContact(id: string): Service | undefined {
 		const service = (this.currentContact.services || [])?.find((s) => s.id === id)
-		if (!service) {
-			throw new Error('Service not found')
-		}
-		return service
+		return service ?? undefined
 	}
 
 	async removeChild(container: ContactFormValuesContainer): Promise<FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, void>> {

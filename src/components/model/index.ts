@@ -12,6 +12,7 @@ export interface Code {
 
 export interface FieldMetadata {
 	label: string
+	index?: number
 	valueDate?: number
 	owner?: string
 	tags?: Code[]
@@ -67,6 +68,25 @@ export interface Labels {
 export interface SortOptions {
 	sort: 'asc' | 'desc' | 'natural'
 	promotions?: string
+}
+
+export const pteq = (a: PrimitiveType | undefined, b: PrimitiveType | undefined): boolean => {
+	if (a === b) {
+		return true
+	}
+	if (a === undefined || b === undefined) {
+		return false
+	}
+	if (a?.type !== b?.type) {
+		return false
+	}
+	if (a.value === b.value && (a.type !== 'measure' || b.type !== 'measure' || a.unit === b.unit)) {
+		return true
+	}
+	if (a.type === 'compound' && b.type === 'compound') {
+		return Object.keys(a.value).every((k) => pteq(a.value[k], b.value[k]))
+	}
+	return false
 }
 
 export type IcureTextFieldSchema =

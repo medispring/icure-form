@@ -18,7 +18,7 @@ export interface FormValuesContainer<Value, Metadata> {
 	getLabel(): string
 	getFormId(): string | undefined
 	getValues(revisionsFilter: (id: string, history: Version<Metadata>[]) => (string | null)[]): VersionedData<Value>
-	getMetadata(id: string, revisions: string[]): VersionedData<Metadata>
+	getMetadata(id: string, revisions: (string | null)[]): VersionedData<Metadata>
 	getChildren(): FormValuesContainer<Value, Metadata>[]
 	//modification
 	setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>

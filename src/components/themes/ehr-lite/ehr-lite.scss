@@ -13,7 +13,7 @@ $blue-400: #DCE7F2;
 $label-color: $gray-900;
 $color: $gray-900;
 $border-color: $gray-400;
-$textbox-shadow:  0px 0px 0px 2px rgba(61, 135, 197, 0.20) !default;
+$textbox-shadow: 0px 0px 0px 2px rgba(61, 135, 197, 0.20) !default;
 $input-focused-text: #656565;
 $input-focused-border-color: $blue-800;
 $input-hovered-border-color: $blue-800;
@@ -23,7 +23,7 @@ $highlight-contour: $blue-800;
 $border-radius: 6px;
 $icon-color: $gray-600;
 $active-color: $blue-800;
-
+$token-color: $blue-400;
 $textbox-line-height: 1.4em !default;
 $textbox-default-width: 100%;
 $textbox-font-size: 13px !default;
@@ -45,23 +45,24 @@ $checkbox-checked-color: $active-color;
 $date-picker-accent-color: $active-color;
 
 // Select Dropdown
-$select-dropdown-padding:2px;
+$select-dropdown-padding: 2px;
 $select-dropdown-background: white;
-$select-dropdown-box-shadow:0px 3px 6px 0px rgba(0, 0, 0, 0.12), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 9px 28px 0px rgba(0, 0, 0, 0.05);
+$select-dropdown-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.12), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 9px 28px 0px rgba(0, 0, 0, 0.05);
 
-$select-dropdown-row-padding:8px;
+$select-dropdown-row-padding: 8px;
 $select-dropdown-row-border-radius: 4px;
 $select-dropdown-row-background: white;
 $select-dropdown-row-font-size: 12px;
 $select-dropdown-row-font-weight: 400;
 $select-dropdown-row-hover-background: $blue-400;
 
-.icure-form{
+.icure-form {
 	row-gap: 24px;
 }
 
 .icure-text-field, .icure-button-group {
 	width: $textbox-default-width;
+
 	> .icure-label {
 		color: $color;
 		font-size: $label-font-size;
@@ -110,7 +111,7 @@ $select-dropdown-row-hover-background: $blue-400;
 		&:focus,
 		&:focus-within {
 			box-shadow: $textbox-shadow;
-			border-color:$input-focused-border-color;
+			border-color: $input-focused-border-color;
 		}
 
 		&:hover {
@@ -190,6 +191,7 @@ input[type='radio'] {
 	&:hover {
 		border-color: $blue-400;
 	}
+
 	&:checked {
 		accent-color: $checkbox-checked-color;
 	}
@@ -260,15 +262,31 @@ input[type='radio'] {
 }
 
 .icure-input {
-	#editor{
+	#editor {
 		color: $color;
+
+		&.tokens-list, &.styled-tokens-list {
+			.ProseMirror {
+				li {
+					background-color: $token-color;
+
+					span {
+						&:after {
+							background: transparent url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxu cz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJPdXRsaW5lIiB2aWV3 Qm94PSIwIDAgMjQgMjQiIHN0cm9rZT0iIzg4ODg4OCIgZmlsbD0iIzg4ODg4OCIg d2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPjxwYXRoIGQ9Ik0xNiw4YTEsMSwwLDAs MC0xLjQxNCwwTDEyLDEwLjU4Niw5LjQxNCw4QTEsMSwwLDAsMCw4LDkuNDE0TDEw LjU4NiwxMiw4LDE0LjU4NkExLDEsMCwwLDAsOS40MTQsMTZMMTIsMTMuNDE0LDE0 LjU4NiwxNkExLDEsMCwwLDAsMTYsMTQuNTg2TDEzLjQxNCwxMiwxNiw5LjQxNEEx LDEsMCwwLDAsMTYsOFoiLz48cGF0aCBkPSJNMTIsMEExMiwxMiwwLDEsMCwyNCwx MiwxMi4wMTMsMTIuMDEzLDAsMCwwLDEyLDBabTAsMjJBMTAsMTAsMCwxLDEsMjIs MTIsMTAuMDExLDEwLjAxMSwwLDAsMSwxMiwyMloiLz48L3N2Zz4K') no-repeat center/16px;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.extra {
 		padding-right: 0;
 	}
-	.select-arrow  {
+
+	.select-arrow {
 		opacity: 1;
+
 		svg {
 			width: 15px;
 			height: 15px;
@@ -279,7 +297,7 @@ input[type='radio'] {
 		}
 	}
 
-	.options{
+	.options {
 		padding: $select-dropdown-padding;
 		display: flex;
 		flex-direction: column;
@@ -289,7 +307,7 @@ input[type='radio'] {
 		background: $select-dropdown-background;
 		box-shadow: $select-dropdown-box-shadow;
 
-		.option{
+		.option {
 			height: auto;
 			min-height: unset;
 			display: flex;

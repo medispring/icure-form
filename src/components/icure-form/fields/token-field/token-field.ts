@@ -14,9 +14,9 @@ export class TokenField extends Field {
 			.displayedLabels="${this.displayedLabels}"
 			defaultLanguage="${this.defaultLanguage}"
 			displayedLanguage="${this.displayedLanguage}"
-			schema="token-field"
-			.valueProvider=${() => this.valueProvider}
-			.metaProvider=${() => this.metadataProvider}
+			schema="tokens-list"
+			.valueProvider=${this.valueProvider}
+			.metadataProvider=${this.metadataProvider}
 			.handleValueChanged=${this.handleValueChanged}
 			.translationProvider=${this.translationProvider}
 			.handleMetaChanged=${this.handleMetadataChanged}

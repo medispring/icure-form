@@ -22,17 +22,18 @@ import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { format, parse } from 'date-fns'
 import { Field } from '../common'
-import { Code, IcureTextFieldSchema, PrimitiveType } from '../model'
+import { Code, IcureTextFieldSchema, PrimitiveType, pteq, StringType } from '../model'
 import { Suggestion } from '../../generic'
 import { generateLabels } from '../common/utils'
 
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
 
-import { extractSingleValue } from '../icure-form/fields/utils'
+import { extractSingleValue, extractValues } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
 import { anyDateToDate } from '../../utils/icure-utils'
 import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
+import { tokensListTransactionMapper } from './schema/token-schema'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
@@ -95,11 +96,12 @@ export class IcureTextField extends Field {
 	@state() protected availableLanguages = [this.displayedLanguage]
 
 	private proseMirrorSchema?: Schema
-	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType) => ProsemirrorNode | undefined }
+	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType, id?: string) => ProsemirrorNode | undefined }
 	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = {
 		serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
 	}
 	private primitiveTypeExtractor: (doc?: ProsemirrorNode) => PrimitiveType | undefined = () => undefined
+	private primitiveTypesExtractor: (doc?: ProsemirrorNode) => [string, PrimitiveType][] = () => []
 	private codesExtractor: (doc?: ProsemirrorNode) => Code[] = () => []
 
 	@state() private view?: EditorView
@@ -139,27 +141,80 @@ export class IcureTextField extends Field {
 		]
 	}
 
+	private isMultivalued() {
+		return this.schema.includes('tokens-list') || this.schema.includes('items-list')
+	}
+
 	private updateValue(tr: Transaction) {
-		const [valueId] = extractSingleValue(this.valueProvider?.())
-		const value = this.primitiveTypeExtractor?.(tr.doc)
-		this.handleValueChanged?.(
-			this.label,
-			this.language(),
-			value
-				? {
-						content: { [this.language()]: value },
-						codes: this.codesExtractor?.(tr.doc) ?? [],
-				  }
-				: undefined,
-			valueId,
-		)
+		if (this.isMultivalued()) {
+			const values = extractValues(this.valueProvider?.(), this.metadataProvider ?? (() => ({})))
+			const valuesFromField = this.primitiveTypesExtractor?.(tr.doc) ?? []
+
+			const unchangedIds: string[] = []
+			const newAndModifiedValues: typeof valuesFromField = []
+			valuesFromField.forEach(([tid, value]) => {
+				const id = tid.length > 0 ? tid : undefined
+				const oldValue = id && values.find(([vid, v]) => vid === id && pteq(v[0].value?.content?.[this.language()], value))
+				const idPresent = newAndModifiedValues.some(([ttid]) => ttid === tid)
+				if (!oldValue || idPresent) {
+					newAndModifiedValues.push([idPresent ? '' : tid, value])
+				} else {
+					unchangedIds.push(tid)
+				}
+			})
+
+			newAndModifiedValues.forEach(([tid, value]) => {
+				const id = tid.length > 0 && !unchangedIds.includes(tid) ? tid : undefined
+				this.handleValueChanged?.(
+					this.label,
+					this.language(),
+					value
+						? {
+								content: { [this.language()]: value },
+								codes: [],
+						  }
+						: undefined,
+					id,
+				)
+			})
+
+			values
+				.filter(([vid]) => !valuesFromField.some(([vvid]) => vvid === vid))
+				.forEach(([id]) => {
+					this.handleValueChanged?.(this.label, this.language(), undefined, id)
+				})
+		} else {
+			const [valueId] = extractSingleValue(this.valueProvider?.())
+			const value = this.primitiveTypeExtractor?.(tr.doc)
+			this.handleValueChanged?.(
+				this.label,
+				this.language(),
+				value
+					? {
+							content: { [this.language()]: value },
+							codes: this.codesExtractor?.(tr.doc) ?? [],
+					  }
+					: undefined,
+				valueId,
+			)
+		}
 	}
 
 	render() {
 		if (this.view) {
-			const [, versions] = extractSingleValue(this.valueProvider?.())
-			const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
-			const parsedDoc = (valueForLanguage && this.parser?.parse(valueForLanguage)) ?? undefined
+			let parsedDoc: ProsemirrorNode | undefined
+			if (this.isMultivalued()) {
+				const values = extractValues(this.valueProvider?.(), this.metadataProvider ?? (() => ({})))
+				parsedDoc =
+					this.proseMirrorSchema?.topNodeType.createAndFill(
+						{},
+						values.map(([id, value]) => this.parser?.parse(value?.[0]?.value?.content?.[this.language()] ?? '', id)).filter((x) => !!x) as ProsemirrorNode[],
+					) ?? undefined
+			} else {
+				const [, versions] = extractSingleValue(this.valueProvider?.())
+				const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
+				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
+			}
 			if (parsedDoc) {
 				const selection = this.view.state.selection
 				const selAnchor = selection.$anchor.pos
@@ -193,7 +248,7 @@ export class IcureTextField extends Field {
 			<div id="root" class="${this.visible ? 'icure-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input">
-					<div id="editor" style="min-height: calc(${this.lines}rem + 5px)"></div>
+					<div id="editor" class="${this.schema}" style="min-height: calc(${this.lines}rem + 5px)"></div>
 				</div>
 			</div>
 		`
@@ -252,6 +307,7 @@ export class IcureTextField extends Field {
 		this.parser = this.makeParser(this.schema, pms)
 		this.serializer = this.makeSerializer(this.schema, pms)
 		this.primitiveTypeExtractor = this.makePrimitiveExtractor(this.schema)
+		this.primitiveTypesExtractor = this.makePrimitivesExtractor(this.schema)
 		this.codesExtractor = this.makeCodesExtractor(this.schema)
 
 		this.container = this.shadowRoot?.getElementById('editor') || undefined
@@ -356,9 +412,25 @@ export class IcureTextField extends Field {
 					focus: (view) => {
 						this.schema === 'measure' && measureOnFocusHandler(view)
 					},
+					click: (view, event) => {
+						if (this.schema.includes('tokens-list')) {
+							const el = event.target as HTMLElement
+							if (
+								el?.classList.contains('token') &&
+								Math.abs(el.getBoundingClientRect().right - 10 - event.x) < 6 &&
+								Math.abs(el.getBoundingClientRect().bottom - 9 - event.y) < 6
+							) {
+								const pos = view.posAtCoords({ left: event.x, top: event.y })
+								if (pos?.pos) {
+									const rp = view.state.tr.doc.resolve(pos?.pos)
+									this.view?.dispatch(view.state.tr.deleteRange(rp.before(), rp.after()))
+								}
+							}
+						}
+					},
 				},
 				dispatchTransaction: (tro) => {
-					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : tro
+					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : this.schema.includes('tokens-list') ? tokensListTransactionMapper(tro) : tro
 					console.log(`Setting selection to ${tr.selection.from} - ${tr.selection.to}`)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
@@ -368,7 +440,7 @@ export class IcureTextField extends Field {
 							if (this.trToSave === tr) {
 								this.updateValue(tr)
 							}
-						}, 2000)
+						}, 10000)
 					}
 				},
 				editable: () => {
@@ -380,9 +452,15 @@ export class IcureTextField extends Field {
 
 	private makeParser(schemaName: string, pms: Schema) {
 		const tokenizer = MarkdownIt('commonmark', { html: false })
-		return schemaName === 'date'
+		return schemaName.includes('tokens-list')
 			? {
-					parse: (value: PrimitiveType) => {
+					parse: (value: PrimitiveType, id?: string) => {
+						return pms.node('token', { id }, value.value ? [pms.text((value as StringType).value)] : [])
+					},
+			  }
+			: schemaName === 'date'
+			? {
+					parse: (value: PrimitiveType, id?: string) => {
 						if (value?.type === 'datetime') {
 							const dateString = anyDateToDate(value.value)?.toISOString().replace(/T.*/, '')
 							return pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(dateString ?? '')] : [])])
@@ -395,7 +473,7 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'time'
 			? {
-					parse: (value: PrimitiveType) => {
+					parse: (value: PrimitiveType, id?: string) => {
 						const time =
 							value.type === 'number'
 								? pms.node('paragraph', {}, [
@@ -440,7 +518,7 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'measure'
 			? {
-					parse: (value: PrimitiveType) => {
+					parse: (value: PrimitiveType, id?: string) => {
 						if (value.type !== 'measure') {
 							return undefined
 						}
@@ -457,13 +535,13 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'decimal'
 			? {
-					parse: (value: PrimitiveType) => {
+					parse: (value: PrimitiveType, id?: string) => {
 						return value.type === 'number' ? pms.node('paragraph', {}, [pms.node('decimal', {}, [pms.text(value.value.toString())])]) : undefined
 					},
 			  }
 			: schemaName === 'date-time'
 			? {
-					parse: (value: PrimitiveType) => {
+					parse: (value: PrimitiveType, id?: string) => {
 						if (value.type !== 'datetime') {
 							return undefined
 						}
@@ -601,6 +679,19 @@ export class IcureTextField extends Field {
 						  }
 						: undefined
 			: (doc?: ProsemirrorNode) => (doc ? { type: 'string', value: this.serializer.serialize(doc) } : undefined)
+	}
+
+	private makePrimitivesExtractor(schemaName: string): (doc?: ProsemirrorNode) => [string, PrimitiveType][] {
+		return schemaName.includes('tokens-list') || schemaName.includes('items-list')
+			? (doc?: ProsemirrorNode) =>
+					doc?.childCount
+						? [...Array(doc.childCount).keys()].map((idx) => {
+								const child = doc.child(idx)
+								const id = child.attrs.id ?? ''
+								return [id, { type: 'string', value: this.serializer.serialize(child) }]
+						  })
+						: []
+			: () => []
 	}
 }
 

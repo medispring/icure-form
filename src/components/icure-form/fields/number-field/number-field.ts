@@ -15,7 +15,7 @@ export class NumberField extends Field {
 				schema="decimal"
 				.translationProvider=${this.translationProvider}
 				.valueProvider=${singleValueProvider(this.valueProvider, id)}
-				.metaProvider=${this.metadataProvider}
+				.metadataProvider=${this.metadataProvider}
 				.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
 				.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 			></icure-text-field>`

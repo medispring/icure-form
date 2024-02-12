@@ -18,7 +18,7 @@ export class DropdownField extends Field {
 					label="${this.label}"
 					.displayedLabels="${this.displayedLabels}"
 					.valueProvider=${singleValueProvider(this.valueProvider, id)}
-					.metaProvider=${this.metadataProvider}
+					.metadataProvider=${this.metadataProvider}
 					.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
 					.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 					.optionsProvider=${this.optionsProvider}

@@ -4,6 +4,7 @@ import { Contact, Service } from '@icure/api'
 export const makeFormValuesContainer = () => {
 	const cc = new Contact({
 		id: 'c2',
+		rev: null,
 		services: [
 			{
 				id: 's1',

@@ -41,7 +41,7 @@ export class Field extends LitElement {
 	 * Provides the value of the field.
 	 */
 	@property() valueProvider?: () => VersionedData<FieldValue> = undefined
-	@property() metadataProvider?: (id: string, revisions: string[]) => VersionedData<FieldMetadata> = undefined
+	@property() metadataProvider?: (id: string, revisions: (string | null)[]) => VersionedData<FieldMetadata> = undefined
 	@property() handleValueChanged?: (label: string, language: string, value?: FieldValue, id?: string) => string | undefined = undefined
 	@property() handleMetadataChanged?: (label: string, metadata: FieldMetadata, id?: string) => string | undefined = undefined
 

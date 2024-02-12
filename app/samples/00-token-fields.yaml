@@ -1,0 +1,9 @@
+form: test-forms.BMI
+id: c789794e-d0f4-8988-1234-e758a782473b
+description: test-forms.BMI
+sections:
+  - section: main
+    fields:
+      - field: tokens
+        type: token-field
+        shortLabel: Tokens
