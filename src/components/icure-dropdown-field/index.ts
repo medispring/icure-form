@@ -95,7 +95,14 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 							? html`
 									<div id="menu" class="options">
 										${this.displayedOptions?.map(
-											(x) => html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option">${x?.['label']?.[this.language()] || ''}</button>`,
+											(x) =>
+												html`<button
+													@click="${this.handleOptionButtonClicked(x.id)}"
+													id="${x.id}"
+													class="option ${x?.['label']?.[this.language()] === inputValue ? 'selected' : ''}"
+												>
+													${x?.['label']?.[this.language()] || ''}
+												</button>`,
 										)}
 									</div>
 							  `

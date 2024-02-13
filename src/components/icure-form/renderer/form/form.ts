@@ -398,7 +398,7 @@ export const render: Renderer = (
 
 	const calculateFieldOrGroupSize = (span: number, rowSpan: number, fixedWidth?: number | undefined) => {
 		if (fixedWidth) return `width: ${fixedWidth}px`
-		return `grid-column: span ${span}; ${rowSpan > 1 ? `grid-row: span ${rowSpan}` : ''}`
+		return `grid-column: span ${span};align-items:end;display: grid; ${rowSpan > 1 ? `grid-row: span ${rowSpan}` : ''}`
 	}
 
 	const renderForm = (form: Form) => {
