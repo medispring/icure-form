@@ -285,10 +285,6 @@ input[type='radio'] {
 			.ProseMirror {
 				li {
 					border-bottom: 1px dotted $list-border-color;
-
-					&:last-child {
-						border-bottom: none;
-					}
 				}
 			}
 		}
