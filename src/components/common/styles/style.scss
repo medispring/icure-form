@@ -295,6 +295,19 @@ li.ProseMirror-selectednode:after {
 				}
 		}
 	}
+
+	&.items-list {
+		.ProseMirror {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			align-items: flex-start;
+
+			li {
+				list-style-type: none;
+			}
+		}
+	}
 }
 
 #content {

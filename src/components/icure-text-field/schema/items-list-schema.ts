@@ -7,16 +7,13 @@ export function getItemsListSpec(): SchemaSpec {
 	return {
 		nodes: reduceNodes({
 			doc: {
-				content: 'paragraph*',
-				parseDOM: [{ tag: 'ul' }],
-				toDOM() {
-					return ['ul', 0]
-				},
+				content: 'item*',
 			},
 
-			paragraph: {
+			item: {
 				content: 'inline*',
 				group: 'block',
+				attrs: { id: { default: undefined } },
 				parseDOM: [{ tag: 'li' }],
 				toDOM() {
 					return ['li', 0]

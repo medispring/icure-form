@@ -148,7 +148,7 @@ export const render: Renderer = (
 	}
 
 	function renderItemsListField(fgSpan: number, fgRowSpan: number, fg: Field) {
-		return html`<icure-form-token-field
+		return html`<icure-form-items-list-field
 			class="icure-form-field"
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan, fg.styleOptions?.width)}"
 			label="${fg.field}"
@@ -167,7 +167,7 @@ export const render: Renderer = (
 			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
-		></icure-form-token-field>`
+		></icure-form-items-list-field>`
 	}
 
 	function renderMeasureField(fgSpan: number, fgRowSpan: number, fg: Field) {

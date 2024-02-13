@@ -65,7 +65,7 @@ class DemoApp extends LitElement {
 			{ title: '7 - Post curetage', form: Form.parse(YAML.parse(post_curetage)) },
 			{ title: '9 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },
-		],
+		].filter((x, idx) => idx === 0),
 	]
 
 	@state() private selectedForm: Form = this.samples[0].form

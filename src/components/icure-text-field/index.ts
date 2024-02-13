@@ -33,7 +33,6 @@ import { extractSingleValue, extractValues } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
 import { anyDateToDate } from '../../utils/icure-utils'
 import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
-import { tokensListTransactionMapper } from './schema/token-schema'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
@@ -430,7 +429,7 @@ export class IcureTextField extends Field {
 					},
 				},
 				dispatchTransaction: (tro) => {
-					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : this.schema.includes('tokens-list') ? tokensListTransactionMapper(tro) : tro
+					const tr = this.schema === 'measure' ? measureTransactionMapper(tro) : tro
 					console.log(`Setting selection to ${tr.selection.from} - ${tr.selection.to}`)
 					this.view && this.view.updateState(this.view.state.apply(tr))
 					if (this.view && tr.doc != tr.before && this.handleValueChanged) {
@@ -456,6 +455,12 @@ export class IcureTextField extends Field {
 			? {
 					parse: (value: PrimitiveType, id?: string) => {
 						return pms.node('token', { id }, value.value ? [pms.text((value as StringType).value)] : [])
+					},
+			  }
+			: schemaName.includes('items-list')
+			? {
+					parse: (value: PrimitiveType, id?: string) => {
+						return pms.node('item', { id }, value.value ? [pms.text((value as StringType).value)] : [])
 					},
 			  }
 			: schemaName === 'date'

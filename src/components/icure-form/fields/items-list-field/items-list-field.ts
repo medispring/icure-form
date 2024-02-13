@@ -7,6 +7,7 @@ export class ItemsListField extends Field {
 	@property() lines = 1
 	render() {
 		return html`<icure-text-field
+			schema="items-list"
 			.readonly="${this.readonly}"
 			label="${this.label}"
 			.multiline="${this.multiline}"
@@ -14,7 +15,6 @@ export class ItemsListField extends Field {
 			.displayedLabels="${this.displayedLabels}"
 			defaultLanguage="${this.defaultLanguage}"
 			displayedLanguage="${this.displayedLanguage}"
-			schema="items-list-field"
 			.valueProvider=${this.valueProvider}
 			.metadataProvider=${this.metadataProvider}
 			.handleValueChanged=${this.handleValueChanged}
