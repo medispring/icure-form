@@ -302,9 +302,12 @@ li.ProseMirror-selectednode:after {
 			flex-direction: column;
 			flex-wrap: nowrap;
 			align-items: flex-start;
-
+			gap: 6px;
 			li {
 				list-style-type: none;
+				width: 100%;
+				padding-bottom: 4px;
+				border-bottom: 1px dotted #80808082;
 			}
 		}
 	}

@@ -7,6 +7,8 @@ $gray-600: #9CA8B2;
 $gray-400: #DDE3E7;
 
 $blue-800: #084B83;
+$blue-600: #8DA6BF;
+$blue-500: #9ABFE0;
 $blue-400: #DCE7F2;
 
 // theme
@@ -24,6 +26,7 @@ $border-radius: 6px;
 $icon-color: $gray-600;
 $active-color: $blue-800;
 $token-color: $blue-400;
+$list-border-color: $blue-600;
 $textbox-line-height: 1.4em !default;
 $textbox-default-width: 100%;
 $textbox-font-size: 13px !default;
@@ -278,6 +281,18 @@ input[type='radio'] {
 				}
 			}
 		}
+		&.items-list {
+			.ProseMirror {
+				li {
+					border-bottom: 1px dotted $list-border-color;
+
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+			}
+		}
+
 	}
 
 	.extra {
