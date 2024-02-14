@@ -173,6 +173,7 @@ export const render: Renderer = (
 	function renderMeasureField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-measure-field
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -192,6 +193,7 @@ export const render: Renderer = (
 	function renderNumberField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-number-field
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.value}"
@@ -210,6 +212,7 @@ export const render: Renderer = (
 	function renderDatePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-date-picker
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDate() : fg.value}"
@@ -228,6 +231,7 @@ export const render: Renderer = (
 	function renderTimePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-time-picker
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentTime() : fg.value}"
@@ -246,6 +250,7 @@ export const render: Renderer = (
 	function renderDateTimePicker(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-date-time-picker
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			value="${fg.now ? currentDateTime() : fg.value}"
@@ -264,6 +269,7 @@ export const render: Renderer = (
 	function renderDropdownField(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-dropdown-field
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			.label=${fg.field}
 			.displayedLabels=${getLabels(fg)}
 			.defaultLanguage="${props.defaultLanguage}"
@@ -289,6 +295,7 @@ export const render: Renderer = (
 	function renderRadioButtons(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-radio-button
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			.defaultLanguage="${props.defaultLanguage}"
@@ -313,6 +320,7 @@ export const render: Renderer = (
 	function renderCheckboxes(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html` <icure-form-checkbox
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
 			.defaultLanguage="${props.defaultLanguage}"
@@ -338,6 +346,7 @@ export const render: Renderer = (
 	function renderLabel(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-label
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-field"
 			labelPosition=${props.labelPosition}
 			label="${fg.field}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -398,7 +407,7 @@ export const render: Renderer = (
 
 	const calculateFieldOrGroupSize = (span: number, rowSpan: number, fixedWidth?: number | undefined) => {
 		if (fixedWidth) return `width: ${fixedWidth}px`
-		return `grid-column: span ${span};align-items:end;display: grid; ${rowSpan > 1 ? `grid-row: span ${rowSpan}` : ''}`
+		return `grid-column: span ${span}; ${rowSpan > 1 ? `grid-row: span ${rowSpan}` : ''}`
 	}
 
 	const renderForm = (form: Form) => {
