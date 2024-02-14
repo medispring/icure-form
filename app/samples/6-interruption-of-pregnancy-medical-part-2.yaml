@@ -238,7 +238,6 @@ sections:
         fields:
           - field: abortion-forms.field-labels.MISOPROSTOL-FIRST-DOSIS
             type: measure-field
-            unit: µg
             computedProperties:
               defaultValue: |
                 return { content: { '*': { type: 'measure', value: 800, unit: 'µg' } }, codes: [] }
@@ -261,7 +260,6 @@ sections:
         fields:
           - field: abortion-forms.field-labels.SECOND-DOSIS
             type: measure-field
-            unit: µg
             computedProperties:
               defaultValue: |
                 return { content: { '*': { type: 'measure', value: 400, unit: 'µg' } }, codes: [] }

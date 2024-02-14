@@ -29,7 +29,6 @@ $floating-label-scale: 1 !default;
 $floating-label-height: $textbox-line-height * $floating-label-scale;
 $font-weight-label: 500;
 
-
 :host {
 	--bg-color-1: #f44336;
 }
@@ -838,7 +837,6 @@ app-date-picker {
 	display: none;
 }
 
-
 .container {
 	position: relative;
 }
@@ -850,7 +848,14 @@ app-date-picker {
 	grid-template-columns: repeat(24, 1fr);
 }
 
+.group {
+	align-items: end;
+	display: grid;
+}
+
 .subform {
+	align-items: end;
+	display: grid;
 	position: relative;
 	margin: 8px -8px 8px;
 	padding: 0 8px 0;
@@ -898,6 +903,10 @@ app-date-picker {
 		}
 	}
 }
+.icure-form-field {
+	align-items: end;
+	display: grid;
+}
 
 .icure-text-field, .icure-button-group {
 	> .icure-label {
@@ -914,7 +923,7 @@ app-date-picker {
 		min-width: 0;
 		&.float {
 			display: inline-block;
-			height: $textbox-line-height ;
+			height: $textbox-line-height;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;

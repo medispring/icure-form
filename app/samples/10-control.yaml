@@ -396,7 +396,9 @@ sections:
               - MS-ABORTION-DATE|hcg|1
           - field: abortion-forms.field-labels.HCG-DOSAGE
             type: measure-field
-            unit: UI/l
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'UI/l' } }, codes: [] }
             tags:
               - CD-PARAMETER|HCG|1
               - CD-ITEM|parameter|1

@@ -537,18 +537,21 @@ sections:
               - MS-ABORTION-REASON-CODE
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCode|1
+              - MS-REASON-CODE-ITEM|1|1
           - field: abortion-forms.field-labels.ABORTION-REASON-CODE-2
             type: dropdown
             codifications:
               - MS-ABORTION-REASON-CODE
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCode|1
+              - MS-REASON-CODE-ITEM|2|1
           - field: abortion-forms.field-labels.ABORTION-REASON-CODE-3
             type: dropdown
             codifications:
               - MS-ABORTION-REASON-CODE
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCode|1
+              - MS-REASON-CODE-ITEM|3|1
       - group: line
         borderless: true
         span: 24
@@ -729,12 +732,16 @@ sections:
         fields:
           - field: abortion-forms.field-labels.DILATION
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|dilation|1
           - field: abortion-forms.field-labels.CURETTE
             type: measure-field
-            unit: mm
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|curette|1
       - group: line

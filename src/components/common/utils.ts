@@ -16,9 +16,9 @@ export function generateLabel(
 	switch (labelPosition) {
 		case 'right':
 		case 'left':
-			return html` <label class="icure-label side above ${labelPosition}">${translationProvider(language, label)}</icure-label> `
+			return html` <label class="icure-label side above ${labelPosition}">${translationProvider(language, label)}</label> `
 		default:
-			return html` <label class="icure-label ${labelPosition}">${translationProvider(language, label)}</icure-label> `
+			return html` <label class="icure-label ${labelPosition}">${translationProvider(language, label)}</label> `
 	}
 }
 

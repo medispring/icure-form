@@ -25,22 +25,21 @@ $input-padding-x: 8px;
 $floating-label-transition: 0.2s ease-out !default;
 $floating-label-scale: 1 !default;
 $floating-label-height: $textbox-line-height * $floating-label-scale;
-$font-weight-label: 600;
+$font-weight-label: 500;
 
-.icure-text-field, .icure-button-group {
+.icure-text-field,
+.icure-button-group {
 	padding-top: 16px;
 	width: $textbox-default-width;
 	> .icure-label {
 		color: $color;
 		font-size: $label-font-size;
 		font-weight: $font-weight-label;
-
-		> span {
-			display: block;
-			word-wrap: break-word;
-			overflow: auto;
-			font-weight: $font-weight-label;
-		}
+		display: inline !important;
+		white-space: initial !important;
+		overflow: initial !important;
+		word-wrap: normal !important;
+		word-break: break-word;
 	}
 
 	> .icure-input {
@@ -143,6 +142,13 @@ $font-weight-label: 600;
 			// .buttons-container .menu-container .btn:hover::before {
 			// 	border-color:$accent transparent transparent transparent;
 			// }
+			> .options {
+				> .selected {
+					color: white;
+					background-color: #06a070;
+					border-radius: 0 !important;
+				}
+			}
 		}
 	}
 }
@@ -161,7 +167,6 @@ app-date-picker {
 	--app-hover: #06a070;
 	--app-selected-hover: #06a070;
 }
-
 
 .icure-button-group {
 	> .icure-label {
