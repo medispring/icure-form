@@ -1,6 +1,6 @@
 {
 	"name": "@icure/form",
-	"version": "1.1.10",
+	"version": "1.1.15",
 	"description": "",
 	"main": "lib/index.js",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"build": "node lit-inject-scss.js src tmp && jq '{include:[\"tmp\"], compilerOptions:.compilerOptions}' < tsconfig.json > tsconfig.tmp.json && tsc -p tsconfig.tmp.json",
 		"dist": "webpack --env.mode production",
 		"prepare": "rm -r lib && yarn run build && jq '{name:.name, version:.version, description:.description, main:.main, types:.types, dependencies:.dependencies, author:.author, license:.license, bugs:.bugs, homepage:.homepage}' < package.json > lib/package.json",
-		"publish": "yarn version patch && yarn run prepare && cd dist && yarn npm publish --tolerate-republish --access public && cd ..",
+		"publish": "yarn version patch && yarn run prepare && cd lib && touch yarn.lock && yarn install && rm -rf node_modules && npm publish --tolerate-republish --access public && cd ..",
 		"test": "jest",
 		"lint:commit": "eslint . --ext .ts",
 		"pre-commit": "lint-staged"
@@ -48,7 +48,6 @@
 	"license": "GPL-3.0",
 	"access": "public",
 	"dependencies": {
-		"@types/node": "^18.16.3",
 		"@webcomponents/webcomponentsjs": "^2.7.0",
 		"app-datepicker": "^6.0.0-rc.33",
 		"fast-deep-equal": "^3.1.3",
@@ -65,10 +64,10 @@
 		"prosemirror-state": "1.4.3",
 		"prosemirror-transform": "1.8.0",
 		"prosemirror-view": "1.32.7",
-		"uuid": "^9.0.1",
-		"yaml": "2.3.4"
+		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
+		"@types/node": "^18.16.3",
 		"@icure/api": "5.3.7",
 		"@types/jest": "^27.0.2",
 		"@types/markdown-it": "^12.2.3",
@@ -105,7 +104,8 @@
 		"typescript": "^4.9.5",
 		"webpack": "5.88.2",
 		"webpack-cli": "5.1.4",
-		"webpack-dev-server": "4.15.1"
+		"webpack-dev-server": "4.15.1",
+		"yaml": "2.3.4"
 	},
 	"resolutions": {
 		"prosemirror-model": "1.19.4",
