@@ -142,6 +142,7 @@ export abstract class Field {
 	sortOptions?: SortOptions
 	width?: number
 	styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
+	hasOther?: boolean
 
 	label(): string {
 		return this.field
@@ -169,6 +170,7 @@ export abstract class Field {
 			translate,
 			width,
 			styleOptions,
+			hasOther,
 		}: {
 			shortLabel?: string
 			grows?: boolean
@@ -188,6 +190,7 @@ export abstract class Field {
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
+			hasOther?: boolean
 		},
 	) {
 		this.field = label
@@ -210,6 +213,7 @@ export abstract class Field {
 		this.translate = translate ?? true
 		this.width = width
 		this.styleOptions = styleOptions
+		this.hasOther = hasOther
 	}
 
 	abstract copy(properties: Partial<Field>): Field
@@ -862,6 +866,7 @@ export class RadioButton extends Field {
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
+			hasOther?: boolean
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
 		},
 	) {
