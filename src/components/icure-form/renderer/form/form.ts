@@ -362,13 +362,13 @@ export const render: Renderer = (
 		const computedProperties = Object.keys(fg.computedProperties ?? {}).reduce(
 			(acc, k) => ({ ...acc, [k]: fg.computedProperties?.[k] && formsValueContainer?.compute(fg.computedProperties[k]) }),
 			{},
-		)
+		) as { [key: string]: string | number | boolean | undefined }
 		if (computedProperties['hidden']) {
 			return html``
 		}
 
-		const fgSpan = computedProperties['span'] ?? fg.span ?? 6
-		const fgRowSpan = computedProperties['rowSpan'] ?? fg.rowSpan ?? 1
+		const fgSpan = (computedProperties['span'] ?? fg.span ?? 6) as number
+		const fgRowSpan = (computedProperties['rowSpan'] ?? fg.rowSpan ?? 1) as number
 
 		if (fg.clazz === 'group' && fg.fields?.length) {
 			return renderGroup((fg as Group).copy({ ...computedProperties }), fgSpan, level)

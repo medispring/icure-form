@@ -6,7 +6,7 @@ export const languages = {
 	es: 'Spanish',
 	nl: 'Dutch',
 	de: 'German',
-}
+} as { [key: string]: string }
 
 export const languageName = (iso: string): string => languages[iso] || iso
 

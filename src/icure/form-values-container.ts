@@ -232,14 +232,14 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 				const primitive = content[this.language] ?? content['*'] ?? content[Object.keys(content)[0]]
 				return primitive && parsePrimitive(primitive)
 			},
-		}
+		} as { [key: string]: any }
 		const proxy: S = new Proxy({} as S, {
-			has: (target: S, key: string | symbol) => !!native[key] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
+			has: (target: S, key: string | symbol) => !!native[key as string] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
 			get: (target: S, key: string | symbol) => {
 				if (key === 'undefined') {
 					return undefined
 				}
-				const nativeValue = native[key]
+				const nativeValue = native[key as string]
 				if (!!nativeValue) {
 					return nativeValue
 				}

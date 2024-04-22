@@ -220,20 +220,22 @@ export abstract class Field {
 
 	static parse(json: Field): Field {
 		return (
-			{
-				'text-field': () => new TextField(json.field, { ...json }),
-				'measure-field': () => new MeasureField(json.field, { ...json }),
-				'token-field': () => new TokenField(json.field, { ...json }),
-				'items-list-field': () => new ItemsListField(json.field, { ...json }),
-				'number-field': () => new NumberField(json.field, { ...json }),
-				'date-picker': () => new DatePicker(json.field, { ...json }),
-				'time-picker': () => new TimePicker(json.field, { ...json }),
-				'date-time-picker': () => new DateTimePicker(json.field, { ...json }),
-				dropdown: () => new DropdownField(json.field, { ...json }),
-				'radio-button': () => new RadioButton(json.field, { ...json }),
-				checkbox: () => new CheckBox(json.field, { ...json }),
-				label: () => new Label(json.field, { ...json }),
-			}[json.type]?.() ?? new TextField(json.field, { ...json })
+			(
+				{
+					'text-field': () => new TextField(json.field, { ...json }),
+					'measure-field': () => new MeasureField(json.field, { ...json }),
+					'token-field': () => new TokenField(json.field, { ...json }),
+					'items-list-field': () => new ItemsListField(json.field, { ...json }),
+					'number-field': () => new NumberField(json.field, { ...json }),
+					'date-picker': () => new DatePicker(json.field, { ...json }),
+					'time-picker': () => new TimePicker(json.field, { ...json }),
+					'date-time-picker': () => new DateTimePicker(json.field, { ...json }),
+					dropdown: () => new DropdownField(json.field, { ...json }),
+					'radio-button': () => new RadioButton(json.field, { ...json }),
+					checkbox: () => new CheckBox(json.field, { ...json }),
+					label: () => new Label(json.field, { ...json }),
+				} as { [key: string]: () => Field }
+			)[json.type as string]?.() ?? new TextField(json.field, { ...json })
 		)
 	}
 
@@ -1035,7 +1037,7 @@ export class Group {
 		return new Group(
 			group,
 			(fields || []).map((s: Field | Group | Subform) =>
-				s['group'] ? Group.parse(s as Group) : s['subForm'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
+				(s as Group)['group'] ? Group.parse(s as Group) : (s as Subform)['forms'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
 			),
 			{
 				span: span,
@@ -1159,7 +1161,7 @@ export class Section {
 		return new Section(
 			json.section,
 			(json.fields ?? json.groups ?? json.sections ?? []).map((s: Field | Group | Subform) =>
-				s['group'] ? Group.parse(s as Group) : s['subForm'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
+				(s as Group)['group'] ? Group.parse(s as Group) : (s as Subform)['forms'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
 			),
 			json.description,
 			json.keywords,

@@ -5,6 +5,7 @@ import {
 	DatePicker,
 	DateTimePicker,
 	DropdownField,
+	Field,
 	Form,
 	ItemsListField,
 	MeasureField,
@@ -203,18 +204,20 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 							.map((formData: FormLayoutData, index) => {
 								const width = expandedCols[index] - idx
 								idx += width
-								return {
-									StringEditor: makeTextField,
-									CheckBoxEditor: makeCheckBox,
-									MeasureEditor: makeMeasureField,
-									NumberEditor: makeNumberField,
-									PopupMenuEditor: makeDropdownField,
-									DateTimeEditor: makeDateTimeField,
-									StringTableEditor: makeItemsListField,
-									TokenFieldEditor: makeTokenField,
-									SubFormEditor: makeSubForm,
-									ActionButton: makeActionButton,
-								}[formData.editor?.key ?? '']?.(formData, width, Math.max(1, Math.floor((formData.editor?.height ?? 0) / meanHeight)))
+								return (
+									{
+										StringEditor: makeTextField,
+										CheckBoxEditor: makeCheckBox,
+										MeasureEditor: makeMeasureField,
+										NumberEditor: makeNumberField,
+										PopupMenuEditor: makeDropdownField,
+										DateTimeEditor: makeDateTimeField,
+										StringTableEditor: makeItemsListField,
+										TokenFieldEditor: makeTokenField,
+										SubFormEditor: makeSubForm,
+										ActionButton: makeActionButton,
+									} as { [key: string]: (fd: FormLayoutData, w: number, h: number) => Field | Subform }
+								)[formData.editor?.key ?? '']?.(formData, width, Math.max(1, Math.floor((formData.editor?.height ?? 0) / meanHeight)))
 							})
 					})
 				}),

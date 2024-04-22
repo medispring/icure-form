@@ -8,6 +8,6 @@ export function hasMark(ms: { [key: string]: MarkSpec } | OrderedMap<MarkSpec> |
 	if (!!ms.get) {
 		return !!(ms as OrderedMap<MarkSpec>).get(mark)
 	} else {
-		return !!ms[mark]
+		return !!(ms as { [key: string]: MarkSpec })[mark]
 	}
 }

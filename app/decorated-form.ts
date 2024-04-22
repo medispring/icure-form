@@ -53,7 +53,7 @@ const icpc2 = {
 	X: 'XVI',
 	Y: 'XVIII',
 	Z: 'XXI',
-}
+} as { [key: string]: string }
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
