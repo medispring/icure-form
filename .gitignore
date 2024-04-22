@@ -5,6 +5,8 @@
 /dist/
 /tsconfig.tmp.json
 
+.DS_Store
+
 .yarn/*
 .yarn/cache
 .yarn/patches
