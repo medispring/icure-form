@@ -16,7 +16,6 @@ import { defaultTranslationProvider } from '../../utils/languages'
  */
 export class IcureForm extends LitElement {
 	@property() form?: Form
-	@property() skin = 'material'
 	@property() renderer = 'form'
 	@property() visible = true
 	@property() readonly = false

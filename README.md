@@ -118,6 +118,9 @@ flowchart
 The form is defined by a Form object that contains all the necessary information to represent the form. 
 The renderer is responsible for rendering the form based on the form object. Several renderers can be implemented to render the form in different ways (e.g. as a web form, as a one section by page form (à la typeforms)).
 The form values container is responsible for storing the values of the form. The form values container is immutable and can be modified by creating a new form values container with the desired modifications. 
+
+### The form values container
+
 All form value containers must implement a FormValuesContainer interface that declares the following methods:
 
 - `compute(formula: string, sandbox?: S): T?` : computes a formula based on the values of the form, inside a provided sandbox. If no sandbox is provided, the default sandbox is used.
@@ -141,4 +144,21 @@ The form values container is responsible for storing the values of the form and 
 
 We cannot state enough how important it is to keep the form values container immutable. While this can seem cumbersome at first, it is a very powerful pattern that allows for easy undo/redo functionalities, easy state management, and easy debugging.
 It also allows for optimisations as the values of the form values container can be reused in a new form values container if they have not changed.
+
+### The renderer
+
+The renderer is instantiated by the icure-form component and is responsible for rendering the form based on the form object and the form values container.
+
+the icure-form component accepts the following properties:
+
+- form: Form - the form object that represents the form to be rendered
+- renderer: string - the name of the renderer to be used to render the form
+- visible: boolean - a boolean indicating if the form should be visible or not
+- readonly: boolean - a boolean indicating if the form should be read-only or not
+- labelPosition: string - the favoured position of the labels in the form. This option can or cannot be honoured by the renderer.
+- formValuesContainer: FormValuesContainer<FieldValue, FieldMetadate> : the form values container that contains the values of the form
+- displayedLanguage: string - the language in which the form should be displayed
+- codesProvider: CodesProvider - an optional provider that provides codifications for the form
+- optionsProvider: OptionsProvider - an optional provider that provides options for some fields of the form (like dropdown fields)
+- translationsProvider: TranslationsProvider - an optional provider that provides translations for the form
 
