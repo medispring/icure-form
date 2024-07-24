@@ -1,5 +1,7 @@
 // @ts-ignore
-import tokenFields from './samples/00-token-fields.yaml'
+import validators from './samples/000-validators.yaml'
+// @ts-ignore
+import tokenFields from './samples/01-token-fields.yaml'
 // @ts-ignore
 import bmi from './samples/1-BMI.yaml'
 // @ts-ignore
@@ -53,7 +55,8 @@ class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
 		...[
-			{ title: '00 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
+			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
+			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
 			{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
 			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },

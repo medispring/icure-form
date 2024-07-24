@@ -250,6 +250,7 @@ export class IcureTextField extends Field {
 				<div class="icure-input">
 					<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
 				</div>
+				<div class="error">${this.validationErrorsProvider?.().map(([, error]) => html`<div>${this.translationProvider?.(this.language(), error)}</div>`)}</div>
 			</div>
 		`
 	}

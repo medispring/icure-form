@@ -42,6 +42,7 @@ export class TextField extends Field {
 				.linkColorProvider=${this.linkColorProvider}
 				.codeContentProvider=${this.codeContentProvider}
 				.valueProvider=${singleValueProvider(this.valueProvider, id)}
+				.validationErrorsProvider=${this.validationErrorsProvider}
 				.metadataProvider=${this.metadataProvider}
 				.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
 				.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}

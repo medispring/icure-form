@@ -18,12 +18,12 @@ Inside your HTML file, add the following tag:
 
 ```html
 <icure-form
-				.form="${this.form}"
-				labelPosition="above"
-				renderer="form"
-				displayedLanguage="en"
-				.formValuesContainer="${this.formValuesContainer}"
-				.codesProvider="${this.codesProvider}"
-				.optionsProvider="${this.optionsProvider}"
-			></icure-form>
+	.form="${this.form}"
+	labelPosition="above"
+	renderer="form"
+	displayedLanguage="en"
+	.formValuesContainer="${this.formValuesContainer}"
+	.codesProvider="${this.codesProvider}"
+	.optionsProvider="${this.optionsProvider}"
+></icure-form>
 ```

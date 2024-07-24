@@ -1,3 +1,5 @@
+import { FieldMetadata } from '../components/model'
+
 export interface VersionedData<T> {
 	[id: string]: Version<T>[]
 }
@@ -20,6 +22,7 @@ export interface FormValuesContainer<Value, Metadata> {
 	getValues(revisionsFilter: (id: string, history: Version<Metadata>[]) => (string | null)[]): VersionedData<Value>
 	getMetadata(id: string, revisions: (string | null)[]): VersionedData<Metadata>
 	getChildren(): FormValuesContainer<Value, Metadata>[]
+	getValidationErrors(): [FieldMetadata, string][]
 	//modification
 	setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
 	setMetadata(label: string, metadata: Metadata, id?: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>

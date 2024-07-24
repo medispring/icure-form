@@ -1,5 +1,5 @@
-import '../src/components/themes/ehr-lite'
-//import '../src/components/themes/kendo'
+//import '../src/components/themes/ehr-lite'
+import '../src/components/themes/kendo'
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
 import { property, state } from 'lit/decorators.js'
@@ -7,7 +7,7 @@ import { makeFormValuesContainer } from './form-values-container'
 import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes } from './codes'
-import { Code, Field, FieldMetadata, Form, Group, Subform } from '../src/components/model'
+import { Code, Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
 import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
 
@@ -124,6 +124,30 @@ export class DecoratedForm extends LitElement {
 		const contactFormValuesContainer = await makeFormValuesContainer()
 		const responsible = 'user-id'
 
+		const findForm = (form: Form, anchorId: string | undefined, templateId: string): Form | undefined => {
+			if (anchorId === undefined) {
+				return form
+			}
+			return form.sections
+				.flatMap((s) => s.fields)
+				.map((fg) => {
+					if (fg.clazz === 'subform') {
+						if (fg.id === anchorId) {
+							return fg.forms[templateId]
+						} else {
+							const candidate = Object.values(fg.forms)
+								.map((f) => findForm(f, anchorId, templateId))
+								.find((f) => !!f)
+							if (candidate) {
+								return candidate
+							}
+						}
+					}
+					return undefined
+				})
+				.find((f) => !!f)
+		}
+
 		const initialisedFormValueContainer = initializeWithFormDefaultValues(
 			new BridgedFormValuesContainer(
 				responsible,
@@ -131,30 +155,6 @@ export class DecoratedForm extends LitElement {
 				makeInterpreter(),
 				undefined,
 				(anchorId, templateId) => {
-					const findForm = (form: Form, anchorId: string | undefined, templateId: string): Form | undefined => {
-						if (anchorId === undefined) {
-							return form
-						}
-						return form.sections
-							.flatMap((s) => s.fields)
-							.map((fg) => {
-								if (fg.clazz === 'subform') {
-									if (fg.id === anchorId) {
-										return fg.forms[templateId]
-									} else {
-										const candidate = Object.values(fg.forms)
-											.map((f) => findForm(f, anchorId, templateId))
-											.find((f) => !!f)
-										if (candidate) {
-											return candidate
-										}
-									}
-								}
-								return undefined
-							})
-							.find((f) => !!f)
-					}
-
 					const form = findForm(this.form, anchorId, templateId)
 
 					const extractFormulas = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; formula: string }[] =>
@@ -170,6 +170,25 @@ export class DecoratedForm extends LitElement {
 						}) ?? []
 
 					return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? []) : []
+				},
+				(anchorId, templateId) => {
+					const form = findForm(this.form, anchorId, templateId)
+
+					const extractValidators = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; validators: Validator[] }[] =>
+						fgss.flatMap((fg) => {
+							if (fg.clazz === 'group') {
+								return extractValidators(fg.fields ?? [])
+							} else if (fg.clazz === 'field') {
+								const validators = fg.validators
+								return validators?.length
+									? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, validators }]
+									: []
+							} else {
+								return []
+							}
+						}) ?? []
+
+					return form ? extractValidators(form.sections?.flatMap((f) => f.fields) ?? []) : []
 				},
 				this.displayedLanguage,
 			),

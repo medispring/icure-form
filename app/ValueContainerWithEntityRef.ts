@@ -23,7 +23,16 @@ export class BridgedFormValuesContainerWithEntityRef extends BridgedFormValuesCo
 		language: string,
 		changeListeners: ((newValue: BridgedFormValuesContainer) => void)[],
 	) {
-		super(responsible, contactFormValuesContainer, interpreter, contact, () => [], language, changeListeners)
+		super(
+			responsible,
+			contactFormValuesContainer,
+			interpreter,
+			contact,
+			() => [],
+			() => [],
+			language,
+			changeListeners,
+		)
 	}
 
 	getValues(revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]): VersionedData<FieldValue> {

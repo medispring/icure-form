@@ -16,6 +16,7 @@ export class ItemsListField extends Field {
 			defaultLanguage="${this.defaultLanguage}"
 			displayedLanguage="${this.displayedLanguage}"
 			.valueProvider=${this.valueProvider}
+			.validationErrorsProvider=${this.validationErrorsProvider}
 			.metadataProvider=${this.metadataProvider}
 			.handleValueChanged=${this.handleValueChanged}
 			.translationProvider=${this.translationProvider}

@@ -2,11 +2,30 @@ import { Contact, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, FormValuesContainerMutation, ID, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from '../icure'
-import { FieldMetadata, FieldValue, PrimitiveType } from '../components/model'
+import { FieldMetadata, FieldValue, PrimitiveType, Validator } from '../components/model'
 import { areCodesEqual, isContentEqual } from '../utils/icure-utils'
 import { codeStubToCode } from '../utils/code-utils'
 import { contentToPrimitiveType, parsePrimitive, primitiveTypeToContent } from '../utils/primitive'
 
+/** This class is a bridge between the ICure API and the generic FormValuesContainer interface.
+ * It wraps around a ContactFormValuesContainer and provides a series of services:
+ * - It computes dependent values when the form is created
+ * - It broadcasts changes from the wrapped ContactFormValuesContainer to its listeners
+ * - It provides a way to compute formulas in a sandboxed environment
+ * - It bridges the setValues and setMetadata methods with the wrapped ContactFormValuesContainer by
+ * 		- converting the FieldValue to a Service
+ * 		- converting the FieldMetadata to a ServiceMetadata
+ * - It bridges the getValues and getMetadata methods with the wrapped ContactFormValuesContainer by
+ * 		- converting the Service to a FieldValue
+ * 		- converting the ServiceMetadata to a FieldMetadata
+ * - It lazily creates bridges the children by
+ *    - lazily creating BridgedFormValuesContainer when the children of the wrapped ContactFormValuesContainer are accessed
+ *    - creating a new ContactFormValuesContainer and wrapping it in a BridgedFormValuesContainer when a child is added
+ *
+ * The icure-form typically accepts a BridgedFormValuesContainer as a prop and uses it to interact with the form.
+ *
+ * This class is fairly generic and can be used as an inspiration for other bridges
+ */
 export class BridgedFormValuesContainer implements FormValuesContainer<FieldValue, FieldMetadata> {
 	private contact: Contact
 	private contactFormValuesContainer: ContactFormValuesContainer
@@ -16,19 +35,32 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			this._children ??
 			(this._children = this.contactFormValuesContainer
 				.getChildren()
-				.map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact, this.dependentValuesProvider, this.language, this.changeListeners)))
+				.map(
+					(fvc) =>
+						new BridgedFormValuesContainer(
+							this.responsible,
+							fvc,
+							this.interpreter,
+							this.contact,
+							this.dependentValuesProvider,
+							this.validatorsProvider,
+							this.language,
+							this.changeListeners,
+						),
+				))
 		)
 	}
 
 	/**
 	 * Creates an instance of BridgedFormValuesContainer.
-	 * @param responsible
+	 * @param responsible The id of the data owner responsible for the creation of the values
 	 * @param contact The displayed contact (may be in the past). === to currentContact if the contact is the contact of the day
-	 * @param contactFormValuesContainer
-	 * @param interpreter
-	 * @param dependentValuesProvider
-	 * @param language
-	 * @param changeListeners
+	 * @param contactFormValuesContainer The wrapped ContactFormValuesContainer
+	 * @param interpreter A function that can interpret formulas
+	 * @param dependentValuesProvider A function that provides the dependent values (computed on the basis of other values) for a given anchorId and templateId
+	 * @param validatorsProvider A function that provides the validators for a given anchorId and templateId
+	 * @param language The language in which the values are displayed
+	 * @param changeListeners The listeners that will be notified when the values change
 	 */
 	constructor(
 		private responsible: string,
@@ -44,6 +76,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		) => T | undefined,
 		contact?: Contact,
 		private dependentValuesProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; formula: string }[] = () => [],
+		private validatorsProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; validators: Validator[] }[] = () => [],
 		private language = 'en',
 		private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
 	) {
@@ -136,6 +169,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			this.interpreter,
 			this.contact === this.contactFormValuesContainer.currentContact ? newContactFormValuesContainer.currentContact : this.contact,
 			this.dependentValuesProvider,
+			this.validatorsProvider,
 			this.language,
 			this.changeListeners,
 		)
@@ -232,6 +266,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 				const primitive = content[this.language] ?? content['*'] ?? content[Object.keys(content)[0]]
 				return primitive && parsePrimitive(primitive)
 			},
+			log: console.log,
 		} as { [key: string]: any }
 		const proxy: S = new Proxy({} as S, {
 			has: (target: S, key: string | symbol) => !!native[key as string] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,
@@ -251,6 +286,26 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 
 	getChildren(): FormValuesContainer<FieldValue, FieldMetadata>[] {
 		return this.contactFormValuesContainer.getChildren().map((fvc) => new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact))
+	}
+
+	getValidationErrors(): [FieldMetadata, string][] {
+		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
+			return this.validatorsProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).flatMap(
+				({ metadata, validators }) =>
+					validators
+						.map(({ validation, message }) => {
+							try {
+								return this.compute(validation) ? undefined : [metadata, message]
+							} catch (e) {
+								console.log(`Error while computing validation : ${validation}`, e)
+								return undefined
+							}
+						})
+						.filter((x) => !!x) as [FieldMetadata, string][],
+			)
+		} else {
+			return []
+		}
 	}
 
 	async addChild(
@@ -372,6 +427,10 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 	getChildren(): ContactFormValuesContainer[] {
 		return this.children
+	}
+
+	getValidationErrors(): [FieldMetadata, string][] {
+		throw new Error('Validation not supported at contact level')
 	}
 
 	getValues(revisionsFilter: (id: string, history: Version<ServiceMetadata>[]) => (string | null)[]): VersionedData<Service> {

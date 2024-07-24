@@ -117,7 +117,10 @@ type FieldType =
 	| 'label'
 	| 'action'
 
-//todo: create abstract class for all fields + delete useless properties
+export interface Validator {
+	validation: string
+	message: string
+}
 
 export abstract class Field {
 	clazz = 'field' as const
@@ -131,12 +134,13 @@ export abstract class Field {
 	tags?: string[]
 	codifications?: string[]
 	readonly?: boolean
-	options?: { [key: string]: unknown }
+	options?: { [_key: string]: unknown }
 	labels?: Labels
 	value?: string
 	unit?: string
 	multiline?: boolean
-	computedProperties?: { [key: string]: string }
+	computedProperties?: { [_key: string]: string }
+	validators?: Validator[]
 	now?: boolean
 	translate?: boolean
 	sortOptions?: SortOptions
@@ -166,6 +170,7 @@ export abstract class Field {
 			unit,
 			multiline,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -180,12 +185,13 @@ export abstract class Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
 			multiline?: boolean
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -209,6 +215,7 @@ export abstract class Field {
 		this.unit = unit
 		this.multiline = multiline || false
 		this.computedProperties = computedProperties
+		this.validators = validators
 		this.now = now
 		this.translate = translate ?? true
 		this.width = width
@@ -239,6 +246,7 @@ export abstract class Field {
 		)
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	toJson(): {
 		grows: boolean | undefined
 		schema: string | undefined
@@ -268,7 +276,7 @@ export abstract class Field {
 		sortOptions: SortOptions | undefined
 		multiline: boolean | undefined
 		now: boolean | undefined
-		options: { [key: string]: unknown } | undefined
+		options: { [_key: string]: unknown } | undefined
 		width: number | undefined
 		shortLabel: string | undefined
 		computedProperties: { [key: string]: string } | undefined
@@ -316,6 +324,7 @@ export class TextField extends Field {
 			unit,
 			multiline,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -328,12 +337,13 @@ export class TextField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
 			multiline?: boolean
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
@@ -354,6 +364,7 @@ export class TextField extends Field {
 			unit,
 			multiline: multiline,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -381,6 +392,7 @@ export class MeasureField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -392,11 +404,12 @@ export class MeasureField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
@@ -415,6 +428,7 @@ export class MeasureField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -441,6 +455,7 @@ export class NumberField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -452,11 +467,12 @@ export class NumberField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
@@ -475,6 +491,7 @@ export class NumberField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -501,6 +518,7 @@ export class TokenField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -512,11 +530,12 @@ export class TokenField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
@@ -535,6 +554,7 @@ export class TokenField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -561,6 +581,7 @@ export class ItemsListField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -572,11 +593,12 @@ export class ItemsListField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
@@ -595,6 +617,7 @@ export class ItemsListField extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -621,6 +644,7 @@ export class DatePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -633,11 +657,12 @@ export class DatePicker extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -657,6 +682,7 @@ export class DatePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -684,6 +710,7 @@ export class TimePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -696,11 +723,12 @@ export class TimePicker extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -720,6 +748,7 @@ export class TimePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -747,6 +776,7 @@ export class DateTimePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -759,11 +789,12 @@ export class DateTimePicker extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
 			unit?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			now?: boolean
 			translate?: boolean
 			width?: number
@@ -783,6 +814,7 @@ export class DateTimePicker extends Field {
 			value,
 			unit,
 			computedProperties,
+			validators,
 			now,
 			translate,
 			width,
@@ -805,10 +837,11 @@ export class DropdownField extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			labels?: Labels
 			value?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -850,6 +883,7 @@ export class RadioButton extends Field {
 			options,
 			value,
 			computedProperties,
+			validators,
 			translate,
 			sortOptions,
 			width,
@@ -862,9 +896,10 @@ export class RadioButton extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			value?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -883,6 +918,7 @@ export class RadioButton extends Field {
 			options,
 			value,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -908,6 +944,7 @@ export class CheckBox extends Field {
 			options,
 			value,
 			computedProperties,
+			validators,
 			translate,
 			sortOptions,
 			width,
@@ -920,9 +957,10 @@ export class CheckBox extends Field {
 			tags?: string[]
 			codifications?: string[]
 			readonly?: boolean
-			options?: { [key: string]: unknown }
+			options?: { [_key: string]: unknown }
 			value?: string
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
+			validators?: Validator[]
 			translate?: boolean
 			sortOptions?: SortOptions
 			width?: number
@@ -940,6 +978,7 @@ export class CheckBox extends Field {
 			options,
 			value,
 			computedProperties,
+			validators,
 			translate,
 			width,
 			styleOptions,
@@ -975,9 +1014,9 @@ export class Group {
 	fields?: Array<Field | Group | Subform>
 	span?: number
 	rowSpan?: number
-	computedProperties?: { [key: string]: string }
+	computedProperties?: { [_key: string]: string }
 	width?: number
-	styleOptions?: { [key: string]: unknown }
+	styleOptions?: { [_key: string]: unknown }
 
 	constructor(
 		title: string,
@@ -995,9 +1034,9 @@ export class Group {
 			translate?: boolean
 			span?: number
 			rowSpan?: number
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
 			width?: number
-			styleOptions?: { [key: string]: unknown }
+			styleOptions?: { [_key: string]: unknown }
 		},
 	) {
 		this.group = title
@@ -1031,7 +1070,7 @@ export class Group {
 		translate?: boolean
 		span?: number
 		rowSpan?: number
-		computedProperties?: { [key: string]: string }
+		computedProperties?: { [_key: string]: string }
 		width?: number
 	}): Group {
 		return new Group(
@@ -1069,9 +1108,9 @@ export class Subform {
 	forms: { [key: string]: Form }
 	span?: number
 	rowSpan?: number
-	computedProperties?: { [key: string]: string }
+	computedProperties?: { [_key: string]: string }
 	width?: number
-	styleOptions?: { [key: string]: unknown }
+	styleOptions?: { [_key: string]: unknown }
 
 	constructor(
 		title: string,
@@ -1087,9 +1126,9 @@ export class Subform {
 			shortLabel?: string
 			span?: number
 			rowSpan?: number
-			computedProperties?: { [key: string]: string }
+			computedProperties?: { [_key: string]: string }
 			width?: number
-			styleOptions?: { [key: string]: unknown }
+			styleOptions?: { [_key: string]: unknown }
 		},
 	) {
 		this.id = title
@@ -1112,9 +1151,9 @@ export class Subform {
 		forms: { [key: string]: Form }
 		span?: number
 		rowSpan?: number
-		computedProperties?: { [key: string]: string }
+		computedProperties?: { [_key: string]: string }
 		width?: number
-		styleOptions?: { [key: string]: unknown }
+		styleOptions?: { [_key: string]: unknown }
 	}): Subform {
 		return new Subform(json.subform, json.forms, {
 			shortLabel: json.shortLabel,
@@ -1196,6 +1235,7 @@ export class Codification {
 		return new Codification(json.type, json.codes)
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	toJson(): { type: string; codes: Code[] } {
 		return {
 			type: this.type,
@@ -1217,6 +1257,7 @@ export class TranslationTable {
 		return new TranslationTable(json.language, json.translations)
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	toJson(): { language: string; translations: { [key: string]: string } } {
 		return {
 			language: this.language,
@@ -1264,6 +1305,7 @@ export class Form {
 		)
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	toJson(): {
 		form: string
 		keywords?: string[]
@@ -1277,113 +1319,4 @@ export class Form {
 			keywords: this.keywords,
 		}
 	}
-}
-
-/**
- * Action part.
- * An action is an expression that can be triggered by a launcher and that can change the state of the form.
- * Launchers are defined by a trigger and a name. Launchers are events that will trigger the action.
- * Expression is evaluated by an Interpreter (get from the frontend). The expression can change the state of the form or launch another action on the frontend.
- * States are the states that can be changed by the action. States are defined by a name and a state to update.
- * There is 3 types of Action:
- * - Formulas: the expression is a formula that will change the value of a field.
- * 		Example: OnChange of field A and B, expresion is A + B and state is value of field C.
- * - ExternalAction: the expression is a call to an external action.
- * 		Example: OnClick of button A, expression is open dialog B and state is value of field C (that will be returned by the dialog).
- * - ExternalEvent: the launcher is an external event.
- * 		Example: Frontend send an event, expression is value of the event and state is value of field A.
- */
-export class Action {
-	launchers: Launcher[]
-	expression: string
-	states: State[]
-	constructor(launchers: Launcher[], expression: string, states: State[]) {
-		this.launchers = launchers
-		this.expression = expression
-		this.states = states
-	}
-
-	static parse(json: { launchers: Launcher[]; expression: string; states: State[] }): Action {
-		return new Action(
-			(json.launchers || []).map((l: Launcher) => Launcher.parse(l)),
-			json.expression,
-			(json.states || []).map((s: State) => State.parse(s)),
-		)
-	}
-
-	toJson(): {
-		launchers: { triggerer: string; shouldPassValue: boolean; name: string }[]
-		expression: string
-		states: { stateToUpdate: string; name: string; canLaunchLauncher: boolean }[]
-	} {
-		return {
-			launchers: this.launchers.map((l: Launcher) => l.toJson()),
-			expression: this.expression,
-			states: this.states.map((s: State) => s.toJson()),
-		}
-	}
-}
-
-export class Launcher {
-	name: string
-	triggerer: Trigger
-	shouldPassValue: boolean
-	constructor(name: string, triggerer: Trigger, shouldPassValue: boolean) {
-		this.name = name
-		this.triggerer = triggerer
-		this.shouldPassValue = shouldPassValue
-	}
-	static parse(json: { name: string; triggerer: Trigger; shouldPassValue: boolean }): Launcher {
-		return new Launcher(json.name, json.triggerer, json.shouldPassValue)
-	}
-
-	toJson(): { triggerer: string; shouldPassValue: boolean; name: string } {
-		return {
-			name: this.name,
-			triggerer: this.triggerer.toString(),
-			shouldPassValue: this.shouldPassValue,
-		}
-	}
-}
-
-export enum Trigger {
-	INIT = 'INIT',
-	CHANGE = 'CHANGE',
-	SORT = 'SORT',
-	CLICK = 'CLICK',
-	VISIBLE = 'VISIBLE',
-	ERROR = 'ERROR',
-	VALID = 'VALID',
-	EVENT = 'EVENT',
-}
-
-export class State {
-	name: string
-	stateToUpdate: StateToUpdate
-	canLaunchLauncher: boolean
-	constructor(name: string, stateToUpdate: StateToUpdate, canLaunchLauncher: boolean) {
-		this.name = name
-		this.stateToUpdate = stateToUpdate
-		this.canLaunchLauncher = canLaunchLauncher
-	}
-	static parse(json: { name: string; stateToUpdate: StateToUpdate; canLaunchLauncher: boolean }): State {
-		return new State(json.name, json.stateToUpdate, json.canLaunchLauncher)
-	}
-
-	toJson(): { stateToUpdate: string; name: string; canLaunchLauncher: boolean } {
-		return {
-			name: this.name,
-			stateToUpdate: this.stateToUpdate.toString(),
-			canLaunchLauncher: this.canLaunchLauncher,
-		}
-	}
-}
-
-export enum StateToUpdate {
-	VALUE = 'VALUE',
-	VISIBLE = 'VISIBLE',
-	OPTIONS = 'OPTIONS',
-	READONLY = 'READONLY',
-	CLAZZ = 'CLAZZ',
-	REQUIRED = 'REQUIRED',
 }

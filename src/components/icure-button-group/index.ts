@@ -96,6 +96,7 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 						</div>`
 					})}
 				</div>
+				<div class="error">${this.validationErrorsProvider?.().map(([, error]) => html`<div>${this.translationProvider?.(this.language(), error)}</div>`)}</div>
 			</div>
 		`
 	}

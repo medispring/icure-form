@@ -29,6 +29,13 @@ export function makeMetadata(field: Field, owner?: string, index?: number) {
 	}
 }
 
+export const getValidationError =
+	(formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field): (() => [FieldMetadata, string][]) =>
+	() => {
+		const validators = formsValueContainer?.getValidationErrors() ?? []
+		return validators.filter(([metadata]) => metadata.label === field?.label())
+	}
+
 export const handleValueChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
 	const wrapper = formsValueContainer ? [formsValueContainer] : []
 	return (label: string, language: string, value?: FieldValue, id?: string, index?: number) => {

@@ -13,11 +13,13 @@ sections:
       - field: height
         type: measure-field
         shortLabel: Height
+        computedProperties:
+          defaultValue: |
+            return { content: { '*': { type: 'measure', unit: 'cm' } }, codes: [] }
       - field: bmi
         type: measure-field
         shortLabel: BMI
         readonly: true
-        validator:
         computedProperties:
           value: |
             const w = parseContent(weight[0]?.content)

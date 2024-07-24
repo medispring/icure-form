@@ -908,6 +908,11 @@ app-date-picker {
 	display: grid;
 }
 
+.error {
+	color: red;
+	font-size: $label-font-size;
+}
+
 .icure-text-field, .icure-button-group {
 	> .icure-label {
 		z-index: 1;

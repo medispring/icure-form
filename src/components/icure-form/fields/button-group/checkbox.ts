@@ -22,6 +22,7 @@ export class CheckBox extends Field {
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}
 					.valueProvider=${singleValueProvider(this.valueProvider, id)}
+					.validationErrorsProvider=${this.validationErrorsProvider}
 					.metadataProvider=${this.metadataProvider}
 					.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
 					.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
