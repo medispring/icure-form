@@ -12,6 +12,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 	@property() placeholder = ''
 
 	@state() protected displayMenu = false
+	@state() protected textInputValue?: string = undefined
 
 	static get styles(): CSSResultGroup[] {
 		return [baseCss]
@@ -39,6 +40,24 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 		document.removeEventListener('click', this._handleClickOutside.bind(this))
 	}
 
+	textInputChanged(): (e: Event) => void {
+		return (e: Event) => {
+			const target = e.target as HTMLInputElement
+			const textInputValue = target.value
+			this.textInputValue = textInputValue
+
+			setTimeout(() => {
+				if (textInputValue === this.textInputValue) {
+					this.optionsProvider?.(this.language(), textInputValue).then((options) => {
+						if (textInputValue === this.textInputValue) {
+							this.displayedOptions = options
+						}
+					})
+				}
+			}, 500)
+		}
+	}
+
 	handleOptionButtonClicked(id: string | undefined): (e: Event) => boolean {
 		return (e: Event) => {
 			e.preventDefault()
@@ -48,6 +67,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 				const code = this.displayedOptions?.find((option) => option.id === id)
 				const inputValue = this.displayedOptions?.find((option) => option.id === id)?.['label']?.[this.language()] ?? ''
 				this.displayMenu = false
+				this.textInputValue = undefined
 				this.handleValueChanged?.(
 					this.label,
 					this.language(),
@@ -88,7 +108,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 			<div id="root" class="icure-text-field ${inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input" @click="${this.togglePopup}" id="test">
-					<div id="editor">${inputValue}</div>
+					<input type="text" id="editor" style="outline: none" .value=${this.textInputValue ?? inputValue ?? ''} @input="${this.textInputChanged()}" />
 					<div id="extra" class=${'extra forced'}>
 						<button class="btn select-arrow">${dropdownPicto}</button>
 						${this.displayMenu

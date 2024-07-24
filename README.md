@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a form system for the iCure project. It is a web application that allows users to create forms, fill them out, and view the results. The system is built using Lit framework to make it as light as possible and easy to integrate in any higher level framework.
+This is a form system for the iCure project. It is a web framework that allows users to create forms, fill them out, and view the results. The system is built using Lit framework to make it as light as possible and easy to integrate in any higher level framework.
 
 ## How to use
 
@@ -64,9 +64,9 @@ The Field class represents a generic field within a form. It is designed to be e
 - field: string - The type of the field.
 - label: string - The label of the field.
 - shortLabel: string - An optional short label for the field.
-- grows: boolean - Optional property indicating if the field can grow.
-- span: number - Optional property indicating the span of the field.
-- rowSpan: number - Optional property indicating the row span of the field.
+- grows: boolean - Optional property indicating if the field can grow vertically.
+- span: number - Optional property indicating the lines span of the field.
+- rowSpan: number - Optional property indicating the rows span of the field.
 - tags: string[] - Optional tags associated with the field.
 - codifications: string[] - Optional codifications for the field.
 - readonly: boolean - Optional property indicating if the field is read-only.
@@ -74,7 +74,7 @@ The Field class represents a generic field within a form. It is designed to be e
 - labels: Labels - Optional labels for the field.
 - value: string - Optional value of the field.
 - unit: string - Optional unit of the field.
-- computedProperties: Record<string, string> - Optional computed properties for the field.
+- computedProperties: Record<string, string> - Optional computed properties for the field, any property of the field can be computed. A computed property will replace the value provided independently.
 - validators: Validator[] - Optional validators for the field.
 - translate: boolean - Optional property indicating if the field supports translation.
 - width: number - Optional width of the field.
@@ -111,7 +111,7 @@ Translations can be provided at the form level or be provided by external transl
 ```mermaid
 flowchart
     DM[Form Data Model] --provides form structure--> RD[Renderer]
-    FVC[Form values container] --> RD
+    FVC[Form values container] <--> RD
     RD --renders--> RDF[Rendered Form]
 ```
 
