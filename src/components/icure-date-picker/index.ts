@@ -9,9 +9,9 @@ import { Field } from '../common'
 import { datePicto } from '../common/styles/paths'
 import { extractSingleValue } from '../icure-form/fields/utils'
 import { format } from 'date-fns'
-import { anyDateToDate } from '../../utils/icure-utils'
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
+import { anyDateToDate } from '../../utils/dates'
 
 export class IcureDatePickerField extends Field {
 	//TODO: support different date formats

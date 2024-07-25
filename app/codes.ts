@@ -1,3 +1,52 @@
+// ICPC-2 chapters
+export const icpc2 = {
+	B: 'XX',
+	D: 'XI',
+	F: 'VI',
+	H: 'VII',
+	K: 'IX',
+	L: 'XIII',
+	N: 'VI',
+	P: 'V',
+	R: 'X',
+	S: 'XII',
+	T: 'VI',
+	U: 'XIV',
+	W: 'XV',
+	X: 'XVI',
+	Y: 'XVIII',
+	Z: 'XXI',
+} as { [key: string]: string }
+
+// ICD-10 chapters
+export const icd10 = [
+	['I', new RegExp('^[AB][0–9]')],
+	['II', new RegExp('^C[0-9]–D[0-4]')],
+	['III', new RegExp('^D[5–9]')],
+	['IV', new RegExp('^E[0–9]')],
+	['V', new RegExp('^F[0–9]')],
+	['VI', new RegExp('^G[0–9]')],
+	['VII', new RegExp('^H[0–5]')],
+	['VIII', new RegExp('^H[6–9]')],
+	['IX', new RegExp('^I[0–9]')],
+	['X', new RegExp('^J[0–9]')],
+	['XI', new RegExp('^K[0–9]')],
+	['XII', new RegExp('^L[0–9]')],
+	['XIII', new RegExp('^M[0–9]')],
+	['XIV', new RegExp('^N[0–9]')],
+	['XV', new RegExp('^O[0–9]')],
+	['XVI', new RegExp('^P[0–9]')],
+	['XVII', new RegExp('^Q[0–9]')],
+	['XVIII', new RegExp('^R[0–9]')],
+	['XIX', new RegExp('^[ST][0–9]')],
+	['XX', new RegExp('^[VY][0–9]')],
+	['XXI', new RegExp('^Z[0–9]')],
+	['XXII', new RegExp('^U[0–9]')],
+]
+
+/**
+ * A subset of the thesaurus codes used in the example app.
+ */
 export const codes = [
 	{
 		id: 'BE-THESAURUS|10000533|3.1.0',

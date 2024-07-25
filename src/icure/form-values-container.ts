@@ -1,9 +1,9 @@
 import { Contact, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, FormValuesContainerMutation, ID, Version, VersionedData } from '../generic'
-import { ServiceMetadata } from '../icure'
+import { ServiceMetadata } from './model'
 import { FieldMetadata, FieldValue, PrimitiveType, Validator } from '../components/model'
-import { areCodesEqual, isContentEqual } from '../utils/icure-utils'
+import { areCodesEqual, isContentEqual } from './icure-utils'
 import { codeStubToCode } from '../utils/code-utils'
 import { contentToPrimitiveType, parsePrimitive, primitiveTypeToContent } from '../utils/primitive'
 
@@ -24,7 +24,7 @@ import { contentToPrimitiveType, parsePrimitive, primitiveTypeToContent } from '
  *
  * The icure-form typically accepts a BridgedFormValuesContainer as a prop and uses it to interact with the form.
  *
- * This class is fairly generic and can be used as an inspiration for other bridges
+ * This class is fairly generic and can be used as an inspiration or subclassed for other bridges
  */
 export class BridgedFormValuesContainer implements FormValuesContainer<FieldValue, FieldMetadata> {
 	private contact: Contact
@@ -328,6 +328,14 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	}
 }
 
+/**
+ * This class is a form values container that uses a hierarchy of forms as a data source. The actual values are extracted from the services of the contacts.
+ * The `currentContact` is the contact that has been selected by the user, any later contact should be ignored.
+ * The `contactsHistory` is used to provide the full history of the services.
+ * The hierarchy of ContactFormValuesContainer has to be maintained by the manager of the instances of this class (typically the BridgedFormValuesContainer).
+ * Each ContactFormValuesContainer has a reference to its `rootForm`.
+ * The `serviceFactory` and `formFactory` are used to create new services and add sub-forms.
+ */
 export class ContactFormValuesContainer implements FormValuesContainer<Service, ServiceMetadata> {
 	rootForm: ICureForm
 	currentContact: Contact //The contact of the moment, used to record new modifications
@@ -537,7 +545,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			}
 
 			let newCurrentContact: Contact
-			if (!Object.entries(newContents).filter(([_, cnt]) => cnt !== undefined).length) {
+			if (!Object.entries(newContents).filter(([, cnt]) => cnt !== undefined).length) {
 				newCurrentContact = {
 					...this.currentContact,
 					services: (this.currentContact.services ?? []).some((s) => s.id === service.id)

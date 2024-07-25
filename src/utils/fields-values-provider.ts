@@ -1,7 +1,8 @@
 import { normalizeCode } from '@icure/api'
 import { Field, FieldMetadata, FieldValue } from '../components/model'
 import { FormValuesContainer, Version, VersionedData } from '../generic'
-import { dateToFuzzyDate } from './icure-utils'
+
+import { dateToFuzzyDate } from './dates'
 
 function getRevisionsFilter(field: Field): (id: string, history: Version<FieldMetadata>[]) => string[] {
 	return (id, history) =>
@@ -38,7 +39,7 @@ export const getValidationError =
 
 export const handleValueChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
 	const wrapper = formsValueContainer ? [formsValueContainer] : []
-	return (label: string, language: string, value?: FieldValue, id?: string, index?: number) => {
+	return (label: string, language: string, value?: FieldValue, id?: string) => {
 		const fvc = wrapper[0]
 		if (fvc) {
 			const { result, formValuesContainer: newFvc } = fvc.setValue(

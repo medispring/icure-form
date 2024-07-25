@@ -16,8 +16,7 @@ export const makeInterpreter = () => {
 					const sandboxProxy = new Proxy<S>(sandbox, { has, get })
 					sb.set(sandbox, sandboxProxy)
 				}
-				const result = code(sb.get(sandbox))
-				return result
+				return code(sb.get(sandbox))
 			}
 
 			cs.set(src, wrapper)

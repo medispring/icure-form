@@ -1,16 +1,16 @@
 import { html, nothing, TemplateResult } from 'lit'
 import { Renderer, RendererProps } from '../index'
 import { fieldValuesProvider, getValidationError, handleMetadataChanged, handleValueChanged } from '../../../../utils/fields-values-provider'
-import { currentDate, currentDateTime, currentTime } from '../../../../utils/icure-utils'
 import { CodeStub, HealthcareParty } from '@icure/api'
 import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
 import { FormValuesContainer } from '../../../../generic'
 
 import { defaultTranslationProvider } from '../../../../utils/languages'
 import { getLabels } from '../../../common/utils'
-import { filerAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
+import { filterAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
 
 import './form-selection-button'
+import { currentDate, currentDateTime, currentTime } from '../../../../utils/dates'
 
 export const render: Renderer = (
 	form: Form,
@@ -279,7 +279,7 @@ export const render: Renderer = (
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
 				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
@@ -304,7 +304,7 @@ export const render: Renderer = (
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
 				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
@@ -330,7 +330,7 @@ export const render: Renderer = (
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
 				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filerAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
 			.ownersProvider="${ownersProvider}"
 			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"

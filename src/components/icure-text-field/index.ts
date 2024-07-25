@@ -32,8 +32,8 @@ import baseCss from '../common/styles/style.scss'
 
 import { extractSingleValue, extractValues } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes } from '../../utils/markdown'
-import { anyDateToDate } from '../../utils/icure-utils'
 import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
+import { anyDateToDate } from '../../utils/dates'
 
 class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}

@@ -6,54 +6,10 @@ import { property, state } from 'lit/decorators.js'
 import { makeFormValuesContainer } from './form-values-container'
 import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
-import { codes } from './codes'
+import { codes, icd10, icpc2 } from './codes'
 import { Code, Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
 import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
-
-const icd10 = [
-	['I', new RegExp('^[AB][0–9]')],
-	['II', new RegExp('^C[0-9]–D[0-4]')],
-	['III', new RegExp('^D[5–9]')],
-	['IV', new RegExp('^E[0–9]')],
-	['V', new RegExp('^F[0–9]')],
-	['VI', new RegExp('^G[0–9]')],
-	['VII', new RegExp('^H[0–5]')],
-	['VIII', new RegExp('^H[6–9]')],
-	['IX', new RegExp('^I[0–9]')],
-	['X', new RegExp('^J[0–9]')],
-	['XI', new RegExp('^K[0–9]')],
-	['XII', new RegExp('^L[0–9]')],
-	['XIII', new RegExp('^M[0–9]')],
-	['XIV', new RegExp('^N[0–9]')],
-	['XV', new RegExp('^O[0–9]')],
-	['XVI', new RegExp('^P[0–9]')],
-	['XVII', new RegExp('^Q[0–9]')],
-	['XVIII', new RegExp('^R[0–9]')],
-	['XIX', new RegExp('^[ST][0–9]')],
-	['XX', new RegExp('^[VY][0–9]')],
-	['XXI', new RegExp('^Z[0–9]')],
-	['XXII', new RegExp('^U[0–9]')],
-]
-
-const icpc2 = {
-	B: 'XX',
-	D: 'XI',
-	F: 'VI',
-	H: 'VII',
-	K: 'IX',
-	L: 'XIII',
-	N: 'VI',
-	P: 'V',
-	R: 'X',
-	S: 'XII',
-	T: 'VI',
-	U: 'XIV',
-	W: 'XV',
-	X: 'XVI',
-	Y: 'XVIII',
-	Z: 'XXI',
-} as { [key: string]: string }
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
@@ -82,7 +38,7 @@ export class DecoratedForm extends LitElement {
 
 	static get styles() {
 		return css`
-			icure-text-field {
+			.icure-text-field {
 				display: block;
 			}
 
@@ -101,8 +57,9 @@ export class DecoratedForm extends LitElement {
 	}
 
 	public undo() {
+		if (!this.formValuesContainer) return
 		if (this.undoStack.length > 0) {
-			this.redoStack.push(this.formValuesContainer!)
+			this.redoStack.push(this.formValuesContainer)
 			const popped = this.undoStack.pop() as BridgedFormValuesContainer
 			console.log('popped', popped)
 			this.formValuesContainer = popped
@@ -112,8 +69,9 @@ export class DecoratedForm extends LitElement {
 	}
 
 	public redo() {
+		if (!this.formValuesContainer) return
 		if (this.redoStack.length > 0) {
-			this.undoStack.push(this.formValuesContainer!)
+			this.undoStack.push(this.formValuesContainer)
 			this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
 		} else {
 			console.log('redo stack is empty')
@@ -163,6 +121,7 @@ export class DecoratedForm extends LitElement {
 								return extractFormulas(fg.fields ?? [])
 							} else if (fg.clazz === 'field') {
 								const formula = fg.computedProperties?.['value']
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								return formula ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, formula }] : []
 							} else {
 								return []
@@ -276,12 +235,6 @@ export class DecoratedForm extends LitElement {
 	}
 
 	render() {
-		// noinspection DuplicatedCode
-		// @ts-ignore
-
-		//console.log('redoStack', this.redoStack)
-		//console.log('undoStack', this.undoStack)
-
 		return html`
 			<icure-form
 				.form="${this.form}"

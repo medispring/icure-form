@@ -54,7 +54,7 @@ export const makeFormValuesContainer = () => {
 			modified: +new Date(),
 			formTemplateId: fti,
 			parent: rootForm.id,
-			descr: anchorId /* TODO, this hack is used to anchor a form inside a form template. Fix it by introducing an anchorId in Form */,
+			descr: anchorId /* TODO, this legacy iCure on Mac hack is used to anchor a form inside a form template. Fix it by introducing an anchorId in Form */,
 		}),
 	)
 }

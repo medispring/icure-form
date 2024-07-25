@@ -23,7 +23,7 @@ export const sortCodes = (codes: Code[], language: string, sortOptions?: SortOpt
 		? codes.sort(defaultCodesComparator(language, sortOptions?.sort === 'asc', sortOptions?.promotions ? makePromoter(sortOptions.promotions.split(/ ?, ?/)) : defaultCodePromoter))
 		: codes
 
-export const filerAndSortOptionsFromFieldDefinition = (
+export const filterAndSortOptionsFromFieldDefinition = (
 	language: string,
 	fg: Field,
 	translationProvider: ((language: string, text: string) => string) | undefined,

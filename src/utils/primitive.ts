@@ -1,6 +1,6 @@
 import { BooleanType, CompoundType, DateTimeType, MeasureType, NumberType, PrimitiveType, StringType, TimestampType } from '../components/model'
-import { anyDateToDate } from './icure-utils'
 import { Content } from '@icure/api'
+import { anyDateToDate } from './dates'
 
 export const normalizeUnit = (value: number, unit?: string): number => {
 	if (!unit) {

@@ -18,14 +18,18 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 		return [baseCss]
 	}
 
-	togglePopup(): void {
+	togglePopup(event: MouseEvent, force = false): void {
 		if (this.readonly) return
-		this.displayMenu = !this.displayMenu
+		this.displayMenu = force || !this.displayMenu
+		event.stopPropagation()
 	}
 
 	_handleClickOutside(event: MouseEvent): void {
 		if (!event.composedPath().includes(this)) {
-			this.displayMenu = false
+			if (this.displayMenu) {
+				console.log(this.label)
+				this.displayMenu = false
+			}
 			event.stopPropagation()
 		}
 	}
@@ -107,10 +111,10 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 		return html`
 			<div id="root" class="icure-text-field ${inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
-				<div class="icure-input" @click="${this.togglePopup}" id="test">
+				<div class="icure-input" id="test" @click="${(event: MouseEvent) => this.togglePopup(event, true)}">
 					<input type="text" id="editor" style="outline: none" .value=${this.textInputValue ?? inputValue ?? ''} @input="${this.textInputChanged()}" />
 					<div id="extra" class=${'extra forced'}>
-						<button class="btn select-arrow">${dropdownPicto}</button>
+						<button class="btn select-arrow" @click="${this.togglePopup}">${dropdownPicto}</button>
 						${this.displayMenu
 							? html`
 									<div id="menu" class="options">
