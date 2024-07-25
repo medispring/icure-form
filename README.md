@@ -165,3 +165,9 @@ the icure-form component accepts the following properties:
 - optionsProvider: OptionsProvider - an optional provider that provides options for some fields of the form (like dropdown fields)
 - translationsProvider: TranslationsProvider - an optional provider that provides translations for the form
 
+Themes can be applied to renderers by importing one theme before importing/instantiating the icure-form component. 
+The themes are located in the src/themes folder.
+
+```javascript
+import '../src/components/themes/icure-blue'
+```

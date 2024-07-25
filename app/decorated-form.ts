@@ -1,4 +1,4 @@
-//import '../src/components/themes/ehr-lite'
+//import '../src/components/themes/icure-blue'
 import '../src/components/themes/kendo'
 import { css, html, LitElement } from 'lit'
 import { BridgedFormValuesContainer } from '../src/icure'
