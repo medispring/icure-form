@@ -4,8 +4,7 @@ import { FormValuesContainer } from '../../../generic'
 import { Code, FieldMetadata, FieldValue, Form } from '../../model'
 
 export interface RendererProps {
-	defaultLanguage?: string
-	displayedLanguage?: string
+	language?: string
 	labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'float'
 	defaultOwner?: string
 }

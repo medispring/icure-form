@@ -13,8 +13,7 @@ export class ItemsListField extends Field {
 			.multiline="${this.multiline}"
 			.lines="${this.lines}"
 			.displayedLabels="${this.displayedLabels}"
-			defaultLanguage="${this.defaultLanguage}"
-			displayedLanguage="${this.displayedLanguage}"
+			.defaultLanguage="${this.defaultLanguage}"
 			.valueProvider=${this.valueProvider}
 			.validationErrorsProvider=${this.validationErrorsProvider}
 			.metadataProvider=${this.metadataProvider}

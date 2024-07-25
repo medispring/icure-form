@@ -21,7 +21,7 @@ Inside your HTML file, add the following tag:
 	.form="${this.form}"
 	labelPosition="above"
 	renderer="form"
-	displayedLanguage="en"
+	dafaultLanguage="en"
 	.formValuesContainer="${this.formValuesContainer}"
 	.codesProvider="${this.codesProvider}"
 	.optionsProvider="${this.optionsProvider}"
@@ -145,6 +145,9 @@ The form values container is responsible for storing the values of the form and 
 We cannot state enough how important it is to keep the form values container immutable. While this can seem cumbersome at first, it is a very powerful pattern that allows for easy undo/redo functionalities, easy state management, and easy debugging.
 It also allows for optimisations as the values of the form values container can be reused in a new form values container if they have not changed.
 
+It is also very important in the design to keep all code that is not under src/icure and src/conversion completely agnostic in terms of data model.
+For example, it is not a good idea to make assumptions about the kind of data structure that are going to be available to the fields (like relying on it being a Service). 
+
 ### The renderer
 
 The renderer is instantiated by the icure-form component and is responsible for rendering the form based on the form object and the form values container.
@@ -157,7 +160,7 @@ the icure-form component accepts the following properties:
 - readonly: boolean - a boolean indicating if the form should be read-only or not
 - labelPosition: string - the favoured position of the labels in the form. This option can or cannot be honoured by the renderer.
 - formValuesContainer: FormValuesContainer<FieldValue, FieldMetadate> : the form values container that contains the values of the form
-- displayedLanguage: string - the language in which the form should be displayed
+- language: string - the language in which the form should be displayed
 - codesProvider: CodesProvider - an optional provider that provides codifications for the form
 - optionsProvider: OptionsProvider - an optional provider that provides options for some fields of the form (like dropdown fields)
 - translationsProvider: TranslationsProvider - an optional provider that provides translations for the form

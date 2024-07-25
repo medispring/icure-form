@@ -61,7 +61,7 @@ export class DecoratedForm extends LitElement {
 	@property() form: Form
 	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
 
-	@property() displayedLanguage?: string = 'fr'
+	@property() language?: string = 'fr'
 
 	private undoStack: BridgedFormValuesContainer[] = []
 	private redoStack: BridgedFormValuesContainer[] = []
@@ -190,10 +190,10 @@ export class DecoratedForm extends LitElement {
 
 					return form ? extractValidators(form.sections?.flatMap((f) => f.fields) ?? []) : []
 				},
-				this.displayedLanguage,
+				this.language,
 			),
 			this.form,
-			this.displayedLanguage,
+			this.language,
 			responsible,
 		) as BridgedFormValuesContainer
 
@@ -287,7 +287,7 @@ export class DecoratedForm extends LitElement {
 				.form="${this.form}"
 				labelPosition="above"
 				renderer="form"
-				displayedLanguage="${this.displayedLanguage}"
+				.language="${this.language}"
 				.formValuesContainer="${this.formValuesContainer}"
 				.codesProvider="${this.codesProvider.bind(this)}"
 				.optionsProvider="${this.optionsProvider.bind(this)}"

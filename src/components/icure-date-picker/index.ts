@@ -68,7 +68,7 @@ export class IcureDatePickerField extends Field {
 					${this.displayDatePicker
 						? html`<div id="menu" class="date-picker" @click="${(event: Event) => event.stopPropagation()}">
 								<app-date-picker
-									locale="${this.displayedLanguage || this.defaultLanguage || 'en'}"
+									locale="${this.displayedLanguage ?? this.defaultLanguage ?? 'en'}"
 									style=""
 									max="${MAX_DATE}"
 									min="${toResolvedDate('1900-01-01')}"

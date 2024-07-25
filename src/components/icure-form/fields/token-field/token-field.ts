@@ -12,8 +12,7 @@ export class TokenField extends Field {
 			.multiline="${this.multiline}"
 			.lines="${this.lines}"
 			.displayedLabels="${this.displayedLabels}"
-			defaultLanguage="${this.defaultLanguage}"
-			displayedLanguage="${this.displayedLanguage}"
+			.defaultLanguage="${this.defaultLanguage}"
 			schema="tokens-list"
 			.valueProvider=${this.valueProvider}
 			.validationErrorsProvider=${this.validationErrorsProvider}

@@ -1,4 +1,4 @@
-import { property } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { LitElement } from 'lit'
 import { FieldMetadata, FieldValue, Labels } from '../model'
 import { VersionedData } from '../../generic'
@@ -34,7 +34,6 @@ export class Field extends LitElement {
 	/**
 	 * Iso code of the default language
 	 */
-	@property() displayedLanguage?: string = this.defaultLanguage
 	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
 
 	/**
@@ -49,7 +48,9 @@ export class Field extends LitElement {
 	@property() public visible = true
 	@property() readonly = false
 
+	@state() displayedLanguage?: string = undefined
+
 	language(): string {
-		return (this.translate ? this.displayedLanguage : this.defaultLanguage) ?? 'en'
+		return (this.translate ? this.displayedLanguage ?? this.defaultLanguage : this.defaultLanguage) ?? 'en'
 	}
 }

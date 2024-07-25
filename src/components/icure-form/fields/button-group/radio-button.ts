@@ -15,8 +15,7 @@ export class RadioButton extends Field {
 					type="radio"
 					.displayedLabels="${this.displayedLabels}"
 					label="${this.label}"
-					defaultLanguage="${this.defaultLanguage}"
-					displayedLanguage="${this.displayedLanguage}"
+					.defaultLanguage="${this.defaultLanguage}"
 					.translate="${this.translate}"
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}

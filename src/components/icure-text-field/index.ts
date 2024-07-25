@@ -93,7 +93,7 @@ export class IcureTextField extends Field {
 
 	@state() protected displayVersionsMenu = false
 
-	@state() protected availableLanguages = [this.displayedLanguage]
+	@state() protected availableLanguages = [this.defaultLanguage]
 
 	private proseMirrorSchema?: Schema
 	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType, id?: string) => ProsemirrorNode | undefined }
@@ -635,12 +635,12 @@ export class IcureTextField extends Field {
 		return schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => {
 					const unit = (doc?.childCount ?? 0) > 1 ? doc?.child(1)?.textContent : undefined
-					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? 'en']: unit } }] : []
+					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
 			  }
 			: schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => {
 					const unit = doc?.child(1)?.textContent
-					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? 'en']: unit } }] : []
+					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
 			  }
 			: () => []
 	}
