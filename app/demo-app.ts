@@ -158,6 +158,7 @@ class DemoApp extends LitElement {
 		}
 		return codes
 	}
+
 	render() {
 		return html`
 			<div class="container">

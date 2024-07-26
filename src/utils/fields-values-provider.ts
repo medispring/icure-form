@@ -36,7 +36,7 @@ export const getValidationError =
 		return validators.filter(([metadata]) => metadata.label === field?.label())
 	}
 
-export const handleValueChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
+export const handleValueChangedProvider = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
 	const wrapper = formsValueContainer ? [formsValueContainer] : []
 	return (label: string, language: string, value?: FieldValue, id?: string) => {
 		const fvc = wrapper[0]
@@ -57,9 +57,15 @@ export const handleValueChanged = (formsValueContainer?: FormValuesContainer<Fie
 	}
 }
 
-export const handleMetadataChanged = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>) => (label: string, metadata: FieldMetadata, id?: string) => {
-	if (formsValueContainer) {
-		return (formsValueContainer: FormValuesContainer<FieldValue, FieldMetadata>) => formsValueContainer?.setMetadata(label, metadata, id)
+export const handleMetadataChangedProvider = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>) => {
+	const wrapper = formsValueContainer ? [formsValueContainer] : []
+	return (label: string, metadata: FieldMetadata, id?: string) => {
+		const fvc = wrapper[0]
+		if (fvc) {
+			const { result, formValuesContainer: newFvc } = fvc.setMetadata(label, metadata, id)
+			wrapper[0] = newFvc
+			return { result, formValuesContainer: newFvc }
+		}
+		return undefined
 	}
-	return undefined
 }

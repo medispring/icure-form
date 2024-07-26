@@ -1,6 +1,6 @@
 import { html, nothing, TemplateResult } from 'lit'
 import { Renderer, RendererProps } from '../index'
-import { fieldValuesProvider, getValidationError, handleMetadataChanged, handleValueChanged } from '../../../../utils/fields-values-provider'
+import { fieldValuesProvider, getValidationError, handleMetadataChangedProvider, handleValueChangedProvider } from '../../../../utils/fields-values-provider'
 import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
 import { FormValuesContainer, Suggestion } from '../../../../generic'
 
@@ -113,8 +113,8 @@ export const render: Renderer = (
 			.codeContentProvider=${fg.options?.codeContentProvider}
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-text-field>`
@@ -137,8 +137,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-token-field>`
@@ -161,8 +161,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-items-list-field>`
@@ -182,8 +182,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-measure-field>`
@@ -202,8 +202,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-number-field>`
@@ -222,8 +222,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-date-picker>`
@@ -242,8 +242,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-time-picker>`
@@ -262,8 +262,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-date-time-picker>`
@@ -288,8 +288,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-dropdown-field>`
@@ -314,8 +314,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider=${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}
-			.handleValueChanged=${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}
-			.handleMetadataChanged=${handleMetadataChanged(formsValueContainer)}
+			.handleValueChanged=${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}
+			.handleMetadataChanged=${handleMetadataChangedProvider(formsValueContainer)}
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-radio-button>`
@@ -341,8 +341,8 @@ export const render: Renderer = (
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
 			.metadataProvider="${formsValueContainer && formsValueContainer.getMetadata.bind(formsValueContainer)}"
-			.handleValueChanged="${handleValueChanged(formsValueContainer, fg, props.defaultOwner)}"
-			.handleMetadataChanged="${handleMetadataChanged(formsValueContainer)}"
+			.handleValueChanged="${handleValueChangedProvider(formsValueContainer, fg, props.defaultOwner)}"
+			.handleMetadataChanged="${handleMetadataChangedProvider(formsValueContainer)}"
 			.styleOptions="${fg.styleOptions}"
 			.readonly="${readonly || fg.readonly || (fg.computedProperties?.readonly ? !formsValueContainer?.compute(fg.computedProperties?.readonly) : false)}"
 		></icure-form-checkbox>`

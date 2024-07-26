@@ -21,6 +21,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 	togglePopup(event: MouseEvent, force = false): void {
 		if (this.readonly) return
 		this.displayMenu = force || !this.displayMenu
+		console.log('togglePopup', this.textInputValue)
 		event.stopPropagation()
 	}
 
@@ -49,17 +50,20 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 			const target = e.target as HTMLInputElement
 			const textInputValue = target.value
 			this.textInputValue = textInputValue
-
-			setTimeout(() => {
-				if (textInputValue === this.textInputValue) {
-					this.optionsProvider?.(this.language(), textInputValue ? [textInputValue] : []).then((options) => {
-						if (textInputValue === this.textInputValue) {
-							this.displayedOptions = options
-						}
-					})
-				}
-			}, 500)
+			this.triggerSearch(textInputValue)
 		}
+	}
+
+	private triggerSearch(textInputValue: string | undefined, cooldown = 500) {
+		setTimeout(() => {
+			if (textInputValue === this.textInputValue) {
+				this.optionsProvider?.(this.language(), textInputValue ? [textInputValue] : []).then((options) => {
+					if (textInputValue === this.textInputValue) {
+						this.displayedOptions = options
+					}
+				})
+			}
+		}, cooldown)
 	}
 
 	handleOptionButtonClicked(id: string | undefined): (e: Event) => boolean {
@@ -81,6 +85,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 					},
 					valueId,
 				)
+				this.triggerSearch(undefined, 0)
 				return true
 			}
 			return false
