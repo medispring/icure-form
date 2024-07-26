@@ -14,6 +14,7 @@ export class CheckBox extends Field {
 				<icure-button-group
 					type="checkbox"
 					.readonly="${this.readonly}"
+					.displayMetadata="${this.displayMetadata}"
 					.displayedLabels="${this.displayedLabels}"
 					label="${this.label}"
 					.defaultLanguage="${this.defaultLanguage}"

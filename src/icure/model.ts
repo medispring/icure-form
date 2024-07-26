@@ -4,7 +4,7 @@ export interface ServiceMetadata {
 	label: string
 	index?: number
 	valueDate?: number
-	owner?: string
+	author?: string
 	responsible?: string
 	codes?: CodeStub[]
 	tags?: CodeStub[]

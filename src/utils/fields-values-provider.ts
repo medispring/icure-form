@@ -1,4 +1,3 @@
-import { normalizeCode } from '@icure/api'
 import { Field, FieldMetadata, FieldValue } from '../components/model'
 import { FormValuesContainer, Version, VersionedData } from '../generic'
 
@@ -7,7 +6,7 @@ import { dateToFuzzyDate } from './dates'
 function getRevisionsFilter(field: Field): (id: string, history: Version<FieldMetadata>[]) => string[] {
 	return (id, history) =>
 		history
-			.filter((fmd) => (field.tags?.length ? field.tags.every((t) => fmd?.value?.tags?.some((tt) => normalizeCode(tt).id === t)) : fmd?.value?.label === field.label()))
+			.filter((fmd) => (field.tags?.length ? field.tags.every((t) => fmd?.value?.tags?.some((tt) => tt.id === t)) : fmd?.value?.label === field.label()))
 			.map((fmd) => fmd.revision)
 			.filter((r) => r !== undefined) as string[] //null is used as a new revision indicator
 }

@@ -1,4 +1,5 @@
 import { CodeStub, Content, Service } from '@icure/api'
+import { BooleanType, CompoundType, DateTimeType, MeasureType, NumberType, PrimitiveType, StringType, TimestampType } from '../components/model'
 
 export function isCodeEqual(c1: CodeStub, c2: CodeStub): boolean {
 	const idParts1 = c1.id?.split('|')
@@ -51,3 +52,69 @@ export function isContentEqual(content1: Content | undefined, content2: Content 
 export function isServiceContentEqual(content1: { [language: string]: Content }, content2: { [language: string]: Content }): boolean {
 	return Object.keys(content1).reduce((isEqual, lng) => isEqual && isContentEqual(content1[lng], content2[lng]), true as boolean)
 }
+
+export const primitiveTypeToContent = (language: string, value: PrimitiveType): Content => {
+	return {
+		...(value.type === 'number' ? { numberValue: (value as NumberType).value } : {}),
+		...(value.type === 'measure'
+			? {
+					measureValue: {
+						value: (value as MeasureType).value,
+						unit: (value as MeasureType).unit,
+					},
+			  }
+			: {}),
+		...(value.type === 'string' ? { stringValue: (value as StringType).value } : {}),
+		...(value.type === 'datetime' ? { fuzzyDateValue: (value as DateTimeType).value } : {}),
+		...(value.type === 'boolean' ? { booleanValue: (value as BooleanType).value } : {}),
+		...(value.type === 'timestamp' ? { instantValue: (value as TimestampType).value } : {}),
+		...(value.type === 'compound'
+			? {
+					compoundValue: Object.entries((value as CompoundType).value).map(([label, value]) => ({
+						label,
+						content: {
+							[language]: primitiveTypeToContent(language, value),
+						},
+					})),
+			  }
+			: {}),
+	}
+}
+export const contentToPrimitiveType = (language: string, content: Content | undefined): PrimitiveType | undefined => {
+	if (!content) {
+		return undefined
+	}
+	if (content.numberValue || content.numberValue === 0) {
+		return { type: 'number', value: content.numberValue }
+	}
+	if (content.measureValue?.value || content.measureValue?.value === 0 || content.measureValue?.unit?.length) {
+		return { type: 'measure', value: content.measureValue?.value, unit: content.measureValue?.unit }
+	}
+	if (content.stringValue) {
+		return { type: 'string', value: content.stringValue }
+	}
+	if (content.fuzzyDateValue) {
+		return { type: 'datetime', value: content.fuzzyDateValue }
+	}
+	if (content.booleanValue) {
+		return { type: 'boolean', value: content.booleanValue }
+	}
+	if (content.instantValue) {
+		return { type: 'timestamp', value: content.instantValue }
+	}
+	if (content.compoundValue) {
+		return {
+			type: 'compound',
+			value: content.compoundValue.reduce((acc: { [label: string]: PrimitiveType }, { label, content }) => {
+				const primitiveValue = contentToPrimitiveType(language, content?.[language])
+				return label && primitiveValue ? { ...acc, [label]: primitiveValue } : acc
+			}, {}),
+		}
+	}
+
+	return undefined
+}
+export const codeStubToCode = (c: CodeStub) => ({
+	id: c.id ?? `${c.type}|${c.code}|${c.version}`,
+	label: c.label ?? {},
+})

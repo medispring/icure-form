@@ -142,7 +142,7 @@ class DemoApp extends LitElement {
 			}
 		}
 	}
-	async ownersProvider(terms: string[]) {
+	async ownersProvider(terms: string[], ids?: string[], specialties?: string[]) {
 		const longestTerm = terms.reduce((w, t) => (w.length >= t.length ? w : t), '')
 		const candidates = await this.hcpApi.findByName(longestTerm)
 		return (candidates.rows || []).map((x) => ({

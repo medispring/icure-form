@@ -47,6 +47,7 @@ export class Field extends LitElement {
 
 	@property() public visible = true
 	@property() readonly = false
+	@property() displayMetadata = false
 
 	@state() displayedLanguage?: string = undefined
 

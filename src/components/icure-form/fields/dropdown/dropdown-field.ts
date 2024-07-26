@@ -3,9 +3,10 @@ import { property } from 'lit/decorators.js'
 import { Field } from '../../../common'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
 import { Code } from '../../../model'
+import { Suggestion } from '../../../../generic'
 
 export class DropdownField extends Field {
-	@property() ownersProvider: (speciality: string[]) => { id: string; name: string }[] = () => []
+	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Code[]> = async () => []
 
 	render(): TemplateResult[] {
@@ -14,6 +15,7 @@ export class DropdownField extends Field {
 			return html`
 				<icure-dropdown-field
 					.readonly="${this.readonly}"
+					.displayMetadata="${this.displayMetadata}"
 					.translate="${this.translate}"
 					label="${this.label}"
 					.displayedLabels="${this.displayedLabels}"

@@ -10,6 +10,7 @@ import { codes, icd10, icpc2 } from './codes'
 import { Code, Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
 import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
+import { Suggestion } from '../src/generic'
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
@@ -80,7 +81,7 @@ export class DecoratedForm extends LitElement {
 
 	async firstUpdated() {
 		const contactFormValuesContainer = await makeFormValuesContainer()
-		const responsible = 'user-id'
+		const responsible = '1'
 
 		const findForm = (form: Form, anchorId: string | undefined, templateId: string): Form | undefined => {
 			if (anchorId === undefined) {
@@ -234,14 +235,28 @@ export class DecoratedForm extends LitElement {
 		})
 	}
 
+	async ownersProvider(terms: string[], ids?: string[], specialties?: string[]): Promise<Suggestion[]> {
+		await sleep(100)
+		return [
+			{ id: '1', name: 'Dr. John Doe', specialties: ['General Medicine'] },
+			{ id: '2', name: 'Dr. Jane Doe', specialties: ['ORL'] },
+		]
+			.filter((hcp) => {
+				return terms.every((t) => hcp.name.includes(t)) && (!ids?.length || ids.includes(hcp.id)) && (!specialties?.length || specialties.some((s) => hcp.specialties.includes(s)))
+			})
+			.map((x) => ({ id: x.id, text: x.name, terms: terms, label: {} }))
+	}
+
 	render() {
 		return html`
 			<icure-form
 				.form="${this.form}"
 				labelPosition="above"
 				renderer="form"
+				.displayMetadata="${true}"
 				.language="${this.language}"
 				.formValuesContainer="${this.formValuesContainer}"
+				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.codesProvider="${this.codesProvider.bind(this)}"
 				.optionsProvider="${this.optionsProvider.bind(this)}"
 			></icure-form>

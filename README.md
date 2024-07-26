@@ -171,3 +171,5 @@ The themes are located in the src/themes folder.
 ```javascript
 import '../src/components/themes/icure-blue'
 ```
+
+

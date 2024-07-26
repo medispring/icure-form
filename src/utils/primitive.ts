@@ -1,5 +1,4 @@
-import { BooleanType, CompoundType, DateTimeType, MeasureType, NumberType, PrimitiveType, StringType, TimestampType } from '../components/model'
-import { Content } from '@icure/api'
+import { PrimitiveType } from '../components/model'
 import { anyDateToDate } from './dates'
 
 export const normalizeUnit = (value: number, unit?: string): number => {
@@ -64,67 +63,4 @@ export const parsePrimitive = (value: PrimitiveType): ParsedPrimitiveType | unde
 				.map(parsePrimitive)
 				.filter((x) => x !== undefined) as ParsedPrimitiveType[]
 	}
-}
-
-export const primitiveTypeToContent = (language: string, value: PrimitiveType): Content => {
-	return {
-		...(value.type === 'number' ? { numberValue: (value as NumberType).value } : {}),
-		...(value.type === 'measure'
-			? {
-					measureValue: {
-						value: (value as MeasureType).value,
-						unit: (value as MeasureType).unit,
-					},
-			  }
-			: {}),
-		...(value.type === 'string' ? { stringValue: (value as StringType).value } : {}),
-		...(value.type === 'datetime' ? { fuzzyDateValue: (value as DateTimeType).value } : {}),
-		...(value.type === 'boolean' ? { booleanValue: (value as BooleanType).value } : {}),
-		...(value.type === 'timestamp' ? { instantValue: (value as TimestampType).value } : {}),
-		...(value.type === 'compound'
-			? {
-					compoundValue: Object.entries((value as CompoundType).value).map(([label, value]) => ({
-						label,
-						content: {
-							[language]: primitiveTypeToContent(language, value),
-						},
-					})),
-			  }
-			: {}),
-	}
-}
-
-export const contentToPrimitiveType = (language: string, content: Content | undefined): PrimitiveType | undefined => {
-	if (!content) {
-		return undefined
-	}
-	if (content.numberValue || content.numberValue === 0) {
-		return { type: 'number', value: content.numberValue }
-	}
-	if (content.measureValue?.value || content.measureValue?.value === 0 || content.measureValue?.unit?.length) {
-		return { type: 'measure', value: content.measureValue?.value, unit: content.measureValue?.unit }
-	}
-	if (content.stringValue) {
-		return { type: 'string', value: content.stringValue }
-	}
-	if (content.fuzzyDateValue) {
-		return { type: 'datetime', value: content.fuzzyDateValue }
-	}
-	if (content.booleanValue) {
-		return { type: 'boolean', value: content.booleanValue }
-	}
-	if (content.instantValue) {
-		return { type: 'timestamp', value: content.instantValue }
-	}
-	if (content.compoundValue) {
-		return {
-			type: 'compound',
-			value: content.compoundValue.reduce((acc: { [label: string]: PrimitiveType }, { label, content }) => {
-				const primitiveValue = contentToPrimitiveType(language, content?.[language])
-				return label && primitiveValue ? { ...acc, [label]: primitiveValue } : acc
-			}, {}),
-		}
-	}
-
-	return undefined
 }

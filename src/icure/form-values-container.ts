@@ -3,9 +3,8 @@ import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, FormValuesContainerMutation, ID, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from './model'
 import { FieldMetadata, FieldValue, PrimitiveType, Validator } from '../components/model'
-import { areCodesEqual, isContentEqual } from './icure-utils'
-import { codeStubToCode } from '../utils/code-utils'
-import { contentToPrimitiveType, parsePrimitive, primitiveTypeToContent } from '../utils/primitive'
+import { areCodesEqual, codeStubToCode, contentToPrimitiveType, isContentEqual, primitiveTypeToContent } from './icure-utils'
+import { parsePrimitive } from '../utils/primitive'
 
 /** This class is a bridge between the ICure API and the generic FormValuesContainer interface.
  * It wraps around a ContactFormValuesContainer and provides a series of services:
@@ -108,8 +107,8 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 
 	getValues(revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]): VersionedData<FieldValue> {
 		return Object.entries(
-			this.contactFormValuesContainer.getValues((id, history) => {
-				return revisionsFilter(
+			this.contactFormValuesContainer.getValues((id, history) =>
+				revisionsFilter(
 					id,
 					history
 						.filter(({ modified }) => !this.contact.created || !modified || modified <= this.contact.created)
@@ -118,13 +117,13 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 							modified,
 							value: {
 								label: sm.label,
-								owner: sm.owner,
+								owner: sm.responsible,
 								tags: sm.tags?.map(codeStubToCode),
 								valueDate: sm.valueDate,
 							},
 						})),
-				)
-			}),
+				),
+			),
 		).reduce((acc, [id, history]) => {
 			return {
 				...acc,
@@ -152,7 +151,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 					modified,
 					value: {
 						label: s.label,
-						owner: s.owner,
+						owner: s.responsible,
 						valueDate: s.valueDate,
 						tags: s.tags,
 					},
@@ -228,8 +227,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			label,
 			{
 				label: meta.label,
-				responsible: this.responsible,
-				owner: meta.owner,
+				responsible: meta.owner,
 				valueDate: meta.valueDate,
 				tags: meta.tags,
 			},
@@ -472,7 +470,6 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 												modified: s.modified,
 												value: {
 													label: s.label ?? s.id,
-													owner: s.author,
 													responsible: s.responsible,
 													valueDate: s.valueDate,
 													tags: s.tags,
@@ -493,14 +490,12 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		}
 		if (
 			(meta.responsible && service.responsible !== meta.responsible) ||
-			(meta.owner && service.author !== meta.owner) ||
 			(meta.valueDate && service.valueDate !== meta.valueDate) ||
 			(meta.codes && service.codes !== meta.codes) ||
 			(meta.tags && service.tags !== meta.tags)
 		) {
 			const newService = new Service({ ...service, modified: Date.now() })
 			meta.responsible && (newService.responsible = meta.responsible)
-			meta.owner && (newService.author = meta.owner)
 			meta.valueDate && (newService.valueDate = meta.valueDate)
 			meta.codes && (newService.codes = meta.codes)
 			meta.tags && (newService.tags = meta.tags)
@@ -558,7 +553,6 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 				if (metadata) {
 					newService.responsible = metadata.responsible ?? newService.responsible
-					newService.author = metadata.owner ?? newService.author
 					newService.valueDate = metadata.valueDate ?? newService.valueDate
 					newService.tags = metadata.tags ?? newService.tags
 					newService.label = metadata.label ?? newService.label
@@ -639,8 +633,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 						modified,
 						value: {
 							label: s.label ?? s.id ?? '',
-							owner: s.author,
-							responsible: s.responsible,
+							owner: s.responsible,
 							valueDate: s.valueDate,
 							codes: s.codes,
 							tags: s.tags,
@@ -706,7 +699,12 @@ const setValueOnContactFormValuesContainer = (cfvc: ContactFormValuesContainer, 
 				: undefined,
 		},
 		id,
-		metadata,
+		{
+			label: metadata?.label ?? '',
+			responsible: metadata?.owner,
+			valueDate: metadata?.valueDate,
+			tags: metadata?.tags,
+		},
 	)
 	return mutation
 }

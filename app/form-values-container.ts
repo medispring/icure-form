@@ -46,7 +46,7 @@ export const makeFormValuesContainer = () => {
 		rootForm,
 		cc,
 		[ctc],
-		(label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now }),
+		(label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now, responsible: '1' }),
 		async () => [],
 		async (anchorId: string, fti, label) => ({
 			id: uuid(),

@@ -52,7 +52,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 
 			setTimeout(() => {
 				if (textInputValue === this.textInputValue) {
-					this.optionsProvider?.(this.language(), textInputValue).then((options) => {
+					this.optionsProvider?.(this.language(), textInputValue ? [textInputValue] : []).then((options) => {
 						if (textInputValue === this.textInputValue) {
 							this.displayedOptions = options
 						}

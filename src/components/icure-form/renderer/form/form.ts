@@ -1,9 +1,8 @@
 import { html, nothing, TemplateResult } from 'lit'
 import { Renderer, RendererProps } from '../index'
 import { fieldValuesProvider, getValidationError, handleMetadataChanged, handleValueChanged } from '../../../../utils/fields-values-provider'
-import { CodeStub, HealthcareParty } from '@icure/api'
 import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
-import { FormValuesContainer } from '../../../../generic'
+import { FormValuesContainer, Suggestion } from '../../../../generic'
 
 import { defaultTranslationProvider } from '../../../../utils/languages'
 import { getLabels } from '../../../common/utils'
@@ -17,33 +16,29 @@ export const render: Renderer = (
 	props: RendererProps,
 	formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>,
 	translationProvider?: (language: string, text: string) => string,
-	ownersProvider: (speciality: string[]) => HealthcareParty[] = () => [],
-	codesProvider: (codifications: string[], searchTerm: string) => Promise<CodeStub[]> = () => Promise.resolve([]),
-	optionsProvider?: (language: string, codifications: string[], searchTerm?: string) => Promise<Code[]>,
+	ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => [],
+	codesProvider: (codifications: string[], terms: string[]) => Promise<Suggestion[]> = async () => [],
+	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
 	readonly?: boolean,
+	displayMetadata?: boolean,
 ) => {
 	const composedOptionsProvider =
 		optionsProvider && form.codifications
-			? async (language: string, codifications: string[], searchTerms?: string): Promise<Code[]> => {
-					const originalOptions = optionsProvider ? await optionsProvider(language, codifications, searchTerms) : []
+			? async (language: string, codifications: string[], terms?: string[]): Promise<Suggestion[]> => {
+					const originalOptions = optionsProvider ? await optionsProvider(language, codifications, terms) : []
 					return originalOptions.concat(
 						form.codifications
 							?.filter((c) => codifications.includes(c.type))
 							?.flatMap((c) =>
-								c.codes.filter(
-									(c) =>
-										!searchTerms ||
-										searchTerms
-											.split(/\s+/)
-											.map((st) => st.toLowerCase())
-											.every((st) => c.label[language].toLowerCase().includes(st)),
-								),
+								c.codes
+									.filter((c) => (terms ?? []).map((st) => st.toLowerCase()).every((st) => c.label[language].toLowerCase().includes(st)))
+									.map((c) => ({ id: c.id, label: c.label, text: c.label[language], terms: terms ?? [] })),
 							) ?? [],
 					)
 			  }
 			: optionsProvider
-			? (language: string, codifications: string[], searchTerms?: string, sortOptions?: SortOptions): Promise<Code[]> => {
-					return optionsProvider?.(language, codifications, searchTerms).then((codes) => sortCodes(codes, language, sortOptions)) ?? Promise.resolve([])
+			? (language: string, codifications: string[], terms?: string[], sortOptions?: SortOptions): Promise<Code[]> => {
+					return optionsProvider?.(language, codifications, terms).then((codes) => sortCodes(codes, language, sortOptions)) ?? Promise.resolve([])
 			  }
 			: undefined
 
@@ -86,7 +81,7 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="container">
-								${render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider)}
+								${render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider, readonly, displayMetadata)}
 								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
 								<hr />
 							</div>
@@ -104,12 +99,13 @@ export const render: Renderer = (
 			label="${fg.field}"
 			value="${fg.value}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			.multiline="${fg.multiline || false}"
 			.lines=${fgRowSpan}
 			.defaultLanguage="${props.language}"
 			.linksProvider=${fg.options?.linksProvider}
 			.suggestionProvider=${fg.options?.suggestionProvider}
-			.ownersProvider=${fg.options?.ownersProvider}
+			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.codeColorProvider=${fg.options?.codeColorProvider}
@@ -131,11 +127,12 @@ export const render: Renderer = (
 			label="${fg.field}"
 			value="${fg.value}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			.multiline="${fg.multiline || false}"
 			.lines=${fgRowSpan}
 			.defaultLanguage="${props.language}"
 			.suggestionProvider=${fg.options?.suggestionProvider}
-			.ownersProvider=${fg.options?.ownersProvider}
+			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
@@ -154,11 +151,12 @@ export const render: Renderer = (
 			label="${fg.field}"
 			value="${fg.value}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			.multiline="${fg.multiline || false}"
 			.lines=${fgRowSpan}
 			.defaultLanguage="${props.language}"
 			.suggestionProvider=${fg.options?.suggestionProvider}
-			.ownersProvider=${fg.options?.ownersProvider}
+			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.valueProvider="${formsValueContainer && fieldValuesProvider(formsValueContainer, fg)}"
@@ -176,6 +174,7 @@ export const render: Renderer = (
 			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			value="${fg.value}"
 			unit="${fg.unit}"
 			.defaultLanguage="${props.language}"
@@ -196,6 +195,7 @@ export const render: Renderer = (
 			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			value="${fg.value}"
 			.defaultLanguage="${props.language}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -215,6 +215,7 @@ export const render: Renderer = (
 			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			value="${fg.now ? currentDate() : fg.value}"
 			.defaultLanguage="${props.language}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -234,6 +235,7 @@ export const render: Renderer = (
 			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			value="${fg.now ? currentTime() : fg.value}"
 			.defaultLanguage="${props.language}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -253,6 +255,7 @@ export const render: Renderer = (
 			class="icure-form-field"
 			label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			value="${fg.now ? currentDateTime() : fg.value}"
 			.defaultLanguage="${props.language}"
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
@@ -278,8 +281,8 @@ export const render: Renderer = (
 			value="${fg.value}"
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				? (language: string, terms?: string[]) => composedOptionsProvider(language, fg.codifications ?? [], terms, fg.sortOptions)
+				: (language: string, terms?: string[]) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, terms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
@@ -298,13 +301,14 @@ export const render: Renderer = (
 			class="icure-form-field"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			.defaultLanguage="${props.language}"
 			.translate="${fg.translate}"
 			.sortOptions="${fg.sortOptions}"
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				? (language: string, terms?: string[]) => composedOptionsProvider(language, fg.codifications ?? [], terms, fg.sortOptions)
+				: (language: string, terms?: string[]) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, terms)}"
 			.ownersProvider=${ownersProvider}
 			.translationProvider=${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
@@ -323,14 +327,15 @@ export const render: Renderer = (
 			class="icure-form-field"
 			.label="${fg.field}"
 			.displayedLabels="${getLabels(fg)}"
+			.displayMetadata="${displayMetadata}"
 			.defaultLanguage="${props.language}"
 			.translate="${fg.translate}"
 			.sortOptions="${fg.sortOptions}"
 			value="${fg.value}"
 			.codifications="${fg.codifications}"
 			.optionsProvider="${composedOptionsProvider && fg.codifications?.length
-				? (language: string, searchTerms?: string) => composedOptionsProvider(language, fg.codifications ?? [], searchTerms, fg.sortOptions)
-				: (language: string, searchTerms?: string) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, searchTerms)}"
+				? (language: string, terms?: string[]) => composedOptionsProvider(language, fg.codifications ?? [], terms, fg.sortOptions)
+				: (language: string, terms?: string[]) => filterAndSortOptionsFromFieldDefinition(language, fg, translationProvider, terms)}"
 			.ownersProvider="${ownersProvider}"
 			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"

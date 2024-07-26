@@ -1,10 +1,15 @@
 import { MarkdownParser } from 'prosemirror-markdown'
 import { Fragment, Node as ProsemirrorNode, Schema } from 'prosemirror-model'
+import { PrimitiveType } from '../components/model'
 
 export class SpacePreservingMarkdownParser {
 	constructor(private mkdp: MarkdownParser) {}
 
-	parse(value: string): ProsemirrorNode | null {
+	parse(primitiveValue: PrimitiveType): ProsemirrorNode | null {
+		if (primitiveValue.type !== 'string') {
+			return null
+		}
+		const value = primitiveValue.value
 		const node = this.mkdp.parse(value)
 		const trailingSpaces = value.match(/([ ]+)$/)?.[1]
 		if (node && trailingSpaces) {

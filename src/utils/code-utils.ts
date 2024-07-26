@@ -1,5 +1,4 @@
-import { Field, Code, SortOptions } from '../components/model'
-import { CodeStub } from '@icure/api'
+import { Code, Field, SortOptions } from '../components/model'
 import { defaultCodePromoter, defaultCodesComparator, makePromoter } from '../components/common/utils'
 
 /**
@@ -27,20 +26,12 @@ export const filterAndSortOptionsFromFieldDefinition = (
 	language: string,
 	fg: Field,
 	translationProvider: ((language: string, text: string) => string) | undefined,
-	searchTerms: string | undefined,
+	terms?: string[],
 ) =>
 	Promise.resolve(
 		sortCodes(
-			optionMapper(language, fg, translationProvider).filter(
-				(x) =>
-					!searchTerms ||
-					searchTerms
-						.split(/\s+/)
-						.map((st) => st.toLowerCase())
-						.every((st) => x.label[language].toLowerCase().includes(st)),
-			),
+			optionMapper(language, fg, translationProvider).filter((x) => (terms ?? []).map((st) => st.toLowerCase()).every((st) => x.label[language].toLowerCase().includes(st))),
 			language,
 			fg.sortOptions,
 		),
 	)
-export const codeStubToCode = (c: CodeStub) => ({ id: c.id ?? `${c.type}|${c.code}|${c.version}`, label: c.label ?? {} })

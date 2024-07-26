@@ -6,7 +6,7 @@ export const singleValueProvider = (valueProvider?: () => VersionedData<FieldVal
 	(() =>
 		id && valueProvider
 			? {
-					id: valueProvider()[id],
+					[id]: valueProvider()[id],
 			  }
 			: {})
 

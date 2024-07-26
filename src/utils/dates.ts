@@ -1,6 +1,9 @@
 import parse from 'date-fns/parse'
 
-export function anyDateToDate(dateOrEpochOrLongCalendar?: Date | number): Date | undefined {
+export function anyDateToDate(dateOrEpochOrLongCalendar?: Date | number | undefined): Date | undefined {
+	if (dateOrEpochOrLongCalendar === undefined) {
+		return undefined
+	}
 	if (dateOrEpochOrLongCalendar instanceof Date) {
 		return anyDateToDate(+dateOrEpochOrLongCalendar)
 	}
@@ -18,10 +21,10 @@ export function anyDateToDate(dateOrEpochOrLongCalendar?: Date | number): Date |
 
 export function dateToFuzzyDate(date: Date): number {
 	return parseInt(
-		`${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}${date.getHours().toString().padStart(2, '0')}:${date
+		`${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}${date.getHours().toString().padStart(2, '0')}${date
 			.getMinutes()
 			.toString()
-			.padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`,
+			.padStart(2, '0')}:)${date.getSeconds().toString().padStart(2, '0')}`,
 	)
 }
 

@@ -83,4 +83,4 @@ export interface FormValuesContainerMutation<Value, Metadata, FVC extends FormVa
 	formValuesContainer: FVC
 }
 
-export type Suggestion = { id: string; code: string; text: string; terms: string[] }
+export type Suggestion = { id: string; code?: string; text: string; terms: string[]; label: { [lng: string]: string } }

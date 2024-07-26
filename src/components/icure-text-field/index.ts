@@ -23,7 +23,7 @@ import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { format, parse } from 'date-fns'
 import { Field } from '../common'
-import { Code, IcureTextFieldSchema, PrimitiveType, pteq, StringType } from '../model'
+import { Code, FieldMetadata, IcureTextFieldSchema, PrimitiveType, pteq, StringType } from '../model'
 import { Suggestion } from '../../generic'
 import { generateLabels } from '../common/utils'
 
@@ -31,43 +31,14 @@ import { generateLabels } from '../common/utils'
 import baseCss from '../common/styles/style.scss'
 
 import { extractSingleValue, extractValues } from '../icure-form/fields/utils'
-import { preprocessEmptyNodes } from '../../utils/markdown'
+import { preprocessEmptyNodes, SpacePreservingMarkdownParser } from '../../utils/markdown'
 import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
 import { anyDateToDate } from '../../utils/dates'
-
-class SpacePreservingMarkdownParser {
-	constructor(private mkdp: MarkdownParser) {}
-
-	parse(primitiveValue: PrimitiveType): ProsemirrorNode | null {
-		if (primitiveValue.type !== 'string') {
-			return null
-		}
-		const value = primitiveValue.value
-		const node = this.mkdp.parse(value)
-		const trailingSpaces = value.match(/([ ]+)$/)?.[1]
-		if (node && trailingSpaces) {
-			const appendTextToLastTextChild = (node: ProsemirrorNode, text: string): ProsemirrorNode => {
-				if (node.isText) {
-					return (node as any).withText(node.text + text)
-				}
-				const lastChild = node.lastChild
-				if (lastChild) {
-					return node.copy(node.content.replaceChild(node.childCount - 1, appendTextToLastTextChild(lastChild, text)))
-				}
-				return node
-			}
-
-			return appendTextToLastTextChild(node, trailingSpaces)
-		}
-		return node
-	}
-}
+import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from '../common/styles/paths'
+import { languageName } from '../../utils/languages'
 
 // Extend the LitElement base class
 export class IcureTextField extends Field {
-	get _ownerSearch(): HTMLInputElement | null {
-		return this.renderRoot.querySelector('#ownerSearch')
-	}
 	@property() placeholder = ''
 	@property() multiline: boolean | string = false
 	@property() lines = 1
@@ -75,10 +46,9 @@ export class IcureTextField extends Field {
 	@property({ type: Boolean }) displayOwnerMenu = false
 	@property({ type: Boolean }) suggestions = false
 	@property({ type: Boolean }) links = false
-	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
-		Promise.resolve(undefined)
+	@property() linksProvider: (sug: Suggestion) => Promise<{ href: string; title: string } | undefined> = async () => undefined
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() ownersProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
+	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -87,6 +57,7 @@ export class IcureTextField extends Field {
 	@state() protected displayOwnersMenu = false
 	@state() protected ownerInputValue = ''
 	@state() protected availableOwners: Suggestion[] = []
+	@state() protected loadedOwners: { [id: string]: Suggestion } = {}
 
 	@state() protected displayLanguagesMenu = false
 	@state() protected languageInputValue = ''
@@ -115,10 +86,21 @@ export class IcureTextField extends Field {
 		super()
 	}
 
+	_handleClickOutside(event: MouseEvent): void {
+		if (!event.composedPath().includes(this)) {
+			this.displayVersionsMenu = false
+			this.displayLanguagesMenu = false
+			this.displayOwnersMenu = false
+			event.stopPropagation()
+		}
+	}
+
 	connectedCallback() {
 		super.connectedCallback()
 		const cmu = this.mouseUp.bind(this)
 		const cmd = this.mouseDown.bind(this)
+
+		document.addEventListener('click', this._handleClickOutside.bind(this))
 
 		this.windowListeners.push(['mouseup', cmu], ['mousedown', cmd])
 		window.addEventListener('mouseup', cmu)
@@ -127,6 +109,9 @@ export class IcureTextField extends Field {
 
 	disconnectedCallback() {
 		super.disconnectedCallback()
+
+		document.removeEventListener('click', this._handleClickOutside.bind(this))
+
 		this.windowListeners.forEach((wl) => window.removeEventListener(wl[0], wl[1]))
 	}
 
@@ -201,20 +186,40 @@ export class IcureTextField extends Field {
 	}
 
 	render() {
+		let metadata: FieldMetadata | undefined
+		let rev: string | null | undefined
+		let revDate: number | undefined
 		if (this.view) {
 			let parsedDoc: ProsemirrorNode | undefined
+
+			const data = this.valueProvider?.()
 			if (this.isMultivalued()) {
-				const values = extractValues(this.valueProvider?.(), this.metadataProvider ?? (() => ({})))
+				const values = extractValues(data, this.metadataProvider ?? (() => ({})))
 				parsedDoc =
 					this.proseMirrorSchema?.topNodeType.createAndFill(
 						{},
 						values.map(([id, value]) => this.parser?.parse(value?.[0]?.value?.content?.[this.language()] ?? '', id)).filter((x) => !!x) as ProsemirrorNode[],
 					) ?? undefined
 			} else {
-				const [, versions] = extractSingleValue(this.valueProvider?.())
+				const [id, versions] = extractSingleValue(data)
 				const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
 				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
+				rev = versions?.[0]?.revision
+				revDate = versions?.[0]?.modified
+				metadata =
+					id && rev !== undefined
+						? this.metadataProvider?.(
+								id,
+								versions?.map((v) => v.revision),
+						  )?.[id]?.find((m) => m.revision === rev)?.value
+						: undefined
+				const owner = metadata?.owner
+
+				if (owner && !this.loadedOwners[owner] && this.displayMetadata) {
+					this.ownersProvider && this.ownersProvider([], [owner]).then((availableOwners) => (this.loadedOwners[owner] = availableOwners[0]))
+				}
 			}
+
 			if (parsedDoc) {
 				const selection = this.view.state.selection
 				const selAnchor = selection.$anchor.pos
@@ -249,20 +254,74 @@ export class IcureTextField extends Field {
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input">
 					<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
+					${this.displayMetadata
+						? html` <div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
+								<div class="info">•</div>
+								<div class="buttons-container">
+									<div class="menu-container">
+										<button
+											data-content="${(metadata?.owner ? this.loadedOwners[metadata?.owner]?.text : '') ?? ''}"
+											@click="${() => this.toggleOwnerMenu(metadata?.owner)}"
+											class="btn menu-trigger author"
+										>
+											${ownerPicto}
+										</button>
+										${this.displayOwnersMenu
+											? html`
+													<div id="menu" class="menu">
+														<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
+														${this.availableOwners?.map((x) => html`<button @click="${() => this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+													</div>
+											  `
+											: ''}
+									</div>
+									<div class="menu-container">
+										<button data-content="${metadata?.valueDate ? format(anyDateToDate(metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss') : ''}" class="btn date">${datePicto}</button>
+									</div>
+									<div class="menu-container">
+										<button
+											data-content="${rev === null ? 'latest' : rev ? `${rev.split('-')[0]} ${revDate ? `(${format(new Date(revDate), 'yyyy-MM-dd')})` : ''}` : ''}"
+											class="btn version"
+										>
+											${versionPicto}
+										</button>
+									</div>
+									<div class="menu-container">
+										<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
+										${this.displayLanguagesMenu
+											? html`
+													<div id="menu" class="menu">
+														<div class="input-container">${searchPicto} <input /></div>
+														${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${x ? languageName(x) : ''}</button>`)}
+													</div>
+											  `
+											: ''}
+									</div>
+								</div>
+						  </div>`
+						: ''}
 				</div>
 				<div class="error">${this.validationErrorsProvider?.().map(([, error]) => html`<div>${this.translationProvider?.(this.language(), error)}</div>`)}</div>
 			</div>
 		`
 	}
 
-	toggleOwnerMenu() {
+	toggleOwnerMenu(ownerId?: string) {
 		this.displayOwnersMenu = !this.displayOwnersMenu
+		if (this.displayOwnersMenu) {
+			this.displayLanguagesMenu = false
+			this.displayVersionsMenu = false
+
+			setTimeout(() => {
+				;(this.renderRoot.querySelector('#ownerSearch') as HTMLInputElement)?.focus()
+			}, 0)
+		}
 	}
 
 	searchOwner(e: InputEvent) {
 		const text = (e.target as HTMLInputElement).value
 		setTimeout(async () => {
-			if (this._ownerSearch?.value === text) {
+			if ((this.renderRoot.querySelector('#ownerSearch') as HTMLInputElement)?.value === text) {
 				if (this.ownersProvider) {
 					const availableOwners = await this.ownersProvider(text.split(' '))
 					console.log(availableOwners)
@@ -281,6 +340,10 @@ export class IcureTextField extends Field {
 
 	toggleLanguageMenu() {
 		this.displayLanguagesMenu = !this.displayLanguagesMenu
+		if (this.displayLanguagesMenu) {
+			this.displayOwnersMenu = false
+			this.displayVersionsMenu = false
+		}
 	}
 
 	mouseDown() {
@@ -320,7 +383,7 @@ export class IcureTextField extends Field {
 				return true
 			})
 
-			const replaceRangeWithSuggestion = async (from: number, to: number, sug: { id: string; code: string; text: string; terms: string[] }) => {
+			const replaceRangeWithSuggestion = async (from: number, to: number, sug: Suggestion) => {
 				const link = await this.linksProvider(sug)
 				return (link && cmp.view && cmp.view.state.tr.replaceWith(from, to, pms.text(sug.text, [pms.mark('link', link)]))) || undefined
 			}
