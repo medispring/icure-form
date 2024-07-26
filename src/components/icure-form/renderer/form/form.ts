@@ -1,12 +1,12 @@
 import { html, nothing, TemplateResult } from 'lit'
 import { Renderer, RendererProps } from '../index'
 import { fieldValuesProvider, getValidationError, handleMetadataChangedProvider, handleValueChangedProvider } from '../../../../utils/fields-values-provider'
-import { Code, FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
+import { FieldMetadata, FieldValue, Form, Field, Group, Subform, SortOptions } from '../../../model'
 import { FormValuesContainer, Suggestion } from '../../../../generic'
 
 import { defaultTranslationProvider } from '../../../../utils/languages'
 import { getLabels } from '../../../common/utils'
-import { filterAndSortOptionsFromFieldDefinition, sortCodes } from '../../../../utils/code-utils'
+import { filterAndSortOptionsFromFieldDefinition, sortSuggestions } from '../../../../utils/code-utils'
 
 import './form-selection-button'
 import { currentDate, currentDateTime, currentTime } from '../../../../utils/dates'
@@ -24,21 +24,25 @@ export const render: Renderer = (
 ) => {
 	const composedOptionsProvider =
 		optionsProvider && form.codifications
-			? async (language: string, codifications: string[], terms?: string[]): Promise<Suggestion[]> => {
+			? async (language: string, codifications: string[], terms?: string[], sortOptions?: SortOptions): Promise<Suggestion[]> => {
 					const originalOptions = optionsProvider ? await optionsProvider(language, codifications, terms) : []
-					return originalOptions.concat(
-						form.codifications
-							?.filter((c) => codifications.includes(c.type))
-							?.flatMap((c) =>
-								c.codes
-									.filter((c) => (terms ?? []).map((st) => st.toLowerCase()).every((st) => c.label[language].toLowerCase().includes(st)))
-									.map((c) => ({ id: c.id, label: c.label, text: c.label[language], terms: terms ?? [] })),
-							) ?? [],
+					return sortSuggestions(
+						originalOptions.concat(
+							form.codifications
+								?.filter((c) => codifications.includes(c.type))
+								?.flatMap((c) =>
+									c.codes
+										.filter((c) => (terms ?? []).map((st) => st.toLowerCase()).every((st) => c.label[language].toLowerCase().includes(st)))
+										.map((c) => ({ id: c.id, label: c.label, text: c.label[language], terms: terms ?? [] })),
+								) ?? [],
+						),
+						language,
+						sortOptions,
 					)
 			  }
 			: optionsProvider
-			? (language: string, codifications: string[], terms?: string[], sortOptions?: SortOptions): Promise<Code[]> => {
-					return optionsProvider?.(language, codifications, terms).then((codes) => sortCodes(codes, language, sortOptions)) ?? Promise.resolve([])
+			? (language: string, codifications: string[], terms?: string[], sortOptions?: SortOptions): Promise<Suggestion[]> => {
+					return optionsProvider?.(language, codifications, terms).then((codes) => sortSuggestions(codes, language, sortOptions)) ?? Promise.resolve([])
 			  }
 			: undefined
 

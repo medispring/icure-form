@@ -1,5 +1,6 @@
 import { Code, Field, SortOptions } from '../components/model'
 import { defaultCodePromoter, defaultCodesComparator, makePromoter } from '../components/common/utils'
+import { Suggestion } from '../generic'
 
 /**
  * Maps the options defined in a field into a list of codes
@@ -21,6 +22,12 @@ export const sortCodes = (codes: Code[], language: string, sortOptions?: SortOpt
 	sortOptions?.sort && sortOptions?.sort !== 'natural'
 		? codes.sort(defaultCodesComparator(language, sortOptions?.sort === 'asc', sortOptions?.promotions ? makePromoter(sortOptions.promotions.split(/ ?, ?/)) : defaultCodePromoter))
 		: codes
+
+export const sortSuggestions = (codes: (Code | Suggestion)[], language: string, sortOptions?: SortOptions): Suggestion[] =>
+	(sortOptions?.sort && sortOptions?.sort !== 'natural'
+		? codes.sort(defaultCodesComparator(language, sortOptions?.sort === 'asc', sortOptions?.promotions ? makePromoter(sortOptions.promotions.split(/ ?, ?/)) : defaultCodePromoter))
+		: codes
+	).map((c) => ({ id: c.id, label: c.label, text: c.label[language] ?? '', terms: [] }))
 
 export const filterAndSortOptionsFromFieldDefinition = (
 	language: string,
