@@ -7,7 +7,7 @@ import { makeFormValuesContainer } from './form-values-container'
 import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes, icd10, icpc2 } from './codes'
-import { Code, Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
+import { Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
 import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
 import { Suggestion } from '../src/generic'
@@ -16,8 +16,6 @@ const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'd
 
 export class DecoratedForm extends LitElement {
 	@property() form: Form
-	@property() codesProvider: (codifications: string[], searchTerm: string) => Promise<Code[]> = () => Promise.resolve([])
-
 	@property() language?: string = 'fr'
 
 	private undoStack: BridgedFormValuesContainer[] = []
@@ -261,7 +259,6 @@ export class DecoratedForm extends LitElement {
 				.language="${this.language}"
 				.formValuesContainer="${this.formValuesContainer}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
-				.codesProvider="${this.codesProvider.bind(this)}"
 				.optionsProvider="${this.optionsProvider.bind(this)}"
 			></icure-form>
 		`

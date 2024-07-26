@@ -23,7 +23,6 @@ Inside your HTML file, add the following tag:
 	renderer="form"
 	dafaultLanguage="en"
 	.formValuesContainer="${this.formValuesContainer}"
-	.codesProvider="${this.codesProvider}"
 	.optionsProvider="${this.optionsProvider}"
 ></icure-form>
 ```
@@ -161,7 +160,6 @@ the icure-form component accepts the following properties:
 - labelPosition: string - the favoured position of the labels in the form. This option can or cannot be honoured by the renderer.
 - formValuesContainer: FormValuesContainer<FieldValue, FieldMetadate> : the form values container that contains the values of the form
 - language: string - the language in which the form should be displayed
-- codesProvider: CodesProvider - an optional provider that provides codifications for the form
 - optionsProvider: OptionsProvider - an optional provider that provides options for some fields of the form (like dropdown fields)
 - translationsProvider: TranslationsProvider - an optional provider that provides translations for the form
 

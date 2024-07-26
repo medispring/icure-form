@@ -25,7 +25,6 @@ export class IcureForm extends LitElement {
 	@property() formValuesContainer?: FormValuesContainer<FieldValue, FieldMetadata> = undefined
 	@property() translationProvider?: (language: string, text: string) => string
 	@property() ownersProvider?: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]>
-	@property() codesProvider?: (codifications: string[], terms: string[]) => Promise<Suggestion[]>
 	@property() optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>
 
 	constructor() {
@@ -53,7 +52,6 @@ export class IcureForm extends LitElement {
 					this.formValuesContainer,
 					this.translationProvider ?? (translationTables ? defaultTranslationProvider(translationTables) : undefined),
 					this.ownersProvider,
-					this.codesProvider,
 					this.optionsProvider,
 					this.readonly,
 					this.displayMetadata,

@@ -14,7 +14,6 @@ export type Renderer = (
 	formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>,
 	translationProvider?: (language: string, text: string) => string,
 	ownersProvider?: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]>,
-	codesProvider?: (codifications: string[], terms: string[]) => Promise<Suggestion[]>,
 	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
 	readonly?: boolean,
 	displayMetadata?: boolean,

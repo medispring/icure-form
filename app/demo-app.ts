@@ -28,7 +28,7 @@ import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
 import obstetrics_followup_short from './samples/obstetrics-followup-short.json'
 import obstetrics_followup_midwife from './samples/obstetrics-followup-midwife.json'
 import incapacity from './samples/incapacity.json'
-import { CodeStub, FormLayout, IccHcpartyXApi } from '@icure/api'
+import { FormLayout, IccHcpartyXApi } from '@icure/api'
 import { css, html, LitElement } from 'lit'
 import { convertLegacy } from '../src/conversion/icure-convert'
 
@@ -41,15 +41,6 @@ import YAML from 'yaml'
 import './decorated-form'
 
 import { DecoratedForm } from './decorated-form'
-
-const ultrasound = [
-	{ id: 'ULTRASOUND-EVALUATION|01|1', code: '01', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.EMPTY-CAVITY' } },
-	{ id: 'ULTRASOUND-EVALUATION|02|1', code: '02', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.CLOTS' } },
-	{ id: 'ULTRASOUND-EVALUATION|03|1', code: '03', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.RETENTION' } },
-	{ id: 'ULTRASOUND-EVALUATION|04|1', code: '04', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.NON-PROGRESSIVE-PREGNANCY' } },
-	{ id: 'ULTRASOUND-EVALUATION|05|1', code: '05', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.PROGRESSIVE-PREGNANCY' } },
-	{ id: 'ULTRASOUND-EVALUATION|06|1', code: '06', type: 'ULTRASOUND_EVALUATION', version: '1', label: { en: 'abortion-forms.field-options.DIFFUSE-IMAGE' } },
-]
 
 class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
@@ -151,14 +142,6 @@ class DemoApp extends LitElement {
 		}))
 	}
 
-	async codesProvider(codifications: string[]): Promise<CodeStub[]> {
-		const codes: CodeStub[] = []
-		if (codifications.find((code) => code === 'ULTRASOUND-EVALUATION')) {
-			ultrasound.map((x) => codes.push(new CodeStub(x)))
-		}
-		return codes
-	}
-
 	render() {
 		return html`
 			<div class="container">
@@ -172,7 +155,7 @@ class DemoApp extends LitElement {
 				<div class="detail">
 					${this.samples.map((s) => {
 						return html`<div style="${s.form === this.selectedForm ? '' : 'display: none;'}">
-							<decorated-form id="${s.form.id ?? s.form.form}" .form="${s.form}" .codesProvider="${this.codesProvider.bind(this)}"></decorated-form>
+							<decorated-form id="${s.form.id ?? s.form.form}" .form="${s.form}"></decorated-form>
 						</div>`
 					})}
 				</div>

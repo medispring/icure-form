@@ -17,7 +17,6 @@ export const render: Renderer = (
 	formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>,
 	translationProvider?: (language: string, text: string) => string,
 	ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => [],
-	codesProvider: (codifications: string[], terms: string[]) => Promise<Suggestion[]> = async () => [],
 	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
 	readonly?: boolean,
 	displayMetadata?: boolean,
@@ -85,7 +84,7 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="container">
-								${render(childForm, props, child, translationProvider, ownersProvider, codesProvider, optionsProvider, readonly, displayMetadata)}
+								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, readonly, displayMetadata)}
 								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
 								<hr />
 							</div>
