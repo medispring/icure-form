@@ -216,7 +216,9 @@ export class IcureTextField extends Field {
 				const owner = metadata?.owner
 
 				if (owner && !this.loadedOwners[owner] && this.displayMetadata) {
-					this.ownersProvider && this.ownersProvider([], [owner]).then((availableOwners) => (this.loadedOwners[owner] = availableOwners[0]))
+					this.loadedOwners = { ...this.loadedOwners, [owner]: { id: owner, text: '', terms: [], label: {} } } // Make sure we do not loop endlessly
+					this.ownersProvider &&
+						this.ownersProvider([], [owner]).then((availableOwners) => (this.loadedOwners = availableOwners.reduce((acc, o) => ({ ...acc, [o.id]: o }), this.loadedOwners)))
 				}
 			}
 
@@ -270,7 +272,9 @@ export class IcureTextField extends Field {
 											? html`
 													<div id="menu" class="menu">
 														<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-														${this.availableOwners?.map((x) => html`<button @click="${() => this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`)}
+														${(this.availableOwners?.length ? this.availableOwners : Object.values(this.loadedOwners))?.map(
+															(x) => html`<button @click="${() => this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`,
+														)}
 													</div>
 											  `
 											: ''}
