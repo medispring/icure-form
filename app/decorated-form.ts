@@ -242,7 +242,11 @@ export class DecoratedForm extends LitElement {
 			{ id: '2', name: 'Dr. Jane Doe', specialties: ['ORL'] },
 		]
 			.filter((hcp) => {
-				return terms.every((t) => hcp.name.includes(t)) && (!ids?.length || ids.includes(hcp.id)) && (!specialties?.length || specialties.some((s) => hcp.specialties.includes(s)))
+				return (
+					terms.every((t) => hcp.name.toLowerCase().includes(t.toLowerCase())) &&
+					(!ids?.length || ids.includes(hcp.id)) &&
+					(!specialties?.length || specialties.some((s) => hcp.specialties.includes(s)))
+				)
 			})
 			.map((x) => ({ id: x.id, text: x.name, terms: terms, label: {} }))
 	}

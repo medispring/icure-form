@@ -23,7 +23,7 @@ export class DropdownField extends Field {
 					.validationErrorsProvider=${this.validationErrorsProvider}
 					.metadataProvider=${this.metadataProvider}
 					.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
-					.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
+					.handleMetadataChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}
 					.ownersProvider=${this.ownersProvider}

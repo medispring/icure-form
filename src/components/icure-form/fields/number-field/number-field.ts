@@ -18,7 +18,7 @@ export class NumberField extends Field {
 				.validationErrorsProvider=${this.validationErrorsProvider}
 				.metadataProvider=${this.metadataProvider}
 				.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
-				.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
+				.handleMetadataChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 			></icure-text-field>`
 		})
 	}

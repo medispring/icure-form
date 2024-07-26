@@ -24,7 +24,7 @@ export class RadioButton extends Field {
 					.validationErrorsProvider=${this.validationErrorsProvider}
 					.metadataProvider=${this.metadataProvider}
 					.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
-					.handleMetaChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
+					.handleMetadataChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 					.styleOptions=${this.styleOptions}
 				></icure-button-group>
 			`

@@ -19,7 +19,7 @@ export class TokenField extends Field {
 			.metadataProvider=${this.metadataProvider}
 			.handleValueChanged=${this.handleValueChanged}
 			.translationProvider=${this.translationProvider}
-			.handleMetaChanged=${this.handleMetadataChanged}
+			.handleMetadataChanged=${this.handleMetadataChanged}
 		></icure-text-field>`
 	}
 }
