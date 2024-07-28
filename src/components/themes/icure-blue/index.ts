@@ -21,6 +21,7 @@ import { IcureTextField } from '../../icure-text-field'
 
 // @ts-ignore
 import ehrLiteCss from './ehr-lite.scss'
+import { MetadataButtonBar } from '../../common/metadata-buttons-bar'
 class EhrLiteIcureButtonGroup extends IcureButtonGroup {
 	static get styles() {
 		return [...IcureButtonGroup.styles, ehrLiteCss]
@@ -56,6 +57,8 @@ class EhrLiteLabel extends Label {
 		return [...Label.styles, ehrLiteCss]
 	}
 }
+
+customElements.define('icure-metadata-buttons-bar', MetadataButtonBar)
 
 customElements.define('icure-form-checkbox', CheckBox)
 customElements.define('icure-form-date-picker', DatePicker)

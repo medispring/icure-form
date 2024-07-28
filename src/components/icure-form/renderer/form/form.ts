@@ -18,6 +18,7 @@ export const render: Renderer = (
 	translationProvider?: (language: string, text: string) => string,
 	ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => [],
 	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
+	languages?: { [iso: string]: string },
 	readonly?: boolean,
 	displayMetadata?: boolean,
 ) => {
@@ -84,7 +85,7 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="container">
-								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, readonly, displayMetadata)}
+								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, languages, readonly, displayMetadata)}
 								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
 								<hr />
 							</div>
@@ -106,6 +107,7 @@ export const render: Renderer = (
 			.multiline="${fg.multiline || false}"
 			.lines=${fgRowSpan}
 			.defaultLanguage="${props.language}"
+			.languages="${languages}"
 			.linksProvider=${fg.options?.linksProvider}
 			.suggestionProvider=${fg.options?.suggestionProvider}
 			.ownersProvider=${ownersProvider}

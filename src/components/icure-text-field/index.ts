@@ -34,8 +34,6 @@ import { extractSingleValue, extractValues } from '../icure-form/fields/utils'
 import { preprocessEmptyNodes, SpacePreservingMarkdownParser } from '../../utils/markdown'
 import { measureOnFocusHandler, measureTransactionMapper } from './schema/measure-schema'
 import { anyDateToDate } from '../../utils/dates'
-import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from '../common/styles/paths'
-import { languageName } from '../../utils/languages'
 
 // Extend the LitElement base class
 export class IcureTextField extends Field {
@@ -53,18 +51,6 @@ export class IcureTextField extends Field {
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
 	@property() schema: IcureTextFieldSchema = 'styled-text-with-codes'
-
-	@state() protected displayOwnersMenu = false
-	@state() protected ownerInputValue = ''
-	@state() protected availableOwners: Suggestion[] = []
-	@state() protected loadedOwners: { [id: string]: Suggestion } = {}
-
-	@state() protected displayLanguagesMenu = false
-	@state() protected languageInputValue = ''
-
-	@state() protected displayVersionsMenu = false
-
-	@state() protected availableLanguages = [this.defaultLanguage]
 
 	private proseMirrorSchema?: Schema
 	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType, id?: string) => ProsemirrorNode | undefined }
@@ -88,9 +74,6 @@ export class IcureTextField extends Field {
 
 	_handleClickOutside(event: MouseEvent): void {
 		if (!event.composedPath().includes(this)) {
-			this.displayVersionsMenu = false
-			this.displayLanguagesMenu = false
-			this.displayOwnersMenu = false
 			event.stopPropagation()
 		}
 	}
@@ -213,13 +196,6 @@ export class IcureTextField extends Field {
 								versions?.map((v) => v.revision),
 						  )?.[id]?.find((m) => m.revision === rev)?.value
 						: undefined
-				const owner = metadata?.owner
-
-				if (owner && !this.loadedOwners[owner] && this.displayMetadata) {
-					this.loadedOwners = { ...this.loadedOwners, [owner]: { id: owner, text: '', terms: [], label: {} } } // Make sure we do not loop endlessly
-					this.ownersProvider &&
-						this.ownersProvider([], [owner]).then((availableOwners) => (this.loadedOwners = availableOwners.reduce((acc, o) => ({ ...acc, [o.id]: o }), this.loadedOwners)))
-				}
 			}
 
 			if (parsedDoc) {
@@ -250,104 +226,27 @@ export class IcureTextField extends Field {
 				)
 			}
 		}
-
 		return html`
 			<div id="root" class="${this.visible ? 'icure-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input">
 					<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
-					${this.displayMetadata
-						? html` <div id="extra" class=${'extra' + (this.displayOwnersMenu ? ' forced' : '')}>
-								<div class="info">•</div>
-								<div class="buttons-container">
-									<div class="menu-container">
-										<button
-											data-content="${(metadata?.owner ? this.loadedOwners[metadata?.owner]?.text : '') ?? ''}"
-											@click="${() => this.toggleOwnerMenu(metadata?.owner)}"
-											class="btn menu-trigger author"
-										>
-											${ownerPicto}
-										</button>
-										${this.displayOwnersMenu
-											? html`
-													<div id="menu" class="menu">
-														<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
-														${(this.availableOwners?.length ? this.availableOwners : Object.values(this.loadedOwners))?.map(
-															(x) => html`<button @click="${() => this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`,
-														)}
-													</div>
-											  `
-											: ''}
-									</div>
-									<div class="menu-container">
-										<button data-content="${metadata?.valueDate ? format(anyDateToDate(metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss') : ''}" class="btn date">${datePicto}</button>
-									</div>
-									<div class="menu-container">
-										<button
-											data-content="${rev === null ? 'latest' : rev ? `${rev.split('-')[0]} ${revDate ? `(${format(new Date(revDate), 'yyyy-MM-dd')})` : ''}` : ''}"
-											class="btn version"
-										>
-											${versionPicto}
-										</button>
-									</div>
-									<div class="menu-container">
-										<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language">${i18nPicto}</button>
-										${this.displayLanguagesMenu
-											? html`
-													<div id="menu" class="menu">
-														<div class="input-container">${searchPicto} <input /></div>
-														${this.availableLanguages?.map((x) => html`<button id="${x}" class="item">${x ? languageName(x) : ''}</button>`)}
-													</div>
-											  `
-											: ''}
-									</div>
-								</div>
-						  </div>`
+					${this.displayMetadata && metadata
+						? html`<icure-metadata-buttons-bar
+								.metadata="${metadata}"
+								.revision="${rev}"
+								.revisionDate="${revDate}"
+								.valueId="${extractSingleValue(this.valueProvider?.())?.[0]}"
+								.displayedLanguage="${this.displayedLanguage}"
+								.languages="${this.languages}"
+								.handleMetadataChanged="${this.handleMetadataChanged}"
+								.ownersProvider="${this.ownersProvider}"
+						  />`
 						: ''}
 				</div>
 				<div class="error">${this.validationErrorsProvider?.().map(([, error]) => html`<div>${this.translationProvider?.(this.language(), error)}</div>`)}</div>
 			</div>
 		`
-	}
-
-	toggleOwnerMenu(ownerId?: string) {
-		this.displayOwnersMenu = !this.displayOwnersMenu
-		if (this.displayOwnersMenu) {
-			this.displayLanguagesMenu = false
-			this.displayVersionsMenu = false
-
-			setTimeout(() => {
-				;(this.renderRoot.querySelector('#ownerSearch') as HTMLInputElement)?.focus()
-			}, 0)
-		}
-	}
-
-	searchOwner(e: InputEvent) {
-		const text = (e.target as HTMLInputElement).value
-		setTimeout(async () => {
-			if ((this.renderRoot.querySelector('#ownerSearch') as HTMLInputElement)?.value === text) {
-				if (this.ownersProvider) {
-					const availableOwners = await this.ownersProvider(text.split(' '))
-					console.log(availableOwners)
-					this.availableOwners = availableOwners
-				}
-			}
-		}, 300)
-	}
-
-	handleOwnerButtonClicked(id: string) {
-		const [valueId] = extractSingleValue(this.valueProvider?.())
-
-		this.handleMetadataChanged && valueId && this.handleMetadataChanged(valueId, { label: this.label, owner: id })
-		this.displayOwnersMenu = false
-	}
-
-	toggleLanguageMenu() {
-		this.displayLanguagesMenu = !this.displayLanguagesMenu
-		if (this.displayLanguagesMenu) {
-			this.displayOwnersMenu = false
-			this.displayVersionsMenu = false
-		}
 	}
 
 	mouseDown() {

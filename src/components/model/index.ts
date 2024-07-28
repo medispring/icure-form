@@ -16,6 +16,9 @@ export interface FieldMetadata {
 	valueDate?: number
 	owner?: string
 	tags?: Code[]
+
+	//The metadata values that are considered as exceptional
+	discordantMetadata?: () => Partial<FieldMetadata>
 }
 
 export interface FieldValue {

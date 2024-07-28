@@ -266,6 +266,7 @@ sections:
             type: checkbox
             computedProperties:
               hidden: |
+                log(self['abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION'])
                 return !self['abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION']?.some((item) => item?.codes.some(code => code.id === 'yes'))
             styleOptions:
               direction: column

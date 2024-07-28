@@ -59,10 +59,10 @@ export const handleValueChangedProvider = (formsValueContainer?: FormValuesConta
 
 export const handleMetadataChangedProvider = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>) => {
 	const wrapper = formsValueContainer ? [formsValueContainer] : []
-	return (label: string, metadata: FieldMetadata, id?: string) => {
+	return (metadata: FieldMetadata, id?: string) => {
 		const fvc = wrapper[0]
 		if (fvc) {
-			const { result, formValuesContainer: newFvc } = fvc.setMetadata(label, metadata, id)
+			const { result, formValuesContainer: newFvc } = fvc.setMetadata(metadata, id)
 			wrapper[0] = newFvc
 			return { result, formValuesContainer: newFvc }
 		}

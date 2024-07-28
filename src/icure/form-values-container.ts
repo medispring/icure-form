@@ -5,6 +5,7 @@ import { ServiceMetadata } from './model'
 import { FieldMetadata, FieldValue, PrimitiveType, Validator } from '../components/model'
 import { areCodesEqual, codeStubToCode, contentToPrimitiveType, isContentEqual, primitiveTypeToContent } from './icure-utils'
 import { parsePrimitive } from '../utils/primitive'
+import { anyDateToDate } from '../utils/dates'
 
 /** This class is a bridge between the ICure API and the generic FormValuesContainer interface.
  * It wraps around a ContactFormValuesContainer and provides a series of services:
@@ -154,6 +155,10 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 						owner: s.responsible,
 						valueDate: s.valueDate,
 						tags: s.tags,
+						discordantMetadata: () => ({
+							...(s.responsible !== this.responsible ? { owner: this.responsible } : {}),
+							...(Math.abs(+(anyDateToDate(s.valueDate) ?? 0) - +(anyDateToDate(this.contact.created) ?? 0)) > 24 * 3600000 ? { valueDate: this.contact.created } : {}),
+						}),
 					},
 				})),
 			}),
@@ -222,9 +227,8 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		return { result: mutation.result, formValuesContainer: this.mutateAndNotify(mutation.formValuesContainer) }
 	}
 
-	setMetadata(label: string, meta: FieldMetadata, id?: string | undefined): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
+	setMetadata(meta: FieldMetadata, id?: string | undefined): FormValuesContainerMutation<FieldValue, FieldMetadata, BridgedFormValuesContainer, ID> {
 		const mutation = this.contactFormValuesContainer.setMetadata(
-			label,
 			{
 				label: meta.label,
 				responsible: meta.owner,
@@ -483,8 +487,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			) //index services in history by id
 	}
 
-	setMetadata(label: string, meta: ServiceMetadata, id?: string): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
-		const service = (id && this.getServiceInCurrentContact(id)) || this.serviceFactory(label, id)
+	setMetadata(meta: ServiceMetadata, id?: string): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
+		const service = (id && this.getServiceInCurrentContact(id)) || this.serviceFactory(meta.label, id)
 		if (!service.id) {
 			throw new Error('Service id must be defined')
 		}
@@ -700,7 +704,7 @@ const setValueOnContactFormValuesContainer = (cfvc: ContactFormValuesContainer, 
 		},
 		id,
 		{
-			label: metadata?.label ?? '',
+			label: metadata?.label ?? label,
 			responsible: metadata?.owner,
 			valueDate: metadata?.valueDate,
 			tags: metadata?.tags,

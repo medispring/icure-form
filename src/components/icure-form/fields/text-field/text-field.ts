@@ -31,6 +31,7 @@ export class TextField extends Field {
 				.lines="${this.lines}"
 				.displayedLabels="${this.displayedLabels}"
 				.defaultLanguage="${this.defaultLanguage}"
+				.languages="${this.languages}"
 				schema="${this.multiline ? 'text-document' : 'styled-text-with-codes'}"
 				?suggestions=${!!this.suggestionProvider}
 				?links=${!!this.linksProvider}

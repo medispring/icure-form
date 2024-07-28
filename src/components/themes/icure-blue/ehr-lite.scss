@@ -33,7 +33,7 @@ $textbox-font-size: 13px !default;
 $label-font-size: 14px !default;
 
 $input-border-width: 1px;
-$input-padding-y: 4px;
+$input-padding-y: 0;
 $input-padding-x: 8px;
 
 $floating-label-transition: 0.2s ease-out !default;
@@ -59,8 +59,8 @@ $select-dropdown-row-font-size: 12px;
 $select-dropdown-row-font-weight: 400;
 $select-dropdown-row-hover-background: $blue-400;
 
-.icure-form {
-	row-gap: 24px;
+.group .icure-form .icure-form-field:first-child {
+	margin-top: 16px;
 }
 
 .icure-text-field, .icure-button-group {
@@ -214,7 +214,6 @@ input[type='radio'] {
 		height: 28px;
 		max-width: 85%;
 		min-width: 0;
-		padding-bottom: 8px;
 
 		> span {
 			display: block;

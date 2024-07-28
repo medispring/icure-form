@@ -9,7 +9,7 @@ import { FormValuesContainer, Suggestion } from '../../generic'
 
 // @ts-ignore
 import baseCss from '../common/styles/style.scss'
-import { defaultTranslationProvider } from '../../utils/languages'
+import { defaultTranslationProvider, languages } from '../../utils/languages'
 
 /**
  * Form element
@@ -22,6 +22,7 @@ export class IcureForm extends LitElement {
 	@property() displayMetadata = false
 	@property() labelPosition?: 'top' | 'left' | 'right' | 'bottom' | 'float' | undefined = undefined
 	@property() language?: string
+	@property() languages?: { [iso: string]: string } = languages
 	@property() formValuesContainer?: FormValuesContainer<FieldValue, FieldMetadata> = undefined
 	@property() translationProvider?: (language: string, text: string) => string
 	@property() ownersProvider?: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]>
@@ -53,6 +54,7 @@ export class IcureForm extends LitElement {
 					this.translationProvider ?? (translationTables ? defaultTranslationProvider(translationTables) : undefined),
 					this.ownersProvider,
 					this.optionsProvider,
+					this.languages,
 					this.readonly,
 					this.displayMetadata,
 			  )

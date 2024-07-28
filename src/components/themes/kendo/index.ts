@@ -21,6 +21,7 @@ import { IcureTextField } from '../../icure-text-field'
 
 // @ts-ignore
 import kendoCss from './kendo.scss'
+import { MetadataButtonBar } from '../../common/metadata-buttons-bar'
 class KendoIcureButtonGroup extends IcureButtonGroup {
 	static get styles() {
 		return [...IcureButtonGroup.styles, kendoCss]
@@ -56,6 +57,8 @@ class KendoLabel extends Label {
 		return [...Label.styles, kendoCss]
 	}
 }
+
+customElements.define('icure-metadata-buttons-bar', MetadataButtonBar)
 
 customElements.define('icure-form-checkbox', CheckBox)
 customElements.define('icure-form-date-picker', DatePicker)

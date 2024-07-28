@@ -31,9 +31,12 @@ export class Field extends LitElement {
 	 * Iso code of the default language
 	 */
 	@property() defaultLanguage?: string = 'en'
+
 	/**
-	 * Iso code of the default language
+	 * Iso code and names of the supported languages
 	 */
+	@property() languages?: { [iso: string]: string }
+
 	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
 
 	/**
@@ -43,7 +46,7 @@ export class Field extends LitElement {
 	@property() validationErrorsProvider?: () => string[] = undefined
 	@property() metadataProvider?: (id: string, revisions: (string | null)[]) => VersionedData<FieldMetadata> = undefined
 	@property() handleValueChanged?: (label: string, language: string, value?: FieldValue, id?: string) => string | undefined = undefined
-	@property() handleMetadataChanged?: (label: string, metadata: FieldMetadata, id?: string) => string | undefined = undefined
+	@property() handleMetadataChanged?: (metadata: FieldMetadata, id?: string) => string | undefined = undefined
 
 	@property() public visible = true
 	@property() readonly = false

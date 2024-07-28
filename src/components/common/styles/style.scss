@@ -21,7 +21,7 @@ $textbox-font-size: 14px !default;
 $label-font-size: 12px !default;
 
 $input-border-width: 1px;
-$input-padding-y: 4px;
+$input-padding-y: 0;
 $input-padding-x: 8px;
 
 $floating-label-transition: 0.2s ease-out !default;
@@ -335,7 +335,6 @@ h3 {
 
 .extra {
 	flex-shrink: 0;
-	height: 28px;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
@@ -358,6 +357,7 @@ h3 {
 }
 
 .extra .buttons-container {
+	position: relative;
 	display: flex;
 	height: 100%;
 	flex-flow: row nowrap;
@@ -370,14 +370,7 @@ h3 {
 .extra:hover .buttons-container .menu-container .btn {
 	animation: slideIn .24s ease-in forwards;
 	pointer-events: none;
-}
-
-.extra:hover .buttons-container .menu-container .btn {
-	animation-delay: 0.24s;
-}
-
-.extra:hover .buttons-container .menu-container:hover .btn {
-	animation-delay: 0.04s;
+	display: unset !important;
 }
 
 .extra.forced:hover .buttons-container .menu-container .btn {
@@ -387,13 +380,16 @@ h3 {
 
 .extra.forced .buttons-container .btn {
 	opacity: 1 !important;
+	display: unset !important;
 }
 
-.extra.forced .info {
-	opacity: 0 !important;
+.extra .buttons-container .btn.forced {
+	opacity: 1 !important;
+	display: unset !important;
+	filter: invert(24%) sepia(96%) saturate(6726%) hue-rotate(341deg) brightness(89%) contrast(94%);
 }
 
-.extra:hover .info {
+.extra.forced .info, .extra .info.hidden {
 	opacity: 0 !important;
 	z-index: 0 !important;
 }
@@ -403,6 +399,7 @@ h3 {
 	background: transparent;
 	position: relative;
 	top: 0;
+	display: none;
 	opacity: 0;
 	cursor: pointer;
 	height: 20px;
@@ -462,7 +459,8 @@ h3 {
 
 @keyframes slideIn {
 	0% {
-		top: 12px;
+		top: 0;
+		opacity: 0;
 		pointer-events: none;
 	}
 	100% {
@@ -473,10 +471,13 @@ h3 {
 }
 
 .menu-container {
-	position: relative;
 	display: flex;
 	align-items: center;
-	height: 100%;
+	height: fit-content;
+}
+
+.value-date-menu {
+	width: unset !important;
 }
 
 .menu {
@@ -493,40 +494,40 @@ h3 {
 	min-height: 120px;
 	max-height: 320px;
 	overflow-y: scroll;
-}
 
-.menu .input-container {
-	background: #edf2f7;
-	border-radius: 4px;
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	justify-content: flex-start;
-	height: 32px;
-	margin-bottom: 4px;
-	padding: 0 4px;
-}
+	.input-container {
+		background: #edf2f7;
+		border-radius: 4px;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: flex-start;
+		height: 32px;
+		margin-bottom: 4px;
+		padding: 0 4px;
+	}
 
-.menu .input-container:hover {
-	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2);
-}
+	.input-container:hover {
+		box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2);
+	}
 
-.menu .input-container:focus-within {
-	box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2),
-	0 0 0 1px rgba(40, 151, 255, 1);
-}
+	.input-container:focus-within {
+		box-shadow: 0 0 0 3px rgba(40, 151, 255, 0.2),
+		0 0 0 1px rgba(40, 151, 255, 1);
+	}
 
-.menu .input-container input {
-	background: transparent;
-	border: none;
-	flex-grow: 1;
-	height: 100%;
-}
+	.input-container input {
+		background: transparent;
+		border: none;
+		flex-grow: 1;
+		height: 100%;
+	}
 
-.menu .input-container input:focus {
-	background: transparent;
-	border: none;
-	outline: none;
+	.input-container input:focus {
+		background: transparent;
+		border: none;
+		outline: none;
+	}
 }
 
 .menu-trigger:focus .menu {
