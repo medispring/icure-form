@@ -14,7 +14,13 @@ yarn add @icure/form
 import '@icure/form';
 ```
 
-Inside your HTML file, add the following tag:
+Inside your HTML file import a theme:
+
+```html
+import '@icure/form/themes/icure-blue';
+```
+
+and add the following tag:
 
 ```html
 <icure-form
@@ -162,6 +168,8 @@ the icure-form component accepts the following properties:
 - language: string - the language in which the form should be displayed
 - optionsProvider: OptionsProvider - an optional provider that provides options for some fields of the form (like dropdown fields)
 - translationsProvider: TranslationsProvider - an optional provider that provides translations for the form
+
+### Themes 
 
 Themes can be applied to renderers by importing one theme before importing/instantiating the icure-form component. 
 The themes are located in the src/themes folder.
