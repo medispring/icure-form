@@ -157,7 +157,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 						tags: s.tags,
 						discordantMetadata: () => ({
 							...(s.responsible !== this.responsible ? { owner: this.responsible } : {}),
-							...(Math.abs(+(anyDateToDate(s.valueDate) ?? 0) - +(anyDateToDate(this.contact.created) ?? 0)) > 24 * 3600000 ? { valueDate: this.contact.created } : {}),
+							...(Math.abs(+(anyDateToDate(s.valueDate) ?? 0) - +(anyDateToDate(this.contact.created) ?? 0)) > 24 * 3600000 ? { valueDate: s.valueDate } : {}),
 						}),
 					},
 				})),

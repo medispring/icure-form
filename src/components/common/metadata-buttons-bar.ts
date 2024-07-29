@@ -1,7 +1,6 @@
 import { html, LitElement } from 'lit'
-import { property } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { FieldMetadata } from '../model'
-import { state } from 'lit/decorators.js'
 import { Suggestion } from '../../generic'
 import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { format } from 'date-fns'
@@ -19,10 +18,12 @@ export class MetadataButtonBar extends LitElement {
 	@property() metadata: FieldMetadata
 	@property() revision: string
 	@property() revisionDate: number
-	@property() displayedLanguage = 'en'
+	@property() defaultLanguage: string
+	@property() selectedLanguage?: string
 	@property() languages: { [iso: string]: string } = {}
 	@property() displayedLabels: { [iso: string]: string } = {}
 	@property() handleMetadataChanged?: (metadata: FieldMetadata, id?: string) => string | undefined = undefined
+	@property() handleLanguageSelected?: (iso?: string) => void = undefined
 	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 
 	@state() protected displayOwnersMenu = false
@@ -33,7 +34,6 @@ export class MetadataButtonBar extends LitElement {
 	@state() protected displayLanguagesMenu = false
 	@state() protected displayValueDateMenu = false
 	@state() protected languageInputValue = ''
-	@state() protected selectedLanguage?: string = undefined
 
 	@state() protected displayVersionsMenu = false
 
@@ -79,7 +79,7 @@ export class MetadataButtonBar extends LitElement {
 
 		const forcedByOwner = discordantMetadata?.owner !== undefined
 		const forcedByValueDate = discordantMetadata?.valueDate !== undefined
-		const forcedByLanguage = this.selectedLanguage && this.displayedLanguage !== this.selectedLanguage
+		const forcedByLanguage = this.selectedLanguage && this.defaultLanguage !== this.selectedLanguage
 
 		return html` <div id="extra" class=${'extra' + (forcedByMenu ? ' forced' : '')}>
 			<div class="info ${forcedByOwner || forcedByLanguage || forcedByValueDate ? 'hidden' : ''}">•</div>
@@ -105,7 +105,7 @@ export class MetadataButtonBar extends LitElement {
 				</div>
 				<div class="menu-container">
 					<button
-						data-content="${metadata?.valueDate ? format(anyDateToDate(metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss') : ''}"
+						data-content="${metadata?.valueDate ? format(anyDateToDate(metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss').replace(/ 00:00:00$/, '') : ''}"
 						class="btn date ${forcedByValueDate ? 'forced' : ''}"
 						@click="${() => this.toggleValueDateMenu()}"
 					>
@@ -115,7 +115,7 @@ export class MetadataButtonBar extends LitElement {
 						? html`
 								<div id="menu" class="menu value-date-menu">
 									<app-date-picker
-										locale="${this.displayedLanguage ?? 'en'}"
+										locale="${this.defaultLanguage ?? 'en'}"
 										style=""
 										max="${MAX_DATE}"
 										min="${toResolvedDate('1900-01-01')}"
@@ -134,16 +134,20 @@ export class MetadataButtonBar extends LitElement {
 					</button>
 				</div>
 				<div class="menu-container">
-					<button data-content="${this.displayedLanguage}" @click="${this.toggleLanguageMenu}" class="btn menu-trigger language ${forcedByLanguage ? 'forced' : ''}">
+					<button
+						data-content="${this.selectedLanguage ? languageName(this.selectedLanguage) ?? this.selectedLanguage : languageName(this.defaultLanguage) ?? this.defaultLanguage}"
+						@click="${this.toggleLanguageMenu}"
+						class="btn menu-trigger language ${forcedByLanguage ? 'forced' : ''}"
+					>
 						${i18nPicto}
 					</button>
 					${this.displayLanguagesMenu
 						? html`
 								<div id="menu" class="menu">
-									<div class="input-container">${searchPicto} <input /></div>
-									${[this.displayedLanguage, ...Object.keys(this.languages).filter((x) => x !== this.displayedLanguage)]
+									<div class="input-container">${searchPicto} <input id="languageSearch" @input="${this.searchLanguage}" /></div>
+									${[this.defaultLanguage, ...Object.keys(this.languages).filter((x) => x !== this.defaultLanguage)]
 										.filter((x) => !!x && (languageName(x) ?? this.languages[x] ?? x).toLowerCase().includes((this.languageInputValue ?? '').toLowerCase()))
-										.map((x) => html`<button id="${x}" class="item">${x ? languageName(x) : ''}</button>`)}
+										.map((x) => html`<button @click="${() => this.handleLanguageButtonClicked(x)}" id="${x}" class="item">${x ? languageName(x) : ''}</button>`)}
 								</div>
 						  `
 						: ''}
@@ -178,9 +182,18 @@ export class MetadataButtonBar extends LitElement {
 		}, 300)
 	}
 
+	searchLanguage(e: InputEvent) {
+		this.languageInputValue = (e.target as HTMLInputElement).value
+	}
+
 	handleOwnerButtonClicked(id: string) {
 		const valueId = this.valueId
 		this.handleMetadataChanged && valueId && this.handleMetadataChanged({ label: this.metadata.label, owner: id })
+		this.displayOwnersMenu = false
+	}
+
+	handleLanguageButtonClicked(id: string) {
+		this.handleLanguageSelected?.(id)
 		this.displayOwnersMenu = false
 	}
 

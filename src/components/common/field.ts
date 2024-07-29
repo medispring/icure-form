@@ -30,7 +30,7 @@ export class Field extends LitElement {
 	/**
 	 * Iso code of the default language
 	 */
-	@property() defaultLanguage?: string = 'en'
+	@property() defaultLanguage = 'en'
 
 	/**
 	 * Iso code and names of the supported languages
@@ -52,9 +52,9 @@ export class Field extends LitElement {
 	@property() readonly = false
 	@property() displayMetadata = false
 
-	@state() displayedLanguage?: string = undefined
+	@state() selectedLanguage?: string = undefined
 
 	language(): string {
-		return (this.translate ? this.displayedLanguage ?? this.defaultLanguage : this.defaultLanguage) ?? 'en'
+		return (this.translate ? this.selectedLanguage ?? this.defaultLanguage : this.defaultLanguage) ?? 'en'
 	}
 }

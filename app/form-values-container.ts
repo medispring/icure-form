@@ -5,6 +5,7 @@ export const makeFormValuesContainer = () => {
 	const cc = new Contact({
 		id: 'c2',
 		rev: null,
+		created: +new Date(),
 		services: [
 			{
 				id: 's1',
@@ -24,6 +25,7 @@ export const makeFormValuesContainer = () => {
 	const ctc = new Contact({
 		id: 'c1',
 		rev: '12345',
+		created: +new Date() - 1000 * 60 * 60 * 24 * 7,
 		services: [
 			{ id: 's1', label: 'abortion-forms.field-labels.HISTORY', tags: [{ id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1' }], content: { en: { stringValue: 'test' } } },
 			{

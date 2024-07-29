@@ -62,6 +62,9 @@ export class IcureTextField extends Field {
 	private codesExtractor: (doc?: ProsemirrorNode) => Code[] = () => []
 
 	@state() private view?: EditorView
+
+	@state() selectedLanguage?: string
+
 	private container?: HTMLElement
 	private readonly windowListeners: [string, () => void][] = []
 	private suggestionPalette?: SuggestionPalette
@@ -186,6 +189,7 @@ export class IcureTextField extends Field {
 			} else {
 				const [id, versions] = extractSingleValue(data)
 				const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
+
 				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
 				rev = versions?.[0]?.revision
 				revDate = versions?.[0]?.modified
@@ -237,9 +241,11 @@ export class IcureTextField extends Field {
 								.revision="${rev}"
 								.revisionDate="${revDate}"
 								.valueId="${extractSingleValue(this.valueProvider?.())?.[0]}"
-								.displayedLanguage="${this.displayedLanguage}"
+								.defaultLanguage="${this.defaultLanguage}"
+								.selectedLanguage="${this.selectedLanguage}"
 								.languages="${this.languages}"
 								.handleMetadataChanged="${this.handleMetadataChanged}"
+								.handleLanguageSelected="${(iso: string) => (this.selectedLanguage = iso)}"
 								.ownersProvider="${this.ownersProvider}"
 						  />`
 						: ''}
@@ -601,12 +607,12 @@ export class IcureTextField extends Field {
 		return schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => {
 					const unit = (doc?.childCount ?? 0) > 1 ? doc?.child(1)?.textContent : undefined
-					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
+					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.selectedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
 			  }
 			: schemaName === 'measure'
 			? (doc?: ProsemirrorNode) => {
 					const unit = doc?.child(1)?.textContent
-					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.displayedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
+					return unit ? [{ id: `CD-UNIT|${unit}|1`, label: { [this.selectedLanguage ?? this.defaultLanguage ?? 'en']: unit } }] : []
 			  }
 			: () => []
 	}

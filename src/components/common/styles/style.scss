@@ -386,7 +386,6 @@ h3 {
 .extra .buttons-container .btn.forced {
 	opacity: 1 !important;
 	display: unset !important;
-	filter: invert(24%) sepia(96%) saturate(6726%) hue-rotate(341deg) brightness(89%) contrast(94%);
 }
 
 .extra.forced .info, .extra .info.hidden {
@@ -415,6 +414,10 @@ h3 {
 
 .extra .buttons-container .btn svg path {
 	fill: #809ab4;
+}
+
+.extra .buttons-container .btn.forced svg path {
+	fill: crimson !important;
 }
 
 .extra .buttons-container .btn:hover svg path {
