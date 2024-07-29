@@ -251,6 +251,14 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 
 	compute<T, S extends { [key: string | symbol]: unknown }>(formula: string, sandbox?: S): T | undefined {
 		// noinspection JSUnusedGlobalSymbols
+		const parseContent = (content?: { [key: string]: PrimitiveType }) => {
+			if (!content) {
+				return undefined
+			}
+			const primitive = content[this.language] ?? content['*'] ?? content[Object.keys(content)[0]]
+			return primitive && parsePrimitive(primitive)
+		}
+		const log = console.log
 		const native = {
 			parseInt: parseInt,
 			parseFloat: parseFloat,
@@ -261,14 +269,14 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			Boolean: Boolean,
 			Array: Array,
 			Object: Object,
-			parseContent: (content?: { [key: string]: PrimitiveType }) => {
-				if (!content) {
-					return undefined
-				}
-				const primitive = content[this.language] ?? content['*'] ?? content[Object.keys(content)[0]]
-				return primitive && parsePrimitive(primitive)
+			parseContent,
+			validate: {
+				notBlank: (self: any, label: string) => {
+					const value = parseContent((self[label as any] as any)?.[0]?.content)
+					return !!(value as any)?.trim()?.length
+				},
 			},
-			log: console.log,
+			log,
 		} as { [key: string]: any }
 		const proxy: S = new Proxy({} as S, {
 			has: (target: S, key: string | symbol) => !!native[key as string] || key === 'self' || Object.keys(this.getVersionedValuesForKey(key) ?? {}).length > 0,

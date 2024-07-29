@@ -243,7 +243,8 @@ sections:
             tags:
               - MS-ABORTION-CONTROL-ITEM|evaluationOfPatient|1
             validators:
-              - validation: return !!self['abortion-forms.field-labels.PATIENT-EVALUATION']?.length
+              - validation: |
+                  return validate.notBlank(self, 'abortion-forms.field-labels.PATIENT-EVALUATION')
                 message: Veuillez remplir une évaluation de la patiente
       - group: line
         borderless: true

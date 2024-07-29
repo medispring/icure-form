@@ -91,7 +91,7 @@ The Field class has several specific implementations, each tailored to handle di
 
 - TokenField : a field that allows the user to handle a tokenized list of items.
 - ItemsListField : a field that allows the user to handle a list of items.
-- TextField : a very flexible field that allows the user to input a single line of a fully customizable text editor with styling options.
+- TextField : a very flexible field that allows the user to input a single line of text or to provide a fully customizable text editor with styling options.
 - DateField : a field that allows the user to input a date (date pickers are supported)
 - TimeField : a field that allows the user to input a time (time pickers are supported)
 - DateTimeField : a field that allows the user to input a date and time (date-time pickers are supported)
