@@ -23,8 +23,8 @@ import { hasContentClassPlugin } from './plugin/has-content-class-plugin'
 import { regexpPlugin } from './plugin/regexp-plugin'
 import { format, parse } from 'date-fns'
 import { Field } from '../common'
-import { Code, FieldMetadata, IcureTextFieldSchema, PrimitiveType, pteq, StringType } from '../model'
-import { Suggestion } from '../../generic'
+import { Code, FieldMetadata, FieldValue, IcureTextFieldSchema, PrimitiveType, pteq, StringType } from '../model'
+import { Suggestion, Version } from '../../generic'
 import { generateLabels } from '../common/utils'
 
 // @ts-ignore
@@ -64,6 +64,7 @@ export class IcureTextField extends Field {
 	@state() private view?: EditorView
 
 	@state() selectedLanguage?: string
+	@state() selectedRevision?: string
 
 	private container?: HTMLElement
 	private readonly windowListeners: [string, () => void][] = []
@@ -167,14 +168,14 @@ export class IcureTextField extends Field {
 					  }
 					: undefined,
 				valueId,
-			)
+			) && (this.selectedRevision = undefined)
 		}
 	}
 
 	render() {
 		let metadata: FieldMetadata | undefined
 		let rev: string | null | undefined
-		let revDate: number | undefined
+		let versions: Version<FieldValue>[] | undefined
 		if (this.view) {
 			let parsedDoc: ProsemirrorNode | undefined
 
@@ -187,19 +188,14 @@ export class IcureTextField extends Field {
 						values.map(([id, value]) => this.parser?.parse(value?.[0]?.value?.content?.[this.language()] ?? '', id)).filter((x) => !!x) as ProsemirrorNode[],
 					) ?? undefined
 			} else {
-				const [id, versions] = extractSingleValue(data)
-				const valueForLanguage = versions?.[0]?.value?.content?.[this.language()] ?? ''
+				let id
+				;[id, versions] = extractSingleValue(data)
+				const version = this.selectedRevision ? versions?.find((v) => v.revision === this.selectedRevision) : versions?.[0]
+				const valueForLanguage = version?.value?.content?.[this.language()] ?? ''
 
 				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
-				rev = versions?.[0]?.revision
-				revDate = versions?.[0]?.modified
-				metadata =
-					id && rev !== undefined
-						? this.metadataProvider?.(
-								id,
-								versions?.map((v) => v.revision),
-						  )?.[id]?.find((m) => m.revision === rev)?.value
-						: undefined
+				rev = version?.revision
+				metadata = id && rev !== undefined ? this.metadataProvider?.(id, versions?.map((v) => v.revision) ?? [])?.[id]?.find((m) => m.revision === rev)?.value : undefined
 			}
 
 			if (parsedDoc) {
@@ -239,13 +235,14 @@ export class IcureTextField extends Field {
 						? html`<icure-metadata-buttons-bar
 								.metadata="${metadata}"
 								.revision="${rev}"
-								.revisionDate="${revDate}"
+								.versions="${versions ?? []}"
 								.valueId="${extractSingleValue(this.valueProvider?.())?.[0]}"
 								.defaultLanguage="${this.defaultLanguage}"
 								.selectedLanguage="${this.selectedLanguage}"
 								.languages="${this.languages}"
 								.handleMetadataChanged="${this.handleMetadataChanged}"
 								.handleLanguageSelected="${(iso: string) => (this.selectedLanguage = iso)}"
+								.handleRevisionSelected="${(rev: string) => (this.selectedRevision = rev)}"
 								.ownersProvider="${this.ownersProvider}"
 						  />`
 						: ''}

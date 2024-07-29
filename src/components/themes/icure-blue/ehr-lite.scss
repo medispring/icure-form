@@ -180,9 +180,23 @@ $select-dropdown-row-hover-background: $blue-400;
 			// .buttons-container .menu-container .btn:hover::before {
 			// 	border-color:$accent transparent transparent transparent;
 			// }
+			> .options {
+				> .selected {
+					color: white;
+					background-color: $active-color;
+					border-radius: 0 !important;
+				}
+			}
 		}
 	}
 }
+
+.menu-container .item.selected {
+	color: white;
+	background-color: $active-color;
+	border-radius: 0 !important;
+}
+
 
 input[type='radio'] {
 	margin-top: -1px;
@@ -351,3 +365,4 @@ input[type='radio'] {
 		}
 	}
 }
+

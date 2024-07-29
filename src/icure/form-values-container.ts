@@ -537,7 +537,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		id?: string,
 		metadata?: ServiceMetadata,
 	): FormValuesContainerMutation<Service, ServiceMetadata, ContactFormValuesContainer, ID> {
-		const service = (id && this.getServiceInCurrentContact(id)) || this.serviceFactory(label, id)
+		const service =
+			(id && this.getServicesInHistory((sid: string, history) => (sid === id ? history.map((x) => x.revision) : []))[id]?.[0]?.value) || this.serviceFactory(label, id)
 		if (!service.id) {
 			throw new Error('Service id must be defined')
 		}
@@ -711,12 +712,14 @@ const setValueOnContactFormValuesContainer = (cfvc: ContactFormValuesContainer, 
 				: undefined,
 		},
 		id,
-		{
-			label: metadata?.label ?? label,
-			responsible: metadata?.owner,
-			valueDate: metadata?.valueDate,
-			tags: metadata?.tags,
-		},
+		metadata
+			? {
+					label: metadata?.label ?? label,
+					responsible: metadata?.owner,
+					valueDate: metadata?.valueDate,
+					tags: metadata?.tags,
+			  }
+			: undefined,
 	)
 	return mutation
 }

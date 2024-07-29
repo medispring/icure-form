@@ -57,8 +57,13 @@ class EhrLiteLabel extends Label {
 		return [...Label.styles, ehrLiteCss]
 	}
 }
+class EhrLiteMetadataButtonBar extends MetadataButtonBar {
+	static get styles() {
+		return [...MetadataButtonBar.styles, ehrLiteCss]
+	}
+}
 
-customElements.define('icure-metadata-buttons-bar', MetadataButtonBar)
+customElements.define('icure-metadata-buttons-bar', EhrLiteMetadataButtonBar)
 
 customElements.define('icure-form-checkbox', CheckBox)
 customElements.define('icure-form-date-picker', DatePicker)

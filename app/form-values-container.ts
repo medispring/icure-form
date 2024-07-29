@@ -24,7 +24,7 @@ export const makeFormValuesContainer = () => {
 	})
 	const ctc = new Contact({
 		id: 'c1',
-		rev: '12345',
+		rev: '1-12345',
 		created: +new Date() - 1000 * 60 * 60 * 24 * 7,
 		services: [
 			{ id: 's1', label: 'abortion-forms.field-labels.HISTORY', tags: [{ id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1' }], content: { en: { stringValue: 'test' } } },
@@ -33,6 +33,21 @@ export const makeFormValuesContainer = () => {
 				label: 'abortion-forms.field-labels.IN-TAKE-DATE',
 				tags: [{ id: 'MS-ABORTION-DATE|intake|1' }, { id: 'MS-ABORTION-ITEM|date|1' }, { id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1' }],
 				content: { en: { fuzzyDateValue: '20220404' } },
+			},
+			{
+				id: 's3',
+				label: 'abortion-forms.field-labels.NOTES',
+				valueDate: 20181012,
+				content: { fr: { stringValue: 'Un commentaire' } },
+				responsible: '2',
+				tags: [
+					{
+						id: 'MS-ABORTION-ITEM|comment-note|1',
+					},
+					{
+						id: 'MS-ABORTION-CONTROL-ITEM|medicalNotes|1',
+					},
+				],
 			},
 		],
 	})
@@ -50,7 +65,7 @@ export const makeFormValuesContainer = () => {
 		[ctc],
 		(label, serviceId) => new Service({ label, id: serviceId ?? uuid(), created: now, modified: now, responsible: '1' }),
 		async () => [],
-		async (anchorId: string, fti, label) => ({
+		async (anchorId: string, fti) => ({
 			id: uuid(),
 			created: +new Date(),
 			modified: +new Date(),

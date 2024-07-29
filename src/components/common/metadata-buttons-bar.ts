@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit'
 import { property, state } from 'lit/decorators.js'
-import { FieldMetadata } from '../model'
-import { Suggestion } from '../../generic'
+import { FieldMetadata, FieldValue } from '../model'
+import { Suggestion, Version } from '../../generic'
 import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { format } from 'date-fns'
 import { anyDateToDate } from '../../utils/dates'
@@ -17,13 +17,14 @@ export class MetadataButtonBar extends LitElement {
 	@property() valueId: string
 	@property() metadata: FieldMetadata
 	@property() revision: string
-	@property() revisionDate: number
+	@property() versions: Version<FieldValue>[]
 	@property() defaultLanguage: string
 	@property() selectedLanguage?: string
 	@property() languages: { [iso: string]: string } = {}
 	@property() displayedLabels: { [iso: string]: string } = {}
 	@property() handleMetadataChanged?: (metadata: FieldMetadata, id?: string) => string | undefined = undefined
 	@property() handleLanguageSelected?: (iso?: string) => void = undefined
+	@property() handleRevisionSelected?: (rev?: string | null) => void = undefined
 	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 
 	@state() protected displayOwnersMenu = false
@@ -32,10 +33,9 @@ export class MetadataButtonBar extends LitElement {
 	@state() protected loadedOwners: { [id: string]: Suggestion } = {}
 
 	@state() protected displayLanguagesMenu = false
+	@state() protected displayVersionsMenu = false
 	@state() protected displayValueDateMenu = false
 	@state() protected languageInputValue = ''
-
-	@state() protected displayVersionsMenu = false
 
 	static get styles() {
 		return [baseCss]
@@ -62,11 +62,9 @@ export class MetadataButtonBar extends LitElement {
 	}
 
 	render() {
-		const metadata = this.metadata
-		const revision = this.revision
-		const revisionDate = this.revisionDate
+		const revisionDate = this.versions.find((x) => x.revision === this.revision)?.modified
 
-		const owner = metadata?.owner
+		const owner = this.metadata?.owner
 		if (owner && !this.loadedOwners[owner]) {
 			this.loadedOwners = { ...this.loadedOwners, [owner]: { id: owner, text: '', terms: [], label: {} } } // Make sure we do not loop endlessly
 			this.ownersProvider &&
@@ -80,14 +78,15 @@ export class MetadataButtonBar extends LitElement {
 		const forcedByOwner = discordantMetadata?.owner !== undefined
 		const forcedByValueDate = discordantMetadata?.valueDate !== undefined
 		const forcedByLanguage = this.selectedLanguage && this.defaultLanguage !== this.selectedLanguage
+		const forcedByVersion = this.revision && this.revision !== this.versions?.[0]?.revision
 
 		return html` <div id="extra" class=${'extra' + (forcedByMenu ? ' forced' : '')}>
 			<div class="info ${forcedByOwner || forcedByLanguage || forcedByValueDate ? 'hidden' : ''}">•</div>
 			<div class="buttons-container">
 				<div class="menu-container">
 					<button
-						data-content="${(metadata?.owner ? this.loadedOwners[metadata?.owner]?.text : '') ?? ''}"
-						@click="${() => this.toggleOwnerMenu(metadata?.owner)}"
+						data-content="${(this.metadata?.owner ? this.loadedOwners[this.metadata?.owner]?.text : '') ?? ''}"
+						@click="${() => this.toggleOwnersMenu(this.metadata?.owner)}"
 						class="btn menu-trigger author ${forcedByOwner ? 'forced' : ''}"
 					>
 						${ownerPicto}
@@ -105,7 +104,7 @@ export class MetadataButtonBar extends LitElement {
 				</div>
 				<div class="menu-container">
 					<button
-						data-content="${metadata?.valueDate ? format(anyDateToDate(metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss').replace(/ 00:00:00$/, '') : ''}"
+						data-content="${this.metadata?.valueDate ? format(anyDateToDate(this.metadata.valueDate)!, 'yyyy-MM-dd HH:mm:ss').replace(/ 00:00:00$/, '') : ''}"
 						class="btn date ${forcedByValueDate ? 'forced' : ''}"
 						@click="${() => this.toggleValueDateMenu()}"
 					>
@@ -127,16 +126,31 @@ export class MetadataButtonBar extends LitElement {
 				</div>
 				<div class="menu-container">
 					<button
-						data-content="${revision === null ? 'latest' : revision ? `${revision.split('-')[0]} ${revisionDate ? `(${format(new Date(revisionDate), 'yyyy-MM-dd')})` : ''}` : ''}"
-						class="btn version"
+						data-content="${this.revision === null
+							? 'latest'
+							: this.revision
+							? `rev-${this.revision.split('-')[0]} ${revisionDate ? `(${format(new Date(revisionDate), 'yyyy-MM-dd')})` : ''}`
+							: ''}"
+						@click="${this.toggleVersionsMenu}"
+						class="btn version  ${forcedByVersion ? 'forced' : ''}"
 					>
 						${versionPicto}
 					</button>
+					${this.displayVersionsMenu
+						? html` <div id="menu" class="menu">
+								${this.versions.map(
+									(x) =>
+										html`<button class="item ${x.revision === this.revision ? 'selected' : ''}" @click="${() => this.handleRevisionButtonClicked(x.revision)}">
+											${x.revision == null ? 'Latest' : x.revision ?? ''} ${x.modified ? `(${format(new Date(x.modified), 'yyyy-MM-dd')})` : ''}
+										</button>`,
+								)}
+						  </div>`
+						: ''}
 				</div>
 				<div class="menu-container">
 					<button
 						data-content="${this.selectedLanguage ? languageName(this.selectedLanguage) ?? this.selectedLanguage : languageName(this.defaultLanguage) ?? this.defaultLanguage}"
-						@click="${this.toggleLanguageMenu}"
+						@click="${this.toggleLanguagesMenu}"
 						class="btn menu-trigger language ${forcedByLanguage ? 'forced' : ''}"
 					>
 						${i18nPicto}
@@ -156,7 +170,7 @@ export class MetadataButtonBar extends LitElement {
 		</div>`
 	}
 
-	toggleOwnerMenu(ownerId?: string) {
+	toggleOwnersMenu(ownerId?: string) {
 		this.displayOwnersMenu = !this.displayOwnersMenu
 		if (this.displayOwnersMenu) {
 			this.displayLanguagesMenu = false
@@ -197,6 +211,11 @@ export class MetadataButtonBar extends LitElement {
 		this.displayOwnersMenu = false
 	}
 
+	handleRevisionButtonClicked(rev?: string | null) {
+		this.handleRevisionSelected?.(rev)
+		this.displayVersionsMenu = false
+	}
+
 	toggleValueDateMenu() {
 		this.displayValueDateMenu = !this.displayValueDateMenu
 		if (this.displayValueDateMenu) {
@@ -216,11 +235,20 @@ export class MetadataButtonBar extends LitElement {
 		}
 	}
 
-	toggleLanguageMenu() {
+	toggleLanguagesMenu() {
 		this.displayLanguagesMenu = !this.displayLanguagesMenu
 		if (this.displayLanguagesMenu) {
 			this.displayOwnersMenu = false
 			this.displayVersionsMenu = false
+			this.displayValueDateMenu = false
+		}
+	}
+
+	toggleVersionsMenu() {
+		this.displayVersionsMenu = !this.displayVersionsMenu
+		if (this.displayLanguagesMenu) {
+			this.displayOwnersMenu = false
+			this.displayLanguagesMenu = false
 			this.displayValueDateMenu = false
 		}
 	}
