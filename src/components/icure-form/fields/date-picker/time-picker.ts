@@ -12,7 +12,9 @@ export class TimePicker extends Field {
 				label="${this.label}"
 				.displayedLabels="${this.displayedLabels}"
 				.defaultLanguage="${this.defaultLanguage}"
+				.languages="${this.languages}"
 				schema="time"
+				.ownersProvider=${this.ownersProvider}
 				.translationProvider=${this.translationProvider}
 				.valueProvider=${singleValueProvider(this.valueProvider, id)}
 				.validationErrorsProvider=${this.validationErrorsProvider}

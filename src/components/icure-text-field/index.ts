@@ -46,7 +46,6 @@ export class IcureTextField extends Field {
 	@property({ type: Boolean }) links = false
 	@property() linksProvider: (sug: Suggestion) => Promise<{ href: string; title: string } | undefined> = async () => undefined
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')
@@ -62,9 +61,6 @@ export class IcureTextField extends Field {
 	private codesExtractor: (doc?: ProsemirrorNode) => Code[] = () => []
 
 	@state() private view?: EditorView
-
-	@state() selectedLanguage?: string
-	@state() selectedRevision?: string
 
 	private container?: HTMLElement
 	private readonly windowListeners: [string, () => void][] = []

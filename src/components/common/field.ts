@@ -1,7 +1,7 @@
 import { property, state } from 'lit/decorators.js'
 import { LitElement } from 'lit'
 import { FieldMetadata, FieldValue, Labels } from '../model'
-import { VersionedData } from '../../generic'
+import { Suggestion, VersionedData } from '../../generic'
 
 /**
  * Base class for all fields.
@@ -44,6 +44,7 @@ export class Field extends LitElement {
 	 */
 	@property() valueProvider?: () => VersionedData<FieldValue> = undefined
 	@property() validationErrorsProvider?: () => string[] = undefined
+	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 	@property() metadataProvider?: (id: string, revisions: (string | null)[]) => VersionedData<FieldMetadata> = undefined
 	@property() handleValueChanged?: (label: string, language: string, value?: FieldValue, id?: string) => string | undefined = undefined
 	@property() handleMetadataChanged?: (metadata: FieldMetadata, id?: string) => string | undefined = undefined
@@ -53,6 +54,7 @@ export class Field extends LitElement {
 	@property() displayMetadata = false
 
 	@state() selectedLanguage?: string = undefined
+	@state() selectedRevision?: string
 
 	language(): string {
 		return (this.translate ? this.selectedLanguage ?? this.defaultLanguage : this.defaultLanguage) ?? 'en'

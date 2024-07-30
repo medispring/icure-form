@@ -2,12 +2,10 @@ import { html, TemplateResult } from 'lit'
 import { property } from 'lit/decorators.js'
 import { Field } from '../../../common'
 import { handleSingleMetadataChanged, handleSingleValueChanged, singleValueProvider } from '../utils'
-import { Code } from '../../../model'
 import { Suggestion } from '../../../../generic'
 
 export class DropdownField extends Field {
-	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
-	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Code[]> = async () => []
+	@property() optionsProvider: (language: string, searchTerm?: string) => Promise<Suggestion[]> = async () => []
 
 	render(): TemplateResult[] {
 		const versionedValues = this.valueProvider?.()
@@ -19,9 +17,12 @@ export class DropdownField extends Field {
 					.translate="${this.translate}"
 					label="${this.label}"
 					.displayedLabels="${this.displayedLabels}"
+					.defaultLanguage="${this.defaultLanguage}"
+					.languages="${this.languages}"
 					.valueProvider=${singleValueProvider(this.valueProvider, id)}
 					.validationErrorsProvider=${this.validationErrorsProvider}
 					.metadataProvider=${this.metadataProvider}
+					.ownersProvider=${this.ownersProvider}
 					.handleValueChanged=${handleSingleValueChanged(this.handleValueChanged, id)}
 					.handleMetadataChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 					.optionsProvider=${this.optionsProvider}

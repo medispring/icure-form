@@ -15,7 +15,6 @@ export class TextField extends Field {
 	@property() linksProvider: (sug: { id: string; code: string; text: string; terms: string[] }) => Promise<{ href: string; title: string } | undefined> = () =>
 		Promise.resolve(undefined)
 	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
-	@property() ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => []
 	@property() codeColorProvider: (type: string, code: string) => string = () => 'XI'
 	@property() linkColorProvider: (type: string, code: string) => string = () => 'cat1'
 	@property() codeContentProvider: (codes: { type: string; code: string }[]) => string = (codes) => codes.map((c) => c.code).join(',')

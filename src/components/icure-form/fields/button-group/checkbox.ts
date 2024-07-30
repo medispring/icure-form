@@ -18,7 +18,9 @@ export class CheckBox extends Field {
 					.displayedLabels="${this.displayedLabels}"
 					label="${this.label}"
 					.defaultLanguage="${this.defaultLanguage}"
+					.languages="${this.languages}"
 					.translate="${this.translate}"
+					.ownersProvider=${this.ownersProvider}
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}
 					.valueProvider=${singleValueProvider(this.valueProvider, id)}

@@ -14,6 +14,8 @@ export class ItemsListField extends Field {
 			.lines="${this.lines}"
 			.displayedLabels="${this.displayedLabels}"
 			.defaultLanguage="${this.defaultLanguage}"
+			.languages="${this.languages}"
+			.ownersProvider=${this.ownersProvider}
 			.valueProvider=${this.valueProvider}
 			.validationErrorsProvider=${this.validationErrorsProvider}
 			.metadataProvider=${this.metadataProvider}
