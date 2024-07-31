@@ -35,7 +35,7 @@ export class Field extends LitElement {
 	/**
 	 * Iso code and names of the supported languages
 	 */
-	@property() languages?: { [iso: string]: string }
+	@property() languages: { [iso: string]: string } = {}
 
 	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
 
