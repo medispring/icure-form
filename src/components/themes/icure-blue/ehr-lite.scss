@@ -59,10 +59,6 @@ $select-dropdown-row-font-size: 12px;
 $select-dropdown-row-font-weight: 400;
 $select-dropdown-row-hover-background: $blue-400;
 
-.group .icure-form .icure-form-field:first-child {
-	margin-top: 16px;
-}
-
 .icure-text-field, .icure-button-group {
 	width: $textbox-default-width;
 
@@ -110,6 +106,10 @@ $select-dropdown-row-hover-background: $blue-400;
 		border-color: $border-color;
 		color: $color;
 		box-sizing: border-box;
+
+		&__validationError {
+			border-color: red;
+		}
 
 		&:focus,
 		&:focus-within {
@@ -365,4 +365,3 @@ input[type='radio'] {
 		}
 	}
 }
-

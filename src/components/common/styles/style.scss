@@ -848,7 +848,7 @@ app-date-picker {
 .icure-form {
 	background-color: $background-color;
 	display: grid;
-	gap: 0 6px;
+	gap: 16px 6px;
 	grid-template-columns: repeat(24, 1fr);
 }
 
@@ -908,13 +908,14 @@ app-date-picker {
 	}
 }
 .icure-form-field {
-	align-items: end;
 	display: grid;
+	align-items: flex-start;
 }
 
 .error {
 	color: red;
 	font-size: $label-font-size;
+	margin-top: 4px;
 }
 
 .icure-text-field, .icure-button-group {
@@ -991,6 +992,10 @@ app-date-picker {
 		border-color: $border-color;
 		color: $color;
 		box-sizing: border-box;
+
+		&__validationError {
+			border-color: red;
+		}
 
 		&:focus,
 		&:focus-within {
