@@ -1,6 +1,8 @@
 @import 'math';
 
 $label-color: #084B83;
+$green-light-bg: #BFE8EA;
+$blue-light-bg: #DCE7F2;
 $hr-color: rgba(8, 75, 131, 0.13);
 $color: #000000;
 $border-color: red;
@@ -484,7 +486,9 @@ h3 {
 }
 
 .menu {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
 	position: absolute;
 	top: 20px;
 	right: -12px;
@@ -534,11 +538,11 @@ h3 {
 }
 
 .menu-trigger:focus .menu {
-	display: block;
+	display: flex;
 }
 
 .menu-container .item {
-	height: 22px;
+	height: 30px;
 	width: 100%;
 	background: transparent;
 	border-radius: 4px;
@@ -553,10 +557,20 @@ h3 {
 	white-space: nowrap;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
+
+	&__existing{
+		background-color: $green-light-bg;
+	}
+
+	&__selected {
+		color: white;
+		background-color: $label-color;
+	}
 }
 
 .menu-container .item:hover {
-	background: #f5f9fd;
+	background: $blue-light-bg;
+	color: #274768;
 	font-weight: 500;
 	border-radius: 4px;
 }

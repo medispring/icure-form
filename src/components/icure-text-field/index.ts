@@ -174,6 +174,8 @@ export class IcureTextField extends Field {
 		let rev: string | null | undefined
 		let versions: Version<FieldValue>[] | undefined
 		const validationError = this.validationErrorsProvider?.()?.length
+		let valueForExistingLanguages: string[] | undefined = undefined
+
 		if (this.view) {
 			let parsedDoc: ProsemirrorNode | undefined
 
@@ -190,6 +192,7 @@ export class IcureTextField extends Field {
 				;[id, versions] = extractSingleValue(data)
 				const version = this.selectedRevision ? versions?.find((v) => v.revision === this.selectedRevision) : versions?.[0]
 				const valueForLanguage = version?.value?.content?.[this.language()] ?? ''
+				valueForExistingLanguages =  Object.keys(version?.value?.content ?? {})
 
 				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
 				rev = version?.revision
@@ -243,6 +246,7 @@ export class IcureTextField extends Field {
 								.handleLanguageSelected="${(iso: string) => (this.selectedLanguage = iso)}"
 								.handleRevisionSelected="${(rev: string) => (this.selectedRevision = rev)}"
 								.ownersProvider="${this.ownersProvider}"
+								.existingLanguages="${valueForExistingLanguages ?? undefined}"
 						  />`
 						: ''}
 				</div>

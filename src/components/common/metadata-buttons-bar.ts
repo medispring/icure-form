@@ -21,6 +21,7 @@ export class MetadataButtonBar extends LitElement {
 	@property() defaultLanguage: string
 	@property() selectedLanguage?: string
 	@property() languages: { [iso: string]: string } = {}
+	@property() existingLanguages?:  string[]
 	@property() displayedLabels: { [iso: string]: string } = {}
 	@property() handleMetadataChanged?: (metadata: FieldMetadata, id?: string) => string | undefined = undefined
 	@property() handleLanguageSelected?: (iso?: string) => void = undefined
@@ -161,7 +162,20 @@ export class MetadataButtonBar extends LitElement {
 									<div class="input-container">${searchPicto} <input id="languageSearch" @input="${this.searchLanguage}" /></div>
 									${[this.defaultLanguage, ...Object.keys(this.languages).filter((x) => x !== this.defaultLanguage)]
 										.filter((x) => !!x && (languageName(x) ?? this.languages[x] ?? x).toLowerCase().includes((this.languageInputValue ?? '').toLowerCase()))
-										.map((x) => html`<button @click="${() => this.handleLanguageButtonClicked(x)}" id="${x}" class="item">${x ? languageName(x) : ''}</button>`)}
+										.map((x) => html`
+											<button 
+												@click="${() => this.handleLanguageButtonClicked(x)}" 
+												id="${x}" 
+												class="${
+													(x === this.defaultLanguage && !this.selectedLanguage) || x === this.selectedLanguage 
+													? "item item__selected" 
+													: this.existingLanguages?.includes(x) 
+													? "item item__existing" 
+													: 'item'
+												}"
+											>
+												${x ? languageName(x) : ''}${x === this.defaultLanguage ? " (default)" : ''}
+											</button>`)}
 								</div>
 						  `
 						: ''}

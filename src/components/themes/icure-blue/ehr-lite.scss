@@ -8,8 +8,9 @@ $gray-400: #DDE3E7;
 
 $blue-800: #084B83;
 $blue-600: #8DA6BF;
-$blue-500: #9ABFE0;
 $blue-400: #DCE7F2;
+
+$green-100: #BFE8EA;
 
 // theme
 $label-color: $gray-900;
@@ -191,10 +192,22 @@ $select-dropdown-row-hover-background: $blue-400;
 	}
 }
 
-.menu-container .item.selected {
-	color: white;
-	background-color: $active-color;
-	border-radius: 0 !important;
+.menu-container .item {
+
+	&:hover {
+		background: $blue-400;
+		color: #274768;
+		cursor: pointer;
+	}
+
+	&__existing{
+		background-color: $green-100;
+	}
+
+	&__selected {
+		color: white;
+		background-color: $active-color;
+	}
 }
 
 
