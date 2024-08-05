@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { FieldMetadata, FieldValue } from '../model'
 import { Suggestion, Version } from '../../generic'
-import { datePicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
+import { calendarPatientPicto, i18nPicto, ownerPicto, searchPicto, versionPicto } from './styles/paths'
 import { format } from 'date-fns'
 import { anyDateToDate } from '../../utils/dates'
 import { toResolvedDate } from 'app-datepicker/dist/helpers/to-resolved-date'
@@ -120,7 +120,7 @@ export class MetadataButtonBar extends LitElement {
 						class="btn date ${forcedByValueDate ? 'forced' : ''}"
 						@click="${() => this.toggleValueDateMenu()}"
 					>
-						${datePicto}
+						${calendarPatientPicto}
 					</button>
 					${this.displayValueDateMenu
 						? html`
