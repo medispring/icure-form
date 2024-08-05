@@ -336,17 +336,22 @@ h3 {
 }
 
 .extra {
-	flex-shrink: 0;
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	padding: 0 8px;
+	min-width: 20px;
+	width: auto;
+	height: 20px;
+	position: relative;
 	transition: all 0.24s cubic-bezier(0.42, 0.01, 1, 0.62);
+
+	&:hover {
+		& > .info {
+			opacity: 0;
+		}
+	}
 }
 
 .extra > .info {
 	color: #809ab4;
-	font-size: 12px;
+	font-size: 15px;
 	width: 100%;
 	height: auto;
 	overflow: hidden;
@@ -359,14 +364,19 @@ h3 {
 }
 
 .extra .buttons-container {
-	position: relative;
+	position: absolute;
+	right: 0;
+	top: 0;
 	display: flex;
-	height: 100%;
+	height: 20px;
+	width: auto;
 	flex-flow: row nowrap;
 	align-items: center;
 	justify-content: flex-end;
-	width: 0;
 	transition: all .24s cubic-bezier(.14, .69, .87, .54);
+
+	background: rgba(white, 0.9);
+	z-index: 1000;
 }
 
 .extra:hover .buttons-container .menu-container .btn {
@@ -404,10 +414,14 @@ h3 {
 	opacity: 0;
 	cursor: pointer;
 	height: 20px;
-	width: 10px;
 	margin-left: 4px;
 	margin-right: 4px;
 	padding: 0;
+
+	svg {
+		width: 15px;
+		height: 15px;
+	}
 }
 
 .extra .buttons-container .menu-container:last-child .btn {
@@ -558,11 +572,11 @@ h3 {
 	overflow-x: hidden;
 	text-overflow: ellipsis;
 
-	&__existing{
+	&.existing{
 		background-color: $green-light-bg;
 	}
 
-	&__selected {
+	&.selected {
 		color: white;
 		background-color: $label-color;
 	}
@@ -933,7 +947,12 @@ app-date-picker {
 }
 
 .icure-text-field, .icure-button-group {
-	> .icure-label {
+	.icure-label-extra{
+		display: flex;
+		width: 100%;
+		gap: 12px;
+	}
+	 .icure-label {
 		z-index: 1;
 		pointer-events: none;
 		line-height: $textbox-line-height;
@@ -988,7 +1007,7 @@ app-date-picker {
 	.icure-input,
 	.input-container {
 		border-radius: $border-radius;
-		padding: $input-padding-y $input-padding-x;
+		padding: $input-padding-x;
 		width: $textbox-default-width;
 		box-sizing: border-box;
 		border-width: $input-border-width;
@@ -1063,7 +1082,7 @@ app-date-picker {
 				opacity: 0.5;
 			}
 
-			.buttons-container .btn svg path {
+			 .btn svg path {
 				fill: $accent;
 				opacity: 0.5;
 
@@ -1096,9 +1115,12 @@ input[type='radio'] {
 .icure-button-group {
 	> div {
 		display: grid;
+		row-gap: 4px;
+
 		> div {
 			display: flex;
 			align-items: center;
+
 			> .icure-button-group-label {
 				z-index: 1;
 				line-height: $textbox-line-height;

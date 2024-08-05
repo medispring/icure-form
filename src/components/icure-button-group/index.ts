@@ -70,7 +70,9 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 		return html`
 			<div class="icure-text-field icure-button-group">
 				${this.displayedLabels && this.displayedOptions?.length
-					? html`${generateLabels(
+					? html`
+					<div class="icure-label-extra">
+						${generateLabels(
 							Object.entries(this.displayedLabels ?? {})
 								.filter(
 									//If we have less than 2 options, we don't need to display the label except if it is different from the first option
@@ -79,8 +81,8 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 								.reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {}),
 							this.language(),
 							this.translate ? this.translationProvider : undefined,
-					  )}
-					  ${this.displayMetadata && metadata
+						)}
+						${this.displayMetadata && metadata
 							? html`<icure-metadata-buttons-bar
 									.metadata="${metadata}"
 									.revision="${rev}"
@@ -94,9 +96,10 @@ export class IcureButtonGroup extends FieldWithOptionsMixin(Field) {
 									.handleRevisionSelected="${(rev: string) => (this.selectedRevision = rev)}"
 									.ownersProvider="${this.ownersProvider}"
 							  />`
-							: nothing} `
+							: nothing}
+					</div>
+					`
 					: nothing}
-
 				<div style="${this.generateStyle()}">
 					${(this.displayedOptions?.length ? this.displayedOptions : [{ id: this.label, label: {} }]).map((x) => {
 						const text = (x.label ?? {})[this.language()] ?? ''

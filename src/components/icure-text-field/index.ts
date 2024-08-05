@@ -231,7 +231,7 @@ export class IcureTextField extends Field {
 		return html`
 			<div id="root" class="${this.visible ? 'icure-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
-				<div class="icure-input ${validationError && 'icure-input__validationError'}">
+				<div class="icure-input ${validationError ? 'icure-input__validationError' : ''}">
 					<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
 					${this.displayMetadata && metadata
 						? html`<icure-metadata-buttons-bar

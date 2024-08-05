@@ -82,7 +82,7 @@ export class MetadataButtonBar extends LitElement {
 		const forcedByVersion = this.revision && this.revision !== this.versions?.[0]?.revision
 
 		return html` <div id="extra" class=${'extra' + (forcedByMenu ? ' forced' : '')}>
-			<div class="info ${forcedByOwner || forcedByLanguage || forcedByValueDate ? 'hidden' : ''}">•</div>
+			<div class="info ${forcedByOwner || forcedByLanguage || forcedByValueDate ? 'hidden' : ''}">&#9432</div>
 			<div class="buttons-container">
 				<div class="menu-container">
 					<button
@@ -97,7 +97,18 @@ export class MetadataButtonBar extends LitElement {
 								<div id="menu" class="menu">
 									<div class="input-container">${searchPicto} <input id="ownerSearch" @input="${this.searchOwner}" /></div>
 									${(this.availableOwners?.length ? this.availableOwners : Object.values(this.loadedOwners))?.map(
-										(x) => html`<button @click="${() => this.handleOwnerButtonClicked(x.id)}" id="${x.id}" class="item">${x.text}</button>`,
+										(x) => html`
+											<button 
+												@click="${() => this.handleOwnerButtonClicked(x.id)}" 
+												id="${x.id}"
+												class="${
+													(this.metadata?.owner && this.loadedOwners[this.metadata?.owner]?.text === x.text)
+														? "item selected"
+														: 'item'
+												}"
+											>
+												${x.text}
+											</button>`,
 									)}
 								</div>
 						  `
@@ -141,7 +152,10 @@ export class MetadataButtonBar extends LitElement {
 						? html` <div id="menu" class="menu">
 								${this.versions.map(
 									(x) =>
-										html`<button class="item ${x.revision === this.revision ? 'selected' : ''}" @click="${() => this.handleRevisionButtonClicked(x.revision)}">
+										html`
+											<button 
+												class="item ${x.revision === this.revision ? 'item selected' : ''}" 
+												@click="${() => this.handleRevisionButtonClicked(x.revision)}">
 											${x.revision == null ? 'Latest' : x.revision ?? ''} ${x.modified ? `(${format(new Date(x.modified), 'yyyy-MM-dd')})` : ''}
 										</button>`,
 								)}
@@ -168,13 +182,13 @@ export class MetadataButtonBar extends LitElement {
 												id="${x}" 
 												class="${
 													(x === this.defaultLanguage && !this.selectedLanguage) || x === this.selectedLanguage 
-													? "item item__selected" 
+													? "item item selected" 
 													: this.existingLanguages?.includes(x) 
-													? "item item__existing" 
+													? "item item existing" 
 													: 'item'
 												}"
 											>
-												${x ? languageName(x) : ''}${x === this.defaultLanguage ? " (default)" : ''}
+												${x ? languageName(x) : ''}
 											</button>`)}
 								</div>
 						  `
