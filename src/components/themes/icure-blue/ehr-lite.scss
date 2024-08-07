@@ -108,6 +108,9 @@ $select-dropdown-row-hover-background: $blue-400;
 		&__validationError {
 			border-color: red;
 		}
+		 &__withMetadata{
+			border-radius: 6px 0 0 6px;
+		}
 
 		&:focus,
 		&:focus-within {

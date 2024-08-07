@@ -81,7 +81,7 @@ export class MetadataButtonBar extends LitElement {
 		const forcedByLanguage = this.selectedLanguage && this.defaultLanguage !== this.selectedLanguage
 		const forcedByVersion = this.revision && this.revision !== this.versions?.[0]?.revision
 
-		return html` <div id="extra" class=${'extra' + (forcedByMenu ? ' forced' : '')}>
+		return html` <div id="extra" class=${'extra extra--metadataButtonsBar' + (forcedByMenu ? ' forced' : '')}>
 			<div class="info ${forcedByOwner || forcedByLanguage || forcedByValueDate ? 'hidden' : ''}">&#9432</div>
 			<div class="buttons-container">
 				<div class="menu-container">

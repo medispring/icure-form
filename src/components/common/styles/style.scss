@@ -5,7 +5,7 @@ $green-light-bg: #BFE8EA;
 $blue-light-bg: #DCE7F2;
 $hr-color: rgba(8, 75, 131, 0.13);
 $color: #000000;
-$border-color: red;
+$error-border-color: red;
 $textbox-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.06) !default;
 $input-focused-text: #656565;
 $input-focused-border: rgba(0, 0, 0, 0.15);
@@ -23,6 +23,7 @@ $textbox-font-size: 14px !default;
 $label-font-size: 12px !default;
 
 $input-border-width: 1px;
+$input-border-color: #DDE3E7;
 $input-padding-y: 0;
 $input-padding-x: 8px;
 
@@ -324,6 +325,26 @@ h3 {
 	margin-top: 0;
 }
 
+// icure-input-metadata-containe
+
+.icure-input-metadata-container{
+	display: flex;
+
+	.icure-metadata-container{
+		display: flex;
+		flex-grow: 1;
+		padding: 0 4px;
+		border: 1px solid $input-border-color;
+		border-left: none;
+		border-radius: 0 6px 6px 0;
+		outline: 0;
+		box-sizing: border-box;
+
+		&__validationError{
+			border-color: $error-border-color;
+		}
+	}
+}
 
 .extra {
 	min-width: 20px;
@@ -333,36 +354,26 @@ h3 {
 	transition: all 0.24s cubic-bezier(0.42, 0.01, 1, 0.62);
 
 	&:hover {
-		& > .info {
-			opacity: 0;
+		.info {
+			display: none;
 		}
+
 		.buttons-container .menu-container .btn {
 			animation: slideIn .24s ease-in forwards;
 			pointer-events: none;
 			display: unset !important;
 		}
 	}
-	& > .info {
-		color: #809ab4;
-		font-size: 15px;
-		width: 100%;
-		height: auto;
-		overflow: hidden;
-		pointer-events: none;
-		text-align: right;
 
-		& > span {
-			font-weight: 700;
-		}
-	}
 	&.forced {
-		.buttons-container .btn {
-			opacity: 1 !important;
-			display: unset !important;
-		}
 		.info, .extra .info.hidden {
 			opacity: 0 !important;
 			z-index: 0 !important;
+			display: none;
+		}
+		.buttons-container .btn {
+			opacity: 1 !important;
+			display: unset !important;
 		}
 		&:hover .buttons-container .menu-container .btn {
 			animation: none;
@@ -370,10 +381,32 @@ h3 {
 		}
 	}
 
+	&--metadataButtonsBar{
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 4px;
+	}
+
+	.info {
+		color: #809ab4;
+		font-size: 15px;
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		pointer-events: none;
+		text-align: center;
+
+		span {
+			font-weight: 700;
+		}
+
+		&.hidden {
+			display: none;
+		}
+	}
+
 	.buttons-container {
-		position: absolute;
-		right: 0;
-		top: 0;
 		display: flex;
 		height: 20px;
 		width: auto;
@@ -527,7 +560,7 @@ h3 {
 	flex-direction: column;
 	gap: 2px;
 	position: absolute;
-	top: 20px;
+	top: 32px;
 	right: -12px;
 	z-index: 2;
 	background: #fff;
@@ -952,8 +985,7 @@ app-date-picker {
 		max-width: 85%;
 		min-width: 0;
 		&.float {
-			display: inline-block;
-			height: $textbox-line-height;
+			display: flex;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
@@ -964,9 +996,6 @@ app-date-picker {
 .icure-text-field {
 	position: relative;
 	width: $textbox-default-width;
-	flex-direction: row;
-	justify-content: stretch;
-	align-items: center;
 
 	> .icure-label {
 		transition: transform $floating-label-transition, color $floating-label-transition;
@@ -993,12 +1022,14 @@ app-date-picker {
 
 	.icure-input,
 	.input-container {
-		border-radius: $border-radius;
 		padding: $input-padding-x;
 		width: $textbox-default-width;
 		box-sizing: border-box;
 		border-width: $input-border-width;
 		border-style: solid;
+		border-color: $input-border-color;
+		border-radius: $border-radius;
+		box-sizing: border-box;
 		outline: 0;
 		font: inherit;
 		font-size: $textbox-font-size;
@@ -1009,12 +1040,14 @@ app-date-picker {
 		position: relative;
 		-webkit-appearance: none;
 		background-color: #ffffff;
-		border-color: $border-color;
 		color: $color;
-		box-sizing: border-box;
 
 		&__validationError {
-			border-color: red;
+			border-color: $error-border-color;
+		}
+
+		&__withMetadata{
+			border-radius: 6px 0 0 6px;
 		}
 
 		&:focus,
@@ -1100,9 +1133,12 @@ input[type='radio'] {
 }
 
 .icure-button-group {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+
 	> div {
 		display: grid;
-		row-gap: 4px;
 
 		> div {
 			display: flex;
