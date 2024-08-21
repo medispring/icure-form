@@ -257,30 +257,20 @@ li.ProseMirror-selectednode {
 			align-items: flex-start;
 
 				li {
-					display: inline-block;
+					display: flex;
+					flex-direction: row;
 					border-radius: 8px;
 					padding: 2px 4px;
 					margin-right: 2px;
 					background-color: #dadada;
 					border-color: rgba(42, 61, 108, 0.44);
+					min-height: 20px;
 
 					span{
-						min-width: 26px;
 						display: inline-block;
-
+						min-height: 18px;
 						br {
 							display: none;
-						}
-
-						&:after:hover {
-							background: transparent url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxu cz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJPdXRsaW5lIiB2aWV3 Qm94PSIwIDAgMjQgMjQiIHN0cm9rZT0iIzAwMDAwMCIgZmlsbD0iIzAwMDAwMCIg d2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPjxwYXRoIGQ9Ik0xNiw4YTEsMSwwLDAs MC0xLjQxNCwwTDEyLDEwLjU4Niw5LjQxNCw4QTEsMSwwLDAsMCw4LDkuNDE0TDEw LjU4NiwxMiw4LDE0LjU4NkExLDEsMCwwLDAsOS40MTQsMTZMMTIsMTMuNDE0LDE0 LjU4NiwxNkExLDEsMCwwLDAsMTYsMTQuNTg2TDEzLjQxNCwxMiwxNiw5LjQxNEEx LDEsMCwwLDAsMTYsOFoiLz48cGF0aCBkPSJNMTIsMEExMiwxMiwwLDEsMCwyNCwx MiwxMi4wMTMsMTIuMDEzLDAsMCwwLDEyLDBabTAsMjJBMTAsMTAsMCwxLDEsMjIs MTIsMTAuMDExLDEwLjAxMSwwLDAsMSwxMiwyMloiLz48L3N2Zz4K') no-repeat center/16px;
-						}
-
-						&:after {
-							content: " ";
-							min-width: 22px;
-							background: transparent url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxu cz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJPdXRsaW5lIiB2aWV3 Qm94PSIwIDAgMjQgMjQiIHN0cm9rZT0iIzg4ODg4OCIgZmlsbD0iIzg4ODg4OCIg d2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPjxwYXRoIGQ9Ik0xNiw4YTEsMSwwLDAs MC0xLjQxNCwwTDEyLDEwLjU4Niw5LjQxNCw4QTEsMSwwLDAsMCw4LDkuNDE0TDEw LjU4NiwxMiw4LDE0LjU4NkExLDEsMCwwLDAsOS40MTQsMTZMMTIsMTMuNDE0LDE0 LjU4NiwxNkExLDEsMCwwLDAsMTYsMTQuNTg2TDEzLjQxNCwxMiwxNiw5LjQxNEEx LDEsMCwwLDAsMTYsOFoiLz48cGF0aCBkPSJNMTIsMEExMiwxMiwwLDEsMCwyNCwx MiwxMi4wMTMsMTIuMDEzLDAsMCwwLDEyLDBabTAsMjJBMTAsMTAsMCwxLDEsMjIs MTIsMTAuMDExLDEwLjAxMSwwLDAsMSwxMiwyMloiLz48L3N2Zz4K') no-repeat center/16px;
-							display: inline-block;
 						}
 					}
 				}
@@ -415,7 +405,6 @@ h3 {
 		justify-content: flex-end;
 		transition: all .24s cubic-bezier(.14, .69, .87, .54);
 
-		background: rgba(white, 0.9);
 		z-index: 1000;
 
 		.btn {
@@ -474,7 +463,7 @@ h3 {
 			.btn:hover::after {
 				content: attr(data-content);
 				position: absolute;
-				top: -22px;
+				top: -21px;
 				height: 16px;
 				left: 50%;
 				transform: translateX(-50%);
