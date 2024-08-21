@@ -43,3 +43,11 @@ export const defaultCodesComparator =
 		}
 		return (a?.label?.[language] || '').localeCompare(b?.label?.[language] || '') * (ascending ? 1 : -1)
 	}
+
+export const naturalCodesComparator =
+	(codePromoter: (c: Code) => number = defaultCodePromoter) =>
+	(a: Code, b: Code): number => {
+		const aPromoted = codePromoter(a)
+		const bPromoted = codePromoter(b)
+		return aPromoted !== bPromoted ? aPromoted - bPromoted : -1
+	}
