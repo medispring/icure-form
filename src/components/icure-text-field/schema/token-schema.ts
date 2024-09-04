@@ -28,8 +28,8 @@ export function getTokensSpec(
 				group: 'block',
 				attrs: { id: { default: undefined } },
 				parseDOM: [{ tag: 'li' }],
-				toDOM() {
-					return ['li', {}, ['span', { class: 'token' }, 0]]
+				toDOM(node) {
+					return ['li', {}, ['span', { class: 'token' }, 0], ['icure-metadata-buttons-bar-wrapper', { id: node.attrs.id }]]
 				},
 			},
 

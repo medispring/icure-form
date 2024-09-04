@@ -240,6 +240,7 @@ sections:
             type: textfield
             multiline: true
             span: 12
+            rowSpan: 5
             tags:
               - MS-ABORTION-CONTROL-ITEM|evaluationOfPatient|1
             validators:

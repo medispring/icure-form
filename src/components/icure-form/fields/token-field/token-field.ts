@@ -1,9 +1,11 @@
 import { html } from 'lit'
 import { Field } from '../../../common'
 import { property } from 'lit/decorators.js'
+import { Suggestion } from '../../../../generic'
 
 export class TokenField extends Field {
 	@property() multiline: boolean | string = false
+	@property() suggestionProvider: (terms: string[]) => Promise<Suggestion[]> = async () => []
 	@property() lines = 1
 	render() {
 		return html`<icure-text-field
@@ -14,12 +16,14 @@ export class TokenField extends Field {
 			.displayedLabels="${this.displayedLabels}"
 			.defaultLanguage="${this.defaultLanguage}"
 			schema="tokens-list"
-			.valueProvider=${this.valueProvider}
-			.validationErrorsProvider=${this.validationErrorsProvider}
-			.metadataProvider=${this.metadataProvider}
-			.handleValueChanged=${this.handleValueChanged}
-			.translationProvider=${this.translationProvider}
 			.handleMetadataChanged=${this.handleMetadataChanged}
+			.handleValueChanged=${this.handleValueChanged}
+			.metadataProvider=${this.metadataProvider}
+			.ownersProvider=${this.ownersProvider}
+			.suggestionProvider=${this.suggestionProvider}
+			.translationProvider=${this.translationProvider}
+			.validationErrorsProvider=${this.validationErrorsProvider}
+			.valueProvider=${this.valueProvider}
 		></icure-text-field>`
 	}
 }
