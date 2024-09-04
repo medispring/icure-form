@@ -56,79 +56,75 @@ codifications:
     codes:
       - id: coitus-interrupted
         label:
-          nl: Onderbroken geslachtsgemeenschap
+          nl: Coïtus interruptus
           fr: Coït interrompu
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie man
+          fr: Stérilisation masculine
       - id: periodic-abstinence
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: spermicides
-        label:
-          nl: Spermiciden
-          fr: Spermicides
-      - id: pessary
-        label:
-          nl: Spiraaltje
-          fr: Pessaire
-      - id: condom
-        label:
-          nl: Condoom
-          fr: Préservatif
-      - id: oral-pill
-        label:
-          nl: Anticonceptiepil
-          fr: Pilule contraceptive
-      - id: progestone-only-pill
-        label:
-          nl: POP
-          fr: Pilule progestative
-      - id: injection-pill
-        label:
-          nl: INJECTION-PILL
-          fr: Injection contraceptive
-      - id: kiud
-        label:
-          nl: KIUD
-          fr: KIUD
-      - id: hiud
-        label:
-          nl: HIUD
-          fr: HIUD
-      - id: male-sterilization
-        label:
-          nl: Sterilisatie bij mannen
-          fr: Stérilisation masculine
       - id: female-sterilization
         label:
-          nl: Sterilisatie bij vrouwen
+          nl: Sterilisatie vrouw
           fr: Stérilisation féminine
+      - id: spermicides
+        label:
+          nl: Spermicide middelen
+          fr: Spermicides
       - id: morning-after-pill
         label:
-          nl: Morning-afterpil
+          nl: Noodpil
           fr: Pilule du lendemain
+      - id: pessary
+        label:
+          nl: Pessarium
+          fr: Pessaire
       - id: implant
         label:
           nl: Implant
           fr: Implant contraceptif
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
       - id: patch
         label:
-          nl: Anticonceptiepleister
+          nl: Patch
           fr: Patch contraceptif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
       - id: vaginal-ring
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
+      - id: progestone-only-pill
+        label:
+          nl: Prikpil
+          fr: Pilule progestative
       - id: symptothermal-method
         label:
-          nl: Symptothermale methode
+          nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
+      - id: Copper-IUD
+        label:
+          nl: Koperspiraal
+          fr: Stérilet en cuivre
       - id: electronic-or-digital-methods
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
+      - id: hormonal-IUD
+        label:
+          nl: Hormoonspiraal
+          fr: Stérilet hormonal
       - id: other-contraceptives
         label:
-          nl: Andere anticonceptiemethoden
+          nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-SECOND-PART-EVALUATION
     codes:
@@ -188,7 +184,7 @@ translations:
       abortion-forms.field-labels.ADMINISTRATED-MEDICATION-2: Toegediende medicatie 2
       abortion-forms.field-labels.PAIN-MEDICATION: Pijnmedicatie
       abortion-forms.field-labels.PAIN-MEDICATION-OTHER: Andere pijnmedicatie
-      abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2: Gespreks-/procesfase 2
+      abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2: Gesprek / Proces fase 2
       abortion-forms.field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
       abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
       abortion-forms.field-labels.STAGE-2-EVALUATION: Evaluatie fase 2
@@ -308,6 +304,7 @@ sections:
           - field: abortion-forms.field-labels.CONVERSATION-PROCESS-STAGE-2
             type: textfield
             span: 12
+            rowSpan: 5
             multiline: true
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-SECOND-PART-ITEM|conversationStageTwo|1
@@ -318,8 +315,9 @@ sections:
           - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
             type: checkbox
             styleOptions:
-              direction: column
-              span: 4
+              direction: row
+              span: 2
+              alignItems: 'flex-end'
             span: 12
             codifications:
               - MS-ABORTION-CONTRACEPTION

@@ -42,6 +42,7 @@ translations:
   - language: nl
     translations:
       abortion-forms.field-labels.FOLDER-NUMBER: Dossiernummer
+      abortion-forms.field-labels.FOLDER-NUMBER.message: Er moet een dossiernummer aanwezig zijn.
       abortion-forms.field-labels.APPOINTMENT-DATE: Datum 1 ste contactname
       abortion-forms.field-labels.WAY-OF-CONTACT: Afspraak gemaakt via
       abortion-forms.field-labels.CONTACT-VIA: Kent het centrum via en/of is verwezen
@@ -52,6 +53,7 @@ translations:
   - language: fr
     translations:
       abortion-forms.field-labels.FOLDER-NUMBER: Numéro de dossier
+      abortion-forms.field-labels.FOLDER-NUMBER.message: Un numéro de dossier doit être présent.
       abortion-forms.field-labels.APPOINTMENT-DATE: Date du rendez-vous
       abortion-forms.field-labels.WAY-OF-CONTACT: Méthode de contact
       abortion-forms.field-labels.CONTACT-VIA: Contact via
@@ -70,6 +72,10 @@ sections:
             type: dropdown
             readonly: true
             span: 6
+            validators:
+              - validation: |
+                  return validate.notBlank(self, 'abortion-forms.field-labels.FOLDER-NUMBER')
+                message: abortion-forms.field-labels.FOLDER-NUMBER.message
             codifications:
               - ENTITY-LIST|ABORTION-FOLDER
             tags:

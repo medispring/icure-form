@@ -6,23 +6,23 @@ codifications:
     codes:
       - id: employee
         label:
-          nl: Employee
+          nl: Werknemer
           fr: Employé
       - id: independent
         label:
-          nl: Independent
+          nl: Zelfstandig
           fr: Indépendant
       - id: unemployed
         label:
-          nl: Unemployed
+          nl: Werkloos
           fr: Sans emploi
       - id: housewife
         label:
-          nl: Housewife
+          nl: Huisvrouw
           fr: Femme au foyer
       - id: schoolGirl
         label:
-          nl: Schoolgirl
+          nl: Scholier
           fr: Écolière
       - id: student
         label:
@@ -30,49 +30,57 @@ codifications:
           fr: Étudiante
       - id: other
         label:
-          nl: Other
+          nl: Andere
           fr: Autre
   - type: MS-ABORTION-PATIENT-SCHOOL-LEVEL
     codes:
       - id: primary
         label:
-          nl: Primary
+          nl: Lager onderwijs
           fr: Enseignement primaire
-      - id: secondary
+      - id: lager_secondary
         label:
-          nl: Secondary
-          fr: Enseignement secondaire
-      - id: higher
+          nl: Lager secundair onderwijs
+          fr: Enseignement secondaire inférieur
+      - id: higher_secondary
         label:
-          nl: Higher
-          fr: Enseignement supérieur
-      - id: university
+          nl: Hoger secundaire onderwijs (ASO, TSO, BSO)
+          fr: Enseignement secondaire supérieur (ASO, TSO, BSO)
+      - id: professional_bachelor
         label:
-          nl: University
+          nl: professioneel bachelor
+          fr: Enseignement professionnel (bachelier)
+      - id: academic_bachelor
+        label:
+          nl: academische bachelor
+          fr: Enseignement supérieur (bachelier)
+      - id: master
+        label:
+          nl: master
           fr: Enseignement universitaire (master)
       - id: other
         label:
-          nl: Other
+          nl: Andere
           fr: Autre
   - type: MS-ABORTION-EXTRA-INFO
     codes:
       - id: gestation
         label:
-          nl: Gestation
+          nl: Gevorderde zwangerschapsduur
           fr: Age avancé de la grossesse
       - id: anesthesia
         label:
-          nl: Anesthesia
+          nl: Probleem met anesthesie
           fr: Problème avec l'anesthésie
       - id: other
         label:
-          nl: Other
+          nl: Andere
           fr: Autre
   - type: MS-ABORTION-METHOD-TYPE
     codes:
       - id: medication
         label:
-          nl: Medication
+          nl: Medicamenteuze
           fr: Médicamenteuse
       - id: curettage
         label:
@@ -80,99 +88,91 @@ codifications:
           fr: Curetage
       - id: doubt
         label:
-          nl: Doubt
+          nl: Heeft twijfels
           fr: A des doutes
       - id: keepIt
         label:
-          nl: Keep it
+          nl: Behoud zwangerschap
           fr: Garde l'enfant
   - type: MS-ABORTION-CONTACT-VIA-TYPE
     codes:
       - id: onSite
         label:
-          nl: On site
+          nl: Ter plaatse
           fr: Sur place
       - id: visio
         label:
-          nl: Visio
+          nl: Videoconferentie
           fr: Visioconférence
       - id: phone
         label:
-          nl: Phone
+          nl: Telefoon
           fr: Téléphone
   - type: MS-ABORTION-COMPANION-TYPE
     codes:
-      - id: none
-        label:
-          nl: None
-          fr: Aucun
-      - id: father
-        label:
-          nl: Father
-          fr: Père
-      - id: other
-        label:
-          nl: Other
-          fr: Autre
       - id: partner
         label:
           nl: Partner
           fr: Partenaire
-      - id: mother
-        label:
-          nl: Mother
-          fr: Mère
       - id: friend
         label:
-          nl: Friend
+          nl: Vriend(in)
           fr: Ami(e)
+      - id: mother
+        label:
+          nl: Moeder
+          fr: Mère
+      - id: father
+        label:
+          nl: Vader
+          fr: Père
       - id: educator
         label:
-          nl: Educator
+          nl: Opvoeder
           fr: Éducateur(trice)
-      - id: empty
+      - id: other
         label:
-          nl: Empty
-          fr: Vide
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-PATIENT-MARITAL-STATUS
     codes:
-      - id: married
-        label:
-          nl: Married
-          fr: Marié(e)
-      - id: cohabiting
-        label:
-          nl: Cohabiting
-          fr: Cohabite
       - id: single
         label:
-          nl: Single
+          nl: Alleenstaand
           fr: Célibataire
+      - id: married
+        label:
+          nl: Gehuwd
+          fr: Mariée
       - id: divorced
         label:
-          nl: Divorced
-          fr: Divorcé(e)
+          nl: Gescheiden
+          fr: Divorcée
       - id: widowed
         label:
-          nl: Widowed
-          fr: Veuf(ve)
+          nl: Weduwe
+          fr: Veuve
+      - id: cohabiting
+        label:
+          nl: Wettelijk samenwonend
+          fr: Cohabite
   - type: MS-ABORTION-PATIENT-LIFE-SITUATION
     codes:
       - id: alone
         label:
-          nl: Alone
+          nl: Woont alleen
           fr: Seule
       - id: couple
         label:
-          nl: Couple
+          nl: Woont als koppel
           fr: En couple
       - id: parent
         label:
-          nl: Parent
+          nl: Woont bij de ouders of bij familielid
           fr: Parent
       - id: other
         label:
-          nl: Other
+          nl: Andere situatie
           fr: Autre
 translations:
   - language: nl
@@ -188,7 +188,7 @@ translations:
       field-labels.OTHER-PROFESSION: Andere
       field-labels.ACTUAL-LIFE-SITUATION: Feitelijke leefsituatie
       field-labels.OTHER-ACTUAL-LIFE-SITUATION: Andere
-      field-labels.SECTION-1: Section 1
+      field-labels.SECTION-1: Sectie 1
       field-labels.IN-TAKE-DATE: Datum intake
       field-labels.ACCOMPANIED-BY-PERSONS-PRELIMINARY-INTERVIEW: Vergezeld van X perso(o)n(en) (tijdens intake)
       field-labels.ACCOMPANIED-BY-PERSONS-WAITING-ROOM: Vergezeld van X perso(o)n(en) (wachtkamer)
@@ -285,9 +285,6 @@ sections:
               span: 3
             codifications:
               - MS-ABORTION-COMPANION-TYPE
-            sortOptions:
-              sort: natural
-              promotions: empty, *, none, other
             tags:
               - MS-ABORTION-COMPANION|typeOfCompanion|1
               - MS-ABORTION-ITEM|companion|1
@@ -313,13 +310,20 @@ sections:
         fields:
           - field: field-labels.HISTORY
             type: textfield
-            span: 8
+            span: 16
+            rowSpan: 3
+            width: 300
             multiline: true
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
           - field: field-labels.PARTNER-POSITION
             type: textfield
-            span: 8
+            span: 16
+            rowSpan: 3
             multiline: true
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|PARTNER-POSITION|1
@@ -330,12 +334,17 @@ sections:
           - field: field-labels.DECISION-PROCESSUS
             type: textfield
             multiline: true
-            span: 8
+            span: 16
+            rowSpan: 3
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|DECISION-PROCESSUS|1
+      - group: boxes
+        borderless: true
+        span: 24
+        fields:
           - field: field-labels.PATIENT-FIRST-DECISION
             type: radio-button
-            span: 8
+            span: 16
             styleOptions:
               direction: column
               span: 2
@@ -344,33 +353,6 @@ sections:
             tags:
               - MS-ABORTION-ITEM|method|1
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|FIRST-CHOICE|1
-      - group: boxes
-        borderless: true
-        span: 24
-        fields:
-          - field: field-labels.INFOS-ABORTION
-            type: dropdown
-            span: 8
-            options:
-              gestation: field-options.GESTATION
-              anesthesia: field-options.ANESTHESIA
-              other: field-options.OTHER
-            codifications:
-              - MS-ABORTION-EXTRA-INFO
-            tags:
-              - MS-ABORTION-ITEM|extra-info|1
-              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ABORTION-INFORMATION|1
-          - field: field-labels.OTHER-INFORMATION
-            type: textfield
-            shortLabel: ' '
-            span: 8
-            tags:
-              - MS-ABORTION-EXTRA-INFO|custom|1
-              - MS-ABORTION-ITEM|extra-info|1
-              - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ABORTION-INFORMATION-OTHER|1
-            computedProperties:
-              hidden: |
-                return !self['field-labels.INFOS-ABORTION']?.some(d => d.codes?.some(c => c.id === 'other'))
       - group: boxes
         borderless: true
         span: 24
@@ -493,6 +475,9 @@ sections:
             span: 16
             codifications:
               - CD-FED-COUNTRY
+            sortOptions:
+              sort: asc
+              promotions: 'CD-FED-COUNTRY|be|1.2, CD-FED-COUNTRY|nl|1.2, *'
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|COUNTRY-BIRTH|1
               - MS-ABORTION-ITEM|administrative-patient-info|1

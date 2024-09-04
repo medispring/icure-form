@@ -44,7 +44,7 @@ translations:
       abortion-forms.field-labels.CONVERSATION-NATURE: Aard van het gesprek
       abortion-forms.field-labels.CONVERSATION-NATURE-OTHER: Andere
       abortion-forms.field-labels.NOTES: Notities
-      abortion-forms.field-labels.HEALTHCARE-PARTY: Arts
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Hulpverlener
       abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
       abortion-forms.field-labels.MISSED-APPOINTMENT: ''
@@ -55,7 +55,7 @@ translations:
       abortion-forms.field-labels.CONVERSATION-NATURE: Nature de la conversation
       abortion-forms.field-labels.CONVERSATION-NATURE-OTHER: Autre
       abortion-forms.field-labels.NOTES: Notes
-      abortion-forms.field-labels.HEALTHCARE-PARTY: Médecin
+      abortion-forms.field-labels.HEALTHCARE-PARTY: Donneur de soins
       abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
       abortion-forms.field-labels.MISSED-APPOINTMENT: ''
@@ -111,7 +111,7 @@ sections:
           - field: abortion-forms.field-labels.HEALTHCARE-PARTY
             type: dropdown
             codifications:
-              - HCP-LIST|persphysician
+              - HCP-LIST
             tags:
               - MS-ABORTION-EXTRA-ITEM|healthcareParty|1
           - field: abortion-forms.field-labels.MISSED-APPOINTMENT
