@@ -223,14 +223,21 @@ export class DecoratedForm extends LitElement {
 
 	async optionsProvider(language: string, codifications: string[], searchTerms: string[]) {
 		await sleep(100)
-		return codifications.flatMap((c) => {
-			const formCodifications = this.form?.codifications
-			if (formCodifications?.map((c) => c.type)?.includes(c)) {
-				return []
-			} else {
-				return []
-			}
-		})
+		const codeSplited: string[][] = codifications?.map((codification) => codification.split('|'))
+		if (codeSplited.some((codification) => codification[0] === 'ENTITY-LIST')) {
+			return [
+				{ id: 'haselt', label: { fr: 'hasselt', nl: 'hasselt' } },
+				{ id: 'gent', label: { fr: 'ostend', nl: 'ostend' } },
+			]
+		} else
+			return codifications.flatMap((c) => {
+				const formCodifications = this.form?.codifications
+				if (formCodifications?.map((c) => c.type)?.includes(c)) {
+					return []
+				} else {
+					return []
+				}
+			})
 	}
 
 	async ownersProvider(terms: string[], ids?: string[], specialties?: string[]): Promise<Suggestion[]> {

@@ -2,28 +2,6 @@ form: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
 id: 6648c92d-eb7b-4223-aa65-4fcb3f4f4937
 description: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
 codifications:
-  - type: MS-ABORTION-PREGNANCY-TYPE
-    codes:
-      - id: g
-        label:
-          nl: G
-          fr: G
-      - id: p
-        label:
-          nl: P
-          fr: P
-      - id: abortion
-        label:
-          nl: Abortus
-          fr: IVG
-      - id: miscarriage
-        label:
-          nl: Miskraam
-          fr: Fausse-couche
-      - id: extra-uterine
-        label:
-          nl: Buitenbaarmoederlijke zw.
-          fr: Extra-utérine
   - type: MS-ABORTION-PLANNED-PREGNANCY
     codes:
       - id: yes
@@ -70,79 +48,75 @@ codifications:
     codes:
       - id: coitus-interrupted
         label:
-          nl: Onderbroken geslachtsgemeenschap
+          nl: Coïtus interruptus
           fr: Coït interrompu
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie man
+          fr: Stérilisation masculine
       - id: periodic-abstinence
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: spermicides
-        label:
-          nl: Spermiciden
-          fr: Spermicides
-      - id: pessary
-        label:
-          nl: Spiraaltje
-          fr: Pessaire
-      - id: condom
-        label:
-          nl: Condoom
-          fr: Préservatif
-      - id: oral-pill
-        label:
-          nl: Anticonceptiepil
-          fr: Pilule contraceptive
-      - id: progestone-only-pill
-        label:
-          nl: POP
-          fr: Pilule progestative
-      - id: injection-pill
-        label:
-          nl: INJECTION-PILL
-          fr: Injection contraceptive
-      - id: kiud
-        label:
-          nl: KIUD
-          fr: KIUD
-      - id: hiud
-        label:
-          nl: HIUD
-          fr: HIUD
-      - id: male-sterilization
-        label:
-          nl: Sterilisatie bij mannen
-          fr: Stérilisation masculine
       - id: female-sterilization
         label:
-          nl: Sterilisatie bij vrouwen
+          nl: Sterilisatie vrouw
           fr: Stérilisation féminine
+      - id: spermicides
+        label:
+          nl: Spermicide middelen
+          fr: Spermicides
       - id: morning-after-pill
         label:
-          nl: Morning-afterpil
+          nl: Noodpil
           fr: Pilule du lendemain
+      - id: pessary
+        label:
+          nl: Pessarium
+          fr: Pessaire
       - id: implant
         label:
           nl: Implant
           fr: Implant contraceptif
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
       - id: patch
         label:
-          nl: Anticonceptiepleister
+          nl: Patch
           fr: Patch contraceptif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
       - id: vaginal-ring
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
+      - id: progestone-only-pill
+        label:
+          nl: Prikpil
+          fr: Pilule progestative
       - id: symptothermal-method
         label:
-          nl: Symptothermale methode
+          nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
+      - id: Copper-IUD
+        label:
+          nl: Koperspiraal
+          fr: Stérilet en cuivre
       - id: electronic-or-digital-methods
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
+      - id: hormonal-IUD
+        label:
+          nl: Hormoonspiraal
+          fr: Stérilet hormonal
       - id: other-contraceptives
         label:
-          nl: Andere anticonceptiemethoden
+          nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-REASON-OF-FAILURE
     codes:
@@ -150,14 +124,14 @@ codifications:
         label:
           nl: Heeft geen anticonceptie toegepast
           fr: N'a pas utilisé de contraception
-      - id: irregular-or-improper-use-against-design
+      - id: irregular-or-improper-use-contraception
         label:
           nl: AC onregelmatig of niet correct verkeerd gebruikt
           fr: Utilisation irrégulière ou inappropriée contre la conception
-      - id: anti-design-failed-despite-good-use
+      - id: contraception-failed-despite-good-use
         label:
-          nl: AC onregelmatig of niet correct verkeerd gebruikt
-          fr: Anti-design a échoué malgré une bonne utilisation
+          nl: AC heeft gefaald alhoewel goed gebruikt
+          fr: La contraception a échoué malgré une bonne utilisation
       - id: does-not-know
         label:
           nl: Weet het niet
@@ -248,7 +222,11 @@ translations:
   - language: nl
     translations:
       field-labels.PREGNANCY-SECTION: Section 1
-      field-labels.PREGNANCY-TYPE: Obstetrische geschiedenis
+      field-labels.PREGNANCY-TYPE-G: Obstetrische geschiedenis (G)
+      field-labels.PREGNANCY-TYPE-P: Obstetrische geschiedenis (P)
+      field-labels.PREGNANCY-TYPE-ABORTION: Abortus
+      field-labels.PREGNANCY-TYPE-MISCARRIAGE: Miskraam
+      field-labels.PREGNANCY-TYPE-EXTRA-UTERINE: Buitenbaarmoederlijke zwangerschap
       field-labels.AMENORRHEA-DATE: Eerste dag Laatste Menstruatie (ELM)
       field-labels.PLANNED-PREGNANCY: Geplande zwangerschap
       field-labels.USED-CONTRACEPTION: Gebruikte anticonceptie
@@ -274,11 +252,17 @@ translations:
       field-labels.GS: GS
       field-labels.CRL: CRL
       field-labels.BPD: BPD
+      field-labels.WKN: WKN
+      field-labels.DGN: DGN
       field-labels.FL: FL
   - language: fr
     translations:
       field-labels.PREGNANCY-SECTION: Section 1
-      field-labels.PREGNANCY-TYPE: Type de grossesse
+      field-labels.PREGNANCY-TYPE-G: Type de grossesse (G)
+      field-labels.PREGNANCY-TYPE-P: Type de grossesse (P)
+      field-labels.PREGNANCY-TYPE-ABORTION: Avortement
+      field-labels.PREGNANCY-TYPE-MISCARRIAGE: Fausse couche
+      field-labels.PREGNANCY-TYPE-EXTRA-UTERINE: Grossesse extra-utérine
       field-labels.AMENORRHEA-DATE: Date d'aménorrhée
       field-labels.PLANNED-PREGNANCY: Grossesse planifiée
       field-labels.USED-CONTRACEPTION: Contraception utilisée
@@ -304,6 +288,8 @@ translations:
       field-labels.GS: GS
       field-labels.CRL: CRL
       field-labels.BPD: BPD
+      field-labels.WKN: WKN
+      field-labels.DGN: DGN
       field-labels.FL: FL
 sections:
   - section: field-labels.PREGNANCY-SECTION
@@ -312,19 +298,42 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: field-labels.PREGNANCY-TYPE
-            type: checkbox
-            span: 6
-            styleOptions:
-              direction: column
-              span: 3
-            codifications:
-              - MS-ABORTION-PREGNANCY-TYPE
+          - field: field-labels.PREGNANCY-TYPE-G
+            type: number-field
+            span: 8
             tags:
-              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyType|1
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyTypeG|1
+          - field: field-labels.PREGNANCY-TYPE-P
+            type: number-field
+            span: 8
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyTypeP|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.PREGNANCY-TYPE-ABORTION
+            type: number-field
+            span: 8
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyTypeAbortion|1
+          - field: field-labels.PREGNANCY-TYPE-MISCARRIAGE
+            type: number-field
+            span: 8
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyTypeMiscarriage|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.PREGNANCY-TYPE-EXTRA-UTERINE
+            type: number-field
+            span: 8
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|pregnancyTypeExtraUterine|1
           - field: field-labels.AMENORRHEA-DATE
             type: date-picker
-            span: 6
+            span: 8
             computedProperties:
               defaultValue: |
                 return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
@@ -390,8 +399,8 @@ sections:
             type: checkbox
             span: 12
             styleOptions:
-              direction: column
-              span: 4
+              direction: row
+              span: 2
               alignItems: 'flex-end'
             computedProperties:
               hidden: |
@@ -436,8 +445,8 @@ sections:
             type: checkbox
             span: 12
             styleOptions:
-              direction: column
-              span: 4
+              direction: row
+              span: 2
               alignItems: 'flex-end'
             codifications:
               - MS-ABORTION-CONTRACEPTION
@@ -494,6 +503,18 @@ sections:
                 return { content: { '*': { type: 'measure', unit: 'mm' } }, codes: [] }
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|FL-Measure|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: field-labels.WKN
+            type: number-field
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|WKN|1
+          - field: field-labels.DGN
+            type: number-field
+            tags:
+              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|DGN|1
       - group: line
         borderless: true
         span: 24
