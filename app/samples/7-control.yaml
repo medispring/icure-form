@@ -16,79 +16,75 @@ codifications:
     codes:
       - id: coitus-interrupted
         label:
-          nl: Onderbroken geslachtsgemeenschap
+          nl: Coïtus interruptus
           fr: Coït interrompu
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie man
+          fr: Stérilisation masculine
       - id: periodic-abstinence
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: spermicides
-        label:
-          nl: Spermiciden
-          fr: Spermicides
-      - id: pessary
-        label:
-          nl: Spiraaltje
-          fr: Pessaire
-      - id: condom
-        label:
-          nl: Condoom
-          fr: Préservatif
-      - id: oral-pill
-        label:
-          nl: Anticonceptiepil
-          fr: Pilule contraceptive
-      - id: progestone-only-pill
-        label:
-          nl: POP
-          fr: Pilule progestative
-      - id: injection-pill
-        label:
-          nl: INJECTION-PILL
-          fr: Injection contraceptive
-      - id: kiud
-        label:
-          nl: KIUD
-          fr: KIUD
-      - id: hiud
-        label:
-          nl: HIUD
-          fr: HIUD
-      - id: male-sterilization
-        label:
-          nl: Sterilisatie bij mannen
-          fr: Stérilisation masculine
       - id: female-sterilization
         label:
-          nl: Sterilisatie bij vrouwen
+          nl: Sterilisatie vrouw
           fr: Stérilisation féminine
+      - id: spermicides
+        label:
+          nl: Spermicide middelen
+          fr: Spermicides
       - id: morning-after-pill
         label:
-          nl: Morning-afterpil
+          nl: Noodpil
           fr: Pilule du lendemain
+      - id: pessary
+        label:
+          nl: Pessarium
+          fr: Pessaire
       - id: implant
         label:
           nl: Implant
           fr: Implant contraceptif
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
       - id: patch
         label:
-          nl: Anticonceptiepleister
+          nl: Patch
           fr: Patch contraceptif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
       - id: vaginal-ring
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
+      - id: progestone-only-pill
+        label:
+          nl: Prikpil
+          fr: Pilule progestative
       - id: symptothermal-method
         label:
-          nl: Symptothermale methode
+          nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
+      - id: Copper-IUD
+        label:
+          nl: Koperspiraal
+          fr: Stérilet en cuivre
       - id: electronic-or-digital-methods
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
+      - id: hormonal-IUD
+        label:
+          nl: Hormoonspiraal
+          fr: Stérilet hormonal
       - id: other-contraceptives
         label:
-          nl: Andere anticonceptiemethoden
+          nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-CONTRACEPTIVE-DURING-CONTROL
     codes:
@@ -168,6 +164,46 @@ codifications:
         label:
           nl: Andere
           fr: Autre
+  - type: MS-ABORTION-NA-CURETTAGE
+    codes:
+      - id: yes
+        label:
+          nl: Ja
+          fr: Oui
+      - id: no
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-ABORTION-CONTROL-REASON
+    codes:
+      - id: EvolutionaryAfterMed
+        label:
+          nl: Evolutieve zw. na med. beh.
+          fr: Zw évolutif. après la méd.
+      - id: EvolutionaryAfterCurettage
+        label:
+          nl: Evolutieve zw. na curettage
+          fr: Zw évolutif. après curetage
+      - id: major-blood-loss
+        label:
+          nl: Aanhoudend bloedverlies
+          fr: Perte de sang majeure
+      - id: tissue-retention
+        label:
+          nl: Retentie
+          fr: Rétention de tissu
+      - id: retentionNonEvolutionary
+        label:
+          nl: Retentie niet-evolutieve zw.
+          fr: Rétention non évolutive zw.
+      - id: uterine-atony
+        label:
+          nl: Uteriene atonie
+          fr: Atonie utérine
+      - id: other
+        label:
+          nl: Andere
+          fr: Autre
 translations:
   - language: nl
     translations:
@@ -183,13 +219,17 @@ translations:
       abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
       abortion-forms.field-labels.ULTRASOUND-EVALUATION: Echografische evaluatie
       abortion-forms.field-labels.NOTES: Notities
-      abortion-forms.field-labels.COMPLICATION: Onmiddellijke medische complicatie
+      abortion-forms.field-labels.COMPLICATION: Medische complicatie
       abortion-forms.field-labels.COMPLICATION-OTHER: Andere
       abortion-forms.field-labels.HCG-DATE: Datum HCG
       abortion-forms.field-labels.HCG-DOSAGE: HCG bepaling dag mifepristone
       abortion-forms.field-labels.FOLLOW-UP-MIN: Aantal minuten opvolging
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Aantal minuten anticonceptie
       abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Lotnummer van anticonceptie
+      abortion-forms.field-labels.FOLLOW-UP-COMPLICATION: Opvolging complicatie
+      abortion-forms.field-labels.NA-CURETTAGE: Na-Curettage
+      abortion-forms.field-labels.CONTROL-REASON: Reden van na-curettage
+      abortion-forms.field-labels.CONTROL-REASON-OTHER: Andere
   - language: fr
     translations:
       abortion-forms.field-labels.HEALTHCARE-PARTY: Médecin
@@ -211,6 +251,10 @@ translations:
       abortion-forms.field-labels.FOLLOW-UP-MIN: Nombre de minutes de suivi
       abortion-forms.field-labels.FOLLOW-UP-CONTRACEPTION-MIN: Nombre de minutes de suivi contraception
       abortion-forms.field-labels.CONTRACEPTIVE-NUMBER: Numéro du lot
+      abortion-forms.field-labels.FOLLOW-UP-COMPLICATION: Complication de suivi
+      abortion-forms.field-labels.NA-CURETTAGE: Na-Curettage
+      abortion-forms.field-labels.CONTROL-REASON: Raison post-curettage
+      abortion-forms.field-labels.CONTROL-REASON-OTHER: Autre
 sections:
   - section: abortion-forms.section-labels.SECTION-1
     fields:
@@ -238,6 +282,7 @@ sections:
             type: textfield
             multiline: true
             span: 12
+            rowSpan: 5
             tags:
               - MS-ABORTION-CONTROL-ITEM|evaluationOfPatient|1
       - group: line
@@ -263,8 +308,9 @@ sections:
               hidden: |
                 return !self['abortion-forms.field-labels.CONTRACEPTION-AFTER-ABORTION']?.some((item) => item?.codes.some(code => code.id === 'yes'))
             styleOptions:
-              direction: column
-              span: 4
+              direction: row
+              span: 2
+              alignItems: 'flex-end'
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
@@ -315,8 +361,9 @@ sections:
           - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
             type: checkbox
             styleOptions:
-              direction: column
-              span: 4
+              direction: row
+              span: 2
+              alignItems: 'flex-end'
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
@@ -342,7 +389,10 @@ sections:
           - field: abortion-forms.field-labels.ULTRASOUND-EVALUATION
             type: dropdown
             codifications:
-              - MS-ABORTION-ULTRASOUND-RESULT
+              - ULTRASOUND_EVALUATION
+            sortOptions:
+              promotions: '01, *, 02'
+              sort: asc
             tags:
               - MS-ABORTION-CONTROL-ITEM|resultOfUltrasound|1
       - group: line
@@ -381,6 +431,57 @@ sections:
                 return ![...self['abortion-forms.field-labels.COMPLICATION']].some(field => field.codes?.some(c => c.id === 'other'))
             tags:
               - MS-NIHII-CONVENTION-ITEM|complicationOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.FOLLOW-UP-COMPLICATION
+            type: textfield
+            span: 12
+            rowSpan: 5
+            tags:
+              - MS-FOLLOW-UP-COMPLICATION|follow-up|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.NA-CURETTAGE
+            type: radio-button
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non' }, nl: { type: 'string', value: 'Nee'} }, codes: [{ id: 'no' }] }
+            styleOptions:
+              direction: column
+              span: 3
+            codifications:
+              - MS-ABORTION-NA-CURETTAGE
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|naCurettage|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTROL-REASON
+            type: dropdown
+            codifications:
+              - MS-ABORTION-CONTROL-REASON
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.NA-CURETTAGE']?.some((item) => item?.codes.some(code => code.id === 'yes'))
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|postCurettageReason|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: abortion-forms.field-labels.CONTROL-REASON-OTHER
+            type: textfield
+            span: 12
+            computedProperties:
+              hidden: |
+                return !self['abortion-forms.field-labels.CONTROL-REASON']?.some((item) => item?.codes.some(code => code.id === 'other'))
+            tags:
+              - MS-ABORTION-CONTROL-ITEM|postCurettageReasonOther|1
       - group: line
         borderless: true
         span: 24

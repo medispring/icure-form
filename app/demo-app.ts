@@ -17,11 +17,11 @@ import interruption_of_pregnancy_medical_part_1 from './samples/5-interruption-o
 // @ts-ignore
 import interruption_of_pregnancy_medical_part_2 from './samples/6-interruption-of-pregnancy-medical-part-2.yaml'
 // @ts-ignore
-import post_curetage from './samples/7-post-curetage.yaml'
+import note from './samples/9-note.yaml'
 // @ts-ignore
-import extra from './samples/9-extra.yaml'
+import extra from './samples/8-extra.yaml'
 // @ts-ignore
-import control from './samples/10-control.yaml'
+import control from './samples/7-control.yaml'
 import obstetrics from './samples/obstetrics.json'
 import prescription from './samples/prescription.json'
 import obstetrics_followup_long from './samples/obstetrics-followup-long.json'
@@ -56,9 +56,9 @@ class DemoApp extends LitElement {
 			{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
 			{ title: '5 - Interuption of pregnancy medical part 1', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_1)) },
 			{ title: '6 - Interuption of pregnancy medical part 2', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_2)) },
-			{ title: '7 - Post curetage', form: Form.parse(YAML.parse(post_curetage)) },
-			{ title: '9 - Extra', form: Form.parse(YAML.parse(extra)) },
-			{ title: '10 - Control', form: Form.parse(YAML.parse(control)) },
+			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
+			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
+			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

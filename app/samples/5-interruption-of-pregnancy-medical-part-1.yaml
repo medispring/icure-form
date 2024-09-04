@@ -4,103 +4,103 @@ description: abortion-forms.INTERRUPTION-OF-PREGNANCY-MEDICAL-PART-1
 codifications:
   - type: MS-ABORTION-COMPANION-TYPE
     codes:
-      - id: father
-        label:
-          nl: Vader
-          fr: Père
-      - id: other
-        label:
-          nl: Andere
-          fr: Autre
       - id: partner
         label:
           nl: Partner
           fr: Partenaire
-      - id: mother
-        label:
-          nl: Moeder
-          fr: Mère
       - id: friend
         label:
           nl: Vriend(in)
           fr: Ami(e)
+      - id: mother
+        label:
+          nl: Moeder
+          fr: Mère
+      - id: father
+        label:
+          nl: Vader
+          fr: Père
+      - id: educator
+        label:
+          nl: Opvoeder
+          fr: Éducateur(trice)
+      - id: other
+        label:
+          nl: Andere
+          fr: Autre
   - type: MS-ABORTION-CONTRACEPTION
     codes:
       - id: coitus-interrupted
         label:
-          nl: Onderbroken geslachtsgemeenschap
+          nl: Coïtus interruptus
           fr: Coït interrompu
+      - id: male-sterilization
+        label:
+          nl: Sterilisatie man
+          fr: Stérilisation masculine
       - id: periodic-abstinence
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: spermicides
-        label:
-          nl: Spermiciden
-          fr: Spermicides
-      - id: pessary
-        label:
-          nl: Spiraaltje
-          fr: Pessaire
-      - id: condom
-        label:
-          nl: Condoom
-          fr: Préservatif
-      - id: oral-pill
-        label:
-          nl: Anticonceptiepil
-          fr: Pilule contraceptive
-      - id: progestone-only-pill
-        label:
-          nl: POP
-          fr: Pilule progestative
-      - id: injection-pill
-        label:
-          nl: INJECTION-PILL
-          fr: Injection contraceptive
-      - id: kiud
-        label:
-          nl: KIUD
-          fr: KIUD
-      - id: hiud
-        label:
-          nl: HIUD
-          fr: HIUD
-      - id: male-sterilization
-        label:
-          nl: Sterilisatie bij mannen
-          fr: Stérilisation masculine
       - id: female-sterilization
         label:
-          nl: Sterilisatie bij vrouwen
+          nl: Sterilisatie vrouw
           fr: Stérilisation féminine
+      - id: spermicides
+        label:
+          nl: Spermicide middelen
+          fr: Spermicides
       - id: morning-after-pill
         label:
-          nl: Morning-afterpil
+          nl: Noodpil
           fr: Pilule du lendemain
+      - id: pessary
+        label:
+          nl: Pessarium
+          fr: Pessaire
       - id: implant
         label:
           nl: Implant
           fr: Implant contraceptif
+      - id: condom
+        label:
+          nl: Condoom
+          fr: Préservatif
       - id: patch
         label:
-          nl: Anticonceptiepleister
+          nl: Patch
           fr: Patch contraceptif
+      - id: oral-pill
+        label:
+          nl: Anticonceptiepil
+          fr: Pilule contraceptive
       - id: vaginal-ring
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
+      - id: progestone-only-pill
+        label:
+          nl: Prikpil
+          fr: Pilule progestative
       - id: symptothermal-method
         label:
-          nl: Symptothermale methode
+          nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
+      - id: Copper-IUD
+        label:
+          nl: Koperspiraal
+          fr: Stérilet en cuivre
       - id: electronic-or-digital-methods
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
+      - id: hormonal-IUD
+        label:
+          nl: Hormoonspiraal
+          fr: Stérilet hormonal
       - id: other-contraceptives
         label:
-          nl: Andere anticonceptiemethoden
+          nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-WAITING-TIME-REDUCTION
     codes:
@@ -264,7 +264,7 @@ translations:
       abortion-forms.field-labels.PRESENT-DURING-INTERVENTION-OTHER: Andere
       abortion-forms.field-labels.PREGNANCY-WEEKS: Duur va de zwangerschaps (weken)
       abortion-forms.field-labels.PREGNANCY-DAYS: Duur van de zwangerschap (dagen)
-      abortion-forms.field-labels.CONVERSATION-STAGE-1: Gespreksfase 1
+      abortion-forms.field-labels.CONVERSATION-STAGE-1: Gesprek fase 1
       abortion-forms.field-labels.FUTURE-CONTRACEPTION: Toekomstige anticonceptie
       abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION: Andere
       abortion-forms.field-labels.COMMENTARY: Opmerking
@@ -353,6 +353,7 @@ sections:
           - field: abortion-forms.field-labels.CONVERSATION-STAGE-1
             type: textfield
             span: 12
+            rowSpan: 5
             multiline: true
             tags:
               - MS-ABORTION-MEDICAL-ABORTION-FIRST-PART-ITEM|conversationStep1|1
@@ -363,8 +364,9 @@ sections:
           - field: abortion-forms.field-labels.FUTURE-CONTRACEPTION
             type: checkbox
             styleOptions:
-              direction: column
+              direction: row
               span: 2
+              alignItems: 'flex-end'
             codifications:
               - MS-ABORTION-CONTRACEPTION
             span: 12
@@ -522,6 +524,9 @@ sections:
         fields:
           - field: abortion-forms.field-labels.ANESTHESIA
             type: dropdown
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Aucune' }, nl: { type: 'string', value: 'Geen' } }, codes: [{ id: 'none' }] }
             codifications:
               - MS-ABORTION-ANESTHESIA
             tags:
