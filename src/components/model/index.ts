@@ -859,6 +859,7 @@ export class DropdownField extends Field {
 			codifications: options.codifications,
 			options: options.options,
 			labels: options.labels,
+			validators: options.validators,
 			value: options.value,
 			computedProperties: options.computedProperties,
 			translate: options.translate,

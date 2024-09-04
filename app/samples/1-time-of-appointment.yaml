@@ -70,6 +70,10 @@ sections:
             type: dropdown
             readonly: true
             span: 6
+            validators:
+              - validation: |
+                  return false
+                message: abortion-forms.field-labels.FOLDER-NUMBER.message
             codifications:
               - ENTITY-LIST|ABORTION-FOLDER
             tags:
