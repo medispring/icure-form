@@ -1,6 +1,6 @@
 // Import the LitElement base class and html helper function
 //@ts-ignore
-import { css, html, nothing } from 'lit'
+import { css, html, LitElement, nothing } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -52,7 +52,7 @@ export class IcureTextField extends Field {
 	@property() schema: IcureTextFieldSchema = 'styled-text-with-codes'
 
 	private proseMirrorSchema?: Schema
-	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType, id?: string) => ProsemirrorNode | undefined }
+	private parser?: SpacePreservingMarkdownParser | { parse: (value: PrimitiveType, id?: string, renderHash?: number) => ProsemirrorNode | undefined }
 	private serializer: MarkdownSerializer | { serialize: (content: ProsemirrorNode) => string } = {
 		serialize: (content: ProsemirrorNode) => content.textBetween(0, content.nodeSize - 2, ' '),
 	}
@@ -169,9 +169,13 @@ export class IcureTextField extends Field {
 	}
 
 	render() {
+		const renderHash = Math.random()
 		let metadata: FieldMetadata | undefined
 		let rev: string | null | undefined
 		let versions: Version<FieldValue>[] | undefined
+		const validationError = this.validationErrorsProvider?.()?.length
+		let valueForExistingLanguages: string[] | undefined = undefined
+
 		if (this.view) {
 			let parsedDoc: ProsemirrorNode | undefined
 
@@ -181,13 +185,14 @@ export class IcureTextField extends Field {
 				parsedDoc =
 					this.proseMirrorSchema?.topNodeType.createAndFill(
 						{},
-						values.map(([id, value]) => this.parser?.parse(value?.[0]?.value?.content?.[this.language()] ?? '', id)).filter((x) => !!x) as ProsemirrorNode[],
+						values.map(([id, value]) => this.parser?.parse(value?.[0]?.value?.content?.[this.language()] ?? '', id, renderHash)).filter((x) => !!x) as ProsemirrorNode[],
 					) ?? undefined
 			} else {
 				let id
 				;[id, versions] = extractSingleValue(data)
 				const version = this.selectedRevision ? versions?.find((v) => v.revision === this.selectedRevision) : versions?.[0]
 				const valueForLanguage = version?.value?.content?.[this.language()] ?? ''
+				valueForExistingLanguages = Object.keys(version?.value?.content ?? {})
 
 				parsedDoc = valueForLanguage ? this.parser?.parse(valueForLanguage) ?? undefined : undefined
 				rev = version?.revision
@@ -225,22 +230,30 @@ export class IcureTextField extends Field {
 		return html`
 			<div id="root" class="${this.visible ? 'icure-text-field' : 'hidden'}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
-				<div class="icure-input">
-					<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
+				<div class="icure-input-metadata-container">
+					<div class="icure-input ${validationError ? 'icure-input__validationError' : ''} ${this.displayMetadata && metadata ? 'icure-input__withMetadata' : ''}">
+						<div id="editor" class="${this.schema}" style="min-height: calc( ${this.lines}rem + 5px )"></div>
+					</div>
+
 					${this.displayMetadata && metadata
-						? html`<icure-metadata-buttons-bar
-								.metadata="${metadata}"
-								.revision="${rev}"
-								.versions="${versions ?? []}"
-								.valueId="${extractSingleValue(this.valueProvider?.())?.[0]}"
-								.defaultLanguage="${this.defaultLanguage}"
-								.selectedLanguage="${this.selectedLanguage}"
-								.languages="${this.languages}"
-								.handleMetadataChanged="${this.handleMetadataChanged}"
-								.handleLanguageSelected="${(iso: string) => (this.selectedLanguage = iso)}"
-								.handleRevisionSelected="${(rev: string) => (this.selectedRevision = rev)}"
-								.ownersProvider="${this.ownersProvider}"
-						  />`
+						? html`
+								<div class="icure-metadata-container ${validationError ? 'icure-metadata-container__validationError' : ''}">
+									<icure-metadata-buttons-bar
+										.metadata="${metadata}"
+										.revision="${rev}"
+										.versions="${versions ?? []}"
+										.valueId="${extractSingleValue(this.valueProvider?.())?.[0]}"
+										.defaultLanguage="${this.defaultLanguage}"
+										.selectedLanguage="${this.selectedLanguage}"
+										.languages="${this.languages}"
+										.handleMetadataChanged="${this.handleMetadataChanged}"
+										.handleLanguageSelected="${(iso: string) => (this.selectedLanguage = iso)}"
+										.handleRevisionSelected="${(rev: string) => (this.selectedRevision = rev)}"
+										.ownersProvider="${this.ownersProvider}"
+										.existingLanguages="${valueForExistingLanguages ?? undefined}"
+									/>
+								</div>
+						  `
 						: ''}
 				</div>
 				<div class="error">${this.validationErrorsProvider?.().map(([, error]) => html`<div>${this.translationProvider?.(this.language(), error)}</div>`)}</div>
@@ -420,19 +433,19 @@ export class IcureTextField extends Field {
 		const tokenizer = MarkdownIt('commonmark', { html: false })
 		return schemaName.includes('tokens-list')
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
-						return pms.node('token', { id }, value.value ? [pms.text((value as StringType).value)] : [])
+					parse: (value: PrimitiveType, id?: string, renderHash?: number) => {
+						return pms.node('token', { id, renderHash }, value.value ? [pms.text((value as StringType).value)] : [])
 					},
 			  }
 			: schemaName.includes('items-list')
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
-						return pms.node('item', { id }, value.value ? [pms.text((value as StringType).value)] : [])
+					parse: (value: PrimitiveType, id?: string, renderHash?: number) => {
+						return pms.node('item', { id, renderHash }, value.value ? [pms.text((value as StringType).value)] : [])
 					},
 			  }
 			: schemaName === 'date'
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
+					parse: (value: PrimitiveType) => {
 						if (value?.type === 'datetime') {
 							const dateString = anyDateToDate(value.value)?.toISOString().replace(/T.*/, '')
 							return pms.node('paragraph', {}, [pms.node('date', {}, value ? [pms.text(dateString ?? '')] : [])])
@@ -445,7 +458,7 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'time'
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
+					parse: (value: PrimitiveType) => {
 						const time =
 							value.type === 'number'
 								? pms.node('paragraph', {}, [
@@ -490,7 +503,7 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'measure'
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
+					parse: (value: PrimitiveType) => {
 						if (value.type !== 'measure') {
 							return undefined
 						}
@@ -507,13 +520,13 @@ export class IcureTextField extends Field {
 			  }
 			: schemaName === 'decimal'
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
+					parse: (value: PrimitiveType) => {
 						return value.type === 'number' ? pms.node('paragraph', {}, [pms.node('decimal', {}, [pms.text(value.value.toString())])]) : undefined
 					},
 			  }
 			: schemaName === 'date-time'
 			? {
-					parse: (value: PrimitiveType, id?: string) => {
+					parse: (value: PrimitiveType) => {
 						if (value.type !== 'datetime') {
 							return undefined
 						}
@@ -668,3 +681,34 @@ export class IcureTextField extends Field {
 }
 
 // Register the new element with the browser.
+export class MetadataButtonBarWrapper extends LitElement {
+	@property() id: string
+	@property() rerender: string
+	@state() private selectedRevision?: string
+
+	render() {
+		console.log('Rendering metadata buttons')
+		const parent = (this.shadowRoot?.host?.closest('div#root')?.parentNode as ShadowRoot)?.host as IcureTextField
+		if (!parent || !this.id) {
+			return
+		}
+
+		const data = parent.valueProvider?.() ?? {}
+		const versions = data[this.id]
+
+		const version = this.selectedRevision ? versions?.find((v) => v.revision === this.selectedRevision) : versions?.[0]
+
+		const rev = version?.revision
+		const metadata =
+			this.id && rev !== undefined ? parent.metadataProvider?.(this.id, versions?.map((v) => v.revision) ?? [])?.[this.id]?.find((m) => m.revision === rev)?.value : undefined
+
+		const op = (terms: string[], ids?: string[], specialties?: string[]) => {
+			return parent.ownersProvider(terms, ids, specialties)
+		}
+
+		return html`<icure-metadata-buttons-bar .metadata="${metadata}" .revision="${rev}" .versions="${versions}" .valueId="${extractSingleValue(parent.valueProvider?.())?.[0]}"
+		.defaultLanguage="${parent.defaultLanguage}" .selectedLanguage="${parent.selectedLanguage}" .languages="${parent.languages}"
+		.handleMetadataChanged="${parent.handleMetadataChanged}" .handleLanguageSelected="${(iso: string) => (parent.selectedLanguage = iso)}"
+		.handleRevisionSelected="${(rev: string) => (parent.selectedRevision = rev)}" .ownersProvider="${op}" style="white-space: nowrap; padding-top: 1px" " />`
+	}
+}

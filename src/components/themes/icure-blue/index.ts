@@ -18,10 +18,12 @@ import { IcureDropdownField } from '../../icure-dropdown-field'
 import { IcureForm } from '../../icure-form'
 import { IcureLabel } from '../../icure-label'
 import { IcureTextField } from '../../icure-text-field'
+import { MetadataButtonBarWrapper } from '../../icure-text-field'
 
 // @ts-ignore
 import ehrLiteCss from './ehr-lite.scss'
 import { MetadataButtonBar } from '../../common/metadata-buttons-bar'
+
 class EhrLiteIcureButtonGroup extends IcureButtonGroup {
 	static get styles() {
 		return [...IcureButtonGroup.styles, ehrLiteCss]
@@ -64,6 +66,7 @@ class EhrLiteMetadataButtonBar extends MetadataButtonBar {
 }
 
 customElements.define('icure-metadata-buttons-bar', EhrLiteMetadataButtonBar)
+customElements.define('icure-metadata-buttons-bar-wrapper', MetadataButtonBarWrapper)
 
 customElements.define('icure-form-checkbox', CheckBox)
 customElements.define('icure-form-date-picker', DatePicker)
