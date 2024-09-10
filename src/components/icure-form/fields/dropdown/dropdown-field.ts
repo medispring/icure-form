@@ -27,8 +27,6 @@ export class DropdownField extends Field {
 					.handleMetadataChanged=${handleSingleMetadataChanged(this.handleMetadataChanged, id)}
 					.optionsProvider=${this.optionsProvider}
 					.translationProvider=${this.translationProvider}
-					.ownersProvider=${this.ownersProvider}
-					.defaultLanguage="${this.defaultLanguage}"
 				></icure-dropdown-field>
 			`
 		})
