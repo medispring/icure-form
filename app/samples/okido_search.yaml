@@ -1,0 +1,30 @@
+form: okido-forms.SEARCH
+id: fc051ea4-8f33-468f-9a4e-6bbb0bfa74af
+description: okido-forms.SEARCH
+sections:
+  - section: okido-forms.section-label.SECTION-1
+    fields:
+        - group: line
+          borderless: true
+          span: 24
+          fields:
+          - field: okido-forms.field-labels.balance-sheet-statement
+            type: textfield
+            span: 24
+            tags:
+              - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+          - field: okido-forms.field-labels.observation
+            type: textfield
+            span: 24
+            tags:
+              - MS-OKIDO-SEARCH-ITEM|observation|1
+        - field: okido-forms.field-labels.palpation
+          type: textfield
+          span: 24
+          tags:
+            - MS-OKIDO-SEARCH-ITEM|palpation|1
+        - field: okido-forms.field-labels.measure
+          type: textfield
+          span: 24
+          tags:
+            - MS-OKIDO-SEARCH-ITEM|measure|1

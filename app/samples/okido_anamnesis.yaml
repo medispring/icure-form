@@ -1,0 +1,429 @@
+form: okido-forms.ANAMNESIS
+id: ec590115-e771-48a1-88b7-84af34c3f76a
+description: okido-forms.ANAMNESIS
+codifications:
+  - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+    codes:
+      - id: functions
+        label:
+          nl: Functies
+          fr: Fonctions
+      - id: anatomical_structures
+        label:
+          nl: Anatomische eigenschappen
+          fr: Structures anatomiques
+      - id: activity
+        label:
+          nl: Activiteiten
+          fr: Activités
+      - id: participation
+        label:
+          nl: Participatie
+          fr: Participation
+      - id: external_factors
+        label:
+          nl: Externe factoren
+          fr: Facteurs externes
+      - id: personal_factors
+        label:
+          nl: Persoonlijke factoren
+          fr: Facteurs personnels
+  - type: MS-OKIDO-ANAMNESIS-SEVERITY
+    codes:
+      - id: abnormal
+        label:
+          nl: Licht
+          fr: Anormal
+      - id: extremelyhight
+        label:
+          nl: Zeer ernstig
+          fr: Extrêmement élevé
+      - id: extremelylow
+        label:
+          nl: Zeer licht
+          fr: Extrêmement bas
+      - id: high
+        label:
+          nl: Ernstig
+          fr: Élevé
+      - id: low
+        label:
+          nl: Licht
+          fr: Bas
+      - id: normal
+        label:
+          nl: Normaal
+          fr: Normal
+      - id: resistent
+        label:
+          nl: Resistent
+          fr: Résistant
+      - id: susceptible
+        label:
+          nl: Gevoelig
+          fr: Sensible
+      - id: susceptibleintermediate
+        label:
+          nl: Gevoelig/intermediair
+          fr: Sensible/intermédiaire
+      - id: susceptiblemoderate
+        label:
+          nl: Gevoelig/matig
+          fr: Sensible/modéré
+      - id: veryabnormal
+        label:
+          nl: Zeer abnormaal
+          fr: Très anormal
+      - id: veryhigh
+        label:
+          nl: Zeer hoog
+          fr: Très élevé
+      - id: verylow
+        label:
+          nl: Zeer laag
+          fr: Très bas
+      - id: verysusceptible
+        label:
+          nl: Zeer gevoelig
+          fr: Très sensible
+
+sections:
+  - section: okido-forms.field-labels.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.field-labels.reason
+            type: textfield
+            span: 24
+            tags:
+              - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+              - CD-ITEM|transactionreason|1
+
+      - subform:
+        id: c590115-e771-48a1-88b7-84af34c3f76addddsdfsdf
+        shortLabel: okido-forms.field-labels.SubForm
+        span: 24
+        borderless: true
+        forms:
+          Troubles fonctionnels:
+            form: okido-forms.functional_issues
+            id: f6b05966-749c-44c0-a405-d15154513507
+            description: okido-forms.functional_issues
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                    - group: line
+                      borderless: true
+                      span: 24
+                      fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                    - field: okido-forms.field-labels.palpation
+                      type: textfield
+                      span: 24
+                      tags:
+                        - MS-OKIDO-SEARCH-ITEM|palpation|1
+                    - field: okido-forms.field-labels.measure
+                      type: textfield
+                      span: 24
+                      tags:
+                        - MS-OKIDO-SEARCH-ITEM|measure|1
+          Répercutions / Sévérité:
+            form: okido-forms.impact_severity
+            id: ecf4d6c8-ff4b-4439-8052-02b45fb98041
+            description: okido-forms.impact_severity
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                    - group: line
+                      borderless: true
+                      span: 24
+                      fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                    - field: okido-forms.field-labels.palpation
+                      type: textfield
+                      span: 24
+                      tags:
+                        - MS-OKIDO-SEARCH-ITEM|palpation|1
+                    - field: okido-forms.field-labels.measure
+                      type: textfield
+                      span: 24
+                      tags:
+                        - MS-OKIDO-SEARCH-ITEM|measure|1
+          Facteurs externes:
+            form: okido-forms.external_factors
+            id: 4d2cfdb9-85f8-4a24-85d9-5fbabb6391eb
+            description: okido-forms.external_factors
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Facteurs individuels / personnels:
+            form: okido-forms.personal_factors
+            id: 7e0e4c53-9a93-4c4b-8bdf-b0c38011d413
+            description: okido-forms.personal_factors
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Examens complémentaires:
+            form: okido-forms.complementary_examinations
+            id: bc95aec9-b758-494f-b0ce-27d577a14155
+            description: okido-forms.complementary_examinations
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Données médicales:
+            form: okido-forms.medical_data
+            id: 8bff1d4d-9c5f-46c3-8306-a1f1d719e230
+            description: okido-forms.medical_data
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Données chirurgicales:
+            form: okido-forms.surgical_data
+            id: 5ad02789-b7ff-4c63-bb80-6d7bb76f2ff1
+            description: okido-forms.surgical_data
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Soins médicaux:
+            form: okido-forms.medical_care
+            id: 9974f1a9-5e6b-45c8-92b7-ed955e42f0f7
+            description: okido-forms.medical_care
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Soins paramédicaux:
+            form: okido-forms.paramedical_care
+            id: 948549b2-0c37-49cb-8af0-76c3e6f06efe
+            description: okido-forms.paramedical_care
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
+          Soins kinésithérapiques:
+            form: okido-forms.physiotherapy_care
+            id: 39e18fb0-3ac4-42ff-bf0b-6799a8757e99
+            description: okido-forms.physiotherapy_care
+            span: 24
+            sections:
+              - section: okido-forms.section-label.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.field-labels.balance-sheet-statement
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+                      - field: okido-forms.field-labels.observation
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-SEARCH-ITEM|observation|1
+                  - field: okido-forms.field-labels.palpation
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|palpation|1
+                  - field: okido-forms.field-labels.measure
+                    type: textfield
+                    span: 24
+                    tags:
+                      - MS-OKIDO-SEARCH-ITEM|measure|1
