@@ -21,7 +21,7 @@ export class IcureButton extends LitElement {
 		if (!this.visible) {
 			return html``
 		}
-		return html`<div style="button" @click="${() => this.actionListener(this.event, this.payload)}">
+		return html`<div class="icure-button" style="button" @click="${() => this.actionListener(this.event, this.payload)}">
 			${this.label ? this.translationProvider(this.defaultLanguage, this.label) : ''}
 		</div>`
 	}

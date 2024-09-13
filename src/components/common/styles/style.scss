@@ -1,6 +1,7 @@
 @import 'math';
 
 $label-color: #084B83;
+$label-color-hover: #3D87C5;
 $green-light-bg: #BFE8EA;
 $blue-light-bg: #DCE7F2;
 $hr-color: rgba(8, 75, 131, 0.13);
@@ -1119,6 +1120,20 @@ input[type='radio'] {
 
 .icure-checkbox:checked {
 	accent-color: #06a070;
+}
+
+.icure-button {
+	display: flex;
+	height: 32px;
+	padding: 0 16px;
+	background-color:  $label-color;
+	color: white;
+	border-radius: 6px;
+	cursor: pointer;
+
+	&:hover{
+		background-color: $label-color-hover;
+	}
 }
 
 .icure-button-group {
