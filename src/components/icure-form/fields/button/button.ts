@@ -19,6 +19,8 @@ export class Button extends LitElement {
 	@property() defaultLanguage = 'en'
 	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
 	@property() actionListener: (event: string, payload: unknown) => void = () => undefined
+	@property() event: string
+	@property() payload: unknown
 
 	render(): TemplateResult {
 		return html`<icure-button
@@ -27,6 +29,8 @@ export class Button extends LitElement {
 			.translationProvider="${this.translationProvider}"
 			.defaultLanguage="${this.defaultLanguage}"
 			.actionListener="${this.actionListener}"
+			.event="${this.event}"
+			.payload="${this.payload}"
 		></icure-button>`
 	}
 }
