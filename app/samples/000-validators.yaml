@@ -220,6 +220,16 @@ sections:
         borderless: true
         span: 24
         fields:
+          - field: ACTION
+            type: action
+            event: save
+            payload:
+              a: a
+              b: b
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: abortion-forms.field-labels.HEALTHCARE-PARTY
             type: dropdown
             codifications:

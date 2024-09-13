@@ -5,6 +5,7 @@ import {
 	DropdownField,
 	ItemsListField,
 	Label,
+	Button,
 	MeasureField,
 	NumberField,
 	RadioButton,
@@ -18,6 +19,7 @@ import { IcureDropdownField } from '../../icure-dropdown-field'
 import { IcureForm } from '../../icure-form'
 import { IcureLabel } from '../../icure-label'
 import { IcureTextField } from '../../icure-text-field'
+import { IcureButton } from '../../icure-button'
 
 customElements.define('icure-form-checkbox', CheckBox)
 customElements.define('icure-form-date-picker', DatePicker)
@@ -28,9 +30,11 @@ customElements.define('icure-date-picker-field', IcureDatePickerField)
 customElements.define('icure-dropdown-field', IcureDropdownField)
 customElements.define('icure-form', IcureForm)
 customElements.define('icure-label', IcureLabel)
+customElements.define('icure-button', IcureButton)
 customElements.define('icure-text-field', IcureTextField)
 customElements.define('icure-form-items-list-field', ItemsListField)
 customElements.define('icure-form-label', Label)
+customElements.define('icure-form-button', Button)
 customElements.define('icure-form-measure-field', MeasureField)
 customElements.define('icure-form-number-field', NumberField)
 customElements.define('icure-form-radio-button', RadioButton)

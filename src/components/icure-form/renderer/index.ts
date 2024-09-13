@@ -15,6 +15,7 @@ export type Renderer = (
 	translationProvider?: (language: string, text: string) => string,
 	ownersProvider?: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]>,
 	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
+	actionListener?: (event: string, payload: unknown) => void,
 	languages?: { [iso: string]: string },
 	readonly?: boolean,
 	displayMetadata?: boolean,

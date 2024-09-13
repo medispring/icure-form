@@ -150,6 +150,8 @@ export abstract class Field {
 	width?: number
 	styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
 	hasOther?: boolean
+	event?: string
+	payload?: unknown
 
 	label(): string {
 		return this.field
@@ -179,6 +181,8 @@ export abstract class Field {
 			width,
 			styleOptions,
 			hasOther,
+			event,
+			payload,
 		}: {
 			shortLabel?: string
 			grows?: boolean
@@ -200,6 +204,8 @@ export abstract class Field {
 			width?: number
 			styleOptions?: { width: number; direction: string; span: number; rows: number; alignItems: string }
 			hasOther?: boolean
+			event?: string
+			payload?: unknown
 		},
 	) {
 		this.field = label
@@ -224,6 +230,8 @@ export abstract class Field {
 		this.width = width
 		this.styleOptions = styleOptions
 		this.hasOther = hasOther
+		this.event = event
+		this.payload = payload
 	}
 
 	abstract copy(properties: Partial<Field>): Field
@@ -244,6 +252,7 @@ export abstract class Field {
 					'radio-button': () => new RadioButton(json.field, { ...json }),
 					checkbox: () => new CheckBox(json.field, { ...json }),
 					label: () => new Label(json.field, { ...json }),
+					action: () => new Button(json.field, { ...json }),
 				} as { [key: string]: () => Field }
 			)[json.type as string]?.() ?? new TextField(json.field, { ...json })
 		)
@@ -892,6 +901,7 @@ export class RadioButton extends Field {
 			sortOptions,
 			width,
 			styleOptions,
+			hasOther,
 		}: {
 			shortLabel?: string
 			grows?: boolean
@@ -926,6 +936,7 @@ export class RadioButton extends Field {
 			translate,
 			width,
 			styleOptions,
+			hasOther,
 		})
 		this.sortOptions = sortOptions ?? undefined
 	}
@@ -1002,14 +1013,18 @@ export class Label extends Field {
 	}
 }
 
-export class ActionButton extends Field {
-	constructor(label: string, { shortLabel, grows, span }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number }) {
-		super('action', label, { shortLabel, grows, span })
+export class Button extends Field {
+	constructor(
+		label: string,
+		{ shortLabel, grows, span, event, payload }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number; event?: string; payload?: unknown },
+	) {
+		super('action', label, { shortLabel, grows, span, event, payload })
 	}
-	override copy(properties: Partial<ActionButton>): ActionButton {
-		return new ActionButton(this.field, { ...this, ...properties })
+	override copy(properties: Partial<Button>): Button {
+		return new Button(this.field, { ...this, ...properties })
 	}
 }
+
 export class Group {
 	clazz = 'group' as const
 	group: string

@@ -18,6 +18,7 @@ export const render: Renderer = (
 	translationProvider?: (language: string, text: string) => string,
 	ownersProvider: (terms: string[], ids?: string[], specialties?: string[]) => Promise<Suggestion[]> = async () => [],
 	optionsProvider?: (language: string, codifications: string[], terms?: string[]) => Promise<Suggestion[]>,
+	actionListener: (event: string, payload: unknown) => void = () => undefined,
 	languages?: { [iso: string]: string },
 	readonly?: boolean,
 	displayMetadata?: boolean,
@@ -88,7 +89,7 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="container">
-								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, languages, readonly, displayMetadata)}
+								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
 								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
 								<hr />
 							</div>
@@ -356,6 +357,20 @@ export const render: Renderer = (
 		></icure-form-checkbox>`
 	}
 
+	function renderButton(fgSpan: number, fgRowSpan: number, fg: Field) {
+		return html`<icure-form-button
+			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
+			class="icure-form-button"
+			label="${fg.shortLabel ?? fg.field}"
+			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
+			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
+			.actionListener="${actionListener}"
+			.event="${fg.event !== undefined ? fg.event : fg.computedProperties?.event ? !formsValueContainer?.compute(fg.computedProperties?.event) : 'submit'}"
+			.payload="${fg.payload !== undefined ? fg.payload : fg.computedProperties?.payload ? !formsValueContainer?.compute(fg.computedProperties?.payload) : undefined}"
+			.styleOptions="${fg.styleOptions}"
+		></icure-form-button>`
+	}
+
 	function renderLabel(fgSpan: number, fgRowSpan: number, fg: Field) {
 		return html`<icure-form-label
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
@@ -414,6 +429,8 @@ export const render: Renderer = (
 				? renderCheckboxes(fgSpan, fgRowSpan, field)
 				: fg.type === 'label'
 				? renderLabel(fgSpan, fgRowSpan, field)
+				: fg.type === 'action'
+				? renderButton(fgSpan, fgRowSpan, field)
 				: ''}`
 		}
 		return html``

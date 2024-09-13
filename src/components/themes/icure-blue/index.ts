@@ -5,6 +5,7 @@ import {
 	DropdownField,
 	ItemsListField,
 	Label,
+	Button,
 	MeasureField,
 	NumberField,
 	RadioButton,
@@ -17,12 +18,12 @@ import { IcureDatePickerField } from '../../icure-date-picker'
 import { IcureDropdownField } from '../../icure-dropdown-field'
 import { IcureForm } from '../../icure-form'
 import { IcureLabel } from '../../icure-label'
-import { IcureTextField } from '../../icure-text-field'
-import { MetadataButtonBarWrapper } from '../../icure-text-field'
+import { IcureTextField, MetadataButtonBarWrapper } from '../../icure-text-field'
 
 // @ts-ignore
 import ehrLiteCss from './ehr-lite.scss'
 import { MetadataButtonBar } from '../../common/metadata-buttons-bar'
+import { IcureButton } from '../../icure-button'
 
 class EhrLiteIcureButtonGroup extends IcureButtonGroup {
 	static get styles() {
@@ -49,6 +50,11 @@ class EhrLiteIcureLabel extends IcureLabel {
 		return [...IcureLabel.styles, ehrLiteCss]
 	}
 }
+class EhrLiteIcureButton extends IcureButton {
+	static get styles() {
+		return [...IcureButton.styles, ehrLiteCss]
+	}
+}
 class EhrLiteIcureTextField extends IcureTextField {
 	static get styles() {
 		return [...IcureTextField.styles, ehrLiteCss]
@@ -64,6 +70,11 @@ class EhrLiteMetadataButtonBar extends MetadataButtonBar {
 		return [...MetadataButtonBar.styles, ehrLiteCss]
 	}
 }
+class EhrLiteButton extends Button {
+	static get styles() {
+		return [...Button.styles, ehrLiteCss]
+	}
+}
 
 customElements.define('icure-metadata-buttons-bar', EhrLiteMetadataButtonBar)
 customElements.define('icure-metadata-buttons-bar-wrapper', MetadataButtonBarWrapper)
@@ -77,9 +88,11 @@ customElements.define('icure-date-picker-field', EhrLiteIcureDatePickerField)
 customElements.define('icure-dropdown-field', EhrLiteIcureDropdownField)
 customElements.define('icure-form', EhrLiteIcureForm)
 customElements.define('icure-label', EhrLiteIcureLabel)
+customElements.define('icure-button', EhrLiteIcureButton)
 customElements.define('icure-text-field', EhrLiteIcureTextField)
 customElements.define('icure-form-items-list-field', ItemsListField)
 customElements.define('icure-form-label', EhrLiteLabel)
+customElements.define('icure-form-button', EhrLiteButton)
 customElements.define('icure-form-measure-field', MeasureField)
 customElements.define('icure-form-number-field', NumberField)
 customElements.define('icure-form-radio-button', RadioButton)

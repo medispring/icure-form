@@ -1,6 +1,6 @@
 import { FormLayout } from '@icure/api'
 import {
-	ActionButton,
+	Button,
 	CheckBox,
 	DatePicker,
 	DateTimePicker,
@@ -74,7 +74,7 @@ export function convertLegacy(form: FormLayout, formsLibrary: FormLayout[]): For
 	}
 
 	const makeActionButton = (formData: FormLayoutData, width: number, height: number) =>
-		new ActionButton(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
+		new Button(formData.name ?? '', { shortLabel: formData.label, span: width, rowSpan: height > 1 ? height : undefined })
 
 	// noinspection UnnecessaryLocalVariableJS
 	const translated = new Form(
