@@ -30,9 +30,26 @@ import obstetrics_followup_midwife from './samples/obstetrics-followup-midwife.j
 import incapacity from './samples/incapacity.json'
 import { FormLayout, IccHcpartyXApi } from '@icure/api'
 import { css, html, LitElement } from 'lit'
+// @ts-ignore
 import { convertLegacy } from '../src/conversion/icure-convert'
-
+// @ts-ignore
 const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
+
+// @ts-ignore
+import okido_treatment from './samples/okido_treatment.yaml'
+// @ts-ignore
+import okido_anamnesis from './samples/okido_anamnesis.yaml'
+// @ts-ignore
+import okido_search from './samples/okido_search.yaml'
+// @ts-ignore
+import okido_evaluation from './samples/okido_evaluation.yaml'
+// @ts-ignore
+import okido_planification from './samples/okido_planification.yaml'
+// @ts-ignore
+import okido_diagnostic from './samples/okido_diagnostic.yaml'
+// @ts-ignore
+import okido_closure from './samples/okido_closure.yaml'
+
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -59,6 +76,13 @@ class DemoApp extends LitElement {
 			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },
+			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
+			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
+			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
+			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
+			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
+			{ title: 'OKIDO - Cloture', form: Form.parse(YAML.parse(okido_closure)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 
