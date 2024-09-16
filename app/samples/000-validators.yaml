@@ -223,9 +223,9 @@ sections:
           - field: ACTION
             type: action
             event: save
-            payload:
-              a: a
-              b: b
+            computedProperties:
+              payload: |
+                return {a:'a',b:'b'}
       - group: line
         borderless: true
         span: 24

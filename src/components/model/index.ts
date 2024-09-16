@@ -1174,7 +1174,7 @@ export class Subform {
 		width?: number
 		styleOptions?: { [_key: string]: unknown }
 	}): Subform {
-		return new Subform(json.subform, json.forms, {
+		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse(f)])), {
 			shortLabel: json.shortLabel,
 			span: json.span,
 			computedProperties: json.computedProperties,
@@ -1187,7 +1187,7 @@ export class Subform {
 		return {
 			subform: this.id,
 			shortLabel: this.shortLabel,
-			forms: this.forms,
+			forms: Object.fromEntries(Object.entries(this.forms).map(([k, f]) => [k, f.toJson()])),
 			span: this.span,
 			computedProperties: this.computedProperties,
 			width: this.width,
@@ -1234,7 +1234,7 @@ export class Section {
 	} {
 		return {
 			section: this.section,
-			fields: this.fields.map((f: Field | Group | Subform) => f.toJson()),
+			fields: this.fields.map((f: Field | Group | Subform) => (f && f.toJson ? f.toJson() : JSON.stringify(f))),
 			description: this.description,
 			keywords: this.keywords,
 		}
@@ -1311,7 +1311,7 @@ export class Form {
 		description?: string
 		keywords?: string[]
 		codifications?: Codification[]
-		translations: TranslationTable[]
+		translations?: TranslationTable[]
 	}): Form {
 		return new Form(
 			json.form,

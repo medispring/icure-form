@@ -22,7 +22,7 @@ export class IcureButton extends LitElement {
 			return html``
 		}
 		return html`<div class="icure-button" style="button" @click="${() => this.actionListener(this.event, this.payload)}">
-			${this.label ? this.translationProvider(this.defaultLanguage, this.label) : ''}
+			${this.label ? this.translationProvider?.(this.defaultLanguage, this.label) ?? this.label : ''}
 		</div>`
 	}
 }

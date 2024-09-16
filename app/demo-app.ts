@@ -114,6 +114,9 @@ class DemoApp extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback()
+
+		console.log('obs', this.samples[4].form.toJson())
+
 		window.onkeydown = (event) => {
 			if ((event.key === 'Z' || event.key === 'z') && event.metaKey) {
 				console.log(event.key)
