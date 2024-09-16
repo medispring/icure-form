@@ -49,7 +49,26 @@ import okido_planification from './samples/okido_planification.yaml'
 import okido_diagnostic from './samples/okido_diagnostic.yaml'
 // @ts-ignore
 import okido_closure from './samples/okido_closure.yaml'
-
+// @ts-ignore
+import okido_functional_disorder from './samples/okido_functional_disorder.yaml'
+// @ts-ignore
+import okido_complementary_exam from './samples/oki_complementary_exam.yaml'
+// @ts-ignore
+import okido_external_factor from './samples/okido_external_factor.yaml'
+// @ts-ignore
+import okido_individual_factor from './samples/okido_individual_factor.yaml'
+// @ts-ignore
+import okido_medical_data from './samples/okido_medical_data.yaml'
+// @ts-ignore
+import okido_severity_disorder from './samples/okido_severity_disorder.yaml'
+// @ts-ignore
+import okido_surgical_data from './samples/okido_surgical_data.yaml'
+// @ts-ignore
+import okido_medical_care from './samples/okido_medical_care.yaml'
+// @ts-ignore
+import okido_physiotherapy_care from './samples/okido_physiotherapy_care.yaml'
+// @ts-ignore
+import okido_paramedical_care from './samples/okido_paramedical_care.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -82,7 +101,16 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
 			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
 			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
-			{ title: 'OKIDO - Cloture', form: Form.parse(YAML.parse(okido_closure)) },
+			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
+			{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
+			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },
+			{ title: 'OKIDO - Anamnèse - Facteur externe', form: Form.parse(YAML.parse(okido_external_factor)) },
+			{ title: 'OKIDO - Anamnèse - Facteur individuel / personnel', form: Form.parse(YAML.parse(okido_individual_factor)) },
+			{ title: 'OKIDO - Anamnèse - Donnée médicale', form: Form.parse(YAML.parse(okido_medical_data)) },
+			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
+			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
+			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
+			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

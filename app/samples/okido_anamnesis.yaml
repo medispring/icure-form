@@ -86,7 +86,17 @@ codifications:
         label:
           nl: Zeer gevoelig
           fr: Très sensible
-
+translations:
+  - language: fr
+    translations:
+      okido-forms.field-labels.reason: Motif
+      okido-forms.field-labels.anamnesis: Anamnèse
+      okido-forms.field-labels.truble: Trouble
+  - language: nl
+    translations:
+      okido-forms.field-labels.reason: Reden
+      okido-forms.field-labels.anamnesis: Anamnese
+      okido-forms.field-labels.truble: Probleem
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -94,6 +104,12 @@ sections:
         borderless: true
         span: 24
         fields:
+          - field: Anamnèse
+            type: action
+            event: save
+            payload:
+              a: a
+              b: b
           - field: okido-forms.field-labels.reason
             type: textfield
             span: 24
@@ -103,7 +119,7 @@ sections:
 
       - subform:
         id: c590115-e771-48a1-88b7-84af34c3f76addddsdfsdf
-        shortLabel: okido-forms.field-labels.SubForm
+        shortLabel: Troubles
         span: 24
         borderless: true
         forms:
@@ -331,6 +347,12 @@ sections:
                     span: 24
                     tags:
                       - MS-OKIDO-SEARCH-ITEM|measure|1
+      - subform:
+        id: c590115-e771-48a1-88b7-84af34c3f76adddddd
+        shortLabel: Soins
+        span: 24
+        borderless: true
+        forms:
           Soins médicaux:
             form: okido-forms.medical_care
             id: 9974f1a9-5e6b-45c8-92b7-ed955e42f0f7

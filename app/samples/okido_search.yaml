@@ -1,6 +1,20 @@
 form: okido-forms.SEARCH
 id: fc051ea4-8f33-468f-9a4e-6bbb0bfa74af
 description: okido-forms.SEARCH
+translations:
+  - language: fr
+    translations:
+      okido-forms.field-labels.balance-sheet-statement: Etat du bilan
+      okido-forms.field-labels.observation: Observation
+      okido-forms.field-labels.palpation: Palpation
+      okido-forms.field-labels.measure: Mesure
+  - language: nl
+    translations:
+      okido-forms.field-labels.balance-sheet-statement: Balansstaat
+      okido-forms.field-labels.observation: Observatie
+      okido-forms.field-labels.palpation: Palpatie
+      okido-forms.field-labels.measure: Meting
+
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -8,23 +22,37 @@ sections:
           borderless: true
           span: 24
           fields:
-          - field: okido-forms.field-labels.balance-sheet-statement
-            type: textfield
-            span: 24
-            tags:
-              - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
-          - field: okido-forms.field-labels.observation
-            type: textfield
-            span: 24
-            tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
-        - field: okido-forms.field-labels.palpation
-          type: textfield
-          span: 24
-          tags:
-            - MS-OKIDO-SEARCH-ITEM|palpation|1
-        - field: okido-forms.field-labels.measure
-          type: textfield
-          span: 24
-          tags:
-            - MS-OKIDO-SEARCH-ITEM|measure|1
+            - field: Recherche
+              type: action
+              event: save
+              payload:
+                a: a
+                b: b
+            - field: okido-forms.field-labels.balance-sheet-statement
+              type: textfield
+              multiline: true
+              span: 24
+              rowSpan: 2
+              tags:
+                - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
+            - field: okido-forms.field-labels.observation
+              type: textfield
+              span: 24
+              multiline: true
+              rowSpan: 2
+              tags:
+                - MS-OKIDO-SEARCH-ITEM|observation|1
+            - field: okido-forms.field-labels.palpation
+              type: textfield
+              span: 24
+              multiline: true
+              rowSpan: 2
+              tags:
+                - MS-OKIDO-SEARCH-ITEM|palpation|1
+            - field: okido-forms.field-labels.measure
+              type: textfield
+              span: 24
+              multiline: true
+              rowSpan: 2
+              tags:
+                - MS-OKIDO-SEARCH-ITEM|measure|1
