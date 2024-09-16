@@ -49,5 +49,5 @@ export const naturalCodesComparator =
 	(a: Code, b: Code): number => {
 		const aPromoted = codePromoter(a)
 		const bPromoted = codePromoter(b)
-		return aPromoted !== bPromoted ? aPromoted - bPromoted : -1
+		return aPromoted !== bPromoted ? -1 : aPromoted - bPromoted
 	}
