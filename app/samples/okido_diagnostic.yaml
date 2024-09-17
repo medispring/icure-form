@@ -18,11 +18,7 @@ sections:
         span: 24
         fields:
           - field: Diagnostique
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+            type: label
           - field: okido-forms.field-labels.goal
             type: textfield
             span: 24

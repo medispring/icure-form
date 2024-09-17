@@ -20,11 +20,7 @@ sections:
         span: 24
         fields:
           - field: Planification
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+            type: label
           - field: okido-forms.field-labels.goal_of_treatment
             type: textfield
             span: 24

@@ -24,11 +24,7 @@ sections:
         span: 24
         fields:
           - field: Clôture
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+            type: label
           - field: okido-forms.field-labels.reason
             type: textfield
             span: 24

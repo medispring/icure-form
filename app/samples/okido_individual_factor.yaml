@@ -104,12 +104,8 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Facteur individuel / personnel
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+          - field: Facteur individuel / personel
+            type: label
           - field: okido-forms.field-labels.description
             type: textfield
             span: 24

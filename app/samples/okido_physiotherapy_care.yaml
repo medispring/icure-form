@@ -120,12 +120,8 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Soin kinésithérapeutique
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+          - field: Soin de kinésithérapie
+            type: label
           - field: okido-forms.field-labels.description
             type: textfield
             span: 24

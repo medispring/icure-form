@@ -122,11 +122,7 @@ sections:
         span: 24
         fields:
           - field: Soin médical
-            type: action
-            event: save
-            payload:
-              a: a
-              b: b
+            type: label
           - field: okido-forms.field-labels.description
             type: textfield
             span: 24
