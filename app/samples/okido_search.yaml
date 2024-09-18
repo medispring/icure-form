@@ -690,8 +690,8 @@ sections:
                           - field: okido-forms.search.other.field.label.other
                             type: textfield
                             span: 24
-                            multiline: true
-                            rowSpan: 2
+                            multiline: false
+                            rowSpan: 1
                             tags:
                                 - MS-OKIDO-SEARCH-OTHER-ITEM|other|1
                                 - CD-ITEM|observation|1
