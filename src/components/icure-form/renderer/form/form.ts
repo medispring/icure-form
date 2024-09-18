@@ -442,7 +442,7 @@ export const render: Renderer = (
 	}
 
 	const renderForm = (form: Form) => {
-		return form.sections.map((s) => html`<div class="icure-form">${s.fields.map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, 3))}</div>`)
+		return form.sections.map((s) => html`<div class="icure-form">${s.fields.map((fieldOrGroup: Field | Group | Subform) => renderFieldGroupOrSubform(fieldOrGroup, 3))}</div>`)
 	}
 
 	return html` ${renderForm(form)} `

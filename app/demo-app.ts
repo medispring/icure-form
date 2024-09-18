@@ -30,9 +30,45 @@ import obstetrics_followup_midwife from './samples/obstetrics-followup-midwife.j
 import incapacity from './samples/incapacity.json'
 import { FormLayout, IccHcpartyXApi } from '@icure/api'
 import { css, html, LitElement } from 'lit'
+// @ts-ignore
 import { convertLegacy } from '../src/conversion/icure-convert'
-
+// @ts-ignore
 const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
+
+// @ts-ignore
+import okido_treatment from './samples/okido_treatment.yaml'
+// @ts-ignore
+import okido_anamnesis from './samples/okido_anamnesis.yaml'
+// @ts-ignore
+import okido_search from './samples/okido_search.yaml'
+// @ts-ignore
+import okido_evaluation from './samples/okido_evaluation.yaml'
+// @ts-ignore
+import okido_planification from './samples/okido_planification.yaml'
+// @ts-ignore
+import okido_diagnostic from './samples/okido_diagnostic.yaml'
+// @ts-ignore
+import okido_closure from './samples/okido_closure.yaml'
+// @ts-ignore
+import okido_functional_disorder from './samples/okido_functional_disorder.yaml'
+// @ts-ignore
+import okido_complementary_exam from './samples/oki_complementary_exam.yaml'
+// @ts-ignore
+import okido_external_factor from './samples/okido_external_factor.yaml'
+// @ts-ignore
+import okido_individual_factor from './samples/okido_individual_factor.yaml'
+// @ts-ignore
+import okido_medical_data from './samples/okido_medical_data.yaml'
+// @ts-ignore
+import okido_severity_disorder from './samples/okido_severity_disorder.yaml'
+// @ts-ignore
+import okido_surgical_data from './samples/okido_surgical_data.yaml'
+// @ts-ignore
+import okido_medical_care from './samples/okido_medical_care.yaml'
+// @ts-ignore
+import okido_physiotherapy_care from './samples/okido_physiotherapy_care.yaml'
+// @ts-ignore
+import okido_paramedical_care from './samples/okido_paramedical_care.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -46,7 +82,7 @@ class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
 		...[
-			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
+			/*{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
 			{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
@@ -59,6 +95,22 @@ class DemoApp extends LitElement {
 			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },
+			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },*/
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
+			/*{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
+			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
+			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
+			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
+			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
+			{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
+			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },
+			{ title: 'OKIDO - Anamnèse - Facteur externe', form: Form.parse(YAML.parse(okido_external_factor)) },
+			{ title: 'OKIDO - Anamnèse - Facteur individuel / personnel', form: Form.parse(YAML.parse(okido_individual_factor)) },
+			{ title: 'OKIDO - Anamnèse - Donnée médicale', form: Form.parse(YAML.parse(okido_medical_data)) },
+			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
+			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
+			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
+			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },*/
 		], //.filter((x, idx) => idx === 0),
 	]
 
