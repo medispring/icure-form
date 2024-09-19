@@ -16,7 +16,6 @@ translations:
       okido-forms.anamnesis.severity.field.labels.severity: Sévérité
       okido-forms.anamnesis.severity.field.labels.description: Description
       okido-forms.anamnesis.severity.field.labels.repercussion: Répercussion
-      okido-forms.anamnesis.external_factor.field.labels.external_factor: Facteur externe
       okido-forms.anamnesis.external_factor.field.labels.description: Description
       okido-forms.anamnesis.external_factor.field.labels.severity: Sévérité
       okido-forms.anamnesis.external_factor.field.labels.repercussion: Répercussion
@@ -68,7 +67,6 @@ translations:
       okido-forms.anamnesis.external_factor.field.labels.description: Beschrijving
       okido-forms.anamnesis.external_factor.field.labels.severity: Ernst
       okido-forms.anamnesis.external_factor.field.labels.repercussion: Repercussie
-      okido-forms.anamnesis.individual_factor.field.labels.external_factor: Externe factor
       okido-forms.anamnesis.individual_factor.field.labels.individual_factor: Individuele factor
       okido-forms.anamnesis.individual_factor.field.labels.description: Beschrijving
       okido-forms.anamnesis.individual_factor.field.labels.severity: Ernst
@@ -122,10 +120,36 @@ sections:
         borderless: true
         forms:
           Troubles fonctionnels:
-            form: okido-forms.DISORDER_FUNCTIONAL_DISORDER
+            form: okido-forms.ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER
             id: 2da2924e-52cc-453c-95b6-72e57c94c4cd
-            description: okido-forms.DISORDER_FUNCTIONAL_DISORDER
+            description: okido-forms.ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLE-TYPES
+                codes:
+                  - id: function
+                    label:
+                      nl: Functies
+                      fr: Fonction
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -197,7 +221,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-DISORDER_FUNCTIONAL_DISORDER-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|reason|1
                           - CD-ITEM|complaint|1
                       - field: okido-forms.anamnesis.trouble.field.labels.severity
                         type: radio-button
@@ -207,19 +231,45 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-DISORDER_FUNCTIONAL_DISORDER-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|severity|1
                           - CD-SEVERITY
                       - field: okido-forms.anamnesis.trouble.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-DISORDER_FUNCTIONAL_DISORDER-ITEM|repercussion|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|repercussion|1
                           - CD-ITEM|transactionreason|1
           Répercutions / Sévérité:
-            form: okido-forms.DISORDER_SEVERITY
+            form: okido-forms.ANAMNESIS_DISORDER_SEVERITY
             id: 2bf7b101-a9e9-488e-a83f-f1715ed7c539
-            description: okido-forms.DISORDER_SEVERITY
+            description: okido-forms.ANAMNESIS_DISORDER_SEVERITY
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -291,7 +341,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-DISORDER_SEVERITY-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.severity.field.labels.severity
                         type: radio-button
@@ -301,7 +351,7 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-DISORDER_SEVERITY-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|severity|1
                           - CD-SEVERITY
                       - field: okido-forms.anamnesis.severity.field.labels.repercussion
                         type: textfield
@@ -309,13 +359,39 @@ sections:
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-DISORDER_SEVERITY-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
           Facteurs externes:
-            form: okido-forms.EXTERNAL_FACTOR
+            form: okido-forms.ANAMNESIS_EXTERNAL_FACTOR
             id: 67824b82-7b56-45f0-9409-6d87270d2faa
-            description: okido-forms.EXTERNAL_FACTOR
+            description: okido-forms.ANAMNESIS_EXTERNAL_FACTOR
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -381,13 +457,13 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.anamnesis.external_factor.field.labels.external_factor
+                      - field: Facteur externe
                         type: label
                       - field: okido-forms.anamnesis.external_factor.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.external_factor.field.labels.severity
                         type: radio-button
@@ -397,19 +473,45 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|severity|1
                           - CD-SEVERITY
                       - field: okido-forms.anamnesis.external_factor.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
           Facteurs individuels / personnels:
-            form: okido-forms.INDIVIDUAL_FACTOR
+            form: okido-forms.ANAMNESIS_INDIVIDUAL_FACTOR
             id: 662547a7-f57a-43b3-99c8-dd05dad9ab4a
-            description: okido-forms.INDIVIDUAL_FACTOR
+            description: okido-forms.ANAMNESIS_INDIVIDUAL_FACTOR
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -481,7 +583,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_INDIVIDUAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.individual_factor.field.labels.severity
                         type: radio-button
@@ -491,20 +593,46 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_INDIVIDUAL_FACTOR-ITEM|severity|1
                       - field: okido-forms.anamnesis.individual_factor.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
           Examens complémentaires:
-            form: okido-forms.COMPLEMENTARY_EXAM
+            form: okido-forms.ANAMNESIS_COMPLEMENTARY_EXAM
             id: 5f9112c9-43b4-4b26-bb41-e64a8619b467
-            description: okido-forms.COMPLEMENTARY_EXAM
+            description: okido-forms.ANAMNESIS_COMPLEMENTARY_EXAM
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -576,7 +704,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-COMPLEMENTARY_EXAM-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.complementary_exam.field.labels.severity
                         type: radio-button
@@ -586,18 +714,44 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-COMPLEMENTARY_EXAM-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|severity|1
                       - field: okido-forms.anamnesis.complementary_exam.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-COMPLEMENTARY_EXAM-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
           Données médicales:
-            form: okido-forms.MEDICAL_DATA
+            form: okido-forms.ANAMNESIS_MEDICAL_DATA
             id: 7f2d2f93-f9e6-49de-a82c-740db105846b
-            description: okido-forms.MEDICAL_DATA
+            description: okido-forms.ANAMNESIS_MEDICAL_DATA
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -669,7 +823,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.medical_data.field.labels.severity
                         type: radio-button
@@ -679,20 +833,46 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|severity|1
                       - field: okido-forms.anamnesis.medical_data.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
           Données chirurgicales:
-            form: okido-forms.SURGICAL_DATA
+            form: okido-forms.ANAMNESIS_SURGICAL_DATA
             id: 88af2cc7-3175-466b-a67a-52cb9f2bff7a
-            description: okido-forms.SURGICAL_DATA
+            description: okido-forms.ANAMNESIS_SURGICAL_DATA
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -764,7 +944,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.surgical_data.field.labels.severity
                         type: radio-button
@@ -774,14 +954,14 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|severity|1
                       - field: okido-forms.anamnesis.surgical_data.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
       - subform:
         id: 5c896dcb-cecd-4bce-b9fa-0cc13304b1c9
@@ -790,10 +970,36 @@ sections:
         borderless: true
         forms:
           Soins médicaux:
-            form: okido-forms.MEDICAL_CARE
+            form: okido-forms.ANAMNESIS_MEDICAL_CARE
             id: 73bfe99b-f5cb-4c0c-ab9d-9f23ec93a9e5
-            description: okido-forms.MEDICAL_CARE
+            description: okido-forms.ANAMNESIS_MEDICAL_CARE
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -852,7 +1058,7 @@ sections:
                     label:
                       nl: Zeer gevoelig
                       fr: Très sensible
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
@@ -879,7 +1085,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.medical_care.field.labels.severity
                         type: radio-button
@@ -889,14 +1095,14 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|severity|1
                       - field: okido-forms.anamnesis.medical_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.medical_care.field.labels.status
                         type: radio-button
@@ -904,14 +1110,40 @@ sections:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|status|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|status|1
           Soins paramédicaux:
-            form: okido-forms.PARAMEDICAL_CARE
+            form: okido-forms.ANAMNESIS_PARAMEDICAL_CARE
             id: 980e65a7-3a10-49ad-ab4b-dac5be40e8bd
-            description: okido-forms.PARAMEDICAL_CARE
+            description: okido-forms.ANAMNESIS_PARAMEDICAL_CARE
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -970,7 +1202,7 @@ sections:
                     label:
                       nl: Zeer gevoelig
                       fr: Très sensible
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
@@ -997,7 +1229,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.paramedical_care.field.labels.severity
                         type: radio-button
@@ -1007,14 +1239,14 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|severity|1
                       - field: okido-forms.anamnesis.paramedical_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.paramedical_care.field.labels.status
                         type: radio-button
@@ -1022,14 +1254,40 @@ sections:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|status|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|status|1
           Soins kinésithérapiques:
-            form: okido-forms.KINESITHERAPY_CARE
+            form: okido-forms.ANAMNESIS_KINESITHERAPY_CARE
             id: 5589e62c-22d9-46fb-9f93-f8f41be65edc
-            description: okido-forms.KINESITHERAPY_CARE
+            description: okido-forms.ANAMNESIS_KINESITHERAPY_CARE
             codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
               - type: CD-SEVERITY
                 codes:
                   - id: abnormal
@@ -1088,7 +1346,7 @@ sections:
                     label:
                       nl: Zeer gevoelig
                       fr: Très sensible
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
@@ -1115,7 +1373,7 @@ sections:
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.severity
                         type: radio-button
@@ -1125,14 +1383,14 @@ sections:
                         codifications:
                           - CD-SEVERITY
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|severity|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|severity|1
                       - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
                       - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.status
                         type: radio-button
@@ -1140,6 +1398,6 @@ sections:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|status|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|status|1
