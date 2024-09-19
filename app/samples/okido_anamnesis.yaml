@@ -1,109 +1,103 @@
 form: okido-forms.ANAMNESIS
-id: ec590115-e771-48a1-88b7-84af34c3f76a
+id: 1ef24547-9066-4526-8378-b18e0c76459b
 description: okido-forms.ANAMNESIS
-codifications:
-  - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
-    codes:
-      - id: functions
-        label:
-          nl: Functies
-          fr: Fonctions
-      - id: anatomical_structures
-        label:
-          nl: Anatomische eigenschappen
-          fr: Structures anatomiques
-      - id: activity
-        label:
-          nl: Activiteiten
-          fr: Activités
-      - id: participation
-        label:
-          nl: Participatie
-          fr: Participation
-      - id: external_factors
-        label:
-          nl: Externe factoren
-          fr: Facteurs externes
-      - id: personal_factors
-        label:
-          nl: Persoonlijke factoren
-          fr: Facteurs personnels
-  - type: MS-OKIDO-ANAMNESIS-SEVERITY
-    codes:
-      - id: abnormal
-        label:
-          nl: Licht
-          fr: Anormal
-      - id: extremelyhight
-        label:
-          nl: Zeer ernstig
-          fr: Extrêmement élevé
-      - id: extremelylow
-        label:
-          nl: Zeer licht
-          fr: Extrêmement bas
-      - id: high
-        label:
-          nl: Ernstig
-          fr: Élevé
-      - id: low
-        label:
-          nl: Licht
-          fr: Bas
-      - id: normal
-        label:
-          nl: Normaal
-          fr: Normal
-      - id: resistent
-        label:
-          nl: Resistent
-          fr: Résistant
-      - id: susceptible
-        label:
-          nl: Gevoelig
-          fr: Sensible
-      - id: susceptibleintermediate
-        label:
-          nl: Gevoelig/intermediair
-          fr: Sensible/intermédiaire
-      - id: susceptiblemoderate
-        label:
-          nl: Gevoelig/matig
-          fr: Sensible/modéré
-      - id: veryabnormal
-        label:
-          nl: Zeer abnormaal
-          fr: Très anormal
-      - id: veryhigh
-        label:
-          nl: Zeer hoog
-          fr: Très élevé
-      - id: verylow
-        label:
-          nl: Zeer laag
-          fr: Très bas
-      - id: verysusceptible
-        label:
-          nl: Zeer gevoelig
-          fr: Très sensible
 translations:
   - language: fr
     translations:
-      okido-forms.field-labels.reason: Motif
-      okido-forms.field-labels.anamnesis: Anamnèse
-      okido-forms.field-labels.truble: Trouble
-      okido-forms.field-labels.description: Description
-      okido-forms.field-labels.severity: Sévérité
-      okido-forms.field-labels.repercussion: Répercussion
-      okido-forms.field-labels.status: Statut
+      okido-forms.anamnesis.field.labels.anamnesis: Anamnèse
+      okido-forms.anamnesis.field.labels.reason: Raison
+      okido-forms.anamnesis.field.labels.trouble: Problème
+      okido-forms.anamnesis.field.labels.description: Description
+      okido-forms.anamnesis.field.labels.severity: Sévérité
+      okido-forms.anamnesis.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.trouble.field.labels.functional_disorder: Trouble fonctionnel
+      okido-forms.anamnesis.trouble.field.labels.severity: Sévérité
+      okido-forms.anamnesis.trouble.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.severity.field.labels.severity: Sévérité
+      okido-forms.anamnesis.severity.field.labels.description: Description
+      okido-forms.anamnesis.severity.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.external_factor.field.labels.description: Description
+      okido-forms.anamnesis.external_factor.field.labels.severity: Sévérité
+      okido-forms.anamnesis.external_factor.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.individual_factor.field.labels.individual_factor: Facteur individuel
+      okido-forms.anamnesis.individual_factor.field.labels.description: Description
+      okido-forms.anamnesis.individual_factor.field.labels.severity: Sévérité
+      okido-forms.anamnesis.individual_factor.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.complementary_exam.field.labels.complementary_exam: Examen complémentaire
+      okido-forms.anamnesis.complementary_exam.field.labels.description: Description
+      okido-forms.anamnesis.complementary_exam.field.labels.severity: Sévérité
+      okido-forms.anamnesis.complementary_exam.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.medical_data.field.labels.medical_data: Données médicales
+      okido-forms.anamnesis.medical_data.field.labels.description: Description
+      okido-forms.anamnesis.medical_data.field.labels.severity: Sévérité
+      okido-forms.anamnesis.medical_data.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.surgical_data.field.labels.surgical_data: Données chirurgicales
+      okido-forms.anamnesis.surgical_data.field.labels.description: Description
+      okido-forms.anamnesis.surgical_data.field.labels.severity: Sévérité
+      okido-forms.anamnesis.surgical_data.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.medical_care.field.labels.medical_care: Soins médicaux
+      okido-forms.anamnesis.medical_care.field.labels.description: Description
+      okido-forms.anamnesis.medical_care.field.labels.severity: Sévérité
+      okido-forms.anamnesis.medical_care.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.medical_care.field.labels.status: Statut
+      okido-forms.anamnesis.paramedical_care.field.labels.paramedical_care: Soins paramédicaux
+      okido-forms.anamnesis.paramedical_care.field.labels.description: Description
+      okido-forms.anamnesis.paramedical_care.field.labels.severity: Sévérité
+      okido-forms.anamnesis.paramedical_care.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.paramedical_care.field.labels.status: Statut
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.kinesitherapy_care: Soins de kinésithérapie
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.description: Description
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.severity: Sévérité
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion: Répercussion
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.status: Statut
   - language: nl
     translations:
-      okido-forms.field-labels.reason: Reden
-      okido-forms.field-labels.anamnesis: Anamnese
-      okido-forms.field-labels.truble: Probleem
-      okido-forms.field-labels.description: Beschrijving
-      okido-forms.field-labels.severity: Ernst
-      okido-forms.field-labels.repercussion: Repercussie
+      okido-forms.anamnesis.field.labels.anamnesis: Anamnese
+      okido-forms.anamnesis.field.labels.reason: Reden
+      okido-forms.anamnesis.field.labels.trouble: Probleem
+      okido-forms.anamnesis.field.labels.description: Beschrijving
+      okido-forms.anamnesis.field.labels.severity: Ernst
+      okido-forms.anamnesis.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.trouble.field.labels.functional_disorder: Functionele stoornis
+      okido-forms.anamnesis.trouble.field.labels.severity: Ernst
+      okido-forms.anamnesis.trouble.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.severity.field.labels.severity: Ernst
+      okido-forms.anamnesis.severity.field.labels.description: Beschrijving
+      okido-forms.anamnesis.severity.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.external_factor.field.labels.description: Beschrijving
+      okido-forms.anamnesis.external_factor.field.labels.severity: Ernst
+      okido-forms.anamnesis.external_factor.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.individual_factor.field.labels.individual_factor: Individuele factor
+      okido-forms.anamnesis.individual_factor.field.labels.description: Beschrijving
+      okido-forms.anamnesis.individual_factor.field.labels.severity: Ernst
+      okido-forms.anamnesis.individual_factor.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.complementary_exam.field.labels.complementary_exam: Aanvullend onderzoek
+      okido-forms.anamnesis.complementary_exam.field.labels.description: Beschrijving
+      okido-forms.anamnesis.complementary_exam.field.labels.severity: Ernst
+      okido-forms.anamnesis.complementary_exam.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.medical_data.field.labels.medical_data: Medische gegevens
+      okido-forms.anamnesis.medical_data.field.labels.description: Beschrijving
+      okido-forms.anamnesis.medical_data.field.labels.severity: Ernst
+      okido-forms.anamnesis.medical_data.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.surgical_data.field.labels.surgical_data: Chirurgische gegevens
+      okido-forms.anamnesis.surgical_data.field.labels.description: Beschrijving
+      okido-forms.anamnesis.surgical_data.field.labels.severity: Ernst
+      okido-forms.anamnesis.surgical_data.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.medical_care.field.labels.medical_care: Medische zorg
+      okido-forms.anamnesis.medical_care.field.labels.description: Beschrijving
+      okido-forms.anamnesis.medical_care.field.labels.severity: Ernst
+      okido-forms.anamnesis.medical_care.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.medical_care.field.labels.status: Status
+      okido-forms.anamnesis.paramedical_care.field.labels.paramedical_care: Paramedische zorg
+      okido-forms.anamnesis.paramedical_care.field.labels.description: Beschrijving
+      okido-forms.anamnesis.paramedical_care.field.labels.severity: Ernst
+      okido-forms.anamnesis.paramedical_care.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.paramedical_care.field.labels.status: Status
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.kinesitherapy_care: Kinesitherapie
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.description: Beschrijving
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.severity: Ernst
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion: Repercussie
+      okido-forms.anamnesis.kinesitherapy_care.field.labels.status: Status
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -111,29 +105,31 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Anamnèse
+          - field: okido-forms.anamnesis.field.labels.anamnesis
             type: label
-          - field: okido-forms.field-labels.reason
+          - field: okido-forms.anamnesis.field.labels.reason
             type: textfield
             span: 24
             tags:
               - MS-OKIDO-ANAMNESIS-ITEM|reason|1
               - CD-ITEM|transactionreason|1
       - subform:
-        id: c590115-e771-48a1-88b7-84af34c3f76addddsdfsdf
-        shortLabel: Troubles
+        id: 2176fe84-38af-4d80-a952-2bda6e096b12
+        shortLabel: okido-forms.anamnesis.field.labels.trouble
         span: 24
         borderless: true
         forms:
-          ec590115-e771-48a1-88b7-84af34c3f76a:
-            form: Troubles fonctionnels
+          Troubles fonctionnels:
+            form: okido-forms.ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER
+            id: 2da2924e-52cc-453c-95b6-72e57c94c4cd
+            description: okido-forms.ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER
             codifications:
-              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+              - type: MS-OKIDO-ANAMNESIS-TROUBLE-TYPES
                 codes:
-                  - id: functions
+                  - id: function
                     label:
                       nl: Functies
-                      fr: Fonctions
+                      fr: Fonction
                   - id: anatomical_structures
                     label:
                       nl: Anatomische eigenschappen
@@ -154,7 +150,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -219,37 +215,36 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Trouble fonctionnel
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.trouble.field.labels.functional_disorder
+                        type: label
+                      - field: okido-forms.anamnesis.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
-                          - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|reason|1
+                          - CD-ITEM|complaint|1
+                      - field: okido-forms.anamnesis.trouble.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|severity|1
+                          - CD-SEVERITY
+                      - field: okido-forms.anamnesis.trouble.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_FUNCTIONAL_DISORDER-ITEM|repercussion|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f76b:
-            form: Répercutions / Sévérité
+          Répercutions / Sévérité:
+            form: okido-forms.ANAMNESIS_DISORDER_SEVERITY
+            id: 2bf7b101-a9e9-488e-a83f-f1715ed7c539
+            description: okido-forms.ANAMNESIS_DISORDER_SEVERITY
             codifications:
-              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY-TYPES
                 codes:
                   - id: functions
                     label:
@@ -275,7 +270,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -340,39 +335,38 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Répercution / Sévérité
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.severity.field.labels.severity
+                        type: label
+                      - field: okido-forms.anamnesis.severity.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.severity.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|severity|1
+                          - CD-SEVERITY
+                      - field: okido-forms.anamnesis.severity.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_DISORDER_SEVERITY-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f76c:
-            form: Facteurs externes
+          Facteurs externes:
+            form: okido-forms.ANAMNESIS_EXTERNAL_FACTOR
+            id: 67824b82-7b56-45f0-9409-6d87270d2faa
+            description: okido-forms.ANAMNESIS_EXTERNAL_FACTOR
             codifications:
-              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+              - type: MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-TYPES
                 codes:
                   - id: functions
                     label:
@@ -398,7 +392,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -464,34 +458,33 @@ sections:
                     span: 24
                     fields:
                       - field: Facteur externe
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                        type: label
+                      - field: okido-forms.anamnesis.external_factor.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.external_factor.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|severity|1
+                          - CD-SEVERITY
+                      - field: okido-forms.anamnesis.external_factor.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-EXTERNAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f76d:
-            form: Facteurs individuels / personnels
+          Facteurs individuels / personnels:
+            form: okido-forms.ANAMNESIS_INDIVIDUAL_FACTOR
+            id: 662547a7-f57a-43b3-99c8-dd05dad9ab4a
+            description: okido-forms.ANAMNESIS_INDIVIDUAL_FACTOR
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -519,7 +512,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -584,28 +577,24 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Facteur individuel / personnel
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.individual_factor.field.labels.individual_factor
+                        type: label
+                      - field: okido-forms.anamnesis.individual_factor.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_INDIVIDUAL_FACTOR-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.individual_factor.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_INDIVIDUAL_FACTOR-ITEM|severity|1
+                      - field: okido-forms.anamnesis.individual_factor.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
@@ -613,8 +602,10 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f76e:
-            form: Examens complémentaires
+          Examens complémentaires:
+            form: okido-forms.ANAMNESIS_COMPLEMENTARY_EXAM
+            id: 5f9112c9-43b4-4b26-bb41-e64a8619b467
+            description: okido-forms.ANAMNESIS_COMPLEMENTARY_EXAM
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -642,7 +633,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -707,35 +698,33 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Examen complémentaire
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.complementary_exam.field.labels.complementary_exam
+                        type: label
+                      - field: okido-forms.anamnesis.complementary_exam.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.complementary_exam.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|severity|1
+                      - field: okido-forms.anamnesis.complementary_exam.field.labels.repercussion
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_COMPLEMENTARY_EXAM-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f76af:
-            form: Données médicales
+          Données médicales:
+            form: okido-forms.ANAMNESIS_MEDICAL_DATA
+            id: 7f2d2f93-f9e6-49de-a82c-740db105846b
+            description: okido-forms.ANAMNESIS_MEDICAL_DATA
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -763,7 +752,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -828,37 +817,35 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Donnée médicale
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.medical_data.field.labels.medical_data
+                        type: label
+                      - field: okido-forms.anamnesis.medical_data.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.medical_data.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|severity|1
+                      - field: okido-forms.anamnesis.medical_data.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          ec590115-e771-48a1-88b7-84af34c3f7b0:
-            form: Données chirurgicales
+          Données chirurgicales:
+            form: okido-forms.ANAMNESIS_SURGICAL_DATA
+            id: 88af2cc7-3175-466b-a67a-52cb9f2bff7a
+            description: okido-forms.ANAMNESIS_SURGICAL_DATA
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -886,7 +873,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -951,45 +938,41 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Donnée chirugicale
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.surgical_data.field.labels.surgical_data
+                        type: label
+                      - field: okido-forms.anamnesis.surgical_data.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.surgical_data.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|severity|1
+                      - field: okido-forms.anamnesis.surgical_data.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_SURGICAL_DATA-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
       - subform:
-        id: c590115-e771-48a1-88b7-84af34c3f76adddddd
-        shortLabel: Soins
+        id: 5c896dcb-cecd-4bce-b9fa-0cc13304b1c9
+        shortLabel: okido-forms.anamnesis.field.labels.care
         span: 24
         borderless: true
         forms:
           Soins médicaux:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+            form: okido-forms.ANAMNESIS_MEDICAL_CARE
+            id: 73bfe99b-f5cb-4c0c-ab9d-9f23ec93a9e5
+            description: okido-forms.ANAMNESIS_MEDICAL_CARE
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -1017,7 +1000,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -1096,32 +1079,32 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Soin médical
+                      - field: okido-forms.anamnesis.medical_care.field.labels.medical_care
                         type: label
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.medical_care.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.medical_care.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|severity|1
+                      - field: okido-forms.anamnesis.medical_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.status
+                      - field: okido-forms.anamnesis.medical_care.field.labels.status
                         type: radio-button
                         styleOptions:
                           direction: column
@@ -1129,11 +1112,11 @@ sections:
                         codifications:
                           - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                          - MS-OKIDO-ANAMNESIS_MEDICAL_CARE-ITEM|status|1
           Soins paramédicaux:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+            form: okido-forms.ANAMNESIS_PARAMEDICAL_CARE
+            id: 980e65a7-3a10-49ad-ab4b-dac5be40e8bd
+            description: okido-forms.ANAMNESIS_PARAMEDICAL_CARE
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -1161,7 +1144,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -1240,36 +1223,32 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Soin paramédical
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.paramedical_care.field.labels.paramedical_care
+                        type: label
+                      - field: okido-forms.anamnesis.paramedical_care.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.paramedical_care.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|severity|1
+                      - field: okido-forms.anamnesis.paramedical_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.status
+                      - field: okido-forms.anamnesis.paramedical_care.field.labels.status
                         type: radio-button
                         styleOptions:
                           direction: column
@@ -1277,11 +1256,11 @@ sections:
                         codifications:
                           - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                          - MS-OKIDO-ANAMNESIS_PARAMEDICAL_CARE-ITEM|status|1
           Soins kinésithérapiques:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+            form: okido-forms.ANAMNESIS_KINESITHERAPY_CARE
+            id: 5589e62c-22d9-46fb-9f93-f8f41be65edc
+            description: okido-forms.ANAMNESIS_KINESITHERAPY_CARE
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -1309,7 +1288,7 @@ sections:
                     label:
                       nl: Persoonlijke factoren
                       fr: Facteurs personnels
-              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+              - type: CD-SEVERITY
                 codes:
                   - id: abnormal
                     label:
@@ -1388,36 +1367,32 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: Soin kinésithérapeutique
-                        type: action
-                        event: save
-                        payload:
-                          a: a
-                          b: b
-                      - field: okido-forms.field-labels.description
+                      - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.kinesitherapy_care
+                        type: label
+                      - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.severity
+                      - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.severity
                         type: radio-button
                         styleOptions:
                           direction: column
                           span: 3
                         codifications:
-                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                          - CD-SEVERITY
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-                      - field: okido-forms.field-labels.repercussion
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|severity|1
+                      - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.field-labels.status
+                      - field: okido-forms.anamnesis.kinesitherapy_care.field.labels.status
                         type: radio-button
                         styleOptions:
                           direction: column
@@ -1425,4 +1400,4 @@ sections:
                         codifications:
                           - MS-OKIDO-ANAMNESIS-STATUS
                         tags:
-                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                          - MS-OKIDO-ANAMNESIS_KINESITHERAPY_CARE-ITEM|status|1
