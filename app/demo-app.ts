@@ -99,9 +99,8 @@ class DemoApp extends LitElement {
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
 			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
-			/*{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_measure)) },
-			/*{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
-			/*{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_measure)) },
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
 			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
