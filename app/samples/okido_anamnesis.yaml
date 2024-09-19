@@ -51,7 +51,6 @@ translations:
       okido-forms.anamnesis.kinesitherapy_care.field.labels.severity: Sévérité
       okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion: Répercussion
       okido-forms.anamnesis.kinesitherapy_care.field.labels.status: Statut
-      okido-forms.anamnesis.field.labels.care: Soins
   - language: nl
     translations:
       okido-forms.anamnesis.field.labels.anamnesis: Anamnese
@@ -101,7 +100,6 @@ translations:
       okido-forms.anamnesis.kinesitherapy_care.field.labels.severity: Ernst
       okido-forms.anamnesis.kinesitherapy_care.field.labels.repercussion: Repercussie
       okido-forms.anamnesis.kinesitherapy_care.field.labels.status: Status
-      okido-forms.anamnesis.field.labels.care: Zorg
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -121,7 +119,6 @@ sections:
         id: 2176fe84-38af-4d80-a952-2bda6e096b12
         shortLabel: okido-forms.anamnesis.field.labels.trouble
         span: 24
-        rowSpan: 1
         borderless: true
         forms:
           Troubles fonctionnels:
