@@ -94,8 +94,8 @@ class DemoApp extends LitElement {
 			{ title: '6 - Interuption of pregnancy medical part 2', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_2)) },
 			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
-			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },
-			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },*/
+			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
+			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
 			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			/*{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
