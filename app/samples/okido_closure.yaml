@@ -1,21 +1,57 @@
-form: okido-forms.CLOSURE
-id: 190f84d5-4188-4fad-9fd1-d4dcc48e76fb
-description: okido-forms.CLOSURE
+form: okido-forms.OKIDO_CLOSURE
+id: e744c157-0738-4c27-95fb-c529a0b16213
+description: okido-forms.OKIDO_CLOSURE
+codifictions:
+  - type: MS-OKIDO-CLOSURE-TYPE
+    codes:
+      - id: no_showned
+        label:
+          fr: Le patient ne s'est plus présenté
+          nl: De patiënt is niet meer verschenen
+      - id: stop_by_patient
+        label:
+          fr: Arrêt sur décision du patient
+          nl: Stop op beslissing van de patiënt
+      - id: no_cooperation
+        label:
+          fr: Manque de coopération du patient
+          nl: Gebrek aan medewerking van de patiënt
+      - id: patient_move
+        label:
+          fr: Déménagement du patient
+          nl: Verhuizing van de patiënt
+      - id: finised_treatment
+        label:
+         fr: Série finalisée
+         nl: Serie afgewerkt
+      - id: complaint_disappeared
+        label:
+          fr: Disparition de la plainte
+          nl: Verdwijning van de klacht
+      - id: no_improvement
+        label:
+          fr: Absence d'amélioration
+          nl: Geen verbetering
+      - id: physiotherapist_decision
+        label:
+          fr: Décision du kinésithérapeute
+          nl: Beslissing van de kinesitherapeut
 translations:
   - language: fr
     translations:
-      okido-forms.field-labels.reason: Raison
-      okido-forms.field-labels.patient_implication: Participation du patient
-      okido-forms.field-labels.next_treatment: Proposition de traitement ultérieur
-      okido-forms.field-labels.agreement_with_patient: Accord avec le patient
-      okido-forms.field-labels.report: Rapport
+      okido-forms.closure.field.labels.closure: Clôture (fin de traitement)
+      okido-forms.closure.field.labels.reason: Raison de la clôture
+      okido-forms.closure.field.labels.patient_implication: Participation du patient (acteur de sa revalidation)
+      okido-forms.closure.field.labels.next_treatment: Proposition(s) de traitement ultérieur
+      okido-forms.closure.field.labels.recommendation_for_patient: Recommendation au patient
+      okido-forms.closure.field.labels.report: Rapport
   - language: nl
     translations:
-      okido-forms.field-labels.reason: Reden
-      okido-forms.field-labels.patient_implication: Participatie van de patiënt
-      okido-forms.field-labels.next_treatment: Voorstel voor verdere behandeling
-      okido-forms.field-labels.agreement_with_patient: Overeenkomst met de patiënt
-      okido-forms.field-labels.report: Verslag
+      okido-forms.closure.field-labels.reason: Reden voor sluiting
+      okido-forms.closure.field-labels.patient_implication: Patiëntenparticipatie (acteur van zijn revalidatie)
+      okido-forms.closure.field-labels.next_treatment: Voorstel(len) voor verdere behandeling
+      okido-forms.closure.field-labels.recommendation_for_patient: Aanbeveling aan de patiënt
+      okido-forms.closure.field-labels.report: Verslag
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -23,40 +59,40 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Clôture
+          - field: okido-forms.closure.field.labels.closure
             type: label
-          - field: okido-forms.field-labels.reason
+          - field: okido-forms.closure.field.labels.reason
+            type: dropdown
+            codifications:
+              - MS-OKIDO-CLOSURE-TYPE
+            tags:
+              - MS-OKIDO-CLOSURE-ITEM|closureType|1
+            span: 24
+          - field: okido-forms.closure.field.labels.patient_implication
             type: textfield
             span: 24
             multiline: true
             rowSpan: 5
             tags:
-              - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
-          - field: okido-forms.field-labels.patient_implication
+              - MS-OKIDO-CLOSURE-ITEM|patientImplication|1
+          - field: okido-forms.closure.field.labels.next_treatment
             type: textfield
             span: 24
             multiline: true
             rowSpan: 5
             tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
-          - field: okido-forms.field-labels.next_treatment
+              - MS-OKIDO-CLOSURE-ITEM|nextTreatment|1
+          - field: okido-forms.closure.field.labels.recommendation_for_patient
             type: textfield
             span: 24
             multiline: true
             rowSpan: 5
             tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
-          - field: okido-forms.field-labels.agreement_with_patient
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 5
-            tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
-          - field: okido-forms.field-labels.report
+              - MS-OKIDO-CLOSURE-ITEM|recommendationForPatient|1
+          - field: okido-forms.closure.field.labels.report
             type: textfield
             span: 24
             multiline: true
             rowSpan: 10
             tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
+              - MS-OKIDO-CLOSURE-ITEM|report|1
