@@ -1,7 +1,7 @@
 form: okido-forms.OKIDO_CLOSURE
 id: e744c157-0738-4c27-95fb-c529a0b16213
 description: okido-forms.OKIDO_CLOSURE
-codifications:
+codifictions:
   - type: MS-OKIDO-CLOSURE-TYPE
     codes:
       - id: no_showned
@@ -61,26 +61,18 @@ sections:
         fields:
           - field: okido-forms.closure.field.labels.closure
             type: label
-      - group: line
-        borderless: true
-        span: 24
-        fields:
           - field: okido-forms.closure.field.labels.reason
             type: dropdown
-            rowSpan: 8
             codifications:
               - MS-OKIDO-CLOSURE-TYPE
             tags:
               - MS-OKIDO-CLOSURE-ITEM|closureType|1
-            span: 8
-      - group: line
-        borderless: true
-        span: 24
-        fields:
+            span: 24
           - field: okido-forms.closure.field.labels.patient_implication
             type: textfield
             span: 24
             multiline: true
+            rowSpan: 5
             tags:
               - MS-OKIDO-CLOSURE-ITEM|patientImplication|1
           - field: okido-forms.closure.field.labels.next_treatment
