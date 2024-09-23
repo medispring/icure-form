@@ -85,8 +85,8 @@ class DemoApp extends LitElement {
 			/*{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
-			{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
-			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
+			/*{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },*/
+			/*{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 			{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
 			{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
