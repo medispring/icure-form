@@ -21,6 +21,7 @@ translations:
       okido-forms.diagnostic.individual_factor.field.labels.repercussion: Répercussion
       okido-forms.diagnostic.field.labels.goal: Attentes / buts du patient
       okido-forms.diagnostic.field.labels.indication_for_patient: Indication de kinésithérapie pour le patient
+      okido-forms.diagnostic.field.labels.description: Description
   - language: nl
     translations:
         okido-forms.diagnostic.field.labels.trouble: Probleem
@@ -40,6 +41,7 @@ translations:
         okido-forms.diagnostic.individual_factor.field.labels.repercussion: Repercussie
         okido-forms.diagnostic.field.labels.goal: Doelstellingen / verwachtingen van de patiënt
         okido-forms.diagnostic.field.labels.indication_for_patient: Indicatie voor de patiënt
+        okido-forms.diagnostic.field.labels.description: Beschrijving
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
