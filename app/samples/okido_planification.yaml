@@ -1,17 +1,23 @@
-form: okido-forms.PLANIFICATION
+form: okido-forms.OKIDO_PLANIFICATION
 id: e2901141-f649-4d2a-ba90-90b545f1b747
-description: okido-forms.PLANIFICATION
+description: okido-forms.OKIDO_PLANIFICATION
 translations:
   - language: fr
     translations:
-      okido-forms.field-labels.goal_of_treatment: Objectif du traitement
-      okido-forms.field-labels.management: Prise en charge
-      okido-forms.field-labels.planification: Prestation planifiée
+        okido-forms.planification.field.labels.goal_of_treatment: Objectifs du traitement
+        okido-forms.planification.field.labels.management: Prise en charge proposée
+        okido-forms.planification.field.labels.planification: Planification
+        okido-forms.planification.field.labels.start_of_treatment: Début du traitement
+        okido-forms.planification.field.labels.end_of_treatment: Fin prévue du traitement
+        okido-forms.planification.field.labels.addProcedure: Ajouter une procédure
   - language: nl
     translations:
-      okido-forms.field-labels.goal_of_treatment: Behandelingsdoel
-      okido-forms.field-labels.management: Beheer
-      okido-forms.field-labels.planification: Geplande prestatie
+        okido-forms.planification.field.labels.goal_of_treatment: Doel van de behandeling
+        okido-forms.planification.field.labels.management: Voorgestelde behandeling
+        okido-forms.planification.field.labels.planification: Planning
+        okido-forms.planification.field.labels.start_of_treatment: Start van de behandeling
+        okido-forms.planification.field.labels.end_of_treatment: Verwacht einde van de behandeling
+        okido-forms.planification.field.labels.addProcedure: Voeg een procedure toe
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -19,24 +25,60 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Planification
+          - field: okido-forms.planification.field.labels.planification
             type: label
-          - field: okido-forms.field-labels.goal_of_treatment
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.planification.field.labels.start_of_treatment
+            type: date-picker
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            tags:
+              - MS-OKIDO-PLANIFICATION-ITEM|startDate|1
+              - CD-HEADING|treatmentplan|1
+          - field: okido-forms.planification.field.labels.end_of_treatment
+            type: date-picker
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            tags:
+              - MS-OKIDO-PLANIFICATION-ITEM|endDate|1
+              - CD-HEADING|treatmentplan|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.planification.field.labels.goal_of_treatment
             type: textfield
             span: 24
             multiline: true
             rowSpan: 5
             tags:
-              - MS-OKIDO-SEARCH-ITEM|balanceSheetStatement|1
-          - field: okido-forms.field-labels.management
+              - MS-OKIDO-PLANIFICATION-ITEM|goal|1
+              - CD-ITEM|outcome|1
+              - CD-LIFECYCLE|expected|1
+              - CD-HEADING|treatmentplan|1
+          - field: okido-forms.planification.field.labels.management
             type: textfield
             span: 24
             multiline: true
             rowSpan: 5
             tags:
-              - MS-OKIDO-SEARCH-ITEM|observation|1
-          - field: okido-forms.field-labels.planification
-            type: textfield
-            span: 24
-            tags:
-              - MS-OKIDO-SEARCH-ITEM|palpation|1
+              - MS-OKIDO-PLANIFICATION-ITEM|management|1
+              - CD-HEADING|treatmentplan|1
+              - CD-ITEM|act|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.planification.field.labels.addProcedure
+            type: action
+            event: openProcedureModale
+            computedProperties:
+              payload: |
+                return {a:'a',b:'b'}
+          
+

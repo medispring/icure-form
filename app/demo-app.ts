@@ -97,10 +97,10 @@ class DemoApp extends LitElement {
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
 			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
 			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
-			/*{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
+			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
 			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
-			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },*/
+			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
 			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
 			/*{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
 			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },

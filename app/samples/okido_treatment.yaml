@@ -1,15 +1,19 @@
-form: okido-forms.TREATMENT
+form: okido-forms.OKIDO_TREATMENT
 id: ec590115-e771-48a1-88b7-84af34c3f76a
-description: okido-forms.TREATMENT
+description: okido-forms.OKIDO_TREATMENT
 translations:
   - language: fr
     translations:
-      okido-forms.field-labels.convention: Convention
-      okido-forms.field-labels.consultation: Consultation multidisciplinaire
+        okido-forms.treatment.field.labels.treatment: Traitement
+        okido-forms.treatment.field.labels.convention: Conventions / recommandations au patient
+        okido-forms.treatment.field.labels.concertation: Consultation multidisciplinaire
+        okido-forms.treatment.field.labels.interdisciplinary_consultation: Concertations interdisciplinaire
   - language: nl
     translations:
-      okido-forms.field-labels.convention: Conventie
-      okido-forms.field-labels.consultation: Multidisciplinair consult
+      okido-forms.treatment.field.labels.treatment: Behandeling
+      okido-forms.treatment.field.labels.convention: Conventies / aanbevelingen aan de patiënt
+      okido-forms.treatment.field.labels.concertation: Multidisciplinair consult
+      okido-forms.treatment.field.labels.interdisciplinary_consultation: Interdisciplinair overleg
 sections:
   - section: okido-forms.section.SECTION-1
     fields:
@@ -17,18 +21,59 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Traitement
+          - field: okido-forms.treatment.field.labels.treatment
             type: label
-          - field: okido-forms.field-labels.convention
+          - field: okido-forms.treatment.field.labels.convention
             type: textfield
             span: 24
+            rowSpan: 5
             tags:
               - MS-OKIDO-TREATMENT-ITEM|convention|1
               - CD-ITEM|instructionforpatient|1
-          - field: okido-forms.field-labels.consultation
-            type: textfield
-            span: 24
-            tags:
-              - MS-OKIDO-TREATMENT-ITEM|consultation|1
-              - CD-ENCOUNTER|multidisciplinaryconsult|1.1
+      - subform:
+        id: 71129483-e343-476a-9ed9-181325cc7122
+        shortLabel: okido-forms.treatment.field.labels.concertation
+        span: 24
+        borderless: true
+        forms:
+          Concertation interdisciplinaire:
+            form: okido-forms.INTERDISCIPLINARY_CONSULTATION
+            id: 4812b765-1b0a-4ae2-b797-00c5c713e215
+            description: okido-forms.INTERDISCIPLINARY_CONSULTATION
+            sections:
+              - section: okido-forms.treatment.participant.field-labels.SECTION-1
+                fields:
+                  - field: okido-forms.treatment.field.labels.interdisciplinary_consultation
+                    type: textfield
+                    span: 24
+                    rowSpan: 5
+                    tags:
+                      - MS-OKIDO-TREATMENT-ITEM|interdisciplinaryConsultation|1
+                      - CD-ITEM|instructionforpatient|1
+              - subform:
+                  id: d33b9d43-9fd9-4ff1-a86e-00435bc436ff
+                  shortLabel: okido-forms.treatment.field.labels.interdisciplinary_consultation
+                  span: 24
+                  borderless: true
+                  forms:
+                    Participants:
+                      form: okido-forms.PARTICIPANT
+                      id: 3b1b8b6c-e6b7-4560-b8e4-bcaa5854d666
+                      description: okido-forms.DISORDER_FUNCTIONAL_DISORDER
+                      sections:
+                        - section: okido-forms.treatment.participant.field-labels.SECTION-1
+                          fields:
+                            - group: line
+                              borderless: true
+                              span: 24
+                              fields:
+                                - field: abortion-forms.field-labels.HEALTHCARE-PARTY
+                                  type: dropdown
+                                  codifications:
+                                    - HCP-LIST|persphysician
+                                - field: abortion-forms.field-labels.HEALTHCARE-PARTY-ROLE
+                                  type: dropdown
+                                  codifications:
+                                    - HCP-LIST|persphysician
+
 
