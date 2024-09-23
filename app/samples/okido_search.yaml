@@ -70,6 +70,10 @@ translations:
       okido-forms.search.hand_thumb_ip.field.label.hand_thumb_ip: Main - Pouce - Articulation inter-phalangienne du pouce (IP)
       okido-forms.search.hand_thumb_ip.field.label.flexion: Flexion
       okido-forms.search.hand_thumb_ip.field.label.extension: Extension
+      okido-forms.search.field.label.tinetti: Tinetti
+      okido-forms.search.field.label.gugt: Get up and go test
+      okido-forms.search.field.label.timeChair: Time chair test
+      okido-forms.search.field.label.muscular_strength: Force musculaire
   - language: nl
     translations:
       okido-forms.search.field.label.search: Zoeken
@@ -138,6 +142,11 @@ translations:
       okido-forms.search.hand_thumb_ip.field.label.hand_thumb_ip: Hand - Duim - Interphalangeale gewricht van de duim (IP)
       okido-forms.search.hand_thumb_ip.field.label.flexion: Flexie
       okido-forms.search.hand_thumb_ip.field.label.extension: Extensie
+      okido-forms.search.field.label.tinetti: Tinetti
+      okido-forms.search.field.label.gugt: Get up and go test
+      okido-forms.search.field.label.timeChair: Time chair test
+      okido-forms.search.field.label.muscular_strength: Spierkracht
+
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -696,4 +705,31 @@ sections:
                                 - MS-OKIDO-SEARCH-OTHER-ITEM|other|1
                                 - CD-ITEM|observation|1
 
-
+        - group: line
+          borderless: true
+          span: 24
+          fields:
+            - field: okido-forms.search.field.label.tinetti
+              type: action
+              event: openTinettiScaleModale
+              computedProperties:
+                payload: |
+                  return {a:'a',b:'b'}
+            - field: okido-forms.search.field.label.gugt
+              type: action
+              event: opengugtScaleModale
+              computedProperties:
+                payload: |
+                  return {a:'a',b:'b'}
+            - field: okido-forms.search.field.label.timeChair
+              type: action
+              event: opentimeChairScaleModale
+              computedProperties:
+                payload: |
+                  return {a:'a',b:'b'}
+            - field: okido-forms.search.field.label.muscular_strength
+              type: action
+              event: openMuscularStrengthScaleModale
+              computedProperties:
+                payload: |
+                  return {a:'a',b:'b'}
