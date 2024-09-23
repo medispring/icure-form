@@ -100,9 +100,9 @@ class DemoApp extends LitElement {
 			/*{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
 			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
-			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
+			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },*/
 			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
-			{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
+			/*{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
 			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },
 			{ title: 'OKIDO - Anamnèse - Facteur externe', form: Form.parse(YAML.parse(okido_external_factor)) },
 			{ title: 'OKIDO - Anamnèse - Facteur individuel / personnel', form: Form.parse(YAML.parse(okido_individual_factor)) },
@@ -166,9 +166,6 @@ class DemoApp extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback()
-
-		console.log('obs', this.samples[4].form.toJson())
-
 		window.onkeydown = (event) => {
 			if ((event.key === 'Z' || event.key === 'z') && event.metaKey) {
 				console.log(event.key)
