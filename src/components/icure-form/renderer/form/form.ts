@@ -74,7 +74,14 @@ export const render: Renderer = (
 	function renderSubform(fg: Subform, fgSpan: number, level: number) {
 		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
 		return html`<div class="subform" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
-			<div>${h(level, html`${fg.shortLabel}`)}</div>
+			<div>
+				${h(
+					level,
+					html`${(props.language && fg.shortLabel
+						? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
+						: fg.shortLabel) ?? ''}`,
+				)}
+			</div>
 			<form-selection-button
 				class="float-right-btn top"
 				.forms="${Object.entries(fg.forms)}"
@@ -362,6 +369,7 @@ export const render: Renderer = (
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			class="icure-form-button"
 			label="${fg.shortLabel ?? fg.field}"
+			.defaultLanguage="${props.language}"
 			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
 			.validationErrorsProvider="${getValidationError(formsValueContainer, fg)}"
 			.actionListener="${actionListener}"
@@ -375,6 +383,7 @@ export const render: Renderer = (
 		return html`<icure-form-label
 			style="${calculateFieldOrGroupSize(fgSpan, fgRowSpan)}"
 			class="icure-form-field"
+			.defaultLanguage="${props.language}"
 			labelPosition=${props.labelPosition}
 			label="${fg.field}"
 			.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
