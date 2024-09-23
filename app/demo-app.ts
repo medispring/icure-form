@@ -42,8 +42,6 @@ import okido_anamnesis from './samples/okido_anamnesis.yaml'
 // @ts-ignore
 import okido_search from './samples/okido_search.yaml'
 // @ts-ignore
-import okido_measure from './samples/okido_measure.yaml'
-// @ts-ignore
 import okido_evaluation from './samples/okido_evaluation.yaml'
 // @ts-ignore
 import okido_planification from './samples/okido_planification.yaml'
@@ -86,7 +84,7 @@ class DemoApp extends LitElement {
 		...[
 			/*{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
-			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },*/
+			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
 			/*{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },*/
 			/*{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },

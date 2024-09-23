@@ -22,7 +22,6 @@ translations:
       okido-forms.diagnostic.field.labels.goal: Attentes / buts du patient
       okido-forms.diagnostic.field.labels.indication_for_patient: Indication de kinésithérapie pour le patient
       okido-forms.diagnostic.field.labels.description: Description
-      okido-forms.diagnostic.field.labels.physio_indication: Indication de kinésithérapie
   - language: nl
     translations:
         okido-forms.diagnostic.field.labels.trouble: Probleem
@@ -43,8 +42,6 @@ translations:
         okido-forms.diagnostic.field.labels.goal: Doelstellingen / verwachtingen van de patiënt
         okido-forms.diagnostic.field.labels.indication_for_patient: Indicatie voor de patiënt
         okido-forms.diagnostic.field.labels.description: Beschrijving
-        okido-forms.diagnostic.field.labels.physio_indication: Indicatie voor kinesitherapie
-
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -496,9 +493,3 @@ sections:
               - MS-OKIDO-DIAGNOSTIC-ITEM|goal|1
               - CD-ITEM|outcome|1
               - CD-LIFECYCLE|obtained|1
-          - field: okido-forms.diagnostic.field.labels.physio_indication
-            type: textfield
-            span: 24
-            rowSpan: 4
-            tags:
-              - MS-OKIDO-DIAGNOSTIC-ITEM|physioIndication|1
