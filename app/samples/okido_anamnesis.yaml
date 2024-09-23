@@ -119,6 +119,7 @@ sections:
         id: 2176fe84-38af-4d80-a952-2bda6e096b12
         shortLabel: okido-forms.anamnesis.field.labels.trouble
         span: 24
+        rowSpan: 1
         borderless: true
         forms:
           Troubles fonctionnels:
