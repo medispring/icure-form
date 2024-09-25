@@ -17,8 +17,16 @@ export class Label extends LitElement {
 	@property() label?: string
 	@property() labelPosition?: string
 	@property() visible = true
+	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
+	@property() defaultLanguage = 'en'
 
 	render(): TemplateResult {
-		return html`<icure-label .visible="${this.visible}" label="${this.label}" labelPosition="${this.labelPosition}"></icure-label>`
+		return html`<icure-label
+			.visible="${this.visible}"
+			.translationProvider=${this.translationProvider}
+			.label="${this.label}"
+			.defaultLanguage="${this.defaultLanguage}"
+			.labelPosition="${this.labelPosition}"
+		></icure-label>`
 	}
 }

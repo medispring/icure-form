@@ -834,7 +834,6 @@
 							"label": "Suivi obstétrical",
 							"editor": {
 								"optionalFormGuids": [
-									"8731987C-6758-499E-8468-FA64242317CE",
 									"E332B140-13D7-4F52-A2C3-BEB7FA250178",
 									"D25ED079-B356-4844-B13A-2B5B5BA7BF96",
 									"5D18DF1D-041E-4500-A3AE-308CB4A9D8CB"
@@ -1449,30 +1448,6 @@
 								"labelPosition": "Left",
 								"readOnly": false,
 								"key": "ActionButton"
-							},
-							"codeTypes": []
-						},
-						{
-							"subForm": true,
-							"irrelevant": true,
-							"type": "TKSubConsult",
-							"name": "45E0835A-5B8F-42F1-ABE0-87806AAA3F7B",
-							"sortOrder": 1.465341783E9,
-							"label": "Certificats",
-							"editor": {
-								"optionalFormGuids": [
-									"FFFFFFFF-FFFF-FFFF-FFFF-INCAPACITY00"
-								],
-								"compulsoryFormGuids": [],
-								"showHeader": true,
-								"left": 17.0,
-								"top": 524.0,
-								"width": 1225.0,
-								"height": 48.0,
-								"multiline": false,
-								"labelPosition": "Left",
-								"readOnly": false,
-								"key": "SubFormEditor"
 							},
 							"codeTypes": []
 						},

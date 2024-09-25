@@ -1135,6 +1135,7 @@ export class Subform {
 		title: string,
 		forms: { [key: string]: Form },
 		{
+			id,
 			shortLabel,
 			span,
 			rowSpan,
@@ -1142,6 +1143,7 @@ export class Subform {
 			width,
 			styleOptions,
 		}: {
+			id?: string
 			shortLabel?: string
 			span?: number
 			rowSpan?: number
@@ -1150,7 +1152,7 @@ export class Subform {
 			styleOptions?: { [_key: string]: unknown }
 		},
 	) {
-		this.id = title
+		this.id = id || title
 		this.shortLabel = shortLabel
 		this.forms = forms
 		this.span = span
@@ -1173,8 +1175,10 @@ export class Subform {
 		computedProperties?: { [_key: string]: string }
 		width?: number
 		styleOptions?: { [_key: string]: unknown }
+		id: string
 	}): Subform {
 		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse(f)])), {
+			id: json.id,
 			shortLabel: json.shortLabel,
 			span: json.span,
 			computedProperties: json.computedProperties,
