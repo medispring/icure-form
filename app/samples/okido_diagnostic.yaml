@@ -25,26 +25,25 @@ translations:
       okido-forms.diagnostic.field.labels.physio_indication: Indication de kinésithérapie
   - language: nl
     translations:
-        okido-forms.diagnostic.field.labels.trouble: Probleem
-        okido-forms.diagnostic.trouble.field.labels.functional_disorder: Functionele stoornis
-        okido-forms.diagnostic.trouble.field.labels.severity: Ernst
-        okido-forms.diagnostic.trouble.field.labels.repercussion: Repercussie
-        okido-forms.diagnostic.severity.field.labels.severity: Ernst
-        okido-forms.diagnostic.severity.field.labels.description: Beschrijving
-        okido-forms.diagnostic.severity.field.labels.repercussion: Repercussie
-        okido-forms.diagnostic.external_factor.field.labels.external_factor: Externe factoren
-        okido-forms.diagnostic.external_factor.field.labels.description: Beschrijving
-        okido-forms.diagnostic.external_factor.field.labels.severity: Ernst
-        okido-forms.diagnostic.external_factor.field.labels.repercussion: Repercussie
-        okido-forms.diagnostic.individual_factor.field.labels.individual_factor: Individuele / persoonlijke factoren
-        okido-forms.diagnostic.individual_factor.field.labels.description: Beschrijving
-        okido-forms.diagnostic.individual_factor.field.labels.severity: Ernst
-        okido-forms.diagnostic.individual_factor.field.labels.repercussion: Repercussie
-        okido-forms.diagnostic.field.labels.goal: Doelstellingen / verwachtingen van de patiënt
-        okido-forms.diagnostic.field.labels.indication_for_patient: Indicatie voor de patiënt
-        okido-forms.diagnostic.field.labels.description: Beschrijving
-        okido-forms.diagnostic.field.labels.physio_indication: Indicatie voor kinesitherapie
-
+      okido-forms.diagnostic.field.labels.trouble: Probleem
+      okido-forms.diagnostic.trouble.field.labels.functional_disorder: Functionele stoornis
+      okido-forms.diagnostic.trouble.field.labels.severity: Ernst
+      okido-forms.diagnostic.trouble.field.labels.repercussion: Repercussie
+      okido-forms.diagnostic.severity.field.labels.severity: Ernst
+      okido-forms.diagnostic.severity.field.labels.description: Beschrijving
+      okido-forms.diagnostic.severity.field.labels.repercussion: Repercussie
+      okido-forms.diagnostic.external_factor.field.labels.external_factor: Externe factoren
+      okido-forms.diagnostic.external_factor.field.labels.description: Beschrijving
+      okido-forms.diagnostic.external_factor.field.labels.severity: Ernst
+      okido-forms.diagnostic.external_factor.field.labels.repercussion: Repercussie
+      okido-forms.diagnostic.individual_factor.field.labels.individual_factor: Individuele / persoonlijke factoren
+      okido-forms.diagnostic.individual_factor.field.labels.description: Beschrijving
+      okido-forms.diagnostic.individual_factor.field.labels.severity: Ernst
+      okido-forms.diagnostic.individual_factor.field.labels.repercussion: Repercussie
+      okido-forms.diagnostic.field.labels.goal: Doelstellingen / verwachtingen van de patiënt
+      okido-forms.diagnostic.field.labels.indication_for_patient: Indicatie voor de patiënt
+      okido-forms.diagnostic.field.labels.description: Beschrijving
+      okido-forms.diagnostic.field.labels.physio_indication: Indicatie voor kinesitherapie
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
