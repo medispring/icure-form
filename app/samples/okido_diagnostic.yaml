@@ -492,6 +492,7 @@ sections:
             type: textfield
             span: 24
             rowSpan: 4
+            multiline: true
             tags:
               - MS-OKIDO-DIAGNOSTIC-ITEM|goal|1
               - CD-ITEM|outcome|1
@@ -499,6 +500,7 @@ sections:
           - field: okido-forms.diagnostic.field.labels.physio_indication
             type: textfield
             span: 24
+            multiline: true
             rowSpan: 4
             tags:
               - MS-OKIDO-DIAGNOSTIC-ITEM|physioIndication|1

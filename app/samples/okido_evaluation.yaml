@@ -517,6 +517,7 @@ sections:
           - field: okido-forms.evaluation.field.labels.appreciation_of_patient
             type: textfield
             span: 24
+            multiline: true
             rowSpan: 4
             tags:
               - MS-OKIDO-EVALUATION-ITEM|appreciationOfPatient|1
@@ -533,6 +534,7 @@ sections:
           - field: okido-forms.evaluation.field.labels.description_of_conclusion
             type: textfield
             span: 24
+            multiline: true
             rowSpan: 4
             tags:
               - MS-OKIDO-EVALUATION-ITEM|descriptionOfConclusion|1

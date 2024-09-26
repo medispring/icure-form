@@ -26,6 +26,7 @@ sections:
           - field: okido-forms.treatment.field.labels.convention
             type: textfield
             span: 24
+            multiline: true
             rowSpan: 5
             tags:
               - MS-OKIDO-TREATMENT-ITEM|convention|1
@@ -54,6 +55,7 @@ sections:
                   id: d33b9d43-9fd9-4ff1-a86e-00435bc436ff
                   shortLabel: okido-forms.treatment.field.labels.interdisciplinary_consultation
                   span: 24
+                  multiline: true
                   borderless: true
                   forms:
                     Participants:
