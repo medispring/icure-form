@@ -1,102 +1,56 @@
-form: okido-forms.ANAMNESIS
-id: ec590115-e771-48a1-88b7-84af34c3f76a
-description: okido-forms.ANAMNESIS
+form: okido-forms.FUNCTIONAL_DISORDER
+id: 2da2924e-52cc-453c-95b6-72e57c94c4cd
+description: okido-forms.FUNCTIONAL_DISORDER
+translations:
+  - language: fr
+    translations:
+        okido-forms.field-labels.SECTION-1: Section 1
+        okido-forms.trouble.field.labels.functional_disorder: Trouble fonctionnel
+        okido-forms.trouble.field.labels.description: Description
+        okido-forms.trouble.field.labels.status: Statut
+        okido-forms.trouble.field.labels.severity: Sévérité
+        okido-forms.trouble.field.labels.repercussion: Répercussion
+  - language: nl
+    translations:
+        okido-forms.field-labels.SECTION-1: Sectie 1
+        okido-forms.trouble.field.labels.functional_disorder: Functionele stoornis
+        okido-forms.trouble.field.labels.description: Beschrijving
+        okido-forms.trouble.field.labels.status: Status
+        okido-forms.trouble.field.labels.severity: Ernst
+        okido-forms.trouble.field.labels.repercussion: Repercussie
 codifications:
-  - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+  - type: CD-SEVERITY
     codes:
-      - id: functions
-        label:
-          nl: Functies
-          fr: Fonctions
-      - id: anatomical_structures
-        label:
-          nl: Anatomische eigenschappen
-          fr: Structures anatomiques
-      - id: activity
-        label:
-          nl: Activiteiten
-          fr: Activités
-      - id: participation
-        label:
-          nl: Participatie
-          fr: Participation
-      - id: external_factors
-        label:
-          nl: Externe factoren
-          fr: Facteurs externes
-      - id: personal_factors
-        label:
-          nl: Persoonlijke factoren
-          fr: Facteurs personnels
-  - type: MS-OKIDO-ANAMNESIS-SEVERITY
-    codes:
-      - id: abnormal
-        label:
-          nl: Licht
-          fr: Anormal
-      - id: extremelyhight
-        label:
-          nl: Zeer ernstig
-          fr: Extrêmement élevé
-      - id: extremelylow
-        label:
-          nl: Zeer licht
-          fr: Extrêmement bas
-      - id: high
-        label:
-          nl: Ernstig
-          fr: Élevé
       - id: low
         label:
           nl: Licht
-          fr: Bas
+          fr: Léger
       - id: normal
         label:
           nl: Normaal
           fr: Normal
-      - id: resistent
+      - id: high
         label:
-          nl: Resistent
-          fr: Résistant
-      - id: susceptible
+          nl: Ernstig
+          fr: Grave
+  - type: MS-OKIDO-CARE-STATUS
+    codes:
+      - id: active
         label:
-          nl: Gevoelig
-          fr: Sensible
-      - id: susceptibleintermediate
+          nl: Actief
+          fr: Actif
+      - id: passiveRelevant
         label:
-          nl: Gevoelig/intermediair
-          fr: Sensible/intermédiaire
-      - id: susceptiblemoderate
+          nl: Passief - relevant
+          fr: Passif - relevant
+      - id: passiveNotRelevant
         label:
-          nl: Gevoelig/matig
-          fr: Sensible/modéré
-      - id: veryabnormal
+          nl: Niet relevant
+          fr: Passif - non relevant
+      - id: notPresent
         label:
-          nl: Zeer abnormaal
-          fr: Très anormal
-      - id: veryhigh
-        label:
-          nl: Zeer hoog
-          fr: Très élevé
-      - id: verylow
-        label:
-          nl: Zeer laag
-          fr: Très bas
-      - id: verysusceptible
-        label:
-          nl: Zeer gevoelig
-          fr: Très sensible
-translations:
-  - language: fr
-    translations:
-      okido-forms.field-labels.description: Description
-      okido-forms.field-labels.severity: Sévérité
-      okido-forms.field-labels.repercussion: Répercussion
-  - language: nl
-    translations:
-      okido-forms.field-labels.description: Beschrijving
-      okido-forms.field-labels.severity: Ernst
-      okido-forms.field-labels.repercussion: Repercussie
+          nl: Niet aanwezig
+          fr: Non présent
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -104,26 +58,31 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: Trouble fonctionnel
+          - field: okido-forms.trouble.field.labels.functional_disorder
             type: label
-          - field: okido-forms.field-labels.description
+          - field: okido-forms.trouble.field.labels.description
             type: textfield
             span: 24
             tags:
-              - MS-OKIDO-ANAMNESIS-ITEM|reason|1
-              - CD-ITEM|transactionreason|1
-          - field: okido-forms.field-labels.severity
-            type: radio-button
-            styleOptions:
-              direction: column
-              span: 3
+              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
+              - CD-ITEM|complaint|1
+          - field: okido-forms.trouble.field.labels.status
+            type: dropdown
             codifications:
-              - MS-OKIDO-ANAMNESIS-SEVERITY
+              - MS-OKIDO-CARE-STATUS
             tags:
-              - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
-          - field: okido-forms.field-labels.repercussion
+              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
+          - field: okido-forms.trouble.field.labels.severity
+            type: dropdown
+            codifications:
+              - CD-SEVERITY
+            tags:
+              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
+              - CD-SEVERITY
+          - field: okido-forms.trouble.field.labels.repercussion
             type: textfield
             span: 24
+            multiline: true
             tags:
-              - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
               - CD-ITEM|transactionreason|1

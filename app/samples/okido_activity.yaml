@@ -1,21 +1,21 @@
-form: okido-forms.INDIVIDUAL_FACTOR
-id: 662547a7-f57a-43b3-99c8-dd05dad9ab4a
-description: okido-forms.INDIVIDUAL_FACTOR
+form: okido-forms.ACTIVITY
+id: 5f9112c9-43b4-4b26-bb41-e64a8619b467
+description: okido-forms.ACTIVITY
 translations:
   - language: fr
     translations:
-      okido-forms.individual_factor.field-labels.individual_factor: Facteur individuel
-      okido-forms.individual_factor.field-labels.description: Description
-      okido-forms.individual_factor.field-labels.status: Statut
-      okido-forms.individual_factor.field-labels.severity: Gravité
-      okido-forms.individual_factor.field-labels.repercussion: Répercussion
+      okido-forms.activity.field.labels.activity: Activité
+      okido-forms.activity.field.labels.description: Description
+      okido-forms.activity.field.labels.status: Statut
+      okido-forms.activity.field.labels.severity: Sévérité
+      okido-forms.activity.field.labels.repercussion: Répercussion
   - language: nl
     translations:
-      okido-forms.individual_factor.field-labels.individual_factor: Individuele factor
-      okido-forms.individual_factor.field-labels.description: Omschrijving
-      okido-forms.individual_factor.field-labels.status: Status
-      okido-forms.individual_factor.field-labels.severity: Ernst
-      okido-forms.individual_factor.field-labels.repercussion: Repercussie
+      okido-forms.activity.field.labels.activity: Activiteit
+      okido-forms.activity.field.labels.description: Omschrijving
+      okido-forms.activity.field.labels.status: Status
+      okido-forms.activity.field.labels.severity: Ernst
+      okido-forms.activity.field.labels.repercussion: Repercussie
 codifications:
   - type: CD-SEVERITY
     codes:
@@ -56,32 +56,30 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: okido-forms.individual_factor.field.labels.individual_factor
+          - field: okido-forms.activity.field.labels.activity
             type: label
-          - field: okido-forms.individual_factor.field.labels.description
+          - field: okido-forms.activity.field.labels.description
             type: textfield
             span: 24
             tags:
-              - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|reason|1
+              - MS-OKIDO-ACTIVITY-ITEM|description|1
               - CD-ITEM|transactionreason|1
-          - field: okido-forms.individual_factor.field.labels.status
+          - field: okido-forms.activity.field.labels.status
             type: dropdown
             codifications:
               - MS-OKIDO-CARE-STATUS
             tags:
-              - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|status|1
-          - field: okido-forms.individual_factor.field.labels.severity
+              - MS-OKIDO-ACTIVITY-ITEM|status|1
+          - field: okido-forms.activity.field.labels.severity
             type: dropdown
             codifications:
               - CD-SEVERITY
             tags:
               - MS-OKIDO-ACTIVITY-ITEM|severity|1
               - CD-SEVERITY
-          - field: okido-forms.individual_factor.field.labels.repercussion
+          - field: okido-forms.activity.field.labels.repercussion
             type: textfield
             span: 24
-            multiline: true
-            rowSpan: 2
             tags:
-              - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|repercussion|1
+              - MS-OKIDO-ACTIVITY-ITEM|repercussion|1
               - CD-ITEM|transactionreason|1
