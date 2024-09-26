@@ -22,7 +22,6 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 		if (this.readonly) return
 		this.displayMenu = force || !this.displayMenu
 		console.log('togglePopup', this.textInputValue)
-		event.stopPropagation()
 	}
 
 	_handleClickOutside(event: MouseEvent): void {
