@@ -153,9 +153,8 @@ sections:
           span: 24
           borderless: true
           forms:
-            SubSubForm:
+            f145e2bf-2ff6-4c4c-94f1-1f050c6072acd:
               form: okido-forms.SUBSUB
-              id: f145e2bf-2ff6-4c4c-94f1-1f050c6072acd
               description: okido-forms.SUBSUB
               sections:
                 - section: okido-forms.field-labels.SECTION-1
@@ -166,10 +165,9 @@ sections:
                       span: 24
                       borderless: true
                       forms:
-                        Epaule:
-                          form: okido-forms.SEARCH_SHOULDER
-                          id: f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
-                          description: okido-forms.SEARCH_SHOULDER
+                        f145e2bf-2ff6-4c4c-94f1-1f050c6072b8:
+                          form: okido-forms.SEARCH_SHOULDER_SUB
+                          description: okido-forms.SEARCH_SHOULDER_SUB
                           sections:
                             - section: okido-forms.field-labels.SECTION-1
                               fields:
@@ -192,9 +190,8 @@ sections:
                                       tags:
                                         - MS-OKIDO-SEARCH-SHOULDER-ITEM|flexion|1
                                         - CD-ITEM|parameter|1
-            Epaule:
+            f145e2bf-2ff6-4c4c-94f1-1f050c6072b7:
               form: okido-forms.SEARCH_SHOULDER
-              id: f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
               description: okido-forms.SEARCH_SHOULDER
               sections:
                 - section: okido-forms.field-labels.SECTION-1
