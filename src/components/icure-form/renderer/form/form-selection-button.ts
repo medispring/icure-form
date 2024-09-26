@@ -7,6 +7,9 @@ export class FormSelectionButton extends LitElement {
 	@property() formAdded: (title: string, form: Form) => void = () => {
 		/* Do nothing */
 	}
+	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
+	@property() language = 'en'
+
 	@state() private displayMenu = false
 	static get styles() {
 		return css`
@@ -73,7 +76,7 @@ export class FormSelectionButton extends LitElement {
 										this.displayMenu = false
 									}}
 								>
-									${id}
+									${(this.translationProvider ? this.translationProvider(this.language, form.form) : form.form) ?? id}
 								</button>`,
 						)}
 				  </div>`

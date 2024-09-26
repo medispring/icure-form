@@ -1177,7 +1177,7 @@ export class Subform {
 		styleOptions?: { [_key: string]: unknown }
 		id: string
 	}): Subform {
-		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse(f)])), {
+		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse({ ...f, id: k })])), {
 			id: json.id,
 			shortLabel: json.shortLabel,
 			span: json.span,

@@ -178,4 +178,45 @@ The themes are located in the src/themes folder.
 import '../src/components/themes/icure-blue'
 ```
 
+### Notifications
 
+```mermaid
+sequenceDiagram
+    actor P as Program
+    participant PB as Parent Bridge
+    participant PC as Parent Contact
+    participant CB as Child Bridge
+    participant CC as Child Contact
+    rect rgba(0, 0, 255, .1)
+    Note over P: Create Child
+    P->>+PB: Add child
+    PB->>+PC: Add child
+    PC->>CC: Create child
+    Note over PC,CC: PC listens to CC changes
+    PC->>PB: Notify
+    PB->>P: Notify
+    P->>PB: Get children
+    PB->>PC: Get children
+    PC->>PB: Children [CC]
+    PB->>PB: Wrap
+    PB->>CB: Create
+    Note over CB: CB is very short lived
+    PB->>-P: children [CB]
+    end
+    rect rgba(0, 255, 255, .1)
+    Note over P: Change in child CB
+    P->>CB: Change in CB
+    CB->>CC: Change in CC
+    CC->>PC: Notifies with CC*
+    PC->>PB: Notifies with PC* [CC*]
+    PB->>P: Notifies with PB* <PC*[CC*]>
+    P->>PB: Get children [PB*]
+    PB->>PC: Get children [PC*]
+    PC->>PB: Children [CC*]
+    PB->>PB: Wrap
+    PB->>CB: Create CB*
+    Note over CB: CB* is very short lived
+    PB->>P: children [CB*]
+
+    end
+```

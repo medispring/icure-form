@@ -88,6 +88,8 @@ export const render: Renderer = (
 				.formAdded="${(title: string, form: Form) => {
 					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
 				}}"
+				.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
+				.language="${props.language}"
 			></form-selection-button>
 			${children
 				?.map((child) => {
