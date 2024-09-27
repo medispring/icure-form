@@ -15,6 +15,7 @@ export class FormSelectionButton extends LitElement {
 		return css`
 			.options-container {
 				position: relative;
+				cursor: pointer;
 			}
 
 			.options {
