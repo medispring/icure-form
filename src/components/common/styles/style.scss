@@ -891,13 +891,47 @@ app-date-picker {
 }
 
 .subform {
-	align-items: end;
 	display: grid;
 	position: relative;
-	margin: 8px -8px 8px;
-	padding: 0 8px 0;
+	padding: 8px;
 	min-height: 64px;
+	border-radius: 6px;
 	background-color: $background-color-dark;
+	gap: 12px;
+
+	&__heading{
+		display: flex;
+		justify-content: space-between;
+
+		&__title {
+
+		}
+	}
+
+	&__child{
+		display: grid;
+		grid-template-rows: auto;
+		gap: 8px;
+		padding: 8px;
+		border-radius: 6px;
+		background: white;
+		border: 1px solid $label-color-hover;
+
+		.subform{
+			background: unset;
+		}
+
+		&__removeBtn {
+			justify-self: end;
+		}
+	}
+}
+
+.options-container{
+	.btn {
+		cursor: pointer;
+		background: $label-color;
+	}
 }
 
 .icure-form {
@@ -928,20 +962,6 @@ app-date-picker {
 	.group.bordered {
 		background: #f6f6f6;
 		border-radius: 12px;
-	}
-
-	.float-right-btn {
-		position: absolute;
-		right: 10px;
-		cursor: pointer;
-
-		&.top {
-			top: 6px;
-		}
-
-		&.bottom {
-			bottom: -8px;
-		}
 	}
 }
 .icure-form-field {
