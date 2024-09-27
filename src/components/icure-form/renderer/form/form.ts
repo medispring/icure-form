@@ -47,25 +47,25 @@ export const render: Renderer = (
 			  }
 			: undefined
 
-	const h = function (level: number, content: TemplateResult): TemplateResult {
+	const h = function (level: number, className: string = "", content: TemplateResult): TemplateResult {
 		return level === 1
-			? html`<h1>${content}</h1>`
+			? html`<h1 class="${className}">${content}</h1>`
 			: level === 2
-			? html`<h2>${content}</h2>`
+			? html`<h2 class="${className}">${content}</h2>`
 			: level === 3
-			? html`<h3>${content}</h3>`
+			? html`<h3 class="${className}">${content}</h3>`
 			: level === 4
-			? html`<h4>${content}</h4>`
+			? html`<h4 class="${className}">${content}</h4>`
 			: level === 5
-			? html`<h5>${content}</h5>`
-			: html`<h6>${content}</h6>`
+			? html`<h5 class="${className}">${content}</h5>`
+			: html`<h6 class="${className}">${content}</h6>`
 	}
 
 	function renderGroup(fg: Group, fgSpan: number, level: number) {
 		const subElements = (fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1)).filter((x) => !!x && x !== nothing)
 		return subElements.length
 			? html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
-					${fg.borderless ? nothing : html`<div>${h(level, html`${fg.group}`)}</div>`}
+					${fg.borderless ? nothing : html`<div>${h(level, "", html`${fg.group}`)}</div>`}
 					<div class="icure-form">${subElements}</div>
 			  </div>`
 			: nothing
@@ -74,31 +74,26 @@ export const render: Renderer = (
 	function renderSubform(fg: Subform, fgSpan: number, level: number) {
 		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
 		return html`<div class="subform" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
-			<div>
-				${h(
-					level,
-					html`${(props.language && fg.shortLabel
-						? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
-						: fg.shortLabel) ?? ''}`,
-				)}
-			</div>
+			<div class="subform__heading">
+				${h(level, "subform__heading__title", html`${(props.language && fg.shortLabel
+			? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
+			: fg.shortLabel) ?? ''}`)}
 			<form-selection-button
-				class="float-right-btn top"
 				.forms="${Object.entries(fg.forms)}"
 				.formAdded="${(title: string, form: Form) => {
 					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
 				}}"
 			></form-selection-button>
+			</div>
 			${children
 				?.map((child) => {
 					const childForm = Object.values(fg.forms).find((f) => f.id === child.getFormId())
 					return (
 						childForm &&
 						html`
-							<div class="container">
+							<div class="subform__child">
 								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
-								<button @click="${() => formsValueContainer?.removeChild?.(child)}" class="float-right-btn bottom">-</button>
-								<hr />
+								<button class="subform__child__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove Form</button>
 							</div>
 						`
 					)
