@@ -176,10 +176,8 @@ sections:
           span: 24
           borderless: true
           forms:
-            Epaule:
+            f145e2bf-2ff6-4c4c-94f1-1f050c6072b7:
               form: okido-forms.SEARCH_SHOULDER
-              id: f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
-              description: okido-forms.SEARCH_SHOULDER
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -232,10 +230,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-SHOULDER-ITEM|internal_rotation|1
                             - CD-ITEM|parameter|1
-            Coude:
+            229b343e-b64c-4150-a488-811313e6328b:
               form: okido-forms.SEARCH_ELBOW
-              id: 229b343e-b64c-4150-a488-811313e6328b
-              description: okido-forms.SEARCH_ELBOW
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -276,10 +272,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-ELBOW-ITEM|supination|1
                             - CD-ITEM|transactionreason|1
-            Poignet:
+            b0efce4e-241a-4c68-9084-20bfb11a6382:
               form: okido-forms.SEARCH_WRIST
-              id: b0efce4e-241a-4c68-9084-20bfb11a6382
-              description: okido-forms.SEARCH_WRIST
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -320,10 +314,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-ELBOW-ITEM|ulnarInclination|1
                             - CD-ITEM|transactionreason|1
-            Hanche:
+            f4115bfb-7af7-4547-937e-22eaeaa74990:
               form: okido-forms.SEARCH_HIP
-              id: f4115bfb-7af7-4547-937e-22eaeaa74990
-              description: okido-forms.SEARCH_HIP
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -376,10 +368,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HIP-ITEM|internalRotation|1
                             - CD-ITEM|transactionreason|1
-            Genou:
+            a07b9c4e-0757-4405-ac26-3eeb874cbae6:
               form: okido-forms.SEARCH_KNEE
-              id: a07b9c4e-0757-4405-ac26-3eeb874cbae6
-              description: okido-forms.SEARCH_KNEE
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -408,10 +398,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-KNEE-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Cheville:
+            0fb429c5-adb7-412b-bd8c-081f5a83b3d4:
               form: okido-forms.SEARCH_ANKLE
-              id: 0fb429c5-adb7-412b-bd8c-081f5a83b3d4
-              description: okido-forms.SEARCH_ANKLE
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -440,10 +428,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-ANKLE-ITEM|plantarFlexion|1
                             - CD-ITEM|transactionreason|1
-            Colonne vertébrale (rachis):
+            e893cb4f-6268-4461-8599-b667e1655248:
               form: okido-forms.SEARCH_SPINE
-              id: e893cb4f-6268-4461-8599-b667e1655248
-              description: okido-forms.SEARCH_SPINE
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -484,10 +470,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-SPINE-ITEM|rotation|1
                             - CD-ITEM|transactionreason|1
-            Main - Articulation méta-carpo-phalangienne (MCP):
+            0ca133a7-7b38-4b53-94b3-5691e945dee2:
               form: okido-forms.SEARCH_HAND_MCP
-              id: 0ca133a7-7b38-4b53-94b3-5691e945dee2
-              description: okido-forms.SEARCH_HAND_MCP
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -513,10 +497,8 @@ sections:
                             tags:
                                 - MS-OKIDO-SEARCH-HAND-MCP-ITEM|extension|1
                                 - CD-ITEM|transactionreason|1
-            Main - Articulation inter-phalangienne proximale (IPP):
+            aad57780-1679-447a-92c2-17e7aee43939:
               form: okido-forms.SEARCH_HAND_IPP
-              id: aad57780-1679-447a-92c2-17e7aee43939
-              description: okido-forms.SEARCH_HAND_IPP
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -542,10 +524,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HAND-IPP-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Main - Articulation inter-phalangienne distale (IPD):
+            9098945f-384c-416d-ad89-90ce7a6db7ee:
               form: okido-forms.SEARCH_HAND_IPD
-              id: 9098945f-384c-416d-ad89-90ce7a6db7ee
-              description: okido-forms.SEARCH_HAND_IPD
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -571,10 +551,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HAND-IPD-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Main - Pouce - articulation carpo-métacarpienne (CCM):
+            0b54bc9c-5ae7-4427-ad90-87d6e1ba2016:
               form: okido-forms.SEARCH_HAND_THUMB_CCM
-              id: 0b54bc9c-5ae7-4427-ad90-87d6e1ba2016
-              description: okido-forms.SEARCH_HAND_THUMB_CCM
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -612,10 +590,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HAND-THUMB-CCM-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Main - Pouce - articulation méta-carpo-phalangienne (MCP):
+            ead8a3b1-078c-4755-b793-a6c19677a674:
               form: okido-forms.SEARCH_HAND_THUMB_MCP
-              id: ead8a3b1-078c-4755-b793-a6c19677a674
-              description: okido-forms.SEARCH_HAND_THUMB_MCP
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -641,10 +617,8 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HAND-THUMB-MCP-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Main - Pouce - articulation inter-phalangienne (IP):
+            f8e0d453-cb9a-4dba-86a2-85bf4e95f4b9:
               form: okido-forms.SEARCH_HAND_THUMB_IP
-              id: f8e0d453-cb9a-4dba-86a2-85bf4e95f4b9
-              description: okido-forms.SEARCH_HAND_THUMB_IP
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
@@ -670,30 +644,30 @@ sections:
                           tags:
                             - MS-OKIDO-SEARCH-HAND-THUMB-IP-ITEM|extension|1
                             - CD-ITEM|transactionreason|1
-            Autre:
-              form: okido-forms.SEARCH_OTHER
-              id: 5ed38f13-5061-4e53-8db1-a6f64fce5a2e
-              description: okido-forms.SEARCH_OTHER
-              sections:
-                - section: okido-forms.field-labels.SECTION-1
-                  fields:
-                    - group: line
-                      borderless: true
-                      span: 24
-                      fields:
-                          - field: okido-forms.search.other.field.label.other
-                            type: label
-                    - group: line
-                      borderless: true
-                      span: 24
-                      fields:
-                          - field: okido-forms.search.other.field.label.other
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            rowSpan: 2
-                            tags:
-                                - MS-OKIDO-SEARCH-OTHER-ITEM|other|1
-                                - CD-ITEM|observation|1
-
+          refs:
+            - 5ed38f13-5061-4e53-8db1-a6f64fce5a2e
+subForms:
+  5ed38f13-5061-4e53-8db1-a6f64fce5a2e:
+    form: okido-forms.SEARCH_OTHER
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+                - field: okido-forms.search.other.field.label.other
+                  type: label
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+                - field: okido-forms.search.other.field.label.other
+                  type: textfield
+                  span: 24
+                  multiline: true
+                  rowSpan: 2
+                  tags:
+                      - MS-OKIDO-SEARCH-OTHER-ITEM|other|1
+                      - CD-ITEM|observation|1
 

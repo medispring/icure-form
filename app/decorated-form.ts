@@ -267,11 +267,6 @@ export class DecoratedForm extends LitElement {
 				}}"
 				)
 			></icure-form>
-			<div>${this.formValuesContainer?.toString()}&lt;${this.formValuesContainer?.getContactFormValuesContainer().toString()}&gt;</div>
-			${this.formValuesContainer
-				?.getContactFormValuesContainer()
-				.getChildren()
-				.map((c) => html`<div>${c.toString()}</div>`)}
 		`
 	}
 }
