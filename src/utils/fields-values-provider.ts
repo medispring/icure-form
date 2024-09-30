@@ -37,11 +37,9 @@ export const getValidationError =
 	}
 
 export const handleValueChangedProvider = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>, field?: Field, owner?: string) => {
-	const wrapper = formsValueContainer ? [formsValueContainer] : []
 	return (label: string, language: string, value?: FieldValue, id?: string) => {
-		const fvc = wrapper[0]
-		if (fvc) {
-			const { result, formValuesContainer: newFvc } = fvc.setValue(
+		if (formsValueContainer) {
+			formsValueContainer.setValue(
 				label,
 				language,
 				value,
@@ -50,22 +48,14 @@ export const handleValueChangedProvider = (formsValueContainer?: FormValuesConta
 					? makeMetadata(field, owner)
 					: undefined,
 			)
-			wrapper[0] = newFvc
-			return { result, formValuesContainer: newFvc }
 		}
-		return undefined
 	}
 }
 
 export const handleMetadataChangedProvider = (formsValueContainer?: FormValuesContainer<FieldValue, FieldMetadata>) => {
-	const wrapper = formsValueContainer ? [formsValueContainer] : []
 	return (metadata: FieldMetadata, id?: string) => {
-		const fvc = wrapper[0]
-		if (fvc) {
-			const { result, formValuesContainer: newFvc } = fvc.setMetadata(metadata, id)
-			wrapper[0] = newFvc
-			return { result, formValuesContainer: newFvc }
+		if (formsValueContainer) {
+			formsValueContainer.setMetadata(metadata, id)
 		}
-		return undefined
 	}
 }
