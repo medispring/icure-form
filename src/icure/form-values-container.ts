@@ -9,7 +9,7 @@ import { anyDateToDate } from '../utils/dates'
 import { v4 as uuidv4 } from 'uuid'
 
 function notify<Value, Metadata>(l: (fvc: FormValuesContainer<Value, Metadata>) => void, fvc: FormValuesContainer<Value, Metadata>) {
-	console.log('Notifying', l, fvc.toString())
+	//console.log('Notifying', l, fvc.toString())
 	l(fvc)
 }
 
