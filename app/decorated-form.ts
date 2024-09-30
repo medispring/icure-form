@@ -262,7 +262,7 @@ export class DecoratedForm extends LitElement {
 				.formValuesContainer="${this.formValuesContainer}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.optionsProvider="${this.optionsProvider.bind(this)}"
-				.actionListener="${(event: string, payload: unknown) => {
+				.actionListener="${(event: string) => {
 					alert(event)
 				}}"
 				)
