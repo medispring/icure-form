@@ -98,10 +98,11 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="subform__child">
-								<div class="subform__child__title">${childForm.form ?? childForm.description}</div>
+								<h3 class="subform__child__title">${childForm.form ?? childForm.description}</h3>
 								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
-								<button class="subform__child__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove Form</button>
+								<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove</button>
 							</div>
+						
 						`
 					)
 				})
