@@ -48,6 +48,7 @@ The Form class represents an entire form, encapsulating its metadata and structu
 - keywords: string[] - Optional keywords associated with the form.
 - codifications: Codification[] - Optional codifications for the form.
 - translations: TranslationTable[] - Optional translations for the form.
+- subForms: string: Form - A map (id:string -> Form) that defines the sub-forms that can be included in SubForm fields.
 
 ### Section
 
