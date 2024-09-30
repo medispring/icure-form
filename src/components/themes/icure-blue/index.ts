@@ -24,6 +24,7 @@ import { IcureTextField, MetadataButtonBarWrapper } from '../../icure-text-field
 import ehrLiteCss from './ehr-lite.scss'
 import { MetadataButtonBar } from '../../common/metadata-buttons-bar'
 import { IcureButton } from '../../icure-button'
+import { FormSelectionButton } from '../../icure-form/renderer/form/form-selection-button'
 
 class EhrLiteIcureButtonGroup extends IcureButtonGroup {
 	static get styles() {
@@ -99,3 +100,4 @@ customElements.define('icure-form-radio-button', RadioButton)
 customElements.define('icure-form-text-field', TextField)
 customElements.define('icure-form-time-picker', TimePicker)
 customElements.define('icure-form-token-field', TokenField)
+customElements.define('form-selection-button', FormSelectionButton)

@@ -63,6 +63,26 @@ export class FormSelectionButton extends LitElement {
 			}
 		`
 	}
+
+	_handleClickOutside(event: MouseEvent): void {
+		if (!event.composedPath().includes(this)) {
+			if (this.displayMenu) {
+				this.displayMenu = false
+			}
+			event.stopPropagation()
+		}
+	}
+
+	connectedCallback() {
+		super.connectedCallback()
+		document.addEventListener('click', this._handleClickOutside.bind(this))
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback()
+		document.removeEventListener('click', this._handleClickOutside.bind(this))
+	}
+
 	render() {
 		return html`<div class="options-container">
 			<button class="btn" @click="${() => (this.displayMenu = true)}">+</button>
@@ -85,4 +105,3 @@ export class FormSelectionButton extends LitElement {
 		</div>`
 	}
 }
-customElements.define('form-selection-button', FormSelectionButton)
