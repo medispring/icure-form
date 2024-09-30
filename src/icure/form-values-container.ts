@@ -71,7 +71,6 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		private validatorsProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; validators: Validator[] }[] = () => [],
 		private language = 'en',
 		private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
-		initialiseDefaultValues = true,
 	) {
 		console.log(`Creating bridge FVC (${contactFormValuesContainer.rootForm.formTemplateId}) with ${contactFormValuesContainer.children.length} children [${this._id}]`)
 		//Before start to broadcast changes, we need to fill in the contactFormValuesContainer with the dependent values
@@ -88,14 +87,13 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 				this.validatorsProvider,
 				this.language,
 				this.changeListeners,
-				false,
 			)
 			this.changeListeners.forEach((l) => notify(l, newBridgedFormValueContainer))
 			return newBridgedFormValueContainer
 		}
 		this.contactFormValuesContainer.registerChangeListener(this.mutateAndNotify)
 		this.contact = contact ?? contactFormValuesContainer.currentContact
-		if (initialiseDefaultValues) {
+		if (this.contactFormValuesContainer.mustBeInitialised()) {
 			this.forceValues(initialValuesProvider(this, this.contactFormValuesContainer?.rootForm?.descr, this.contactFormValuesContainer?.rootForm?.formTemplateId))
 		}
 		this.computeDependentValues()
@@ -316,7 +314,6 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 						this.validatorsProvider,
 						this.language,
 						[],
-						false,
 					),
 			)
 		console.log(`${children.length} children found in ${this.contactFormValuesContainer.rootForm.formTemplateId} initialised with `, this.initialValuesProvider)
@@ -350,6 +347,11 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	async removeChild(container: BridgedFormValuesContainer): Promise<void> {
 		await this.contactFormValuesContainer.removeChild(container.contactFormValuesContainer)
 	}
+
+	synchronise() {
+		this.contactFormValuesContainer.synchronise()
+		return this
+	}
 }
 
 /**
@@ -370,9 +372,14 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 	changeListeners: ((newValue: ContactFormValuesContainer) => void)[]
 	private _id: string = uuidv4()
+	private _initialised = false
 
 	toString(): string {
 		return `Contact(${this.rootForm.formTemplateId}[${this.rootForm.id}]) - ${this._id}`
+	}
+
+	mustBeInitialised() {
+		return !this._initialised
 	}
 
 	constructor(
@@ -383,6 +390,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		children: ContactFormValuesContainer[],
 		formFactory: (anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>,
 		changeListeners: ((newValue: ContactFormValuesContainer) => void)[] = [],
+		initialised = true,
 	) {
 		console.log(`Creating contact FVC (${rootForm.formTemplateId}) with ${children.length} children [${this._id}]`)
 
@@ -396,20 +404,34 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		this.serviceFactory = serviceFactory
 		this.formFactory = formFactory
 		this.changeListeners = changeListeners
+		this._initialised = initialised
+
+		this.synchronise()
 	}
 
-	registerChildFormValuesContainer(childFVC: ContactFormValuesContainer) {
-		childFVC.registerChangeListener((newValue) => {
-			const newContactFormValuesContainer = new ContactFormValuesContainer(
-				this.rootForm,
-				this.currentContact,
-				this.contactsHistory,
-				this.serviceFactory,
-				this.children.map((c) => (c.rootForm.id === childFVC.rootForm.id ? newValue : c)),
-				this.formFactory,
-			)
-			this.changeListeners.forEach((l) => notify(l, newContactFormValuesContainer))
-		})
+	synchronise() {
+		this.children.forEach((childFVC) => this.registerChildFormValuesContainer(childFVC))
+		return this
+	}
+
+	//Make sure that when a child is changed, a new version of this is created with the updated child
+	registerChildFormValuesContainer(childFormValueContainer: ContactFormValuesContainer) {
+		childFormValueContainer.changeListeners = [
+			(newValue) => {
+				console.log(`Child ${newValue._id} ${childFormValueContainer.rootForm.formTemplateId} changed, updating parent ${this._id} ${this.rootForm.formTemplateId}`)
+				const newContactFormValuesContainer = new ContactFormValuesContainer(
+					this.rootForm,
+					this.currentContact,
+					this.contactsHistory,
+					this.serviceFactory,
+					this.children.map((c) => {
+						return c.rootForm.id === childFormValueContainer.rootForm.id ? newValue : c
+					}),
+					this.formFactory,
+				)
+				this.changeListeners.forEach((l) => notify(l, newContactFormValuesContainer))
+			},
+		]
 	}
 
 	static async fromFormsHierarchy(
@@ -438,8 +460,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				  )
 				: [],
 			formFactory,
-
 			changeListeners,
+			false,
 		)
 		contactFormValuesContainer.children.forEach((childFVC) => contactFormValuesContainer.registerChildFormValuesContainer(childFVC))
 
@@ -661,7 +683,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 	async addChild(anchorId: string, templateId: string, label: string): Promise<void> {
 		const newForm = await this.formFactory(anchorId, templateId, label)
-		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory)
+		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory, [], false)
 
 		const newContactFormValuesContainer = new ContactFormValuesContainer(
 			this.rootForm,
@@ -687,7 +709,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			this.currentContact,
 			this.contactsHistory,
 			this.serviceFactory,
-			this.children.filter((c) => c !== container),
+			this.children.filter((c) => c.rootForm.id !== container.rootForm.id),
 			this.formFactory,
 			this.changeListeners,
 		)

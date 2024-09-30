@@ -125,10 +125,8 @@ sections:
         span: 24
         borderless: true
         forms:
-          Troubles fonctionnels:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76a:
+            form: Troubles fonctionnels
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -248,10 +246,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Répercutions / Sévérité:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76b:
+            form: Répercutions / Sévérité
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -373,10 +369,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Facteurs externes:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76c:
+            form: Facteurs externes
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -496,10 +490,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Facteurs individuels / personnels:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76d:
+            form: Facteurs individuels / personnels
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -621,10 +613,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Examens complémentaires:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76e:
+            form: Examens complémentaires
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -744,10 +734,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Données médicales:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f76af:
+            form: Données médicales
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
@@ -869,10 +857,8 @@ sections:
                         tags:
                           - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Données chirurgicales:
-            form: okido-forms.ANAMNESIS
-            id: ec590115-e771-48a1-88b7-84af34c3f76a
-            description: okido-forms.ANAMNESIS
+          ec590115-e771-48a1-88b7-84af34c3f7b0:
+            form: Données chirurgicales
             codifications:
               - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
