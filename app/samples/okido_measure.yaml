@@ -149,27 +149,25 @@ sections:
               type: label
         - subform:
           id: 1cfebef7-81c7-4641-9a49-7b8aabba9660
-          shortLabel: okido-forms.search.field.label.measure
+          shortLabel: Multiple forms choice main title
           span: 24
           borderless: true
           forms:
-            SubSubForm:
-              form: okido-forms.SUBSUB
-              id: f145e2bf-2ff6-4c4c-94f1-1f050c6072acd
+            f145e2bf-2ff6-4c4c-94f1-1f050c6072acd:
+              form: Subform 1 title
               description: okido-forms.SUBSUB
               sections:
                 - section: okido-forms.field-labels.SECTION-1
                   fields:
                     - subform:
-                      id: 1cfebef7-81c7-4641-9a49-7b8aabba9660
-                      shortLabel: okido-forms.search.field.label.measure
+                      id: 1cfebef7-81c7-4641-9a49-7b8aabba9661
+                      shortLabel: Multiple forms choice inside 1 title
                       span: 24
                       borderless: true
                       forms:
-                        Epaule:
-                          form: okido-forms.SEARCH_SHOULDER
-                          id: f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
-                          description: okido-forms.SEARCH_SHOULDER
+                        f145e2bf-2ff6-4c4c-94f1-1f050c6072b8:
+                          form: Subform 2 title
+                          description: okido-forms.SEARCH_SHOULDER_SUB
                           sections:
                             - section: okido-forms.field-labels.SECTION-1
                               fields:
@@ -177,13 +175,7 @@ sections:
                                   borderless: true
                                   span: 24
                                   fields:
-                                    - field: okido-forms.search.shoulder.field.label.shoulder
-                                      type: label
-                                - group: line
-                                  borderless: true
-                                  span: 24
-                                  fields:
-                                    - field: okido-forms.search.shoulder.field.label.flexion
+                                    - field: Value in degrees
                                       type: measure-field
                                       span: 4
                                       computedProperties:
@@ -192,9 +184,8 @@ sections:
                                       tags:
                                         - MS-OKIDO-SEARCH-SHOULDER-ITEM|flexion|1
                                         - CD-ITEM|parameter|1
-            Epaule:
+            f145e2bf-2ff6-4c4c-94f1-1f050c6072b7:
               form: okido-forms.SEARCH_SHOULDER
-              id: f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
               description: okido-forms.SEARCH_SHOULDER
               sections:
                 - section: okido-forms.field-labels.SECTION-1

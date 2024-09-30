@@ -60,19 +60,17 @@ export interface FormValuesContainer<Value, Metadata> {
 	getChildren(): FormValuesContainer<Value, Metadata>[]
 	getValidationErrors(): [FieldMetadata, string][]
 	//modification
-	setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
-	setMetadata(metadata: Metadata, id?: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>
-	delete(serviceId: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>
+	setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata, changeListenersOverrider?: (fvc: FormValuesContainer<Value, Metadata>) => void): void
+	setMetadata(metadata: Metadata, id?: string): void
+	delete(serviceId: string): void
 	//hierarchy
-	addChild(
-		anchorId: string,
-		templateId: string,
-		label: string,
-	): Promise<FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, FormValuesContainer<Value, Metadata>>>
-	removeChild(container: FormValuesContainer<Value, Metadata>): Promise<FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>>
+	addChild(anchorId: string, templateId: string, label: string): Promise<void>
+	removeChild(container: FormValuesContainer<Value, Metadata>): Promise<void>
 	//listeners
 	registerChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
 	unregisterChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
+
+	synchronise(): FormValuesContainer<Value, Metadata>
 }
 
 /**

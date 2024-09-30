@@ -33,6 +33,9 @@ $floating-label-scale: 1 !default;
 $floating-label-height: $textbox-line-height * $floating-label-scale;
 $font-weight-label: 500;
 
+$btn-outlined-bg: #FCFCFD;
+$btn-outlined-bg-hover: #F2F2F2;
+
 :host {
 	--bg-color-1: #f44336;
 }
@@ -812,6 +815,16 @@ span.code-count-3::before {
 	min-width: 100%;
 	overflow-y: auto;
 	max-height: 280px;
+	padding: 2px;
+	border-radius: 6px;
+
+	&--subformView {
+		top: 46px;
+		min-width: unset;
+		left: unset;
+		right: 0;
+	}
+
 }
 
 .date-picker {
@@ -856,6 +869,7 @@ app-date-picker {
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
+	cursor: pointer;
 
 	&:hover {
 		color: #656565;
@@ -894,7 +908,7 @@ app-date-picker {
 	display: grid;
 	position: relative;
 	padding: 8px;
-	min-height: 64px;
+	//min-height: 64px;
 	border-radius: 6px;
 	background-color: $background-color-dark;
 	gap: 12px;
@@ -902,9 +916,38 @@ app-date-picker {
 	&__heading{
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+		height: auto;
 
 		&__title {
+			padding: 0;
+			margin: 0;
+		}
+	}
 
+	&__addBtn, &__removeBtn {
+		cursor: pointer;
+		background-color: $label-color;
+		color: white;
+		height: 32px;
+		padding: 0 16px;
+		border-radius: 6px;
+		border: none;
+		outline: none;
+
+		&:hover {
+			background-color: $label-color-hover;
+		}
+	}
+
+	&__removeBtn{
+		justify-self: end;
+		border: 1px solid $input-border-color;
+		background-color: $btn-outlined-bg;
+		color: $label-color;
+
+		&:hover {
+			background-color: $btn-outlined-bg-hover;
 		}
 	}
 
@@ -917,20 +960,19 @@ app-date-picker {
 		background: white;
 		border: 1px solid $label-color-hover;
 
+		&__title {
+			padding: 12px !important;
+			border-radius: 6px;
+			margin: 0;
+			background-color: $green-light-bg;
+		}
+
 		.subform{
 			background: unset;
+			margin: 0;
+			padding: 0;
 		}
 
-		&__removeBtn {
-			justify-self: end;
-		}
-	}
-}
-
-.options-container{
-	.btn {
-		cursor: pointer;
-		background: $label-color;
 	}
 }
 
@@ -1149,6 +1191,8 @@ input[type='radio'] {
 	color: white;
 	border-radius: 6px;
 	cursor: pointer;
+	font-size: 14px;
+	font-weight: normal;
 
 	&:hover{
 		background-color: $label-color-hover;

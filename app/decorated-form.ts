@@ -8,7 +8,7 @@ import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes, icd10, icpc2 } from './codes'
 import { Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
-import { initializeWithFormDefaultValues } from '../src/utils/form-value-container'
+import { computeFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
 import { Suggestion } from '../src/generic'
 
@@ -61,7 +61,7 @@ export class DecoratedForm extends LitElement {
 			this.redoStack.push(this.formValuesContainer)
 			const popped = this.undoStack.pop() as BridgedFormValuesContainer
 			console.log('popped', popped)
-			this.formValuesContainer = popped
+			this.formValuesContainer = popped.synchronise()
 		} else {
 			console.log('undo stack is empty')
 		}
@@ -71,7 +71,7 @@ export class DecoratedForm extends LitElement {
 		if (!this.formValuesContainer) return
 		if (this.redoStack.length > 0) {
 			this.undoStack.push(this.formValuesContainer)
-			this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
+			this.formValuesContainer = this.redoStack.pop()!.synchronise()
 		} else {
 			console.log('redo stack is empty')
 		}
@@ -81,8 +81,8 @@ export class DecoratedForm extends LitElement {
 		const contactFormValuesContainer = await makeFormValuesContainer()
 		const responsible = '1'
 
-		const findForm = (form: Form, anchorId: string | undefined, templateId: string): Form | undefined => {
-			if (anchorId === undefined) {
+		const findForm = (form: Form, anchorId: string | undefined, templateId: string | undefined): Form | undefined => {
+			if (anchorId === undefined || templateId === undefined) {
 				return form
 			}
 			return form.sections
@@ -105,55 +105,50 @@ export class DecoratedForm extends LitElement {
 				.find((f) => !!f)
 		}
 
-		const initialisedFormValueContainer = initializeWithFormDefaultValues(
-			new BridgedFormValuesContainer(
-				responsible,
-				contactFormValuesContainer,
-				makeInterpreter(),
-				undefined,
-				(anchorId, templateId) => {
-					const form = findForm(this.form, anchorId, templateId)
-
-					const extractFormulas = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; formula: string }[] =>
-						fgss.flatMap((fg) => {
-							if (fg.clazz === 'group') {
-								return extractFormulas(fg.fields ?? [])
-							} else if (fg.clazz === 'field') {
-								const formula = fg.computedProperties?.['value']
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								return formula ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, formula }] : []
-							} else {
-								return []
-							}
-						}) ?? []
-
-					return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? []) : []
-				},
-				(anchorId, templateId) => {
-					const form = findForm(this.form, anchorId, templateId)
-
-					const extractValidators = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; validators: Validator[] }[] =>
-						fgss.flatMap((fg) => {
-							if (fg.clazz === 'group') {
-								return extractValidators(fg.fields ?? [])
-							} else if (fg.clazz === 'field') {
-								const validators = fg.validators
-								return validators?.length
-									? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, validators }]
-									: []
-							} else {
-								return []
-							}
-						}) ?? []
-
-					return form ? extractValidators(form.sections?.flatMap((f) => f.fields) ?? []) : []
-				},
-				this.language,
-			),
-			this.form,
-			this.language,
+		const initialisedFormValueContainer = new BridgedFormValuesContainer(
 			responsible,
-		) as BridgedFormValuesContainer
+			contactFormValuesContainer,
+			makeInterpreter(),
+			undefined,
+			(formValueContainer, anchorId, templateId) => computeFormDefaultValues(formValueContainer, findForm(this.form, anchorId, templateId), this.language, responsible),
+			(anchorId, templateId) => {
+				const form = findForm(this.form, anchorId, templateId)
+
+				const extractFormulas = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; formula: string }[] =>
+					fgss.flatMap((fg) => {
+						if (fg.clazz === 'group') {
+							return extractFormulas(fg.fields ?? [])
+						} else if (fg.clazz === 'field') {
+							const formula = fg.computedProperties?.['value']
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							return formula ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, formula }] : []
+						} else {
+							return []
+						}
+					}) ?? []
+
+				return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? []) : []
+			},
+			(anchorId, templateId) => {
+				const form = findForm(this.form, anchorId, templateId)
+
+				const extractValidators = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; validators: Validator[] }[] =>
+					fgss.flatMap((fg) => {
+						if (fg.clazz === 'group') {
+							return extractValidators(fg.fields ?? [])
+						} else if (fg.clazz === 'field') {
+							const validators = fg.validators
+							return validators?.length ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, validators }] : []
+						} else {
+							return []
+						}
+					}) ?? []
+
+				return form ? extractValidators(form.sections?.flatMap((f) => f.fields) ?? []) : []
+			},
+			this.language,
+			undefined,
+		)
 
 		this.formValuesContainer = initialisedFormValueContainer
 		initialisedFormValueContainer.registerChangeListener((newValue) => {
@@ -267,7 +262,7 @@ export class DecoratedForm extends LitElement {
 				.formValuesContainer="${this.formValuesContainer}"
 				.ownersProvider="${this.ownersProvider.bind(this)}"
 				.optionsProvider="${this.optionsProvider.bind(this)}"
-				.actionListener="${(event: string, payload: unknown) => {
+				.actionListener="${(event: string) => {
 					alert(event)
 				}}"
 				)

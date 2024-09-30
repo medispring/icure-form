@@ -1124,6 +1124,7 @@ export class Subform {
 	clazz = 'subform' as const
 	id: string
 	shortLabel?: string
+	refs?: string[]
 	forms: { [key: string]: Form }
 	span?: number
 	rowSpan?: number
@@ -1142,6 +1143,7 @@ export class Subform {
 			computedProperties,
 			width,
 			styleOptions,
+			refs,
 		}: {
 			id?: string
 			shortLabel?: string
@@ -1150,6 +1152,7 @@ export class Subform {
 			computedProperties?: { [_key: string]: string }
 			width?: number
 			styleOptions?: { [_key: string]: unknown }
+			refs?: string[]
 		},
 	) {
 		this.id = id || title
@@ -1160,6 +1163,7 @@ export class Subform {
 		this.computedProperties = computedProperties
 		this.width = width
 		this.styleOptions = styleOptions
+		this.refs = refs
 	}
 
 	copy(properties: Partial<Subform>): Subform {
@@ -1170,6 +1174,7 @@ export class Subform {
 		subform: string
 		shortLabel?: string
 		forms: { [key: string]: Form }
+		refs?: string[]
 		span?: number
 		rowSpan?: number
 		computedProperties?: { [_key: string]: string }
@@ -1177,13 +1182,14 @@ export class Subform {
 		styleOptions?: { [_key: string]: unknown }
 		id: string
 	}): Subform {
-		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse(f)])), {
+		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse({ ...f, id: k })])), {
 			id: json.id,
 			shortLabel: json.shortLabel,
 			span: json.span,
 			computedProperties: json.computedProperties,
 			width: json.width,
 			styleOptions: json.styleOptions,
+			refs: json.refs,
 		})
 	}
 
@@ -1316,8 +1322,9 @@ export class Form {
 		keywords?: string[]
 		codifications?: Codification[]
 		translations?: TranslationTable[]
+		subForms?: { [key: string]: Form }
 	}): Form {
-		return new Form(
+		const parsed = new Form(
 			json.form,
 			(json.sections || []).map((s: Section) => Section.parse(s)),
 			json.id,
@@ -1326,6 +1333,46 @@ export class Form {
 			json.codifications?.map((c: Codification) => Codification.parse(c)),
 			json.translations?.map((t: TranslationTable) => TranslationTable.parse(t)),
 		)
+
+		const resolveAndCheckConsistencyInSubForm = (f: Subform, seenSubformId: string[]) => {
+			if (seenSubformId.includes(f.id)) {
+				throw new Error(`Subform ${f.id} is already declared in this form`)
+			}
+			seenSubformId.push(f.id)
+			;(f as Subform).refs?.forEach((r) => {
+				const subForm = json.subForms?.[r]
+				if (!subForm) {
+					throw new Error(`Subform ${r} not found in top subForms declarations`)
+				}
+				f.forms[r] = Form.parse({ ...subForm, id: r })
+			})
+			Object.entries(f.forms).forEach(([, f]) => resolveAndCheckConsistencyInForm(f, seenSubformId))
+		}
+
+		const resolveAndCheckConsistencyInForm = (f: Form, seenSubformId: string[] = []) => {
+			f.sections.forEach((s: Section) => {
+				s.fields.forEach((f: Field | Group | Subform) => {
+					if (f.clazz === 'group') {
+						resolveAndCheckConsistencyInGroup(f, seenSubformId)
+					} else if (f.clazz === 'subform') {
+						resolveAndCheckConsistencyInSubForm(f, seenSubformId)
+					}
+				})
+			})
+			return f
+		}
+		const resolveAndCheckConsistencyInGroup = (g: Group, seenSubformId: string[]) => {
+			g.fields?.forEach((f: Field | Group | Subform) => {
+				if (f.clazz === 'group') {
+					resolveAndCheckConsistencyInGroup(f, seenSubformId)
+				} else if (f.clazz === 'subform') {
+					resolveAndCheckConsistencyInSubForm(f, seenSubformId)
+				}
+			})
+			return g
+		}
+
+		return resolveAndCheckConsistencyInForm(parsed)
 	}
 
 	// noinspection JSUnusedGlobalSymbols

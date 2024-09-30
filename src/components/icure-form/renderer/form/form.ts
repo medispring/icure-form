@@ -47,7 +47,7 @@ export const render: Renderer = (
 			  }
 			: undefined
 
-	const h = function (level: number, className: string = "", content: TemplateResult): TemplateResult {
+	const h = function (level: number, className = '', content: TemplateResult): TemplateResult {
 		return level === 1
 			? html`<h1 class="${className}">${content}</h1>`
 			: level === 2
@@ -65,7 +65,7 @@ export const render: Renderer = (
 		const subElements = (fg.fields ?? []).map((fieldOrGroup: Field | Group) => renderFieldGroupOrSubform(fieldOrGroup, level + 1)).filter((x) => !!x && x !== nothing)
 		return subElements.length
 			? html`<div class="${['group', fg.borderless ? undefined : 'bordered'].filter((x) => !!x).join(' ')}" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
-					${fg.borderless ? nothing : html`<div>${h(level, "", html`${fg.group}`)}</div>`}
+					${fg.borderless ? nothing : html`<div>${h(level, '', html`${fg.group}`)}</div>`}
 					<div class="icure-form">${subElements}</div>
 			  </div>`
 			: nothing
@@ -75,15 +75,21 @@ export const render: Renderer = (
 		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
 		return html`<div class="subform" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
 			<div class="subform__heading">
-				${h(level, "subform__heading__title", html`${(props.language && fg.shortLabel
-			? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
-			: fg.shortLabel) ?? ''}`)}
-			<form-selection-button
-				.forms="${Object.entries(fg.forms)}"
-				.formAdded="${(title: string, form: Form) => {
-					form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
-				}}"
-			></form-selection-button>
+				${h(
+					level,
+					'subform__heading__title',
+					html`${(props.language && fg.shortLabel
+						? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
+						: fg.shortLabel) ?? ''}`,
+				)}
+				<form-selection-button
+					.forms="${Object.entries(fg.forms)}"
+					.formAdded="${(title: string, form: Form) => {
+						form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
+					}}"
+					.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
+					.language="${props.language}"
+				></form-selection-button>
 			</div>
 			${children
 				?.map((child) => {
@@ -92,9 +98,11 @@ export const render: Renderer = (
 						childForm &&
 						html`
 							<div class="subform__child">
+								<h3 class="subform__child__title">${childForm.form ?? childForm.description}</h3>
 								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
-								<button class="subform__child__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove Form</button>
+								<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove</button>
 							</div>
+						
 						`
 					)
 				})
