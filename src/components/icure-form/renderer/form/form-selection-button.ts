@@ -38,9 +38,9 @@ export class FormSelectionButton extends LitElement {
 
 	render() {
 		return html`<div class="options-container">
-			<button class="btn" @click="${() => (this.displayMenu = true)}">+</button>
+			<button class="subform__addBtn" @click="${() => (this.displayMenu = true)}">Add subform</button>
 			${this.displayMenu
-				? html`<div class="options">
+				? html`<div class="options options--subformView">
 						${this.forms?.map(
 							([id, form]) =>
 								html`<button
