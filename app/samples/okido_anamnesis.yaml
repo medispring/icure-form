@@ -1,118 +1,109 @@
 form: okido-forms.ANAMNESIS
-id: 1ef24547-9066-4526-8378-b18e0c76459b
+id: ec590115-e771-48a1-88b7-84af34c3f76a
 description: okido-forms.ANAMNESIS
+codifications:
+  - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+    codes:
+      - id: functions
+        label:
+          nl: Functies
+          fr: Fonctions
+      - id: anatomical_structures
+        label:
+          nl: Anatomische eigenschappen
+          fr: Structures anatomiques
+      - id: activity
+        label:
+          nl: Activiteiten
+          fr: Activités
+      - id: participation
+        label:
+          nl: Participatie
+          fr: Participation
+      - id: external_factors
+        label:
+          nl: Externe factoren
+          fr: Facteurs externes
+      - id: personal_factors
+        label:
+          nl: Persoonlijke factoren
+          fr: Facteurs personnels
+  - type: MS-OKIDO-ANAMNESIS-SEVERITY
+    codes:
+      - id: abnormal
+        label:
+          nl: Licht
+          fr: Anormal
+      - id: extremelyhight
+        label:
+          nl: Zeer ernstig
+          fr: Extrêmement élevé
+      - id: extremelylow
+        label:
+          nl: Zeer licht
+          fr: Extrêmement bas
+      - id: high
+        label:
+          nl: Ernstig
+          fr: Élevé
+      - id: low
+        label:
+          nl: Licht
+          fr: Bas
+      - id: normal
+        label:
+          nl: Normaal
+          fr: Normal
+      - id: resistent
+        label:
+          nl: Resistent
+          fr: Résistant
+      - id: susceptible
+        label:
+          nl: Gevoelig
+          fr: Sensible
+      - id: susceptibleintermediate
+        label:
+          nl: Gevoelig/intermediair
+          fr: Sensible/intermédiaire
+      - id: susceptiblemoderate
+        label:
+          nl: Gevoelig/matig
+          fr: Sensible/modéré
+      - id: veryabnormal
+        label:
+          nl: Zeer abnormaal
+          fr: Très anormal
+      - id: veryhigh
+        label:
+          nl: Zeer hoog
+          fr: Très élevé
+      - id: verylow
+        label:
+          nl: Zeer laag
+          fr: Très bas
+      - id: verysusceptible
+        label:
+          nl: Zeer gevoelig
+          fr: Très sensible
 translations:
   - language: fr
     translations:
-      okido-forms.anamnesis.field.labels.anamnesis: Anamnèse
-      okido-forms.anamnesis.field.labels.description: Description
-      okido-forms.anamnesis.field.labels.reason: Motif
-      okido-forms.anamnesis.field.labels.trouble: Trouble
-      okido-forms.anamnesis.field.labels.care: Soins
-      okido-forms.trouble.field.labels.functional_disorder: Trouble fonctionnel
-      okido-forms.trouble.field.labels.description: Description
-      okido-forms.trouble.field.labels.status: Statut
-      okido-forms.trouble.field.labels.severity: Sévérité
-      okido-forms.trouble.field.labels.repercussion: Répercussion
-      okido-forms.anatomical_structure.field.labels.anatomical_structure: Structure anatomique
-      okido-forms.anatomical_structure.field.labels.description: Description
-      okido-forms.anatomical_structure.field.labels.status: Statut
-      okido-forms.anatomical_structure.field.labels.severity: Gravité
-      okido-forms.anatomical_structure.field.labels.repercussion: Répercussion
-      okido-forms.participation.field.labels.participation: Participation
-      okido-forms.participation.complementary_exam.field.labels.description: Description
-      okido-forms.participation.field.labels.status: Statut
-      okido-forms.participation.field.labels.severity: Sévérité
-      okido-forms.participation.field.labels.repercussion: Répercussion
-      okido-forms.activity.field.labels.activity: Activité
-      okido-forms.activity.field.labels.description: Description
-      okido-forms.activity.field.labels.status: Statut
-      okido-forms.activity.field.labels.severity: Sévérité
-      okido-forms.activity.field.labels.repercussion: Répercussion
-      okido-forms.external_factor.field.labels.external_factor: Facteur externe
-      okido-forms.external_factor.field.labels.description: Description
-      okido-forms.external_factor.field.labels.status: Statut
-      okido-forms.external_factor.field.labels.severity: Gravité
-      okido-forms.external_factor.field.labels.repercussion: Répercussion
-      okido-forms.individual_factor.field.labels.individual_factor: Facteur individuel / personnel
-      okido-forms.individual_factor.field.labels.description: Description
-      okido-forms.individual_factor.field.labels.status: Statut
-      okido-forms.individual_factor.field.labels.severity: Gravité
-      okido-forms.individual_factor.field.labels.repercussion: Répercussion
-      okido-forms.medical_data.field.labels.medical_data: Données médicales
-      okido-forms.medical_data.field.labels.description: Description
-      okido-forms.medical_data.field.labels.status: Statut
-      okido-forms.medical_data.field.labels.severity: Sévérité
-      okido-forms.medical_data.field.labels.repercussion: Répercussion
-      okido-forms.surgical_data.field.labels.surgical_data: Données chirurgicales
-      okido-forms.surgical_data.field.labels.description: Description
-      okido-forms.surgical_data.field.labels.status: Statut
-      okido-forms.surgical_data.field.labels.severity: Sévérité
-      okido-forms.surgical_data.field.labels.repercussion: Répercussion
-      okido-forms.medical_care.field.labels.medical_care: Soins médicaux
-      okido-forms.medical_care.field.labels.description: Description
-      okido-forms.medical_care.field.labels.status: Statut
-      okido-forms.paramedical_care.field.labels.paramedical_care: Soins paramédicaux
-      okido-forms.paramedical_care.field.labels.description: Description
-      okido-forms.paramedical_care.field.labels.status: Statut
-      okido-forms.physiotherapy_care.field.labels.physiotherapy_care: Soins de kinésithérapie
-      okido-forms.physiotherapy_care.field.labels.description: Description
-      okido-forms.physiotherapy_care.field.labels.status: Statut
+      okido-forms.field-labels.reason: Motif
+      okido-forms.field-labels.anamnesis: Anamnèse
+      okido-forms.field-labels.truble: Trouble
+      okido-forms.field-labels.description: Description
+      okido-forms.field-labels.severity: Sévérité
+      okido-forms.field-labels.repercussion: Répercussion
+      okido-forms.field-labels.status: Statut
   - language: nl
     translations:
-        okido-forms.anamnesis.field.labels.anamnesis: Anamnese
-        okido-forms.anamnesis.field.labels.description: Beschrijving
-        okido-forms.anamnesis.field.labels.reason: Reden
-        okido-forms.anamnesis.field.labels.trouble: Probleem
-        okido-forms.anamnesis.field.labels.care: Zorg
-        okido-forms.trouble.field.labels.functional_disorder: Functionele stoornis
-        okido-forms.trouble.field.labels.description: Beschrijving
-        okido-forms.trouble.field.labels.status: Status
-        okido-forms.trouble.field.labels.severity: Ernst
-        okido-forms.trouble.field.labels.repercussion: Repercussie
-        okido-forms.anatomical_structure.field.labels.anatomical_structure: Anatomische structuur
-        okido-forms.anatomical_structure.field.labels.description: Beschrijving
-        okido-forms.anatomical_structure.field.labels.status: Status
-        okido-forms.anatomical_structure.field.labels.severity: Ernst
-        okido-forms.anatomical_structure.field.labels.repercussion: Repercussie
-        okido-forms.participation.field.labels.participation: Participatie
-        okido-forms.participation.complementary_exam.field.labels.description: Omschrijving
-        okido-forms.participation.field.labels.status: Status
-        okido-forms.participation.field.labels.severity: Ernst
-        okido-forms.participation.field.labels.repercussion: Repercussie
-        okido-forms.activity.field.labels.activity: Activiteit
-        okido-forms.activity.field.labels.description: Beschrijving
-        okido-forms.activity.field.labels.status: Status
-        okido-forms.activity.field.labels.severity: Ernst
-        okido-forms.activity.field.labels.repercussion: Repercussie
-        okido-forms.external_factor.field.labels.external_factor: Externe factor
-        okido-forms.external_factor.field.labels.description: Beschrijving
-        okido-forms.external_factor.field.labels.status: Status
-        okido-forms.external_factor.field.labels.severity: Ernst
-        okido-forms.external_factor.field.labels.repercussion: Repercussie
-        okido-forms.individual_factor.field.labels.individual_factor: Individuele / persoonlijke factor
-        okido-forms.individual_factor.field.labels.description: Beschrijving
-        okido-forms.individual_factor.field.labels.status: Status
-        okido-forms.individual_factor.field.labels.severity: Ernst
-        okido-forms.individual_factor.field.labels.repercussion: Repercussie
-        okido-forms.medical_data.field.labels.medical_data: Medische gegevens
-        okido-forms.medical_data.field.labels.description: Beschrijving
-        okido-forms.medical_data.field.labels.status: Status
-        okido-forms.medical_data.field.labels.severity: Ernst
-        okido-forms.medical_data.field.labels.repercussion: Repercussie
-        okido-forms.surgical_data.field.labels.surgical_data: Chirurgische gegevens
-        okido-forms.surgical_data.field.labels.description: Beschrijving
-        okido-forms.surgical_data.field.labels.status: Status
-        okido-forms.surgical_data.field.labels.severity: Ernst
-        okido-forms.medical_care.field.labels.medical_care: Medische zorg
-        okido-forms.medical_care.field.labels.description: Beschrijving
-        okido-forms.medical_care.field.labels.status: Status
-        okido-forms.paramedical_care.field.labels.paramedical_care: Paramedische zorg
-        okido-forms.paramedical_care.field.labels.description: Beschrijving
-        okido-forms.paramedical_care.field.labels.status: Status
-        okido-forms.physiotherapy_care.field.labels.physiotherapy_care: Kinesitherapie
-        okido-forms.physiotherapy_care.field.labels.description: Beschrijving
-        okido-forms.physiotherapy_care.field.labels.status: Status
+      okido-forms.field-labels.reason: Reden
+      okido-forms.field-labels.anamnesis: Anamnese
+      okido-forms.field-labels.truble: Probleem
+      okido-forms.field-labels.description: Beschrijving
+      okido-forms.field-labels.severity: Ernst
+      okido-forms.field-labels.repercussion: Repercussie
 sections:
   - section: okido-forms.field-labels.SECTION-1
     fields:
@@ -120,66 +111,107 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: okido-forms.anamnesis.field.labels.anamnesis
+          - field: Anamnèse
             type: label
-          - field: okido-forms.anamnesis.field.labels.reason
+          - field: okido-forms.field-labels.reason
             type: textfield
             span: 24
             tags:
               - MS-OKIDO-ANAMNESIS-ITEM|reason|1
               - CD-ITEM|transactionreason|1
-          - field: okido-forms.anamnesis.field.labels.description
-            type: textfield
-            span: 24
-            rowSpan: 2
-            multiline: true
-            tags:
-              - MS-OKIDO-DISORDER_FUNCTIONAL_DISORDER-ITEM|reason|1
-              - CD-ITEM|complaint|1
       - subform:
-        id: 2176fe84-38af-4d80-a952-2bda6e096b12
-        shortLabel: okido-forms.anamnesis.field.labels.trouble
+        id: c590115-e771-48a1-88b7-84af34c3f76addddsdfsdf
+        shortLabel: Troubles
         span: 24
-        rowSpan: 1
         borderless: true
         forms:
-          Trouble fonctionnel:
-            form: okido-forms.FUNCTIONAL_DISORDER
-            id: 2da2924e-52cc-453c-95b6-72e57c94c4cd
-            description: okido-forms.FUNCTIONAL_DISORDER
+          ec590115-e771-48a1-88b7-84af34c3f76a:
+            form: Troubles fonctionnels
             codifications:
-              - type: CD-SEVERITY
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
                   - id: low
                     label:
                       nl: Licht
-                      fr: Léger
+                      fr: Bas
                   - id: normal
                     label:
                       nl: Normaal
                       fr: Normal
-                  - id: high
+                  - id: resistent
                     label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
                     label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
                     label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -187,71 +219,120 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.trouble.field.labels.functional_disorder
-                        type: label
-                      - field: okido-forms.trouble.field.labels.description
+                      - field: Trouble fonctionnel
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                          - CD-ITEM|complaint|1
-                      - field: okido-forms.trouble.field.labels.status
-                        type: dropdown
-                        codifications:
-                          - MS-OKIDO-CARE-STATUS
-                        tags:
-                          - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                      - field: okido-forms.trouble.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.trouble.field.labels.repercussion
-                        type: textfield
-                        span: 24
-                        multiline: true
-                        tags:
-                          - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Structure anatomique:
-            form: okido-forms.ANATOMICAL_STRUCTURE
-            id: b50f8dde-3977-4b41-8cb7-8b14304c0624
-            description: okido-forms.ANATOMICAL_STRUCTURE
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+          ec590115-e771-48a1-88b7-84af34c3f76b:
+            form: Répercutions / Sévérité
             codifications:
-              - type: CD-SEVERITY
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
                   - id: low
                     label:
                       nl: Licht
-                      fr: Léger
+                      fr: Bas
                   - id: normal
                     label:
                       nl: Normaal
                       fr: Normal
-                  - id: high
+                  - id: resistent
                     label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
                     label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
                     label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -259,358 +340,122 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.anatomical_structure.field.labels.anatomical_structure
-                        type: label
-                      - field: okido-forms.anatomical_structure.field.labels.description
+                      - field: Répercution / Sévérité
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-ANATOMICAL_STRUCTURE-ITEM|description|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.anatomical_structure.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-ANATOMICAL_STRUCTURE-ITEM|status|1
-                      - field: okido-forms.anatomical_structure.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-ANATOMICAL_STRUCTURE-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.anatomical_structure.field.labels.repercussion
-                        type: textfield
-                        span: 24
-                        multiline: true
-                        rowSpan: 2
-                        tags:
-                          - MS-OKIDO-ANATOMICAL_STRUCTURE-ITEM|repercussion|1
-                          - CD-ITEM|transactionreason|1
-          Participation:
-            form: okido-forms.PARTICIPATION
-            id: 5f9112c9-43b4-4b26-bb41-e64a8619b467
-            description: okido-forms.PARTICIPATION
-            codifications:
-              - type: CD-SEVERITY
-                codes:
-                  - id: low
-                    label:
-                      nl: Licht
-                      fr: Léger
-                  - id: normal
-                    label:
-                      nl: Normaal
-                      fr: Normal
-                  - id: high
-                    label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
-                    label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
-                    label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
-                    label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
-            sections:
-              - section: okido-forms.field-labels.SECTION-1
-                fields:
-                  - group: line
-                    borderless: true
-                    span: 24
-                    fields:
-                      - field: okido-forms.participation.field.labels.participation
-                        type: label
-                      - field: okido-forms.participation.complementary_exam.field.labels.description
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-PARTICIPATION-ITEM|description|1
-                          - CD-ITEM|transactionreason|1
-                      - field: okido-forms.participation.field.labels.status
-                        type: dropdown
-                        codifications:
-                          - MS-OKIDO-CARE-STATUS
-                        tags:
-                          - MS-OKIDO-PARTICIPATION-ITEM|status|1
-                      - field: okido-forms.participation.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-PARTICIPATION-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.participation.field.labels.repercussion
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-PARTICIPATION-ITEM|repercussion|1
-                          - CD-ITEM|transactionreason|1
-          Activité:
-            form: okido-forms.ACTIVITY
-            id: 5f9112c9-43b4-4b26-bb41-e64a8619b467
-            description: okido-forms.ACTIVITY
-            codifications:
-              - type: CD-SEVERITY
-                codes:
-                  - id: low
-                    label:
-                      nl: Licht
-                      fr: Léger
-                  - id: normal
-                    label:
-                      nl: Normaal
-                      fr: Normal
-                  - id: high
-                    label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
-                    label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
-                    label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
-                    label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
-            sections:
-              - section: okido-forms.field-labels.SECTION-1
-                fields:
-                  - group: line
-                    borderless: true
-                    span: 24
-                    fields:
-                      - field: okido-forms.activity.field.labels.activity
-                        type: label
-                      - field: okido-forms.activity.field.labels.description
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-ACTIVITY-ITEM|description|1
-                          - CD-ITEM|transactionreason|1
-                      - field: okido-forms.activity.field.labels.status
-                        type: dropdown
-                        codifications:
-                          - MS-OKIDO-CARE-STATUS
-                        tags:
-                          - MS-OKIDO-ACTIVITY-ITEM|status|1
-                      - field: okido-forms.activity.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-ACTIVITY-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.activity.field.labels.repercussion
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-ACTIVITY-ITEM|repercussion|1
-                          - CD-ITEM|transactionreason|1
-          Facteur externe:
-            form: okido-forms.EXTERNAL_FACTOR
-            id: 67824b82-7b56-45f0-9409-6d87270d2faa
-            description: okido-forms.EXTERNAL_FACTOR
-            codifications:
-              - type: CD-SEVERITY
-                codes:
-                  - id: low
-                    label:
-                      nl: Licht
-                      fr: Léger
-                  - id: normal
-                    label:
-                      nl: Normaal
-                      fr: Normal
-                  - id: high
-                    label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
-                    label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
-                    label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
-                    label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
-            sections:
-              - section: okido-forms.field-labels.SECTION-1
-                fields:
-                  - group: line
-                    borderless: true
-                    span: 24
-                    fields:
-                      - field: okido-forms.external_factor.field.labels.external_factor
-                        type: label
-                      - field: okido-forms.external_factor.field.labels.description
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|description|1
-                          - CD-ITEM|transactionreason|1
-                      - field: okido-forms.external_factor.field.labels.status
-                        type: dropdown
-                        codifications:
-                          - MS-OKIDO-CARE-STATUS
-                        tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|status|1
-                      - field: okido-forms.external_factor.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.external_factor.field.labels.repercussion
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-EXTERNAL_FACTOR-ITEM|repercussion|1
-                          - CD-ITEM|transactionreason|1
-          Facteur individuel / personnel:
-            form: okido-forms.INDIVIDUAL_FACTOR
-            id: 662547a7-f57a-43b3-99c8-dd05dad9ab4a
-            description: okido-forms.INDIVIDUAL_FACTOR
-            codifications:
-              - type: CD-SEVERITY
-                codes:
-                  - id: low
-                    label:
-                      nl: Licht
-                      fr: Léger
-                  - id: normal
-                    label:
-                      nl: Normaal
-                      fr: Normal
-                  - id: high
-                    label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
-                    label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
-                    label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
-                    label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
-            sections:
-              - section: okido-forms.field-labels.SECTION-1
-                fields:
-                  - group: line
-                    borderless: true
-                    span: 24
-                    fields:
-                      - field: okido-forms.individual_factor.field.labels.individual_factor
-                        type: label
-                      - field: okido-forms.individual_factor.field.labels.description
-                        type: textfield
-                        span: 24
-                        tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|reason|1
-                          - CD-ITEM|transactionreason|1
-                      - field: okido-forms.individual_factor.field.labels.status
-                        type: dropdown
-                        codifications:
-                          - MS-OKIDO-CARE-STATUS
-                        tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|status|1
-                      - field: okido-forms.individual_factor.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-ACTIVITY-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.individual_factor.field.labels.repercussion
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-INDIVIDUAL_FACTOR-ITEM|repercussion|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Données médicales:
-            form: okido-forms.MEDICAL_DATA
-            id: 7f2d2f93-f9e6-49de-a82c-740db105846b
-            description: okido-forms.MEDICAL_DATA
+          ec590115-e771-48a1-88b7-84af34c3f76c:
+            form: Facteurs externes
             codifications:
-              - type: CD-SEVERITY
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
                   - id: low
                     label:
                       nl: Licht
-                      fr: Léger
+                      fr: Bas
                   - id: normal
                     label:
                       nl: Normaal
                       fr: Normal
-                  - id: high
+                  - id: resistent
                     label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
                     label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
                     label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -618,72 +463,120 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.medical_data.field.labels.medical_data
-                        type: label
-                      - field: okido-forms.medical_data.field.labels.description
+                      - field: Facteur externe
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.medical_data.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|status|1
-                      - field: okido-forms.medical_data.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.medical_data.field.labels.repercussion
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
                         type: textfield
                         span: 24
-                        multiline: true
-                        rowSpan: 2
                         tags:
-                          - MS-OKIDO-MEDICAL_DATA-ITEM|repercussion|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-          Données chirurgicales:
-            form: okido-forms.SURGICAL_DATA
-            id: 88af2cc7-3175-466b-a67a-52cb9f2bff7a
-            description: okido-forms.SURGICAL_DATA
+          ec590115-e771-48a1-88b7-84af34c3f76d:
+            form: Facteurs individuels / personnels
             codifications:
-              - type: CD-SEVERITY
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
                 codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
                   - id: low
                     label:
                       nl: Licht
-                      fr: Léger
+                      fr: Bas
                   - id: normal
                     label:
                       nl: Normaal
                       fr: Normal
-                  - id: high
+                  - id: resistent
                     label:
-                      nl: Ernstig
-                      fr: Grave
-              - type: MS-OKIDO-CARE-STATUS
-                codes:
-                  - id: active
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
                     label:
-                      nl: Actief
-                      fr: Actif
-                  - id: passiveRelevant
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
                     label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -691,64 +584,511 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.surgical_data.field.labels.surgical_data
-                        type: label
-                      - field: okido-forms.surgical_data.field.labels.description
+                      - field: Facteur individuel / personnel
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.surgical_data.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|status|1
-                      - field: okido-forms.surgical_data.field.labels.severity
-                        type: dropdown
-                        codifications:
-                          - CD-SEVERITY
-                        tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|severity|1
-                          - CD-SEVERITY
-                      - field: okido-forms.surgical_data.field.labels.repercussion
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
                         type: textfield
                         span: 24
                         multiline: true
                         rowSpan: 2
                         tags:
-                          - MS-OKIDO-SURGICAL_DATA-ITEM|repercussion|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+          ec590115-e771-48a1-88b7-84af34c3f76e:
+            form: Examens complémentaires
+            codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: Examen complémentaire
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+          ec590115-e771-48a1-88b7-84af34c3f76af:
+            form: Données médicales
+            codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: Donnée médicale
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 2
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+          ec590115-e771-48a1-88b7-84af34c3f7b0:
+            form: Données chirurgicales
+            codifications:
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: Donnée chirugicale
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
+                        type: textfield
+                        span: 24
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 2
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
       - subform:
-        id: 5c896dcb-cecd-4bce-b9fa-0cc13304b1c9
-        shortLabel: okido-forms.anamnesis.field.labels.care
+        id: c590115-e771-48a1-88b7-84af34c3f76adddddd
+        shortLabel: Soins
         span: 24
         borderless: true
         forms:
           Soins médicaux:
-            form: okido-forms.MEDICAL_CARE
-            id: 73bfe99b-f5cb-4c0c-ab9d-9f23ec93a9e5
-            description: okido-forms.MEDICAL_CARE
+            form: okido-forms.ANAMNESIS
+            id: ec590115-e771-48a1-88b7-84af34c3f76a
+            description: okido-forms.ANAMNESIS
             codifications:
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
                       nl: Actief
                       fr: Actif
-                  - id: passiveRelevant
+                  - id: atcd
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: ATCD
+                      fr: ATCD
+                  - id: archived
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Gearchiveerd
+                      fr: Archivé
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -756,43 +1096,143 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.medical_care.field.labels.medical_care
+                      - field: Soin médical
                         type: label
-                      - field: okido-forms.medical_care.field.labels.description
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.medical_care.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-MEDICAL_CARE-ITEM|status|1
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 2
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.status
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-STATUS
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
           Soins paramédicaux:
-            form: okido-forms.PARAMEDICAL_CARE
-            id: 980e65a7-3a10-49ad-ab4b-dac5be40e8bd
-            description: okido-forms.PARAMEDICAL_CARE
+            form: okido-forms.ANAMNESIS
+            id: ec590115-e771-48a1-88b7-84af34c3f76a
+            description: okido-forms.ANAMNESIS
             codifications:
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
                       nl: Actief
                       fr: Actif
-                  - id: passiveRelevant
+                  - id: atcd
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: ATCD
+                      fr: ATCD
+                  - id: archived
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Gearchiveerd
+                      fr: Archivé
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -800,43 +1240,147 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.paramedical_care.field.labels.paramedical_care
-                        type: label
-                      - field: okido-forms.paramedical_care.field.labels.description
+                      - field: Soin paramédical
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.paramedical_care.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-PARAMEDICAL_CARE-ITEM|status|1
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 2
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.status
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-STATUS
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
           Soins kinésithérapiques:
-            form: okido-forms.KINESITHERAPY_CARE
-            id: 5589e62c-22d9-46fb-9f93-f8f41be65edc
-            description: okido-forms.KINESITHERAPY_CARE
+            form: okido-forms.ANAMNESIS
+            id: ec590115-e771-48a1-88b7-84af34c3f76a
+            description: okido-forms.ANAMNESIS
             codifications:
-              - type: MS-OKIDO-CARE-STATUS
+              - type: MS-OKIDO-ANAMNESIS-TROUBLES-TYPES
+                codes:
+                  - id: functions
+                    label:
+                      nl: Functies
+                      fr: Fonctions
+                  - id: anatomical_structures
+                    label:
+                      nl: Anatomische eigenschappen
+                      fr: Structures anatomiques
+                  - id: activity
+                    label:
+                      nl: Activiteiten
+                      fr: Activités
+                  - id: participation
+                    label:
+                      nl: Participatie
+                      fr: Participation
+                  - id: external_factors
+                    label:
+                      nl: Externe factoren
+                      fr: Facteurs externes
+                  - id: personal_factors
+                    label:
+                      nl: Persoonlijke factoren
+                      fr: Facteurs personnels
+              - type: MS-OKIDO-ANAMNESIS-SEVERITY
+                codes:
+                  - id: abnormal
+                    label:
+                      nl: Licht
+                      fr: Anormal
+                  - id: extremelyhight
+                    label:
+                      nl: Zeer ernstig
+                      fr: Extrêmement élevé
+                  - id: extremelylow
+                    label:
+                      nl: Zeer licht
+                      fr: Extrêmement bas
+                  - id: high
+                    label:
+                      nl: Ernstig
+                      fr: Élevé
+                  - id: low
+                    label:
+                      nl: Licht
+                      fr: Bas
+                  - id: normal
+                    label:
+                      nl: Normaal
+                      fr: Normal
+                  - id: resistent
+                    label:
+                      nl: Resistent
+                      fr: Résistant
+                  - id: susceptible
+                    label:
+                      nl: Gevoelig
+                      fr: Sensible
+                  - id: susceptibleintermediate
+                    label:
+                      nl: Gevoelig/intermediair
+                      fr: Sensible/intermédiaire
+                  - id: susceptiblemoderate
+                    label:
+                      nl: Gevoelig/matig
+                      fr: Sensible/modéré
+                  - id: veryabnormal
+                    label:
+                      nl: Zeer abnormaal
+                      fr: Très anormal
+                  - id: veryhigh
+                    label:
+                      nl: Zeer hoog
+                      fr: Très élevé
+                  - id: verylow
+                    label:
+                      nl: Zeer laag
+                      fr: Très bas
+                  - id: verysusceptible
+                    label:
+                      nl: Zeer gevoelig
+                      fr: Très sensible
+              - type: MS-OKIDO-ANAMNESIS-STATUS
                 codes:
                   - id: active
                     label:
                       nl: Actief
                       fr: Actif
-                  - id: passiveRelevant
+                  - id: atcd
                     label:
-                      nl: Passief - relevant
-                      fr: Passif - relevant
-                  - id: passiveNotRelevant
+                      nl: ATCD
+                      fr: ATCD
+                  - id: archived
                     label:
-                      nl: Niet relevant
-                      fr: Passif - non relevant
-                  - id: notPresent
-                    label:
-                      nl: Niet aanwezig
-                      fr: Non présent
+                      nl: Gearchiveerd
+                      fr: Archivé
             sections:
               - section: okido-forms.field-labels.SECTION-1
                 fields:
@@ -844,17 +1388,41 @@ sections:
                     borderless: true
                     span: 24
                     fields:
-                      - field: okido-forms.kinesitherapy_care.field.labels.kinesitherapy_care
-                        type: label
-                      - field: okido-forms.kinesitherapy_care.field.labels.description
+                      - field: Soin kinésithérapeutique
+                        type: action
+                        event: save
+                        payload:
+                          a: a
+                          b: b
+                      - field: okido-forms.field-labels.description
                         type: textfield
                         span: 24
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|reason|1
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
                           - CD-ITEM|transactionreason|1
-                      - field: okido-forms.kinesitherapy_care.field.labels.status
-                        type: dropdown
+                      - field: okido-forms.field-labels.severity
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
                         codifications:
-                          - MS-OKIDO-CARE-STATUS
+                          - MS-OKIDO-ANAMNESIS-SEVERITY
                         tags:
-                          - MS-OKIDO-KINESITHERAPY_CARE-ITEM|status|1
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1
+                      - field: okido-forms.field-labels.repercussion
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 2
+                        tags:
+                          - MS-OKIDO-ANAMNESIS-ITEM|reason|1
+                          - CD-ITEM|transactionreason|1
+                      - field: okido-forms.field-labels.status
+                        type: radio-button
+                        styleOptions:
+                          direction: column
+                          span: 3
+                        codifications:
+                          - MS-OKIDO-ANAMNESIS-STATUS
+                        tags:
+                          - MS-ABORTION-CONTROL-ITEM|contraceptionAfterAbortion|1

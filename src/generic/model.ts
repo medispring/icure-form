@@ -69,6 +69,8 @@ export interface FormValuesContainer<Value, Metadata> {
 	//listeners
 	registerChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
 	unregisterChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void
+
+	synchronise(): FormValuesContainer<Value, Metadata>
 }
 
 /**

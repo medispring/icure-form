@@ -61,7 +61,7 @@ export class DecoratedForm extends LitElement {
 			this.redoStack.push(this.formValuesContainer)
 			const popped = this.undoStack.pop() as BridgedFormValuesContainer
 			console.log('popped', popped)
-			this.formValuesContainer = popped
+			this.formValuesContainer = popped.synchronise()
 		} else {
 			console.log('undo stack is empty')
 		}
@@ -71,7 +71,7 @@ export class DecoratedForm extends LitElement {
 		if (!this.formValuesContainer) return
 		if (this.redoStack.length > 0) {
 			this.undoStack.push(this.formValuesContainer)
-			this.formValuesContainer = this.redoStack.pop() as BridgedFormValuesContainer
+			this.formValuesContainer = this.redoStack.pop()!.synchronise()
 		} else {
 			console.log('redo stack is empty')
 		}
