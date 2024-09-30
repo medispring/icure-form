@@ -410,7 +410,9 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	}
 
 	synchronise() {
-		this.children.forEach((childFVC) => this.registerChildFormValuesContainer(childFVC))
+		this.children.forEach((childFVC) => {
+			this.registerChildFormValuesContainer(childFVC.synchronise())
+		})
 		return this
 	}
 

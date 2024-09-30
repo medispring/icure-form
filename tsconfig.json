@@ -1,6 +1,6 @@
 {
 	"include": [
-		"src", "app"
+		"src", "app", "declarations.d.ts"
 	],
 	"compilerOptions": {
 		"outDir": "lib",
