@@ -85,7 +85,7 @@ class DemoApp extends LitElement {
 	private samples = [
 		...[
 			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
-			/*{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
@@ -114,7 +114,7 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
 			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
 			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
-			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },*/
+			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

@@ -859,7 +859,7 @@ sections:
             span: 6
             computedProperties:
               defaultValue: |
-                return { content: { fr: { type: 'string', value: 'Méthode chirurgicale' }, nl: { type: 'string', value: 'Chirurgische methode'} }, codes: [{ id: 'surgical-method' }] }
+                return { content: { fr: { type: 'string', value: 'Méthode chirurgicale' }, nl: { type: 'string', value: 'Chirurgische methode'} }, codes: [{ id: 'MS-ABORTION-METHOD-TYPE|surgical-method|1' }] }
             codifications:
               - MS-ABORTION-METHOD-TYPE
             tags:
