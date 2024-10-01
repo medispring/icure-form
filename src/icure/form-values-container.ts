@@ -7,6 +7,7 @@ import { areCodesEqual, codeStubToCode, contentToPrimitiveType, isContentEqual, 
 import { parsePrimitive } from '../utils/primitive'
 import { anyDateToDate } from '../utils/dates'
 import { v4 as uuidv4 } from 'uuid'
+import { normalizeCodes } from '../utils/code-utils'
 
 function notify<Value, Metadata>(l: (fvc: FormValuesContainer<Value, Metadata>) => void, fvc: FormValuesContainer<Value, Metadata>) {
 	//console.log('Notifying', l, fvc.toString())
@@ -66,8 +67,14 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			sandbox: S,
 		) => T | undefined,
 		contact?: Contact,
-		private initialValuesProvider: (fvc: BridgedFormValuesContainer, anchorId?: string, templateId?: string) => [FieldValue, FieldMetadata][] = () => [],
-		private dependentValuesProvider: (anchorId: string | undefined, templateId: string | undefined) => { metadata: FieldMetadata; formula: string }[] = () => [],
+		private initialValuesProvider: (
+			anchorId?: string,
+			templateId?: string,
+		) => { metadata: FieldMetadata; revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]; formula: string }[] = () => [],
+		private dependentValuesProvider: (
+			anchorId: string | undefined,
+			templateId: string | undefined,
+		) => { metadata: FieldMetadata; revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]; formula: string }[] = () => [],
 		private validatorsProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; validators: Validator[] }[] = () => [],
 		private language = 'en',
 		private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
@@ -94,7 +101,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		this.contactFormValuesContainer.registerChangeListener(this.mutateAndNotify)
 		this.contact = contact ?? contactFormValuesContainer.currentContact
 		if (this.contactFormValuesContainer.mustBeInitialised()) {
-			this.forceValues(initialValuesProvider(this, this.contactFormValuesContainer?.rootForm?.descr, this.contactFormValuesContainer?.rootForm?.formTemplateId))
+			this.computeInitialValues()
 		}
 		this.computeDependentValues()
 	}
@@ -180,53 +187,76 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	}
 
 	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
-	private forceValues(fieldValues: [FieldValue, FieldMetadata][]) {
-		fieldValues.forEach(([value, metadata]) => {
-			setValueOnContactFormValuesContainer(this.contactFormValuesContainer, metadata.label, this.language, value, undefined, metadata, (fvc: ContactFormValuesContainer) => {
-				const currentContact = this.contactFormValuesContainer.currentContact
-				this.contactFormValuesContainer = fvc
-				if (this.contact === currentContact) {
-					this.contact = fvc.currentContact
-				}
-			})
-		})
+	private computeInitialValues() {
+		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
+			this.initialValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(
+				({ metadata, revisionsFilter, formula }) => {
+					try {
+						const currentValue = this.getValues(revisionsFilter)
+						if (!currentValue || !Object.keys(currentValue).length) {
+							const newValue = this.compute(formula) as FieldValue | undefined
+							if (newValue !== undefined) {
+								const lng = this.language ?? 'en'
+								if (newValue && !newValue.content[lng] && newValue.content['*']) {
+									newValue.content[lng] = newValue.content['*']
+								}
+								if (newValue) {
+									delete newValue.content['*']
+								}
+								setValueOnContactFormValuesContainer(this.contactFormValuesContainer, metadata.label, lng, newValue, undefined, metadata, (fvc: ContactFormValuesContainer) => {
+									const currentContact = this.contactFormValuesContainer.currentContact
+									this.contactFormValuesContainer = fvc
+									if (this.contact === currentContact) {
+										this.contact = fvc.currentContact
+									}
+								})
+							}
+						}
+					} catch (e) {
+						console.log(`Error while computing formula : ${formula}`, e)
+					}
+				},
+			)
+		}
 	}
 
 	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
 	private computeDependentValues() {
 		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
-			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadata, formula }) => {
-				try {
-					const currentValue = this.getVersionedValuesForKey(metadata.label)
-					const newValue = this.compute(formula) as FieldValue | undefined
-					if (newValue !== undefined || currentValue != undefined) {
-						const lng = this.language ?? 'en'
-						if (newValue && !newValue.content[lng] && newValue.content['*']) {
-							newValue.content[lng] = newValue.content['*']
+			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(
+				({ metadata, revisionsFilter, formula }) => {
+					try {
+						const currentValue = this.getValues(revisionsFilter)
+						const newValue = this.compute(formula) as FieldValue | undefined
+						if (newValue !== undefined || currentValue != undefined) {
+							const lng = this.language ?? 'en'
+							if (newValue && !newValue.content[lng] && newValue.content['*']) {
+								newValue.content[lng] = newValue.content['*']
+							}
+							if (newValue) {
+								delete newValue.content['*']
+							}
+							setValueOnContactFormValuesContainer(
+								this.contactFormValuesContainer,
+								metadata.label,
+								lng,
+								newValue,
+								Object.keys(currentValue ?? {})[0],
+								metadata,
+								(fvc: ContactFormValuesContainer) => {
+									const currentContact = this.contactFormValuesContainer.currentContact
+									this.contactFormValuesContainer = fvc
+									if (this.contact === currentContact) {
+										this.contact = fvc.currentContact
+									}
+								},
+							)
 						}
-						if (newValue) {
-							delete newValue.content['*']
-						}
-						setValueOnContactFormValuesContainer(
-							this.contactFormValuesContainer,
-							metadata.label,
-							lng,
-							newValue,
-							Object.keys(currentValue ?? {})[0],
-							metadata,
-							(fvc: ContactFormValuesContainer) => {
-								const currentContact = this.contactFormValuesContainer.currentContact
-								this.contactFormValuesContainer = fvc
-								if (this.contact === currentContact) {
-									this.contact = fvc.currentContact
-								}
-							},
-						)
+					} catch (e) {
+						console.log(`Error while computing formula : ${formula}`, e)
 					}
-				} catch (e) {
-					console.log(`Error while computing formula : ${formula}`, e)
-				}
-			})
+				},
+			)
 		}
 	}
 
@@ -552,8 +582,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			const newService = new Service({ ...service, modified: Date.now() })
 			meta.responsible && (newService.responsible = meta.responsible)
 			meta.valueDate && (newService.valueDate = meta.valueDate)
-			meta.codes && (newService.codes = meta.codes)
-			meta.tags && (newService.tags = meta.tags)
+			meta.codes && (newService.codes = normalizeCodes(meta.codes))
+			meta.tags && (newService.tags = normalizeCodes(meta.tags))
 
 			const newFormValuesContainer = new ContactFormValuesContainer(
 				this.rootForm,
@@ -577,7 +607,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		}
 		console.log('Setting value of service', service.id, 'with', value, 'and metadata', metadata)
 		const newContent = value?.content?.[language]
-		const newCodes = value?.codes ?? []
+		const newCodes = value?.codes ? normalizeCodes(value.codes) : []
 		if (!isContentEqual(service.content?.[language], newContent) || (newCodes && !areCodesEqual(newCodes, service.codes ?? []))) {
 			const newService = new Service({ ...service, modified: Date.now() })
 			const newContents = newContent ? { ...(service.content || {}), [language]: newContent } : { ...(service.content || {}) }
@@ -600,7 +630,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				if (metadata) {
 					newService.responsible = metadata.responsible ?? newService.responsible
 					newService.valueDate = metadata.valueDate ?? newService.valueDate
-					newService.tags = metadata.tags ?? newService.tags
+					newService.tags = metadata.tags ? normalizeCodes(metadata.tags) : newService.tags
 					newService.label = metadata.label ?? newService.label
 				}
 

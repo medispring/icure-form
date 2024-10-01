@@ -3,7 +3,7 @@ import { FormValuesContainer, Version, VersionedData } from '../generic'
 
 import { dateToFuzzyDate } from './dates'
 
-function getRevisionsFilter(field: Field): (id: string, history: Version<FieldMetadata>[]) => string[] {
+export function getRevisionsFilter(field: Field): (id: string, history: Version<FieldMetadata>[]) => string[] {
 	return (id, history) =>
 		history
 			.filter((fmd) => (field.tags?.length ? field.tags.every((t) => fmd?.value?.tags?.some((tt) => tt.id === t)) : fmd?.value?.label === field.label()))

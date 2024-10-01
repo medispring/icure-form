@@ -1,6 +1,7 @@
 import { Code, Field, SortOptions } from '../components/model'
 import { defaultCodePromoter, defaultCodesComparator, makePromoter, naturalCodesComparator } from '../components/common/utils'
 import { Suggestion } from '../generic'
+import { CodeStub, normalizeCode } from '@icure/api'
 
 /**
  * Maps the options defined in a field into a list of codes
@@ -42,3 +43,5 @@ export const filterAndSortOptionsFromFieldDefinition = (
 			fg.sortOptions,
 		),
 	)
+
+export const normalizeCodes = (codes: CodeStub[]): CodeStub[] => codes.map((c) => normalizeCode(c))

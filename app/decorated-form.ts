@@ -8,9 +8,9 @@ import { makeInterpreter } from '../src/utils/interpreter'
 import MiniSearch, { SearchResult } from 'minisearch'
 import { codes, icd10, icpc2 } from './codes'
 import { Field, FieldMetadata, Form, Group, Subform, Validator } from '../src/components/model'
-import { computeFormDefaultValues } from '../src/utils/form-value-container'
 import { normalizeCode, sleep } from '@icure/api'
-import { Suggestion } from '../src/generic'
+import { Suggestion, Version } from '../src/generic'
+import { getRevisionsFilter } from '../src/utils/fields-values-provider'
 
 const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'de'])
 
@@ -105,40 +105,71 @@ export class DecoratedForm extends LitElement {
 				.find((f) => !!f)
 		}
 
+		const extractFormulas = (
+			fieldGroupOrSubForms: (Field | Group | Subform)[],
+			property: (fg: Field) => string | undefined,
+		): { metadata: FieldMetadata; revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]; formula: string }[] =>
+			fieldGroupOrSubForms.flatMap((fg) => {
+				if (fg.clazz === 'group') {
+					return extractFormulas(fg.fields ?? [], property)
+				} else if (fg.clazz === 'field') {
+					const formula = property(fg)
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					return formula
+						? [
+								{
+									metadata: {
+										label: fg.label(),
+										tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })),
+									},
+									revisionsFilter: getRevisionsFilter(fg),
+									formula,
+								},
+						  ]
+						: []
+				} else {
+					return []
+				}
+			}) ?? []
+
 		const initialisedFormValueContainer = new BridgedFormValuesContainer(
 			responsible,
 			contactFormValuesContainer,
 			makeInterpreter(),
 			undefined,
-			(formValueContainer, anchorId, templateId) => computeFormDefaultValues(formValueContainer, findForm(this.form, anchorId, templateId), this.language, responsible),
 			(anchorId, templateId) => {
 				const form = findForm(this.form, anchorId, templateId)
-
-				const extractFormulas = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; formula: string }[] =>
-					fgss.flatMap((fg) => {
-						if (fg.clazz === 'group') {
-							return extractFormulas(fg.fields ?? [])
-						} else if (fg.clazz === 'field') {
-							const formula = fg.computedProperties?.['value']
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							return formula ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, formula }] : []
-						} else {
-							return []
-						}
-					}) ?? []
-
-				return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? []) : []
+				return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? [], (fg) => fg.computedProperties?.['defaultValue']) : []
+			},
+			(anchorId, templateId) => {
+				const form = findForm(this.form, anchorId, templateId)
+				return form ? extractFormulas(form.sections?.flatMap((f) => f.fields) ?? [], (fg) => fg.computedProperties?.['value']) : []
 			},
 			(anchorId, templateId) => {
 				const form = findForm(this.form, anchorId, templateId)
 
-				const extractValidators = (fgss: (Field | Group | Subform)[]): { metadata: FieldMetadata; validators: Validator[] }[] =>
+				const extractValidators = (
+					fgss: (Field | Group | Subform)[],
+				): {
+					metadata: FieldMetadata
+					validators: Validator[]
+				}[] =>
 					fgss.flatMap((fg) => {
 						if (fg.clazz === 'group') {
 							return extractValidators(fg.fields ?? [])
 						} else if (fg.clazz === 'field') {
 							const validators = fg.validators
-							return validators?.length ? [{ metadata: { label: fg.label(), tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })) }, validators }] : []
+							return validators?.length
+								? [
+										{
+											metadata: {
+												label: fg.label(),
+												tags: fg.tags?.map((id) => ({ label: {}, ...normalizeCode({ id: id }), id: id! })),
+											},
+											validators,
+										},
+								  ]
+								: []
 						} else {
 							return []
 						}

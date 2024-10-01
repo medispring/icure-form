@@ -18,7 +18,7 @@ export const makeFormValuesContainer = () => {
 				id: 's2',
 				label: 'inTakeDate',
 				tags: [{ id: 'MS-ABORTION-DATE|intake|1' }, { id: 'MS-ABORTION-ITEM|date|1' }, { id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1' }],
-				content: { en: { fuzzyDateValue: '19960823' } },
+				content: { en: { fuzzyDateValue: 19960823 } },
 			},
 		],
 	})
@@ -32,7 +32,7 @@ export const makeFormValuesContainer = () => {
 				id: 's2',
 				label: 'abortion-forms.field-labels.IN-TAKE-DATE',
 				tags: [{ id: 'MS-ABORTION-DATE|intake|1' }, { id: 'MS-ABORTION-ITEM|date|1' }, { id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1' }],
-				content: { en: { fuzzyDateValue: '20220404' } },
+				content: { en: { fuzzyDateValue: 20220404 } },
 			},
 			{
 				id: 's3',
