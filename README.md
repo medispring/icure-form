@@ -14,7 +14,7 @@ yarn add @icure/form
 import '@icure/form';
 ```
 
-Inside your HTML file import a theme:
+Inside your JS file import a theme:
 
 ```html
 import '@icure/form/themes/icure-blue';
@@ -48,7 +48,6 @@ The Form class represents an entire form, encapsulating its metadata and structu
 - keywords: string[] - Optional keywords associated with the form.
 - codifications: Codification[] - Optional codifications for the form.
 - translations: TranslationTable[] - Optional translations for the form.
-- subForms: string: Form - A map (id:string -> Form) that defines the sub-forms that can be included in SubForm fields.
 
 ### Section
 
@@ -136,13 +135,14 @@ All form value containers must implement a FormValuesContainer interface that de
 - `getMetadata(id: string, revisions: (string | null)[]): VersionedData<Metadata>` : obtains the metadata of a specific value, for the specified revisions.
 - `getValidationErrors(): [FieldMetadata, string][]`: returns the validation errors of the form values container for the values that are currently stored in it.
 - `getChildren(): FormValuesContainer<Value, Metadata>[]` : returns the children of the form values container
-- `setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>` : modifies the value associated to a field in the form values container. As a form values container is immutable, this method returns a mutation wrapping a new form values container along with the modified value. 
-- `setMetadata(label: string, metadata: Metadata, id?: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, ID>` : modifies the metadata associated to a value in the form values container. As a form values container is immutable, this method returns a mutation wrapping a new form values container along with the modified metadata.
-- `delete(valueId: string): FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>` : deletes a value from the form values container. As a form values container is immutable, this method returns a mutation wrapping a new form values container without the deleted value.
-- `addChild(anchorId: string, templateId: string, label: string): Promise<FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, FormValuesContainer<Value, Metadata>>>`: adds a child to the form values container. As a form values container is immutable, this method returns a mutation wrapping a new form values container with the added child.
-- `removeChild(container: FormValuesContainer<Value, Metadata>): Promise<FormValuesContainerMutation<Value, Metadata, FormValuesContainer<Value, Metadata>, void>>` : removes a child from the form values container. As a form values container is immutable, this method returns a mutation wrapping a new form values container without the removed child.
+- `setValue(label: string, language: string, data?: Value, id?: string, metadata?: Metadata): void` : modifies the value associated to a field in the form values container. 
+- `setMetadata(label: string, metadata: Metadata, id?: string): void` : modifies the metadata associated to a value in the form values container.
+- `delete(valueId: string): void` : deletes a value from the form values container.
+- `addChild(anchorId: string, templateId: string, label: string): Promise<void>`: adds a child to the form values container.
+- `removeChild(container: FormValuesContainer<Value, Metadata>): Promise<void>` : removes a child from the form values container.
 - `registerChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void` : registers a listener that will be called whenever the form values container is modified.
 - `unregisterChangeListener(listener: (newValue: FormValuesContainer<Value, Metadata>) => void): void` : unregisters a listener that was previously registered.
+- `synchronise(): FormValuesContainer<Value, Metadata>`: makes sure the hierarchy of form value containers listeners is correctly connected internally. This method has to be called when a form value container that has been extract from a undo redo stack is reused. 
 
 It is very important to understand that the renderer has no knowledge of the inner-workings of the form values container. 
 It only knows how to render the form based on the form object and the values that are stored in the form values container. 
@@ -179,7 +179,14 @@ The themes are located in the src/themes folder.
 import '../src/components/themes/icure-blue'
 ```
 
-### Notifications
+### Listeners and notifications
+
+Listeners are being used to update the form values container when they are modified. As the form values container is immutable, it is necessary to create a new form values container when a modification is made.
+This new form values container is then passed to the listeners that are registered to the original form values container. The listeners is the only part of the form values container that is mutable. 
+In a way, the listeners are not really part of the form values container, but are rather a kind of metadata. In a hierarchy of form values containers, the listeners that connect the form values containers together are maintained automatically.
+However, when a form values container is extracted from a undo/redo stack, the hierarchy of listeners has to be restored. In this case, the synchronise method has to be called to make sure the hierarchy is correctly connected. 
+
+You'll find here a sequence diagram that shows how notifications are listened to and propagated in the form system:
 
 ```mermaid
 sequenceDiagram
@@ -221,3 +228,165 @@ sequenceDiagram
 
     end
 ```
+
+### JSON/YAML representation
+
+The form can be represented in JSON or YAML format. Here is an example of a form in JSON format:
+
+```json
+{
+	"form": "Example form",
+	"sections": [
+		{
+			"section": "Section 1",
+			"fields": [
+				{
+					"field": "Field 1",
+					"type": "textfield",
+					"tags": ["tag1", "tag2"],
+					"options": {
+						"placeholder": "Enter text here"
+					}
+				},
+				{
+					"field": "Option 1",
+					"type": "checkbox"
+				}
+			]
+		}
+	]
+}
+```
+
+And here is the same form in YAML format:
+
+```yaml
+form: Example form
+sections:
+  - section: Section 1
+    fields:
+      - field: Field 1
+        type: textfield
+        options:
+          placeholder: Enter text here
+        tags:
+          - tag1
+          - tag2
+      - field: Option 1
+        type: checkbox
+```
+
+A form can have `codifications`, `translations` and `subForms` defined, to be references in sub-forms.
+
+```yaml
+form: Example form
+codifications:
+  - type: MS-ABORTION-COMPANION-TYPE
+    codes:
+      - id: partner
+        label:
+          nl: Partner
+          fr: Partenaire
+      - id: friend
+        label:
+          nl: Vriend(in)
+          fr: Ami(e)
+translations:
+  - language: fr
+    translations:
+      Confirm: Valider
+      Present: Présent
+      BMI: IMC
+  - language: nl
+    translations:
+      Confirm: Bevestig
+      Present: Aanwezig
+      BMI: BMI
+subForms:
+  c789794e-d0f4-8988-1234-e758a782473b: 
+    form: BMI
+    description: BMI
+    sections:
+      - section: Section 1
+        fields:
+        - field: BMI
+          type: measure-field
+```
+
+Inside a form, a field can have a `computedProperties` property that allows to compute the value of the field based on other fields. 
+A default value can also be provided.
+
+```yaml
+form: BMI
+sections:
+  - section: main
+    fields:
+      - field: weight
+        type: measure-field
+        computedProperties:
+          defaultValue: |
+            return { content: { '*': { type: 'measure', unit: 'kg' } }, codes: [] }
+      - field: height
+        type: measure-field
+        computedProperties:
+          defaultValue: |
+            return { content: { '*': { type: 'measure', unit: 'cm' } }, codes: [] }
+      - field: bmi
+        type: measure-field
+        readonly: true
+        computedProperties:
+          value: |
+            const w = parseContent(weight[0]?.content)
+            let h = parseContent(height[0]?.content)
+            if (!w || !h) { return undefined }
+            if (h > 3) { h = h / 100 } 
+            return { content: { '*': { type: 'measure', value: w / (h * h) } }, codes: [] }
+```
+
+Fields can be grouped. Everywhere where a field can be used, a group can be used as well. 
+
+```yaml
+form: Groups
+sections:
+  - section: main
+    fields:
+      - group: measures
+        borderless: true
+        span: 24
+        fields:
+        - field: weight
+          type: measure-field
+        - field: height
+          type: measure-field
+```
+
+Sub-forms allow you to include one of several forms in another form. The sub-form content can either be referenced explicitly or obtained through reference from the previously declared subForms.
+
+```yaml
+form: Example form
+subForms:
+  c789794e-d0f4-8988-1234-e758a782473b:
+    form: BMI
+    description: BMI
+    sections:
+      - section: Section 1
+        fields:
+          - field: BMI
+            type: measure-field
+sections:
+  - section: main
+    fields:
+      - subform: choice
+        id: 1cfebef7-81c7-4641-9a49-7b8aabba9660
+        forms:
+          abc9794e-d0f4-8988-1234-e758a782473b:
+            form: BMI
+            description: BMI
+            sections:
+              - section: Section 1
+                fields:
+                  - field: BMI
+                    type: measure-field
+        refs:
+          - c789794e-d0f4-8988-1234-e758a782473b
+``` 
