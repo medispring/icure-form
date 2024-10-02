@@ -1,0 +1,215 @@
+form: okido-forms.OKIDO
+id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
+description: okido-forms.OKIDO
+translations:
+  - language: fr
+    translations:
+      okido-forms.okido.field.label.okido: OKIDO
+      okido-forms.okido.field.label.form: Formulaire
+      okido-forms.okido.field.label.anamnesis: Anamnèse
+      okido-forms.okido.field.label.search: Recherche
+      okido-forms.okido.field.label.evaluation: Evaluation
+      okido-forms.okido.field.label.planification: Planification
+      okido-forms.okido.field.label.treatment: Traitement
+      okido-forms.okido.field.label.diagnosis: Diagnostique
+      okido-forms.okido.field.label.closure: Clôture
+      okido-forms.anamnesis.field.labels.description: Description
+      okido-forms.field.labels.reasonOfConsultation: Raison de consultation
+      okido-forms.field.labels.functionalDisorder: Trouble fonctionnel
+      okido-forms.field.labels.anatomicalStructure: Structure anatomique
+      okido-forms.field.labels.participation: Participation
+      okido-forms.field.labels.activity: Activité
+      okido-forms.field.labels.externalFactor: Facteur externe
+      okido-forms.field.labels.individualFactor: Facteur individuel
+      okido-forms.field.labels.medicalData: Donnée médicale
+      okido-forms.field.labels.surgicalData: Donnée chirurgicale
+      okido-forms.field.labels.medicalCareDrug: Soin médical - médicament
+      okido-forms.field.labels.medicalCareActe: Soin médical - acte
+      okido-forms.field.labels.paramedicalCare: Soin paramédical
+      okido-forms.field.labels.physiotherapyCare: Soin de kinésithérapie
+  - language: nl
+    translations:
+      okido-forms.okido.field.label.okido: OKIDO
+      okido-forms.okido.field.label.form: Formulaire
+      okido-forms.okido.field.label.anamnesis: Anamnese
+      okido-forms.okido.field.label.search: Zoeken
+      okido-forms.okido.field.label.evaluation: Evaluatie
+      okido-forms.okido.field.label.planification: Planning
+      okido-forms.okido.field.label.treatment: Behandeling
+      okido-forms.okido.field.label.diagnosis: Diagnose
+      okido-forms.okido.field.label.closure: Afsluiting
+      okido-forms.anamnesis.field.labels.description: Beschrijving
+      okido-forms.field.labels.reasonOfConsultation: Reden van consultatie
+      okido-forms.field.labels.functionalDisorder: Functionele stoornis
+      okido-forms.field.labels.anatomicalStructure: Anatomische structuur
+      okido-forms.field.labels.participation: Participatie
+      okido-forms.field.labels.activity: Activiteit
+      okido-forms.field.labels.externalFactor: Externe factor
+      okido-forms.field.labels.individualFactor: Individuele factor
+      okido-forms.field.labels.medicalData: Medische gegevens
+      okido-forms.field.labels.surgicalData: Chirurgische gegevens
+      okido-forms.field.labels.medicalCareDrug: Medische zorg - geneesmiddel
+      okido-forms.field.labels.medicalCareActe: Medische zorg - acte
+      okido-forms.field.labels.paramedicalCare: Paramedische zorg
+      okido-forms.field.labels.physiotherapyCare: Kinesitherapie
+sections:
+  - section: okido-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.okido.field.label.okido
+            type: label
+      - subform:
+        id: 0a25149a-f5b6-490d-ba3e-8a7d173b7249
+        shortLabel: okido-forms.okido.field.label.form
+        span: 24
+        borderless: true
+        forms:
+          cf9e6b0c-78a8-4792-adcb-be0e2db10013:
+            form: okido-forms.okido.field.label.anamnesis
+            description: okido-forms.OKIDO_ANAMNESIS
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5
+                  - subform:
+                    id: 1cfebef7-81c7-4641-9a49-7b8aabba9661
+                    span: 24
+                    borderless: true
+                    forms:
+                      f0a6f11e-3cd8-423e-a1d5-1802710194ba:
+                        form: okido-forms.field.labels.reasonOfConsultation
+                        description: okido-forms.field.labels.reasonOfConsultation
+                        sections:
+                          - section: okido-forms.field-labels.SECTION-1
+                            fields:
+                              - group: line
+                                borderless: true
+                                span: 24
+                                fields:
+                                  - field: okido-forms.field.labels.reasonOfConsultation
+                                    type: textfield
+                                    span: 24
+                                    multiline: true
+                                    rowSpan: 1
+                      520b50d1-d1ee-4721-b6d1-3ad9281e8290:
+                        form: okido-forms.field.labels.functionalDisorder
+                        description: okido-forms.field.labels.functionalDisorder
+                      c3704e08-b292-4b9f-a629-d616c9aa8d83:
+                        form: okido-forms.field.labels.anatomicalStructure
+                        description: okido-forms.field.labels.anatomicalStructure
+                      e5e1f790-ed79-4a68-b024-ed29e698aa96:
+                        form: okido-forms.field.labels.participation
+                        description: okido-forms.field.labels.participation
+                      a3618495-fc40-4b95-99c0-acb0cb302554:
+                        form: okido-forms.field.labels.activity
+                        description: okido-forms.field.labels.activity
+                      e36b1823-1047-4aaa-b4a5-a2cb1274fabf:
+                        form: okido-forms.field.labels.externalFactor
+                        description: okido-forms.field.labels.externalFactor
+                      d941ec5d-254c-4af2-ac87-e4c4c5bbd502:
+                        form: okido-forms.field.labels.individualFactor
+                        description: okido-forms.field.labels.individualFactor
+                      bdf9ba36-74d4-4588-b660-ece73da4d1af:
+                        form: okido-forms.field.labels.medicalData
+                        description: okido-forms.field.labels.medicalData
+                      a8acea51-1982-4dbf-9f81-cbe00394ff46:
+                        form: okido-forms.field.labels.surgicalData
+                        description: okido-forms.field.labels.surgicalData
+                      0842ece4-2fa2-4880-983e-296a7e485c06:
+                        form: okido-forms.field.labels.medicalCareDrug
+                        description: okido-forms.field.labels.medicalCareDrug
+                      c013306c-df74-47a8-aa32-e448d933b779:
+                        form: okido-forms.field.labels.medicalCareActe
+                        description: okido-forms.field.labels.medicalCareActe
+                      86196719-cb66-4af3-a99d-68cb0c2d8175:
+                        form: okido-forms.field.labels.paramedicalCare
+                        description: okido-forms.field.labels.paramedicalCare
+                      b76a4b84-cd79-4bd6-bd36-c7aa0c29994b:
+                        form: okido-forms.field.labels.physiotherapyCare
+                        description: okido-forms.field.labels.physiotherapyCare
+          bec34e86-e20d-4ca4-b091-bd28c819f72f:
+            form: okido-forms.okido.field.label.evaluation
+            description: okido-forms.SUBSUB
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5
+          cc4e89da-6596-4764-a4cf-672f26bc8379:
+            form: okido-forms.okido.field.label.planification
+            description: okido-forms.SUBSUB
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5
+          a57f5fc9-89e2-4654-b7d2-98abc1b8a04b:
+            form: okido-forms.okido.field.label.treatment
+            description: okido-forms.SUBSUB
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5
+          267bf3b2-2b01-4d43-820f-f54e4d7dafc2:
+            form: okido-forms.okido.field.label.diagnosis
+            description: okido-forms.SUBSUB
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5
+          b096d5fc-5b63-4775-8054-f2a2d73ac6ae:
+            form: okido-forms.okido.field.label.closure
+            description: okido-forms.SUBSUB
+            sections:
+              - section: okido-forms.field-labels.SECTION-1
+                fields:
+                  - group: line
+                    borderless: true
+                    span: 24
+                    fields:
+                      - field: okido-forms.anamnesis.field.labels.description
+                        type: textfield
+                        span: 24
+                        multiline: true
+                        rowSpan: 5

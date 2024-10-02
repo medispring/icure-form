@@ -69,6 +69,10 @@ import okido_medical_care from './samples/okido_medical_care.yaml'
 import okido_physiotherapy_care from './samples/okido_physiotherapy_care.yaml'
 // @ts-ignore
 import okido_paramedical_care from './samples/okido_paramedical_care.yaml'
+// @ts-ignore
+import okido_main from './samples/okido.yaml'
+// @ts-ignore
+import okido_measure from './samples/okido_measure.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -85,8 +89,8 @@ class DemoApp extends LitElement {
 			/*{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
-			/*{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },*/
-			/*{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
+			{ title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
+			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
 			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 			{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
 			{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
@@ -95,6 +99,7 @@ class DemoApp extends LitElement {
 			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
+			{ title: 'OKIDO', form: Form.parse(YAML.parse(okido_main)) },
 			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
 			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
@@ -102,6 +107,7 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
 			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
 			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
+			{ title: 'OKIDO - Measure', form: Form.parse(YAML.parse(okido_measure)) },
 			/*{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
 			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },
 			{ title: 'OKIDO - Anamnèse - Facteur externe', form: Form.parse(YAML.parse(okido_external_factor)) },
