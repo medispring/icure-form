@@ -1248,7 +1248,19 @@ export class Codification {
 	}
 
 	static parse(json: { type: string; codes: Code[] }): Codification {
-		return new Codification(json.type, json.codes)
+		return new Codification(
+			json.type,
+			json.codes.map((code) => {
+				const parts = code.id.split('|')
+				if (parts.length === 1) {
+					return { ...code, id: `${json.type}|${code.id}|1` }
+				} else if (parts.length === 2) {
+					return { ...code, id: `${code.id}|1` }
+				} else {
+					return code
+				}
+			}),
+		)
 	}
 
 	// noinspection JSUnusedGlobalSymbols
