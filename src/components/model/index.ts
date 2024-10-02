@@ -92,17 +92,7 @@ export const pteq = (a: PrimitiveType | undefined, b: PrimitiveType | undefined)
 	return false
 }
 
-export type IcureTextFieldSchema =
-	| DocumentSchema
-	| TokensSchema
-	| ItemsListSchema
-	| StyledSchema
-	| InlineSchema
-	| DateSchema
-	| TimeSchema
-	| DateTimeSchema
-	| DecimalSchema
-	| MeasureSchema
+export type IcureTextFieldSchema = DocumentSchema | TokensSchema | ItemsListSchema | StyledSchema | InlineSchema | DateSchema | TimeSchema | DateTimeSchema | DecimalSchema | MeasureSchema
 
 type FieldType =
 	| 'text-field'
@@ -1014,10 +1004,7 @@ export class Label extends Field {
 }
 
 export class Button extends Field {
-	constructor(
-		label: string,
-		{ shortLabel, grows, span, event, payload }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number; event?: string; payload?: unknown },
-	) {
+	constructor(label: string, { shortLabel, grows, span, event, payload }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number; event?: string; payload?: unknown }) {
 		super('action', label, { shortLabel, grows, span, event, payload })
 	}
 	override copy(properties: Partial<Button>): Button {
@@ -1261,7 +1248,19 @@ export class Codification {
 	}
 
 	static parse(json: { type: string; codes: Code[] }): Codification {
-		return new Codification(json.type, json.codes)
+		return new Codification(
+			json.type,
+			json.codes.map((code) => {
+				const parts = code.id.split('|')
+				if (parts.length === 1) {
+					return { ...code, id: `${json.type}|${code.id}|1` }
+				} else if (parts.length === 2) {
+					return { ...code, id: `${code.id}|1` }
+				} else {
+					return code
+				}
+			}),
+		)
 	}
 
 	// noinspection JSUnusedGlobalSymbols
