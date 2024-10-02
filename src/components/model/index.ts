@@ -92,17 +92,7 @@ export const pteq = (a: PrimitiveType | undefined, b: PrimitiveType | undefined)
 	return false
 }
 
-export type IcureTextFieldSchema =
-	| DocumentSchema
-	| TokensSchema
-	| ItemsListSchema
-	| StyledSchema
-	| InlineSchema
-	| DateSchema
-	| TimeSchema
-	| DateTimeSchema
-	| DecimalSchema
-	| MeasureSchema
+export type IcureTextFieldSchema = DocumentSchema | TokensSchema | ItemsListSchema | StyledSchema | InlineSchema | DateSchema | TimeSchema | DateTimeSchema | DecimalSchema | MeasureSchema
 
 type FieldType =
 	| 'text-field'
@@ -1014,10 +1004,7 @@ export class Label extends Field {
 }
 
 export class Button extends Field {
-	constructor(
-		label: string,
-		{ shortLabel, grows, span, event, payload }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number; event?: string; payload?: unknown },
-	) {
+	constructor(label: string, { shortLabel, grows, span, event, payload }: { shortLabel?: string; grows?: boolean; span?: number; rowSpan?: number; event?: string; payload?: unknown }) {
 		super('action', label, { shortLabel, grows, span, event, payload })
 	}
 	override copy(properties: Partial<Button>): Button {
@@ -1314,16 +1301,19 @@ export class Form {
 		this.translations = translations
 	}
 
-	static parse(json: {
-		form: string
-		sections: Section[]
-		id?: string
-		description?: string
-		keywords?: string[]
-		codifications?: Codification[]
-		translations?: TranslationTable[]
-		subForms?: { [key: string]: Form }
-	}): Form {
+	static parse(
+		json: {
+			form: string
+			sections: Section[]
+			id?: string
+			description?: string
+			keywords?: string[]
+			codifications?: Codification[]
+			translations?: TranslationTable[]
+			subForms?: { [key: string]: Form }
+		},
+		library: Form[] = [],
+	): Form {
 		const parsed = new Form(
 			json.form,
 			(json.sections || []).map((s: Section) => Section.parse(s)),
@@ -1340,11 +1330,11 @@ export class Form {
 			}
 			seenSubformId.push(f.id)
 			;(f as Subform).refs?.forEach((r) => {
-				const subForm = json.subForms?.[r]
+				const subForm = json.subForms?.[r] ?? library.find((f) => f.id === r)
 				if (!subForm) {
-					throw new Error(`Subform ${r} not found in top subForms declarations`)
+					throw new Error(`Subform ${r} not found in top subForms declarations or the provided library of forms`)
 				}
-				f.forms[r] = Form.parse({ ...subForm, id: r })
+				f.forms[r] = Form.parse({ ...subForm, id: r }, library)
 			})
 			Object.entries(f.forms).forEach(([, f]) => resolveAndCheckConsistencyInForm(f, seenSubformId))
 		}
