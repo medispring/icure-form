@@ -36,8 +36,6 @@ import { convertLegacy } from '../src/conversion/icure-convert'
 const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
 
 // @ts-ignore
-import okido from './samples/okido.yaml'
-// @ts-ignore
 import okido_treatment from './samples/okido_treatment.yaml'
 // @ts-ignore
 import okido_anamnesis from './samples/okido_anamnesis.yaml'
@@ -88,8 +86,7 @@ class DemoApp extends LitElement {
 	private hcpApi: IccHcpartyXApi = new IccHcpartyXApi('https://kraken.svc.icure.cloud/rest/v1', { Authorization: 'Basic YWJkZW1vQGljdXJlLmNsb3VkOmtuYWxvdQ==' })
 	private samples = [
 		...[
-			/*{ title: 'OKIDO', form: Form.parse(YAML.parse(okido)) } /*
-			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
+			/*{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
 			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
 			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
@@ -120,7 +117,7 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
 			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
 			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
-			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },*/,
+			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 
