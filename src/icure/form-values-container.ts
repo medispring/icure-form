@@ -38,6 +38,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	private contactFormValuesContainer: ContactFormValuesContainer
 	private _id: string = uuidv4()
 	private mutateAndNotify: (newContactFormValuesContainer: ContactFormValuesContainer) => BridgedFormValuesContainer
+
 	toString(): string {
 		return `Bridged(${this.contactFormValuesContainer.rootForm.formTemplateId}[${this.contactFormValuesContainer.rootForm.id}]) - ${this._id}`
 	}
@@ -70,12 +71,26 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 		private initialValuesProvider: (
 			anchorId?: string,
 			templateId?: string,
-		) => { metadata: FieldMetadata; revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]; formula: string }[] = () => [],
+		) => {
+			metadata: FieldMetadata
+			revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]
+			formula: string
+		}[] = () => [],
 		private dependentValuesProvider: (
 			anchorId: string | undefined,
 			templateId: string | undefined,
-		) => { metadata: FieldMetadata; revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]; formula: string }[] = () => [],
-		private validatorsProvider: (anchorId: string | undefined, templateId: string) => { metadata: FieldMetadata; validators: Validator[] }[] = () => [],
+		) => {
+			metadata: FieldMetadata
+			revisionsFilter: (id: string, history: Version<FieldMetadata>[]) => (string | null)[]
+			formula: string
+		}[] = () => [],
+		private validatorsProvider: (
+			anchorId: string | undefined,
+			templateId: string,
+		) => {
+			metadata: FieldMetadata
+			validators: Validator[]
+		}[] = () => [],
 		private language = 'en',
 		private changeListeners: ((newValue: BridgedFormValuesContainer) => void)[] = [],
 	) {
@@ -189,46 +204,12 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
 	private computeInitialValues() {
 		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
-			this.initialValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(
-				({ metadata, revisionsFilter, formula }) => {
-					try {
-						const currentValue = this.getValues(revisionsFilter)
-						if (!currentValue || !Object.keys(currentValue).length) {
-							const newValue = this.compute(formula) as FieldValue | undefined
-							if (newValue !== undefined) {
-								const lng = this.language ?? 'en'
-								if (newValue && !newValue.content[lng] && newValue.content['*']) {
-									newValue.content[lng] = newValue.content['*']
-								}
-								if (newValue) {
-									delete newValue.content['*']
-								}
-								setValueOnContactFormValuesContainer(this.contactFormValuesContainer, metadata.label, lng, newValue, undefined, metadata, (fvc: ContactFormValuesContainer) => {
-									const currentContact = this.contactFormValuesContainer.currentContact
-									this.contactFormValuesContainer = fvc
-									if (this.contact === currentContact) {
-										this.contact = fvc.currentContact
-									}
-								})
-							}
-						}
-					} catch (e) {
-						console.log(`Error while computing formula : ${formula}`, e)
-					}
-				},
-			)
-		}
-	}
-
-	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
-	private computeDependentValues() {
-		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
-			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(
-				({ metadata, revisionsFilter, formula }) => {
-					try {
-						const currentValue = this.getValues(revisionsFilter)
+			this.initialValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadata, revisionsFilter, formula }) => {
+				try {
+					const currentValue = this.getValues(revisionsFilter)
+					if (!currentValue || !Object.keys(currentValue).length) {
 						const newValue = this.compute(formula) as FieldValue | undefined
-						if (newValue !== undefined || currentValue != undefined) {
+						if (newValue !== undefined) {
 							const lng = this.language ?? 'en'
 							if (newValue && !newValue.content[lng] && newValue.content['*']) {
 								newValue.content[lng] = newValue.content['*']
@@ -236,27 +217,50 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 							if (newValue) {
 								delete newValue.content['*']
 							}
-							setValueOnContactFormValuesContainer(
-								this.contactFormValuesContainer,
-								metadata.label,
-								lng,
-								newValue,
-								Object.keys(currentValue ?? {})[0],
-								metadata,
-								(fvc: ContactFormValuesContainer) => {
-									const currentContact = this.contactFormValuesContainer.currentContact
-									this.contactFormValuesContainer = fvc
-									if (this.contact === currentContact) {
-										this.contact = fvc.currentContact
-									}
-								},
-							)
+							setValueOnContactFormValuesContainer(this.contactFormValuesContainer, metadata.label, lng, newValue, undefined, metadata, (fvc: ContactFormValuesContainer) => {
+								const currentContact = this.contactFormValuesContainer.currentContact
+								this.contactFormValuesContainer = fvc
+								if (this.contact === currentContact) {
+									this.contact = fvc.currentContact
+								}
+							})
 						}
-					} catch (e) {
-						console.log(`Error while computing formula : ${formula}`, e)
 					}
-				},
-			)
+				} catch (e) {
+					console.log(`Error while computing formula : ${formula}`, e)
+				}
+			})
+		}
+	}
+
+	//This method mutates the BridgedFormValuesContainer but can only be called from the constructor
+	private computeDependentValues() {
+		if (this.contactFormValuesContainer.rootForm.formTemplateId) {
+			this.dependentValuesProvider(this.contactFormValuesContainer.rootForm.descr, this.contactFormValuesContainer.rootForm.formTemplateId).forEach(({ metadata, revisionsFilter, formula }) => {
+				try {
+					const currentValue = this.getValues(revisionsFilter)
+					const newValue = this.compute(formula) as FieldValue | undefined
+					if (newValue !== undefined || currentValue != undefined) {
+						const lng = this.language ?? 'en'
+						if (newValue && !newValue.content[lng] && newValue.content['*']) {
+							newValue.content[lng] = newValue.content['*']
+						}
+						if (newValue) {
+							delete newValue.content['*']
+						}
+						const interceptor = (fvc: ContactFormValuesContainer) => {
+							const currentContact = this.contactFormValuesContainer.currentContact
+							this.contactFormValuesContainer = fvc
+							if (this.contact === currentContact) {
+								this.contact = fvc.currentContact
+							}
+						}
+						setValueOnContactFormValuesContainer(this.contactFormValuesContainer, metadata.label, lng, newValue, Object.keys(currentValue ?? {})[0], metadata, interceptor)
+					}
+				} catch (e) {
+					console.log(`Error while computing formula : ${formula}`, e)
+				}
+			})
 		}
 	}
 
@@ -334,17 +338,7 @@ export class BridgedFormValuesContainer implements FormValuesContainer<FieldValu
 			.getChildren()
 			.map(
 				(fvc) =>
-					new BridgedFormValuesContainer(
-						this.responsible,
-						fvc,
-						this.interpreter,
-						this.contact,
-						this.initialValuesProvider,
-						this.dependentValuesProvider,
-						this.validatorsProvider,
-						this.language,
-						[],
-					),
+					new BridgedFormValuesContainer(this.responsible, fvc, this.interpreter, this.contact, this.initialValuesProvider, this.dependentValuesProvider, this.validatorsProvider, this.language, []),
 			)
 		console.log(`${children.length} children found in ${this.contactFormValuesContainer.rootForm.formTemplateId} initialised with `, this.initialValuesProvider)
 		return children
@@ -587,7 +581,10 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 			const newFormValuesContainer = new ContactFormValuesContainer(
 				this.rootForm,
-				{ ...this.currentContact, services: this.currentContact.services?.map((s) => (s.id === service.id ? newService : s)) },
+				{
+					...this.currentContact,
+					services: this.currentContact.services?.map((s) => (s.id === service.id ? newService : s)),
+				},
 				this.contactsHistory,
 				this.serviceFactory,
 				this.children,
@@ -600,8 +597,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	}
 
 	setValue(label: string, language: string, value?: Service, id?: string, metadata?: ServiceMetadata, changeListenersOverrider?: (fvc: ContactFormValuesContainer) => void): void {
-		const service =
-			(id && this.getServicesInHistory((sid: string, history) => (sid === id ? history.map((x) => x.revision) : []))[id]?.[0]?.value) || this.serviceFactory(label, id)
+		const service = (id && this.getServicesInHistory((sid: string, history) => (sid === id ? history.map((x) => x.revision) : []))[id]?.[0]?.value) || this.serviceFactory(label, id)
 		if (!service.id) {
 			throw new Error('Service id must be defined')
 		}
@@ -610,7 +606,12 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		const newCodes = value?.codes ? normalizeCodes(value.codes) : []
 		if (!isContentEqual(service.content?.[language], newContent) || (newCodes && !areCodesEqual(newCodes, service.codes ?? []))) {
 			const newService = new Service({ ...service, modified: Date.now() })
-			const newContents = newContent ? { ...(service.content || {}), [language]: newContent } : { ...(service.content || {}) }
+			const newContents = newContent
+				? {
+						...(service.content || {}),
+						[language]: newContent,
+				  }
+				: { ...(service.content || {}) }
 			if (!newContent) {
 				delete newContents[language]
 			}
@@ -660,7 +661,17 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		if (service) {
 			const newFormValuesContainer = new ContactFormValuesContainer(
 				this.rootForm,
-				{ ...this.currentContact, services: this.currentContact.services?.map((s) => (s.id === serviceId ? new Service({ ...service, endOfLife: Date.now() }) : s)) },
+				{
+					...this.currentContact,
+					services: this.currentContact.services?.map((s) =>
+						s.id === serviceId
+							? new Service({
+									...service,
+									endOfLife: Date.now(),
+							  })
+							: s,
+					),
+				},
 				this.contactsHistory,
 				this.serviceFactory,
 				this.children,
@@ -682,16 +693,24 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	 * @param revisionsFilter
 	 */
 	private getServicesInHistory(revisionsFilter: (id: string, history: Version<ServiceMetadata>[]) => (string | null)[]): VersionedData<Service> {
-		const indexedServices = [this.currentContact]
-			.concat(this.contactsHistory)
-			.reduce(
-				(acc, ctc) =>
-					ctc.services?.reduce(
-						(acc, s) => (s.id ? { ...acc, [s.id]: (acc[s.id] ?? (acc[s.id] = [])).concat({ revision: ctc.rev ?? null, modified: ctc.created, value: s }) } : acc),
-						acc,
-					) ?? acc,
-				{} as VersionedData<Service>,
-			) //index services in history by id
+		const indexedServices = [this.currentContact].concat(this.contactsHistory).reduce(
+			(acc, ctc) =>
+				ctc.services?.reduce(
+					(acc, s) =>
+						s.id
+							? {
+									...acc,
+									[s.id]: (acc[s.id] ?? (acc[s.id] = [])).concat({
+										revision: ctc.rev ?? null,
+										modified: ctc.created,
+										value: s,
+									}),
+							  }
+							: acc,
+					acc,
+				) ?? acc,
+			{} as VersionedData<Service>,
+		) //index services in history by id
 		return Object.entries(indexedServices)
 			.map(([id, history]) => {
 				const keptRevisions = revisionsFilter(

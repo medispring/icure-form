@@ -288,6 +288,7 @@ export class DecoratedForm extends LitElement {
 				.form="${this.form}"
 				labelPosition="above"
 				renderer="form"
+				.readOnly="${false}"
 				.displayMetadata="${true}"
 				.language="${this.language}"
 				.formValuesContainer="${this.formValuesContainer}"

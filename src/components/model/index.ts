@@ -1082,7 +1082,11 @@ export class Group {
 		return new Group(
 			group,
 			(fields || []).map((s: Field | Group | Subform) =>
-				(s as Group)['group'] ? Group.parse(s as Group) : (s as Subform)['forms'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
+				(s as Group)['group']
+					? Group.parse(s as Group)
+					: (s as unknown as { subform: string })['subform'] || (s as Subform)['forms'] || (s as Subform)['refs']
+					? Subform.parse(s as Subform & { subform: string })
+					: Field.parse(s as Field),
 			),
 			{
 				span: span,
@@ -1160,7 +1164,7 @@ export class Subform {
 	static parse(json: {
 		subform: string
 		shortLabel?: string
-		forms: { [key: string]: Form }
+		forms?: { [key: string]: Form }
 		refs?: string[]
 		span?: number
 		rowSpan?: number
@@ -1169,7 +1173,7 @@ export class Subform {
 		styleOptions?: { [_key: string]: unknown }
 		id: string
 	}): Subform {
-		return new Subform(json.subform, Object.fromEntries(Object.entries(json.forms).map(([k, f]) => [k, Form.parse({ ...f, id: k })])), {
+		return new Subform(json.subform, json.forms ?? {}, {
 			id: json.id,
 			shortLabel: json.shortLabel,
 			span: json.span,
@@ -1216,7 +1220,11 @@ export class Section {
 		return new Section(
 			json.section,
 			(json.fields ?? json.groups ?? json.sections ?? []).map((s: Field | Group | Subform) =>
-				(s as Group)['group'] ? Group.parse(s as Group) : (s as Subform)['forms'] ? Subform.parse(s as Subform & { subform: string }) : Field.parse(s as Field),
+				(s as Group)['group']
+					? Group.parse(s as Group)
+					: (s as unknown as { subform: string })['subform'] || (s as Subform)['forms'] || (s as Subform)['refs']
+					? Subform.parse(s as Subform & { subform: string })
+					: Field.parse(s as Field),
 			),
 			json.description,
 			json.keywords,
@@ -1325,6 +1333,7 @@ export class Form {
 			subForms?: { [key: string]: Form }
 		},
 		library: Form[] = [],
+		subforms: { [key: string]: Form } = {},
 	): Form {
 		const parsed = new Form(
 			json.form,
@@ -1336,17 +1345,23 @@ export class Form {
 			json.translations?.map((t: TranslationTable) => TranslationTable.parse(t)),
 		)
 
+		const allSubforms = { ...subforms, ...(json.subForms || {}) }
+
 		const resolveAndCheckConsistencyInSubForm = (f: Subform, seenSubformId: string[]) => {
 			if (seenSubformId.includes(f.id)) {
 				throw new Error(`Subform ${f.id} is already declared in this form`)
 			}
 			seenSubformId.push(f.id)
+			Object.entries((f as Subform).forms ?? {}).forEach(([k, subForm]) => {
+				f.forms[k] = Form.parse({ ...subForm, id: k }, library, allSubforms)
+			})
 			;(f as Subform).refs?.forEach((r) => {
-				const subForm = json.subForms?.[r] ?? library.find((f) => f.id === r)
-				if (!subForm) {
+				const subForm = allSubforms?.[r]
+				const form = subForm ? Form.parse({ ...subForm, id: r }, library, allSubforms) : library.find((f) => f.id === r)
+				if (!form) {
 					throw new Error(`Subform ${r} not found in top subForms declarations or the provided library of forms`)
 				}
-				f.forms[r] = Form.parse({ ...subForm, id: r }, library)
+				f.forms[r] = form
 			})
 			Object.entries(f.forms).forEach(([, f]) => resolveAndCheckConsistencyInForm(f, seenSubformId))
 		}
@@ -1363,6 +1378,7 @@ export class Form {
 			})
 			return f
 		}
+
 		const resolveAndCheckConsistencyInGroup = (g: Group, seenSubformId: string[]) => {
 			g.fields?.forEach((f: Field | Group | Subform) => {
 				if (f.clazz === 'group') {
@@ -1374,7 +1390,7 @@ export class Form {
 			return g
 		}
 
-		return resolveAndCheckConsistencyInForm(parsed)
+		return resolveAndCheckConsistencyInForm(parsed, [])
 	}
 
 	// noinspection JSUnusedGlobalSymbols

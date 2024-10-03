@@ -73,36 +73,34 @@ export const render: Renderer = (
 
 	function renderSubform(fg: Subform, fgSpan: number, level: number) {
 		const children = formsValueContainer?.getChildren()?.filter((c) => c.getLabel() === fg.id)
+		const tp = translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))
 		return html`<div class="subform" style="${calculateFieldOrGroupSize(fgSpan, 1)}">
 			<div class="subform__heading">
-				${h(
-					level,
-					'subform__heading__title',
-					html`${(props.language && fg.shortLabel
-						? (translationProvider ?? (form.translations && defaultTranslationProvider(form.translations)))?.(props.language, fg.shortLabel)
-						: fg.shortLabel) ?? ''}`,
-				)}
-				<form-selection-button
-					.forms="${Object.entries(fg.forms)}"
-					.formAdded="${(title: string, form: Form) => {
-						form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
-					}}"
-					.translationProvider="${translationProvider ?? (form.translations && defaultTranslationProvider(form.translations))}"
-					.language="${props.language}"
-				></form-selection-button>
+				${h(level, 'subform__heading__title', html`${(props.language && fg.shortLabel ? tp?.(props.language, fg.shortLabel) : fg.shortLabel) ?? ''}`)}
+				${readonly
+					? nothing
+					: html`<form-selection-button
+							.forms="${Object.entries(fg.forms)}"
+							.formAdded="${(title: string, form: Form) => {
+								form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
+							}}"
+							.translationProvider="${tp}"
+							.language="${props.language}"
+					  ></form-selection-button>`}
 			</div>
 			${children
 				?.map((child) => {
 					const childForm = Object.values(fg.forms).find((f) => f.id === child.getFormId())
+					const title = childForm?.form ?? childForm?.description
+					const localisedTitle = (title && tp && props.language ? tp?.(props.language, title) : title) ?? ''
 					return (
 						childForm &&
 						html`
 							<div class="subform__child">
-								<h3 class="subform__child__title">${childForm.form ?? childForm.description}</h3>
+								<h3 class="subform__child__title">${localisedTitle}</h3>
 								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
-								<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove</button>
+								${readonly ? nothing : html`<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove</button>`}
 							</div>
-						
 						`
 					)
 				})
