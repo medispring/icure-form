@@ -76,6 +76,8 @@ import okido_paramedical_care from './samples/okido_paramedical_care.yaml'
 // @ts-ignore
 import okido from './samples/okido.yaml'
 // @ts-ignore
+import okido from './samples/okido.yaml'
+// @ts-ignore
 import physio_clinical_decision from './samples/physio_clinical_decision.yaml'
 // @ts-ignore
 import physio_exam_phy from './samples/physio_exam_phy.yaml'
