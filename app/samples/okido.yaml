@@ -32,6 +32,10 @@ translations:
       okido-forms.okido.field.labels.severity: Sévérité
       okido-forms.okido.field.labels.repercussion: Répercussion
       okido-forms.okido.field.labels.stateOfPhysiotherapy: Etat du bilan kiné
+      okido-forms.okido.field.labels.state: Etat
+      okido-forms.okido.field.labels.observation: Observation
+      okido-forms.okido.field.labels.palpation: Palpation
+      okido-forms.okido.field.labels.measure: Mesure
   - language: nl
     translations:
       okido-forms.okido.field.label.okido: OKIDO
@@ -58,6 +62,10 @@ translations:
       okido-forms.okido.field.labels.paramedicalCare: Paramedische zorg
       okido-forms.okido.field.labels.physiotherapyCare: Kinesitherapie
       okido-forms.okido.field.labels.stateOfPhysiotherapy: Toestand van de kine
+      okido-forms.okido.field.labels.state: Toestand
+      okido-forms.okido.field.labels.observation: Observatie
+      okido-forms.okido.field.labels.palpation: Palpatie
+      okido-forms.okido.field.labels.measure: Meting
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -141,6 +149,9 @@ subForms:
               - a3618495-fc40-4b95-99c0-acb0cb302554
               - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
               - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+              - 040428a2-96fd-45e4-bfdc-4b019a448660
+              - c5f79cb0-c258-4a6d-9e9b-109c46941c4f
+              - b9839e10-5fdf-4d23-9b95-01ae04c22002
   bec34e86-e20d-4ca4-b091-bd28c819f72f:
     form: okido-forms.okido.field.label.evaluation
     description: okido-forms.SUBSUB
@@ -231,6 +242,99 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 1
+  040428a2-96fd-45e4-bfdc-4b019a448660:
+    form: okido-forms.okido.field.labels.observation
+    description: okido-forms.okido.field.labels.observation
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 1
+  c5f79cb0-c258-4a6d-9e9b-109c46941c4f:
+    form: okido-forms.okido.field.labels.palpation
+    description: okido-forms.okido.field.labels.palpation
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 1
+  b9839e10-5fdf-4d23-9b95-01ae04c22002:
+    form: okido-forms.okido.field.labels.measure
+    description: okido-forms.okido.field.labels.measure
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - subform:
+              baca774a-b96c-44af-84ff-15619e0af0e9:
+                form: okido-forms.okido.field.labels.functionalDisorder
+                description: okido-forms.okido.field.labels.functionalDisorder
+                codifications:
+                  - type: CD-SEVERITY
+                    codes:
+                      - id: CD-SEVERITY|low|1
+                        label:
+                          nl: Licht
+                          fr: Léger
+                      - id: CD-SEVERITY|normal|1
+                        label:
+                          nl: Normaal
+                          fr: Normal
+                      - id: CD-SEVERITY|high|1
+                        label:
+                          nl: Ernstig
+                          fr: Grave
+                  - type: MS-OKIDO-CARE-STATUS
+                    codes:
+                      - id: MS-OKIDO-CARE-STATUS|active|1
+                        label:
+                          nl: Actief
+                          fr: Actif
+                      - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+                        label:
+                          nl: Passief - relevant
+                          fr: Passif - relevant
+                      - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+                        label:
+                          nl: Niet relevant
+                          fr: Passif - non relevant
+                      - id: MS-OKIDO-CARE-STATUS|notPresent|1
+                        label:
+                          nl: Niet aanwezig
+                          fr: Non présent
+                sections:
+                  - section: okido-forms.okido.field-labels.SECTION-1
+                    fields:
+                      - group: line
+                        borderless: true
+                        span: 24
+                        fields:
+                          - field: okido-forms.okido.field.labels.date
+                            type: date-picker
+                            computedProperties:
+                              defaultValue: |
+                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                            tags:
+                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
+                          - field: okido-forms.okido.field.labels.description
+                            type: textfield
+                            span: 24
+                            tags:
+                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
+                              - CD-ITEM|complaint|1
   520b50d1-d1ee-4721-b6d1-3ad9281e8290:
     form: okido-forms.okido.field.labels.functionalDisorder
     description: okido-forms.okido.field.labels.functionalDisorder
@@ -1014,6 +1118,41 @@ subForms:
   baca774a-b96c-44af-84ff-15619e0af0e9:
     form: okido-forms.okido.field.labels.stateOfPhysiotherapy
     description: okido-forms.okido.field.labels.stateOfPhysiotherapy
+    codifications:
+      - type: CD-LIFECYCLE
+        codes:
+          - id: CD-LIFECYCLE|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: CD-LIFECYCLE|inactive|1
+            label:
+              nl: Inactief
+              fr: Inactif
+          - id: CD-LIFECYCLE|cancelled|1
+            label:
+              nl: Geannuleerd
+              fr: Annuler
+          - id: CD-LIFECYCLE|completed|1
+            label:
+              nl: Voltooid
+              fr: Complété
+          - id: CD-LIFECYCLE|prescribed|1
+            label:
+              nl: Voorgeschreven
+              fr: Prescrit
+          - id: CD-LIFECYCLE|added|1
+            label:
+              nl: Toegevoegd
+              fr: Ajouté
+          - id: CD-LIFECYCLE|planned|1
+            label:
+              nl: Gepland
+              fr: Plannifié
+          - id: CD-LIFECYCLE|delivered|1
+            label:
+              nl: Geleverd
+              fr: Délivré
     sections:
       - section: okido-forms.okido.field-labels.SECTION-1
         fields:
@@ -1021,8 +1160,8 @@ subForms:
             borderless: true
             span: 24
             fields:
-              - field: okido-forms.okido.field.labels.description
-                type: textfield
-                span: 24
-                multiline: true
-                rowSpan: 1
+              - field: okido-forms.okido.field.labels.state
+                type: dropdown
+                span: 12
+                codifications:
+                  - CD-LIFECYCLE
