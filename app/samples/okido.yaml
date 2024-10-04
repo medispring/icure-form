@@ -156,7 +156,7 @@ translations:
       okido-forms.okido.field.labels.hcp: Overlegpartner
       okido-forms.okido.field.labels.firstname: Voornaam
       okido-forms.okido.field.labels.lastname: Naam
-      okido-forms.okido.field.labels.ssin: inss
+      okido-forms.okido.field.labels.ssin: Inss
       okido-forms.okido.field.labels.nihii: Riziv
       okido-forms.okido.field.labels.disciplinary: Discipline
       okido-forms.okido.field.labels.closureReason: Reden van afsluiting
@@ -2186,8 +2186,12 @@ subForms:
                 computedProperties:
                   defaultValue: |
                     return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-REPORT-ITEM|date|1
               - field: okido-forms.okido.field.labels.description
                 type: textfield
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                  - MS-OKIDO-REPORT-ITEM|description|1
