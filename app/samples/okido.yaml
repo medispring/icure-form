@@ -72,6 +72,21 @@ translations:
       okido-forms.okido.field.labels.plannedProcedure: Procédure planifiée
       okido-forms.okido.field.labels.supportOffered: Prise en charge proposée
       okido-forms.okido.field.labels.goalOfTreatment: Objectif du traitement
+      okido-forms.okido.field.labels.concertation: Concertation
+      okido-forms.okido.field.labels.prestation: Prestation
+      okido-forms.okido.field.labels.convention: Convention / recommandation au patient
+      okido-forms.okido.field.labels.hcp: Partenaire de concertation
+      okido-forms.okido.field.labels.firstname: Prénom
+      okido-forms.okido.field.labels.lastname: Nom
+      okido-forms.okido.field.labels.ssin: Niss
+      okido-forms.okido.field.labels.nihii: Inami
+      okido-forms.okido.field.labels.disciplinary: Discipline
+      okido-forms.okido.field.labels.closureReason: Raison de la clôture
+      okido-forms.okido.field.labels.patientParticipation: Participation du patient
+      okido-forms.okido.field.labels.nextTreatment: Proposition de traitement ultérieur
+      okido-forms.okido.field.labels.agreementWithPatient: Accord avec le patient
+      okido-forms.okido.field.labels.report: Rapport
+      okido-forms.okido.field.labels.reason: Raison
   - language: nl
     translations:
       okido-forms.okido.field.label.okido: OKIDO
@@ -135,6 +150,21 @@ translations:
       okido-forms.okido.field.labels.plannedProcedure: Geplande procedure
       okido-forms.okido.field.labels.supportOffered: Voorgestelde zorg
       okido-forms.okido.field.labels.goalOfTreatment: Doel van de behandeling
+      okido-forms.okido.field.labels.concertation: Concertatie
+      okido-forms.okido.field.labels.prestation: Prestatie
+      okido-forms.okido.field.labels.convention: Conventie / aanbeveling aan de patiënt
+      okido-forms.okido.field.labels.hcp: Overlegpartner
+      okido-forms.okido.field.labels.firstname: Voornaam
+      okido-forms.okido.field.labels.lastname: Naam
+      okido-forms.okido.field.labels.ssin: inss
+      okido-forms.okido.field.labels.nihii: Riziv
+      okido-forms.okido.field.labels.disciplinary: Discipline
+      okido-forms.okido.field.labels.closureReason: Reden van afsluiting
+      okido-forms.okido.field.labels.patientParticipation: Patiëntenparticipatie
+      okido-forms.okido.field.labels.nextTreatment: Voorstel voor verdere behandeling
+      okido-forms.okido.field.labels.agreementWithPatient: Overeenkomst met de patiënt
+      okido-forms.okido.field.labels.report: Verslag
+      okido-forms.okido.field.labels.reason: Reden
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -293,6 +323,14 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+              - subform:
+                id: a5bf2b1f-0f6e-41f7-b6d1-cd3e657fe3bd
+                span: 24
+                borderless: true
+                refs:
+                  - 11a9e1be-cca3-4972-83ee-b595a12e5d78
+                  - 2e978da7-0b3f-4a42-992f-821b75eac36b
+                  - ba8accc5-22de-4bc7-8da1-030c0a10bc0c
   267bf3b2-2b01-4d43-820f-f54e4d7dafc2:
     form: okido-forms.okido.field.label.diagnosis
     description: okido-forms.SUBSUB
@@ -308,6 +346,20 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+              - subform:
+                id: 8e830496-5456-4616-83ca-4772eab677fb
+                span: 24
+                borderless: true
+                refs:
+                  - baca774a-b96c-44af-84ff-15619e0af0e9
+                  - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+                  - c3704e08-b292-4b9f-a629-d616c9aa8d83
+                  - e5e1f790-ed79-4a68-b024-ed29e698aa96
+                  - a3618495-fc40-4b95-99c0-acb0cb302554
+                  - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+                  - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+                  - 3f637117-6084-4338-a37f-82a2b994822f
+                  - c962445e-f7f2-4c9d-b37a-901ee9cd1471
   b096d5fc-5b63-4775-8054-f2a2d73ac6ae:
     form: okido-forms.okido.field.label.closure
     description: okido-forms.SUBSUB
@@ -323,6 +375,17 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+              - subform:
+                id: c0341db7-807f-413f-bd36-0f120c46caa2
+                shortLabel: okido-forms.okido.field.label.form
+                span: 24
+                borderless: true
+                refs:
+                  - 6ca47ab7-3bb9-4cf1-be00-568bef1f2cac
+                  - 3505ed17-448a-4c05-9be2-9b5d181807a5
+                  - 79ccd586-3448-44c0-a527-f8eb8f158dbb
+                  - 705a19cf-cad9-4ea8-994b-9a928ab4b018
+                  - 0d3d352e-4743-4a0a-a99d-730b307189a2
   f0a6f11e-3cd8-423e-a1d5-1802710194ba:
     form: okido-forms.okido.field.labels.reasonOfConsultation
     description: okido-forms.okido.field.labels.reasonOfConsultation
@@ -1793,7 +1856,7 @@ subForms:
                   - CD-ITEM|observation|1
               - field: okido-forms.okido.field.labels.unit
                 type: dropdown
-                span: 4
+                span: 8
                 codifications:
                   - CD-UNIT
                 tags:
@@ -1875,6 +1938,241 @@ subForms:
                 rowSpan: 5
   495085c0-80be-44a6-b064-a656a7d0c332:
     form: okido-forms.okido.field.labels.plannedProcedure
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  11a9e1be-cca3-4972-83ee-b595a12e5d78:
+    form: okido-forms.okido.field.labels.prestation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  2e978da7-0b3f-4a42-992f-821b75eac36b:
+    form: okido-forms.okido.field.labels.convention
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  ba8accc5-22de-4bc7-8da1-030c0a10bc0c:
+    form: okido-forms.okido.field.labels.concertation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.concertation
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+              - subform:
+                id: 4e713fdb-0a95-4ccf-98bc-6f3f83ee90fb
+                span: 24
+                borderless: true
+                refs:
+                  - 70c1c422-9308-44f5-bc0e-873840bf1599
+  70c1c422-9308-44f5-bc0e-873840bf1599:
+    form: okido-forms.okido.field.labels.hcp
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.lastname
+                type: textfield
+                span: 4
+              - field: okido-forms.okido.field.labels.firstname
+                type: textfield
+                span: 4
+              - field: okido-forms.okido.field.labels.ssin
+                type: textfield
+                span: 4
+              - field: okido-forms.okido.field.labels.nihii
+                type: textfield
+                span: 4
+              - field: okido-forms.okido.field.labels.disciplinary
+                type: dropdown
+                span: 4
+  6ca47ab7-3bb9-4cf1-be00-568bef1f2cac:
+    form: okido-forms.okido.field.labels.closureReason
+    description: okido-forms.SUBSUB
+    codifications:
+      - type: MS-OKIDO-CLOSURE-REASON
+        codes:
+          - id: MS-OKIDO-CLOSURE-REASON|noShowedUp|1
+            label:
+              nl: Afgesloten
+              fr: Le patient ne s'est plus présenté
+          - id: MS-OKIDO-CLOSURE-REASON|stoppedByPatient|1
+            label:
+              nl: Afgesloten op verzoek van de patiënt
+              fr: Arrêté sur décision du patient
+          - id: MS-OKIDO-CLOSURE-REASON|lackOfCooperation|1
+            label:
+              nl: Afgesloten wegens gebrek aan samenwerking
+              fr: Manque de coopération
+          - id: MS-OKIDO-CLOSURE-REASON|patientMoves|1
+            label:
+              nl: Afgesloten wegens verhuis van de patiënt
+              fr: Déménagement du patient
+          - id: MS-OKIDO-CLOSURE-REASON|serieFinalizedNormally|1
+            label:
+              nl: Serie normaal afgesloten
+              fr: Série finalisée normalement
+          - id: MS-OKIDO-CLOSURE-REASON|complaintDisappeared|1
+            label:
+              nl: Klacht verdwenen
+              fr: Plainte disparue
+          - id: MS-OKIDO-CLOSURE-REASON|noImprovements|1
+            label:
+              nl: Geen verbetering
+              fr: Pas d'amélioration
+          - id: MS-OKIDO-CLOSURE-REASON|decisionOfPhysiotherapist|1
+            label:
+              nl: Afgesloten op beslissing van de kinesitherapeut
+              fr: Sur décision du kinésithérapeute
+          - id: MS-OKIDO-CLOSURE-REASON|other|1
+            label:
+              nl: Andere
+              fr: Autre
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.reason
+                type: dropdown
+                span: 4
+                codifications:
+                  - MS-OKIDO-CLOSURE-REASON
+              - field: okido-forms.okido.field.labels.other
+                type: textfield
+                computedProperties:
+                    hidden: |
+                      return !self['okido-forms.okido.field.labels.reason']?.some((item) => item?.codes.some(code => code.id === 'MS-OKIDO-CLOSURE-REASON|other|1'))
+  3505ed17-448a-4c05-9be2-9b5d181807a5:
+    form: okido-forms.okido.field.labels.patientParticipation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  79ccd586-3448-44c0-a527-f8eb8f158dbb:
+    form: okido-forms.okido.field.labels.nextTreatment
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  705a19cf-cad9-4ea8-994b-9a928ab4b018:
+    form: okido-forms.okido.field.labels.agreementWithPatient
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+  0d3d352e-4743-4a0a-a99d-730b307189a2:
+    form: okido-forms.okido.field.labels.report
     description: okido-forms.SUBSUB
     sections:
       - section: okido-forms.okido.field-labels.SECTION-1
