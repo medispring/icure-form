@@ -85,7 +85,7 @@ sections:
             span: 6
             computedProperties:
               defaultValue: |
-                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                return { content: { '*': { type: 'datetime', value: parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-APPOINTMENT-TIME-ITEM|appointmentDate|1
               - MS-ABORTION-ITEM|date|1
@@ -131,7 +131,7 @@ sections:
                 span: 12
                 computedProperties:
                   hidden: |
-                    return !self['abortion-forms.field-labels.CONTACT-VIA']?.some(d => d.codes?.some(c => c.id === 'other'))
+                    return !self['abortion-forms.field-labels.CONTACT-VIA']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
                 tags:
                   - MS-ABORTION-APPOINTMENT-TIME-ITEM|other|1
                   - MS-ABORTION-ITEM|contact-via|1

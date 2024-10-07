@@ -200,153 +200,153 @@ codifications:
           fr: Injection contraceptive
   - type: MS-ABORTION-CONTRACEPTION
     codes:
-      - id: coitus-interrupted
+      - id: '06'
         label:
           nl: Coïtus interruptus
           fr: Coït interrompu
-      - id: male-sterilization
+      - id: '15'
         label:
           nl: Sterilisatie man
           fr: Stérilisation masculine
-      - id: periodic-abstinence
+      - id: '07'
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: female-sterilization
+      - id: '16'
         label:
           nl: Sterilisatie vrouw
           fr: Stérilisation féminine
-      - id: spermicides
+      - id: '08'
         label:
           nl: Spermicide middelen
           fr: Spermicides
-      - id: morning-after-pill
+      - id: '17'
         label:
           nl: Noodpil
           fr: Pilule du lendemain
-      - id: pessary
+      - id: '09'
         label:
           nl: Pessarium
           fr: Pessaire
-      - id: implant
+      - id: '18'
         label:
           nl: Implant
           fr: Implant contraceptif
-      - id: condom
+      - id: '10'
         label:
           nl: Condoom
           fr: Préservatif
-      - id: patch
+      - id: '19'
         label:
           nl: Patch
           fr: Patch contraceptif
-      - id: oral-pill
+      - id: '11'
         label:
           nl: Anticonceptiepil
           fr: Pilule contraceptive
-      - id: vaginal-ring
+      - id: '20'
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
-      - id: progestone-only-pill
+      - id: '12'
         label:
           nl: Prikpil
           fr: Pilule progestative
-      - id: symptothermal-method
+      - id: '21'
         label:
           nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
-      - id: Copper-IUD
+      - id: '13'
         label:
           nl: Koperspiraal
           fr: Stérilet en cuivre
-      - id: electronic-or-digital-methods
+      - id: '22'
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
-      - id: hormonal-IUD
+      - id: '14'
         label:
           nl: Hormoonspiraal
           fr: Stérilet hormonal
-      - id: other-contraceptives
+      - id: '23'
         label:
           nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-METHOD-TYPE
     codes:
-      - id: drug-method
+      - id: '2'
         label:
           nl: Medicamenteuze methode
           fr: Méthode médicamenteuse
-      - id: surgical-method
+      - id: '2'
         label:
           nl: Chirurgische methode
           fr: Méthode chirurgicale
   - type: MS-ABORTION-TIME-OF-CARE
     codes:
-      - id: ambulatory
+      - id: '1'
         label:
           nl: Geen (ambulant)
           fr: Aucun (ambulatoire)
-      - id: less-twenty-four
+      - id: '2'
         label:
           nl: 'Opname: 24 uur of minder'
           fr: 'Enregistrement: 24 heures ou moins'
-      - id: more-twenty-four
+      - id: '3'
         label:
           nl: 'Opname: meer dan 24 uur'
           fr: 'Enregistrement: supérieur à 24 heures'
   - type: MS-ABORTION-COMPLICATION
     codes:
-      - id: none
+      - id: '1'
         label:
           nl: Geen
-          fr: Aucune
-      - id: bleeding
+          fr: Aucun
+      - id: '2'
         label:
           nl: Bloedverlies > 500 ml
           fr: Perte de sang supérieure à 500 ml
-      - id: perforation
+      - id: '3'
         label:
           nl: Perforatie
           fr: Perforation
-      - id: cervix
+      - id: '4'
         label:
           nl: Cervixscheur
           fr: Cervix heur
-      - id: other
+      - id: '5'
         label:
           nl: Andere
           fr: Autre
   - type: MS-ABORTION-MEDICAL-REPORT
     codes:
-      - id: yes
+      - id: '1'
         label:
           nl: Ja
           fr: Oui
-      - id: no
+      - id: '2'
         label:
           nl: Nee
           fr: Non
   - type: MS-ABORTION-ANESTHESIA
     codes:
-      - id: none
+      - id: '1'
         label:
           nl: Geen
           fr: Aucune
-      - id: local
+      - id: '2'
         label:
           nl: Lokaal
           fr: Locale
-      - id: region
+      - id: '3'
         label:
           nl: Regionaal (Epiduraal / Spinaal)
           fr: Régionale (Epidural / Spinal)
-      - id: general
+      - id: '4'
         label:
           nl: Algemeen
           fr: Générale
-      - id: other
+      - id: '5'
         label:
           nl: Andere
           fr: Autre
@@ -401,6 +401,7 @@ translations:
       abortion-forms.field-labels.FOLLOW-UP-MIN-INTERVENTION: Aantal minuten ingreep
       abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION: Aantal minuten gesprek
       abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Aantal minuten verpleging
+      field-labels.MAX-CONTRACEPTION-ITEM: U kunt maximaal 3 keuzes selecteren.
   - language: fr
     translations:
       abortion-forms.field-labels.DATE-PHASE-1: Date phase 1
@@ -451,6 +452,7 @@ translations:
       abortion-forms.field-labels.FOLLOW-UP-MIN-INTERVENTION: Suivi (min) (intervention)
       abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION: Suivi (min) (conversation)
       abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE: Suivi (min) (infirmier(e))
+      field-labels.MAX-CONTRACEPTION-ITEM: Vous ne pouvez sélectionner que 3 choix maximum.
 sections:
   - section: abortion-forms.section-labels.section-1
     fields:
@@ -462,7 +464,7 @@ sections:
             type: date-picker
             computedProperties:
               defaultValue: |
-                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                return { content: { '*': { type: 'datetime', value: parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|date|1
               - MS-ABORTION-ITEM|date|1
@@ -572,7 +574,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return ![...self['abortion-forms.field-labels.ABORTION-REASON-CODE-1'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-2'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-3']]?.some(d => d.codes?.some(c => c.id === 'MS-ABORTION-REASON-CODE|99|1'))
+                return ![...self['abortion-forms.field-labels.ABORTION-REASON-CODE-1'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-2'],...self['abortion-forms.field-labels.ABORTION-REASON-CODE-3']]?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'MS-ABORTION-REASON-CODE|99|1'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abortionReasonCodeOther|1
               - MS-ABORTION-REASON-CODE|custom|1
@@ -598,7 +600,7 @@ sections:
             multiline: true
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.PRE-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['abortion-forms.field-labels.PRE-MEDICATION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|preMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -627,7 +629,7 @@ sections:
             multiline: true
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.PAIN-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['abortion-forms.field-labels.PAIN-MEDICATION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|painMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -658,7 +660,7 @@ sections:
               span: 2
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id === 'yes'))
+                return !self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'yes'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxisYes|1
               - MS-ABORTION-ITEM|medication|1
@@ -667,7 +669,7 @@ sections:
             span: 6
             computedProperties:
               hidden: |
-                return !(self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id === 'no')) && self['abortion-forms.field-labels.AB-PROPHYLAXIS-YES']?.some(d => d.codes?.some(c => c.id === 'other')))
+                return !(self['abortion-forms.field-labels.AB-PROPHYLAXIS']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'no')) && self['abortion-forms.field-labels.AB-PROPHYLAXIS-YES']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other')))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|abProphylaxisOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -707,7 +709,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.PRESENT-DURING-INTERVENTION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['abortion-forms.field-labels.PRESENT-DURING-INTERVENTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|presentDuringInterventionOther|1
               - MS-ABORTION-ITEM|companion|1
@@ -734,7 +736,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.ANESTHESIA-MEDICATION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['abortion-forms.field-labels.ANESTHESIA-MEDICATION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-CURETTAGE-ITEM|anesthesiaMedicationOther|1
               - MS-ABORTION-ITEM|medication|1
@@ -837,17 +839,22 @@ sections:
               alignItems: 'flex-end'
             codifications:
               - MS-ABORTION-CONTRACEPTION
+            validators:
+              - validation: |
+                  const codes = self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']?.[0]?.codes.length ?? 0
+                  return codes <= 3
+                message: field-labels.MAX-CONTRACEPTION-ITEM
             tags:
-              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|contraceptionFuture|1
+              - MS-ABORTION-CURETTAGE-ITEM|contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
           - field: abortion-forms.field-labels.OTHER-FUTURE-CONTRACEPTION
             span: 6
             type: textfield
             computedProperties:
               hidden: |
-                return ![...self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']].some(field => field.codes?.some(c => c.id === 'other-contraceptives'))
+                return ![...self['abortion-forms.field-labels.FUTURE-CONTRACEPTION']].some(field => field.codes?.some(c => c.id.split('|')[1] === 'other-contraceptives'))
             tags:
-              - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
+              - MS-ABORTION-CURETTAGE-ITEM|other-contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
               - MS-ABORTION-CONTRACEPTION|custom|1
       - group: line
@@ -863,7 +870,7 @@ sections:
             codifications:
               - MS-ABORTION-METHOD-TYPE
             tags:
-              - MS-NIHII-CONVENTION-ITEM|abortionMethod|1
+              - MS-ABORTION-CURETTAGE-ITEM|abortionMethod|1
               - MS-ABORTION-ITEM|method|1
           - field: abortion-forms.field-labels.ANESTHESIA
             type: dropdown
@@ -875,38 +882,38 @@ sections:
               direction: column
               span: 2
             tags:
-              - MS-NIHII-CONVENTION-ITEM|anesthesia|1
+              - MS-ABORTION-CURETTAGE-ITEM|anesthesia|1
               - MS-ABORTION-ITEM|anesthesia|1
           - field: abortion-forms.field-labels.ANESTHESIA-OTHER
             type: textfield
             span: 6
             computedProperties:
               hidden: |
-                return ![...self['abortion-forms.field-labels.ANESTHESIA']].some(field => field.codes?.some(c => c.id === 'other'))
+                return ![...self['abortion-forms.field-labels.ANESTHESIA']].some(field => field.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
-              - MS-NIHII-CONVENTION-ITEM|anesthesiaOther|1
+              - MS-ABORTION-CURETTAGE-ITEM|anesthesiaOther|1
       - group: line
         borderless: true
         span: 24
         fields:
           - field: abortion-forms.field-labels.TIME-OF-CARE
-            type: checkbox
+            type: radio-button
             computedProperties:
               defaultValue: |
-                return { content: { fr: { type: 'string', value: 'Aucun (ambulatoire)' }, nl: { type: 'string', value: 'Geen (ambulant)'} }, codes: [{ id: 'ambulatory' }] }
+                return { content: { fr: { type: 'string', value: 'Aucun (ambulatoire)' }, nl: { type: 'string', value: 'Geen (ambulant)'} }, codes: [{ id: 'MS-ABORTION-TIME-OF-CARE|ambulatory|1' }] }
             span: 6
             codifications:
               - MS-ABORTION-TIME-OF-CARE
             styleOptions:
               direction: column
             tags:
-              - MS-NIHII-CONVENTION-ITEM|timeOfCare|1
+              - MS-ABORTION-CURETTAGE-ITEM|timeOfCare|1
       - group: line
         borderless: true
         span: 24
         fields:
           - field: abortion-forms.field-labels.COMPLICATION
-            type: checkbox
+            type: radio-button
             codifications:
               - MS-ABORTION-COMPLICATION
             span: 12
@@ -917,15 +924,15 @@ sections:
               direction: column
               span: 2
             tags:
-              - MS-NIHII-CONVENTION-ITEM|complication|1
+              - MS-ABORTION-CURETTAGE-ITEM|complication|1
           - field: abortion-forms.field-labels.COMPLICATION-OTHER
             type: textfield
             span: 6
             computedProperties:
               hidden: |
-                return ![...self['abortion-forms.field-labels.COMPLICATION']].some(field => field.codes?.some(c => c.id === 'other'))
+                return ![...self['abortion-forms.field-labels.COMPLICATION']].some(field => field.codes?.some(c => c.id.split('|')[1] === '5'))
             tags:
-              - MS-NIHII-CONVENTION-ITEM|complicationOther|1
+              - MS-ABORTION-CURETTAGE-ITEM|complicationOther|1
       - group: line
         borderless: true
         span: 24
@@ -938,7 +945,7 @@ sections:
               direction: column
               span: 2
             tags:
-              - MS-NIHII-CONVENTION-ITEM|medicalReport|1
+              - MS-ABORTION-CURETTAGE-ITEM|medicalReport|1
       - group: line
         borderless: true
         span: 24
@@ -950,7 +957,7 @@ sections:
               defaultValue: |
                 return { content: { '*': { type: 'number', value: 30 } }, codes: [] }
             tags:
-              - MS-NIHII-CONVENTION-ITEM|followUpMinIntervention|1
+              - MS-ABORTION-CURETTAGE-ITEM|followUpMinIntervention|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-FOLLOW-UP-MIN|intervention|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-CONVERSATION
@@ -960,7 +967,7 @@ sections:
               defaultValue: |
                 return { content: { '*': { type: 'number', value: 20 } }, codes: [] }
             tags:
-              - MS-NIHII-CONVENTION-ITEM|followUpMinConversation|1
+              - MS-ABORTION-CURETTAGE-ITEM|followUpMinConversation|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-FOLLOW-UP-MIN|generic|1
           - field: abortion-forms.field-labels.FOLLOW-UP-MIN-NURSE
@@ -970,6 +977,6 @@ sections:
               defaultValue: |
                 return { content: { '*': { type: 'number', value: 20 } }, codes: [] }
             tags:
-              - MS-NIHII-CONVENTION-ITEM|followUpMinNurse|1
+              - MS-ABORTION-CURETTAGE-ITEM|followUpMinNurse|1
               - MS-ABORTION-ITEM|follow-up|1
               - MS-FOLLOW-UP-MIN|nurse|1
