@@ -117,7 +117,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 			<div id="root" class="icure-text-field ${inputValue != '' ? 'has-content' : ''}" data-placeholder=${this.placeholder}>
 				${this.displayedLabels ? generateLabels(this.displayedLabels, this.language(), this.translate ? this.translationProvider : undefined) : nothing}
 				<div class="icure-input ${validationError && 'icure-input__validationError'}" id="test" @click="${(event: MouseEvent) => this.togglePopup(event, true)}">
-					<input type="text" id="editor" style="outline: none" .value=${this.textInputValue ?? inputValue ?? ''} @input="${this.textInputChanged()}" />
+					<input type="text" id="editor" style="outline: none" .value=${this.textInputValue ?? inputValue ?? ''} @input="${this.textInputChanged()}" autocomplete="off" />
 					<div id="extra" class=${'extra forced'}>
 						<button class="btn select-arrow" @click="${this.togglePopup}">${dropdownPicto}</button>
 						${this.displayMenu
@@ -125,11 +125,7 @@ export class IcureDropdownField extends FieldWithOptionsMixin(Field) {
 									<div id="menu" class="options">
 										${this.displayedOptions?.map(
 											(x) =>
-												html`<button
-													@click="${this.handleOptionButtonClicked(x.id)}"
-													id="${x.id}"
-													class="option ${x?.['label']?.[this.language()] === inputValue ? 'selected' : ''}"
-												>
+												html`<button @click="${this.handleOptionButtonClicked(x.id)}" id="${x.id}" class="option ${x?.['label']?.[this.language()] === inputValue ? 'selected' : ''}">
 													${x?.['label']?.[this.language()] || ''}
 												</button>`,
 										)}

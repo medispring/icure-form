@@ -90,7 +90,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['abortion-forms.field-labels.CONVERSATION-NATURE']?.some((item) => item?.codes.some(code => code.id === 'other'))
+                return !self['abortion-forms.field-labels.CONVERSATION-NATURE']?.some((item) => item?.codes.some(code => code.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-EXTRA-ITEM|natureOfConversationOther|1
       - group: line

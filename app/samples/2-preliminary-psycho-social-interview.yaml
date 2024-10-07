@@ -136,41 +136,41 @@ codifications:
           fr: Autre
   - type: MS-ABORTION-PATIENT-MARITAL-STATUS
     codes:
-      - id: single
+      - id: '1'
         label:
           nl: Alleenstaand
           fr: Célibataire
-      - id: married
+      - id: '2'
         label:
           nl: Gehuwd
           fr: Mariée
-      - id: divorced
+      - id: '3'
         label:
           nl: Gescheiden
           fr: Divorcée
-      - id: widowed
+      - id: '4'
         label:
           nl: Weduwe
           fr: Veuve
-      - id: cohabiting
+      - id: '5'
         label:
           nl: Wettelijk samenwonend
           fr: Cohabite
   - type: MS-ABORTION-PATIENT-LIFE-SITUATION
     codes:
-      - id: alone
+      - id: '1'
         label:
           nl: Woont alleen
           fr: Seule
-      - id: couple
+      - id: '2'
         label:
           nl: Woont als koppel
           fr: En couple
-      - id: parent
+      - id: '3'
         label:
           nl: Woont bij de ouders of bij familielid
           fr: Parent
-      - id: other
+      - id: '4'
         label:
           nl: Andere situatie
           fr: Autre
@@ -251,7 +251,7 @@ sections:
             span: 8
             computedProperties:
               defaultValue: |
-                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                return { content: { '*': { type: 'datetime', value: parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
             tags:
               - MS-ABORTION-DATE|intake|1
               - MS-ABORTION-ITEM|date|1
@@ -298,7 +298,7 @@ sections:
             span: 16
             computedProperties:
               hidden: |
-                return !self['field-labels.ACCOMPANIED-BY']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.ACCOMPANIED-BY']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-COMPANION-TYPE|custom|1
               - MS-ABORTION-COMPANION|typeOfCompanion|1
@@ -388,7 +388,7 @@ sections:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|SCHOOL-LEVEL-OTHER|1
             computedProperties:
               hidden: |
-                return !self['field-labels.SCHOOL-LEVEL']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.SCHOOL-LEVEL']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
       - group: boxes
         borderless: true
         span: 24
@@ -413,7 +413,7 @@ sections:
               - MS-ABORTION-ITEM|administrative-patient-info|1
             computedProperties:
               hidden: |
-                return !self['field-labels.PATIENT-PROFESSION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.PATIENT-PROFESSION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
       - group: boxes
         borderless: true
         span: 24
@@ -446,7 +446,7 @@ sections:
             shortLabel: ' '
             computedProperties:
               hidden: |
-                return !self['field-labels.ACTUAL-LIFE-SITUATION']?.some(d => d.codes?.some(c => c.id === 'other'))
+                return !self['field-labels.ACTUAL-LIFE-SITUATION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other'))
             tags:
               - MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|ACTUAL-LIFE-SITUATION-OTHER|1
               - MS-ABORTION-PATIENT-LIFE-SITUATION|custom|1
