@@ -1,0 +1,44 @@
+form: okido-forms.OKIDO
+id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
+description: okido-forms.OKIDO
+translations:
+  - language: fr
+    translations:
+      physio-forms.subjectif.field.label.subjectif: Examen subjectif
+      physio-forms.subjectif.field.label.patientPerspective: Perspective du patient
+      physio-forms.subjectif.field.label.medicalPerspective: Perspectives médicales
+      physio-forms.subjectif.field.label.characteristicOfHealthProblem: Caractéristiques du problème de santé
+  - language: nl
+    translations:
+        physio-forms.subjectif.field.label.subjectif: Subjectief onderzoek
+        physio-forms.subjectif.field.label.patientPerspective: Patiëntenperspectief
+        physio-forms.subjectif.field.label.medicalPerspective: Medische perspectieven
+        physio-forms.subjectif.field.label.characteristicOfHealthProblem: Kenmerken van het gezondheidsprobleem
+sections:
+  - section: okido-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.subjectif
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.patientPerspective
+            type: label
+
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.medicalPerspective
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.characteristicOfHealthProblem
+            type: label
