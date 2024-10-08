@@ -64,9 +64,9 @@ export interface CompoundType {
 	value: { [label: string]: PrimitiveType }
 }
 
-export interface Labels {
-	[position: string]: string
-}
+export type Position = 'top' | 'left' | 'right' | 'bottom' | 'float' | 'add' | 'remove'
+
+export type Labels = Partial<Record<Position, string>>
 
 export interface SortOptions {
 	sort: 'asc' | 'desc' | 'natural'
@@ -1122,6 +1122,7 @@ export class Subform {
 	computedProperties?: { [_key: string]: string }
 	width?: number
 	styleOptions?: { [_key: string]: unknown }
+	labels: Labels
 
 	constructor(
 		title: string,
@@ -1135,6 +1136,7 @@ export class Subform {
 			width,
 			styleOptions,
 			refs,
+			labels,
 		}: {
 			id?: string
 			shortLabel?: string
@@ -1144,6 +1146,7 @@ export class Subform {
 			width?: number
 			styleOptions?: { [_key: string]: unknown }
 			refs?: string[]
+			labels?: Labels
 		},
 	) {
 		this.id = id || title
@@ -1155,6 +1158,7 @@ export class Subform {
 		this.width = width
 		this.styleOptions = styleOptions
 		this.refs = refs
+		this.labels = labels ?? {}
 	}
 
 	copy(properties: Partial<Subform>): Subform {
@@ -1171,6 +1175,7 @@ export class Subform {
 		computedProperties?: { [_key: string]: string }
 		width?: number
 		styleOptions?: { [_key: string]: unknown }
+		labels?: Labels
 		id: string
 	}): Subform {
 		return new Subform(json.subform, json.forms ?? {}, {
@@ -1181,6 +1186,7 @@ export class Subform {
 			width: json.width,
 			styleOptions: json.styleOptions,
 			refs: json.refs,
+			labels: json.labels,
 		})
 	}
 

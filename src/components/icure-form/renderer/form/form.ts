@@ -80,6 +80,7 @@ export const render: Renderer = (
 				${readonly
 					? nothing
 					: html`<form-selection-button
+							.label="${fg.labels.add ?? 'Add subform'}"
 							.forms="${Object.entries(fg.forms)}"
 							.formAdded="${(title: string, form: Form) => {
 								form.id && formsValueContainer?.addChild(fg.id, form.id, fg.shortLabel ?? '')
@@ -93,13 +94,14 @@ export const render: Renderer = (
 					const childForm = Object.values(fg.forms).find((f) => f.id === child.getFormId())
 					const title = childForm?.form ?? childForm?.description
 					const localisedTitle = (title && tp && props.language ? tp?.(props.language, title) : title) ?? ''
+					const localisedRemove = (fg.labels.remove && tp && props.language ? tp?.(props.language, fg.labels.remove) : fg.labels.remove) ?? 'Remove'
 					return (
 						childForm &&
 						html`
 							<div class="subform__child">
 								<h3 class="subform__child__title">${localisedTitle}</h3>
 								${render(childForm, props, child, translationProvider, ownersProvider, optionsProvider, actionListener, languages, readonly, displayMetadata)}
-								${readonly ? nothing : html`<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">Remove</button>`}
+								${readonly ? nothing : html`<button class="subform__removeBtn" @click="${() => formsValueContainer?.removeChild?.(child)}">${localisedRemove}</button>`}
 							</div>
 						`
 					)

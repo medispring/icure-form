@@ -1,10 +1,10 @@
 import { html, TemplateResult } from 'lit'
-import { Code, Field, Labels } from '../model'
+import { Code, Field, Labels, Position } from '../model'
 
 export const getLabels = (field: Field): Labels => field.labels ?? (field.shortLabel ? { float: field.shortLabel } : { float: field.label() })
 
 export function generateLabels(labels: Labels, language: string, translationProvider?: (language: string, text: string) => string): TemplateResult[] {
-	return Object.keys(labels).map((position) => generateLabel(labels[position], position, language, translationProvider))
+	return Object.keys(labels).map((position: Position) => generateLabel(labels[position] as string, position, language, translationProvider))
 }
 
 export function generateLabel(
