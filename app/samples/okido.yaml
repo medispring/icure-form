@@ -94,7 +94,7 @@ translations:
   - language: nl
     translations:
       okido-forms.okido.field.label.okido: OKIDO
-      okido-forms.okido.field.label.form: Formulaire
+      okido-forms.okido.field.label.form: Formulier
       okido-forms.okido.field.label.anamnesis: Anamnese
       okido-forms.okido.field.label.search: Zoeken
       okido-forms.okido.field.label.evaluation: Evaluatie
@@ -106,7 +106,7 @@ translations:
       okido-forms.okido.field.labels.reasonOfConsultation: Reden van consultatie
       okido-forms.okido.field.labels.functionalDisorder: Functionele stoornis
       okido-forms.okido.field.labels.anatomicalStructure: Anatomische structuur
-      okido-forms.okido.field.labels.participation: Participatie
+      okido-forms.okido.field.labels.participation: Deelname
       okido-forms.okido.field.labels.activity: Activiteit
       okido-forms.okido.field.labels.externalFactor: Externe factor
       okido-forms.okido.field.labels.individualFactor: Individuele factor
@@ -116,8 +116,12 @@ translations:
       okido-forms.okido.field.labels.medicalCareActe: Medische zorg - acte
       okido-forms.okido.field.labels.paramedicalCare: Paramedische zorg
       okido-forms.okido.field.labels.physiotherapyCare: Kinesitherapie
-      okido-forms.okido.field.labels.stateOfPhysiotherapy: Toestand van de kine
-      okido-forms.okido.field.labels.state: Toestand
+      okido-forms.okido.field.labels.date: Datum
+      okido-forms.okido.field.labels.status: Status
+      okido-forms.okido.field.labels.severity: Ernst
+      okido-forms.okido.field.labels.repercussion: Repercussie
+      okido-forms.okido.field.labels.stateOfPhysiotherapy: Staat van de kinebalans
+      okido-forms.okido.field.labels.state: Staat
       okido-forms.okido.field.labels.observation: Observatie
       okido-forms.okido.field.labels.palpation: Palpatie
       okido-forms.okido.field.labels.measure: Meting
@@ -139,12 +143,15 @@ translations:
       okido-forms.okido.field.labels.plantar_flexion: Plantair flexie
       okido-forms.okido.field.labels.dorsal_flexion: Dorsaal flexie
       okido-forms.okido.field.labels.ankle: Enkel
-      okido-forms.okido.field.labels.hand_mcp: Hand - Metacarpophalangeale gewricht (MCP)
-      okido-forms.okido.field.labels.hand_ipp: Hand - Interphalangeale proximale gewricht (IPP)
-      okido-forms.okido.field.labels.hand_ipd: Hand - Interphalangeale distale gewricht (IPD)
-      okido-forms.okido.field.labels.hand_thumb_ccm: Hand - Duim - Carpometacarpale gewricht van de duim (CMC)
-      okido-forms.okido.field.labels.hand_thumb_mcp: Hand - Duim - Metacarpophalangeale gewricht van de duim (MCP)
-      okido-forms.okido.field.labels.hand_thumb_ip: Hand - Duim - Interphalangeale gewricht van de duim (IP)
+      okido-forms.okido.field.labels.rotation: Rotatie
+      okido-forms.okido.field.labels.lateral_flexion: Laterale flexie
+      okido-forms.okido.field.labels.spine: Wervelkolom
+      okido-forms.okido.field.labels.hand_mcp: Hand - Metacarpophalangeal joint (MCP)
+      okido-forms.okido.field.labels.hand_ipp: Hand - Interphalangeal proximal joint (IPP)
+      okido-forms.okido.field.labels.hand_ipd: Hand - Interphalangeal distal joint (IPD)
+      okido-forms.okido.field.labels.hand_thumb_ccm: Hand - Thumb - Carpometacarpal joint of the thumb (CMC)
+      okido-forms.okido.field.labels.hand_thumb_mcp: Hand - Thumb - Metacarpophalangeal joint of the thumb (MCP)
+      okido-forms.okido.field.labels.hand_thumb_ip: Hand - Thumb - Interphalangeal joint of the thumb (IP)
       okido-forms.okido.field.labels.other: Andere
       okido-forms.okido.field.labels.type: Type
       okido-forms.okido.field.labels.value: Waarde
@@ -152,15 +159,15 @@ translations:
       okido-forms.okido.field.labels.patientAppreciation: Patiëntwaardering
       okido-forms.okido.field.labels.conclusionOfEvaluation: Conclusie van de evaluatie
       okido-forms.okido.field.labels.plannedProcedure: Geplande procedure
-      okido-forms.okido.field.labels.supportOffered: Voorgestelde zorg
+      okido-forms.okido.field.labels.supportOffered: Aangeboden ondersteuning
       okido-forms.okido.field.labels.goalOfTreatment: Doel van de behandeling
-      okido-forms.okido.field.labels.concertation: Concertatie
+      okido-forms.okido.field.labels.concertation: Overleg
       okido-forms.okido.field.labels.prestation: Prestatie
       okido-forms.okido.field.labels.convention: Conventie / aanbeveling aan de patiënt
       okido-forms.okido.field.labels.hcp: Overlegpartner
       okido-forms.okido.field.labels.firstname: Voornaam
       okido-forms.okido.field.labels.lastname: Naam
-      okido-forms.okido.field.labels.ssin: Inss
+      okido-forms.okido.field.labels.ssin: Rijksregisternummer
       okido-forms.okido.field.labels.nihii: Riziv
       okido-forms.okido.field.labels.disciplinary: Discipline
       okido-forms.okido.field.labels.closureReason: Reden van afsluiting

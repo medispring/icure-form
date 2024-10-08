@@ -1,0 +1,20 @@
+form: okido-forms.OKIDO
+id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
+description: okido-forms.OKIDO
+translations:
+  - language: fr
+    translations:
+
+  - language: nl
+    translations:
+
+sections:
+  - section: okido-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: okido-forms.okido.field.label.okido
+            type: label
+
