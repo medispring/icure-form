@@ -9,6 +9,7 @@ export class FormSelectionButton extends LitElement {
 	@property() formAdded: (title: string, form: Form) => void = () => {
 		/* Do nothing */
 	}
+	@property() label = 'Add subform'
 	@property() translationProvider: (language: string, text: string) => string = (language, text) => text
 	@property() language = 'en'
 
@@ -38,7 +39,7 @@ export class FormSelectionButton extends LitElement {
 
 	render() {
 		return html`<div class="options-container">
-			<button class="subform__addBtn" @click="${() => (this.displayMenu = true)}">Add subform</button>
+			<button class="subform__addBtn" @click="${() => (this.displayMenu = true)}">${this.translationProvider ? this.translationProvider(this.language, this.label) : this.label}</button>
 			${this.displayMenu
 				? html`<div class="options options--subformView">
 						${this.forms?.map(
