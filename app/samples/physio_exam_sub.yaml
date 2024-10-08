@@ -8,31 +8,12 @@ translations:
       physio-forms.subjectif.field.label.patientPerspective: Perspective du patient
       physio-forms.subjectif.field.label.medicalPerspective: Perspectives médicales
       physio-forms.subjectif.field.label.characteristicOfHealthProblem: Caractéristiques du problème de santé
-      physio-forms.subjectif.field.label.reasonOfConsultation: Motif de la consultation
-      physio-forms.subjectif.field.label.relevantElementOfPatient: Eléments pertinents de la personne
-      physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacité fonctionnelle actuelle
-      physio-forms.subjectif.field.label.goalAndExpectation: Objectifs et attentes
-      physio-forms.subjectif.field.label.diagnosis: Diagnostic médical
-      physio-forms.subjectif.field.label.history: Histoire
-      physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
-      physio-forms.subjectif.field.label.symptomSite: Site de symptômes
-      physio-forms.subjectif.field.label.symptomBehavior: Comportement des symptômes
-      physio-forms.subjectif.field.label.IndividualFactors: Facteurs individuels / facteurs externes
   - language: nl
     translations:
         physio-forms.subjectif.field.label.subjectif: Subjectief onderzoek
         physio-forms.subjectif.field.label.patientPerspective: Patiëntenperspectief
         physio-forms.subjectif.field.label.medicalPerspective: Medische perspectieven
         physio-forms.subjectif.field.label.characteristicOfHealthProblem: Kenmerken van het gezondheidsprobleem
-        physio-forms.subjectif.field.label.relevantElementOfPatient: Relevante elementen van de persoon
-        physio-forms.subjectif.field.label.currentFunctionalCapacity: Huidige functionele capaciteit
-        physio-forms.subjectif.field.label.goalAndExpectation: Doelstellingen en verwachtingen
-        physio-forms.subjectif.field.label.diagnosis: Diagnose
-        physio-forms.subjectif.field.label.history: Geschiedenis
-        physio-forms.subjectif.field.label.characteristicOfSymptoms: Kenmerken van de symptomen
-        physio-forms.subjectif.field.label.symptomSite: Symptoomlocatie
-        physio-forms.subjectif.field.label.symptomBehavior: Symptoomgedrag
-        physio-forms.subjectif.field.label.IndividualFactors: Individuele factoren / externe factoren
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -48,65 +29,16 @@ sections:
         fields:
           - field: physio-forms.subjectif.field.label.patientPerspective
             type: label
-          - field: physio-forms.subjectif.field.label.reasonOfConsultation
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.relevantElementOfPatient
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.currentFunctionalCapacity
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.goalAndExpectation
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
+
       - group: line
         borderless: true
         span: 24
         fields:
           - field: physio-forms.subjectif.field.label.medicalPerspective
             type: label
-          - field: physio-forms.subjectif.field.label.diagnosis
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.history
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
       - group: line
         borderless: true
         span: 24
         fields:
           - field: physio-forms.subjectif.field.label.characteristicOfHealthProblem
             type: label
-          - field: physio-forms.subjectif.field.label.characteristicOfSymptoms
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.symptomSite
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.symptomBehavior
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-          - field: physio-forms.subjectif.field.label.IndividualFactors
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4

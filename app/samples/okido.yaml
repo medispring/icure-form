@@ -32,10 +32,69 @@ translations:
       okido-forms.okido.field.labels.severity: Sévérité
       okido-forms.okido.field.labels.repercussion: Répercussion
       okido-forms.okido.field.labels.stateOfPhysiotherapy: Etat du bilan kiné
+      okido-forms.okido.field.labels.state: Etat
+      okido-forms.okido.field.labels.observation: Observation
+      okido-forms.okido.field.labels.palpation: Palpation
+      okido-forms.okido.field.labels.measure: Mesure
+      okido-forms.okido.field.labels.shoulder: Epaule
+      okido-forms.okido.field.labels.flexion: Flexion
+      okido-forms.okido.field.labels.extension: Extension
+      okido-forms.okido.field.labels.abduction: Abduction
+      okido-forms.okido.field.labels.adduction: Adduction
+      okido-forms.okido.field.labels.external_rotation: Rotation externe
+      okido-forms.okido.field.labels.internal_rotation: Rotation interne
+      okido-forms.okido.field.labels.supination: Supination
+      okido-forms.okido.field.labels.pronation: Pronation
+      okido-forms.okido.field.labels.elbow: Coude
+      okido-forms.okido.field.labels.ulnar_inclination: Inclinaison ulnaire
+      okido-forms.okido.field.labels.radial_inclination: Inclinaison radiale
+      okido-forms.okido.field.labels.wrist: Poignet
+      okido-forms.okido.field.labels.hip: Hanche
+      okido-forms.okido.field.labels.knee: Genou
+      okido-forms.okido.field.labels.plantar_flexion: Flexion plantaire
+      okido-forms.okido.field.labels.dorsal_flexion: Flexion dorsale
+      okido-forms.okido.field.labels.ankle: Cheville
+      okido-forms.okido.field.labels.rotation: Rotation
+      okido-forms.okido.field.labels.lateral_flexion: Flexion latérale
+      okido-forms.okido.field.labels.spine: Colonne vertébrale
+      okido-forms.okido.field.labels.hand_mcp: Main - Articulation méta-carpo-phalangienne (MCP)
+      okido-forms.okido.field.labels.hand_ipp: Main - Articulation inter-phalangienne proximale (IPP)
+      okido-forms.okido.field.labels.hand_ipd: Main - Articulation inter-phalangienne distale (IPD)
+      okido-forms.okido.field.labels.hand_thumb_ccm: Main - Pouce - Articulation du carpo-métacarpien du pouce (CMC)
+      okido-forms.okido.field.labels.hand_thumb_mcp: Main - Pouce - Articulation méta-carpo-phalangienne du pouce (MCP)
+      okido-forms.okido.field.labels.hand_thumb_ip: Main - Pouce - Articulation inter-phalangienne du pouce (IP)
+      okido-forms.okido.field.labels.other: Autre
+      okido-forms.okido.field.labels.type: Type
+      okido-forms.okido.field.labels.value: Valeur
+      okido-forms.okido.field.labels.unit: Unité
+      okido-forms.okido.field.labels.patientAppreciation: Appréciation du patient
+      okido-forms.okido.field.labels.conclusionOfEvaluation: Conclusion de l'évaluation
+      okido-forms.okido.field.labels.plannedProcedure: Procédure planifiée
+      okido-forms.okido.field.labels.supportOffered: Prise en charge proposée
+      okido-forms.okido.field.labels.goalOfTreatment: Objectif du traitement
+      okido-forms.okido.field.labels.concertation: Concertation
+      okido-forms.okido.field.labels.prestation: Prestation
+      okido-forms.okido.field.labels.convention: Convention / recommandation au patient
+      okido-forms.okido.field.labels.hcp: Partenaire de concertation
+      okido-forms.okido.field.labels.firstname: Prénom
+      okido-forms.okido.field.labels.lastname: Nom
+      okido-forms.okido.field.labels.ssin: Niss
+      okido-forms.okido.field.labels.nihii: Inami
+      okido-forms.okido.field.labels.disciplinary: Discipline
+      okido-forms.okido.field.labels.closureReason: Raison de la clôture
+      okido-forms.okido.field.labels.patientParticipation: Participation du patient
+      okido-forms.okido.field.labels.nextTreatment: Proposition de traitement ultérieur
+      okido-forms.okido.field.labels.agreementWithPatient: Accord avec le patient
+      okido-forms.okido.field.labels.report: Rapport
+      okido-forms.okido.field.labels.reason: Raison
+      okido-forms.okido.field.labels.exam: Examen
+      okido-forms.okido.field.labels.complementaryExam: Examen complémentaire
+      okido-forms.okido.field.labels.startDate: Date de début
+      okido-forms.okido.field.labels.endDate: Date de fin
   - language: nl
     translations:
       okido-forms.okido.field.label.okido: OKIDO
-      okido-forms.okido.field.label.form: Formulaire
+      okido-forms.okido.field.label.form: Formulier
       okido-forms.okido.field.label.anamnesis: Anamnese
       okido-forms.okido.field.label.search: Zoeken
       okido-forms.okido.field.label.evaluation: Evaluatie
@@ -47,7 +106,7 @@ translations:
       okido-forms.okido.field.labels.reasonOfConsultation: Reden van consultatie
       okido-forms.okido.field.labels.functionalDisorder: Functionele stoornis
       okido-forms.okido.field.labels.anatomicalStructure: Anatomische structuur
-      okido-forms.okido.field.labels.participation: Participatie
+      okido-forms.okido.field.labels.participation: Deelname
       okido-forms.okido.field.labels.activity: Activiteit
       okido-forms.okido.field.labels.externalFactor: Externe factor
       okido-forms.okido.field.labels.individualFactor: Individuele factor
@@ -57,7 +116,70 @@ translations:
       okido-forms.okido.field.labels.medicalCareActe: Medische zorg - acte
       okido-forms.okido.field.labels.paramedicalCare: Paramedische zorg
       okido-forms.okido.field.labels.physiotherapyCare: Kinesitherapie
-      okido-forms.okido.field.labels.stateOfPhysiotherapy: Toestand van de kine
+      okido-forms.okido.field.labels.date: Datum
+      okido-forms.okido.field.labels.status: Status
+      okido-forms.okido.field.labels.severity: Ernst
+      okido-forms.okido.field.labels.repercussion: Repercussie
+      okido-forms.okido.field.labels.stateOfPhysiotherapy: Staat van de kinebalans
+      okido-forms.okido.field.labels.state: Staat
+      okido-forms.okido.field.labels.observation: Observatie
+      okido-forms.okido.field.labels.palpation: Palpatie
+      okido-forms.okido.field.labels.measure: Meting
+      okido-forms.okido.field.labels.shoulder: Schouder
+      okido-forms.okido.field.labels.flexion: Flexie
+      okido-forms.okido.field.labels.extension: Extensie
+      okido-forms.okido.field.labels.abduction: Abductie
+      okido-forms.okido.field.labels.adduction: Adductie
+      okido-forms.okido.field.labels.external_rotation: Externe rotatie
+      okido-forms.okido.field.labels.internal_rotation: Interne rotatie
+      okido-forms.okido.field.labels.supination: Supinatie
+      okido-forms.okido.field.labels.pronation: Pronatie
+      okido-forms.okido.field.labels.elbow: Elleboog
+      okido-forms.okido.field.labels.ulnar_inclination: Ulnaire inclinatie
+      okido-forms.okido.field.labels.radial_inclination: Radiale inclinatie
+      okido-forms.okido.field.labels.wrist: Pols
+      okido-forms.okido.field.labels.hip: Heup
+      okido-forms.okido.field.labels.knee: Knie
+      okido-forms.okido.field.labels.plantar_flexion: Plantair flexie
+      okido-forms.okido.field.labels.dorsal_flexion: Dorsaal flexie
+      okido-forms.okido.field.labels.ankle: Enkel
+      okido-forms.okido.field.labels.rotation: Rotatie
+      okido-forms.okido.field.labels.lateral_flexion: Laterale flexie
+      okido-forms.okido.field.labels.spine: Wervelkolom
+      okido-forms.okido.field.labels.hand_mcp: Hand - Metacarpophalangeal joint (MCP)
+      okido-forms.okido.field.labels.hand_ipp: Hand - Interphalangeal proximal joint (IPP)
+      okido-forms.okido.field.labels.hand_ipd: Hand - Interphalangeal distal joint (IPD)
+      okido-forms.okido.field.labels.hand_thumb_ccm: Hand - Thumb - Carpometacarpal joint of the thumb (CMC)
+      okido-forms.okido.field.labels.hand_thumb_mcp: Hand - Thumb - Metacarpophalangeal joint of the thumb (MCP)
+      okido-forms.okido.field.labels.hand_thumb_ip: Hand - Thumb - Interphalangeal joint of the thumb (IP)
+      okido-forms.okido.field.labels.other: Andere
+      okido-forms.okido.field.labels.type: Type
+      okido-forms.okido.field.labels.value: Waarde
+      okido-forms.okido.field.labels.unit: Eenheid
+      okido-forms.okido.field.labels.patientAppreciation: Patiëntwaardering
+      okido-forms.okido.field.labels.conclusionOfEvaluation: Conclusie van de evaluatie
+      okido-forms.okido.field.labels.plannedProcedure: Geplande procedure
+      okido-forms.okido.field.labels.supportOffered: Aangeboden ondersteuning
+      okido-forms.okido.field.labels.goalOfTreatment: Doel van de behandeling
+      okido-forms.okido.field.labels.concertation: Overleg
+      okido-forms.okido.field.labels.prestation: Prestatie
+      okido-forms.okido.field.labels.convention: Conventie / aanbeveling aan de patiënt
+      okido-forms.okido.field.labels.hcp: Overlegpartner
+      okido-forms.okido.field.labels.firstname: Voornaam
+      okido-forms.okido.field.labels.lastname: Naam
+      okido-forms.okido.field.labels.ssin: Rijksregisternummer
+      okido-forms.okido.field.labels.nihii: Riziv
+      okido-forms.okido.field.labels.disciplinary: Discipline
+      okido-forms.okido.field.labels.closureReason: Reden van afsluiting
+      okido-forms.okido.field.labels.patientParticipation: Patiëntenparticipatie
+      okido-forms.okido.field.labels.nextTreatment: Voorstel voor verdere behandeling
+      okido-forms.okido.field.labels.agreementWithPatient: Overeenkomst met de patiënt
+      okido-forms.okido.field.labels.report: Verslag
+      okido-forms.okido.field.labels.reason: Reden
+      okido-forms.okido.field.labels.exam: Onderzoek
+      okido-forms.okido.field.labels.complementaryExam: Aanvullend onderzoek
+      okido-forms.okido.field.labels.startDate: Startdatum
+      okido-forms.okido.field.labels.endDate: Einddatum
 sections:
   - section: okido-forms.section-label.SECTION-1
     fields:
@@ -72,823 +194,8 @@ sections:
         shortLabel: okido-forms.okido.field.label.form
         span: 24
         borderless: true
-        forms:
-          cf9e6b0c-78a8-4792-adcb-be0e2db10013:
-            form: okido-forms.okido.field.label.anamnesis
-            description: okido-forms.OKIDO_ANAMNESIS
-            sections:
-              - section: okido-forms.okido.field-labels.SECTION-1
-                fields:
-                  - group: line
-                    borderless: true
-                    span: 24
-                    fields:
-                      - field: okido-forms.okido.field.labels.description
-                        type: textfield
-                        span: 24
-                        multiline: true
-                        rowSpan: 5
-                  - subform:
-                    id: 1cfebef7-81c7-4641-9a49-7b8aabba9661
-                    span: 24
-                    borderless: true
-                    forms:
-                      f0a6f11e-3cd8-423e-a1d5-1802710194ba:
-                        form: okido-forms.okido.field.labels.reasonOfConsultation
-                        description: okido-forms.okido.field.labels.reasonOfConsultation
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.reasonOfConsultation
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    rowSpan: 1
-                      520b50d1-d1ee-4721-b6d1-3ad9281e8290:
-                        form: okido-forms.okido.field.labels.functionalDisorder
-                        description: okido-forms.okido.field.labels.functionalDisorder
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      c3704e08-b292-4b9f-a629-d616c9aa8d83:
-                        form: okido-forms.okido.field.labels.anatomicalStructure
-                        description: okido-forms.okido.field.labels.anatomicalStructure
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      e5e1f790-ed79-4a68-b024-ed29e698aa96:
-                        form: okido-forms.okido.field.labels.participation
-                        description: okido-forms.okido.field.labels.participation
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      a3618495-fc40-4b95-99c0-acb0cb302554:
-                        form: okido-forms.okido.field.labels.activity
-                        description: okido-forms.okido.field.labels.activity
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      e36b1823-1047-4aaa-b4a5-a2cb1274fabf:
-                        form: okido-forms.okido.field.labels.externalFactor
-                        description: okido-forms.okido.field.labels.externalFactor
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      d941ec5d-254c-4af2-ac87-e4c4c5bbd502:
-                        form: okido-forms.okido.field.labels.individualFactor
-                        description: okido-forms.okido.field.labels.individualFactor
-                        codifications:
-                          - type: CD-SEVERITY
-                            codes:
-                              - id: low
-                                label:
-                                  nl: Licht
-                                  fr: Léger
-                              - id: normal
-                                label:
-                                  nl: Normaal
-                                  fr: Normal
-                              - id: high
-                                label:
-                                  nl: Ernstig
-                                  fr: Grave
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.severity
-                                    type: dropdown
-                                    codifications:
-                                      - CD-SEVERITY
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      bdf9ba36-74d4-4588-b660-ece73da4d1af:
-                        form: okido-forms.okido.field.labels.medicalData
-                        description: okido-forms.okido.field.labels.medicalData
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      a8acea51-1982-4dbf-9f81-cbe00394ff46:
-                        form: okido-forms.okido.field.labels.surgicalData
-                        description: okido-forms.okido.field.labels.surgicalData
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      0842ece4-2fa2-4880-983e-296a7e485c06:
-                        form: okido-forms.okido.field.labels.medicalCareDrug
-                        description: okido-forms.okido.field.labels.medicalCareDrug
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      c013306c-df74-47a8-aa32-e448d933b779:
-                        form: okido-forms.okido.field.labels.medicalCareActe
-                        description: okido-forms.okido.field.labels.medicalCareActe
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      86196719-cb66-4af3-a99d-68cb0c2d8175:
-                        form: okido-forms.okido.field.labels.paramedicalCare
-                        description: okido-forms.okido.field.labels.paramedicalCare
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
-                      b76a4b84-cd79-4bd6-bd36-c7aa0c29994b:
-                        form: okido-forms.okido.field.labels.physiotherapyCare
-                        description: okido-forms.okido.field.labels.physiotherapyCare
-                        codifications:
-                          - type: MS-OKIDO-CARE-STATUS
-                            codes:
-                              - id: active
-                                label:
-                                  nl: Actief
-                                  fr: Actif
-                              - id: passiveRelevant
-                                label:
-                                  nl: Passief - relevant
-                                  fr: Passif - relevant
-                              - id: passiveNotRelevant
-                                label:
-                                  nl: Niet relevant
-                                  fr: Passif - non relevant
-                              - id: notPresent
-                                label:
-                                  nl: Niet aanwezig
-                                  fr: Non présent
-                        sections:
-                          - section: okido-forms.okido.field-labels.SECTION-1
-                            fields:
-                              - group: line
-                                borderless: true
-                                span: 24
-                                fields:
-                                  - field: okido-forms.okido.field.labels.date
-                                    type: date-picker
-                                    computedProperties:
-                                      defaultValue: |
-                                        return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                                  - field: okido-forms.okido.field.labels.description
-                                    type: textfield
-                                    span: 24
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                                      - CD-ITEM|complaint|1
-                                  - field: okido-forms.okido.field.labels.status
-                                    type: dropdown
-                                    codifications:
-                                      - MS-OKIDO-CARE-STATUS
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                                  - field: okido-forms.okido.field.labels.repercussion
-                                    type: textfield
-                                    span: 24
-                                    multiline: true
-                                    tags:
-                                      - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                                      - CD-ITEM|transactionreason|1
         refs:
+          - cf9e6b0c-78a8-4792-adcb-be0e2db10013
           - 878098b7-faec-43cf-865d-42be01776e0a
           - bec34e86-e20d-4ca4-b091-bd28c819f72f
           - cc4e89da-6596-4764-a4cf-672f26bc8379
@@ -896,6 +203,42 @@ sections:
           - 267bf3b2-2b01-4d43-820f-f54e4d7dafc2
           - b096d5fc-5b63-4775-8054-f2a2d73ac6ae
 subForms:
+  cf9e6b0c-78a8-4792-adcb-be0e2db10013:
+    form: okido-forms.okido.field.label.anamnesis
+    description: okido-forms.OKIDO_ANAMNESIS
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-ANAMNESIS|description|1
+          - subform:
+            id: 1cfebef7-81c7-4641-9a49-7b8aabba9661
+            span: 24
+            borderless: true
+            refs:
+              - f0a6f11e-3cd8-423e-a1d5-1802710194ba
+              - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+              - c3704e08-b292-4b9f-a629-d616c9aa8d83
+              - e5e1f790-ed79-4a68-b024-ed29e698aa96
+              - a3618495-fc40-4b95-99c0-acb0cb302554
+              - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+              - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+              - bdf9ba36-74d4-4588-b660-ece73da4d1af
+              - a8acea51-1982-4dbf-9f81-cbe00394ff46
+              - 0842ece4-2fa2-4880-983e-296a7e485c06
+              - c013306c-df74-47a8-aa32-e448d933b779
+              - 86196719-cb66-4af3-a99d-68cb0c2d8175
+              - b76a4b84-cd79-4bd6-bd36-c7aa0c29994b
+              - f775e827-1777-4620-a65f-7a532b760740
   878098b7-faec-43cf-865d-42be01776e0a:
     form: okido-forms.okido.field.label.search
     description: okido-forms.SUBSUB
@@ -911,477 +254,23 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                  - MS-OKIDO-SEARCH-ITEM|description|1
           - subform:
             id: cc0c130b-fa71-42cf-94eb-24e28b2f42e2
             span: 24
             borderless: true
-            forms:
-              baca774a-b96c-44af-84ff-15619e0af0e9:
-                form: okido-forms.okido.field.labels.stateOfPhysiotherapy
-                description: okido-forms.okido.field.labels.stateOfPhysiotherapy
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            rowSpan: 1
-              520b50d1-d1ee-4721-b6d1-3ad9281e8290:
-                form: okido-forms.okido.field.labels.functionalDisorder
-                description: okido-forms.okido.field.labels.functionalDisorder
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-              c3704e08-b292-4b9f-a629-d616c9aa8d83:
-                form: okido-forms.okido.field.labels.anatomicalStructure
-                description: okido-forms.okido.field.labels.anatomicalStructure
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-              e5e1f790-ed79-4a68-b024-ed29e698aa96:
-                form: okido-forms.okido.field.labels.participation
-                description: okido-forms.okido.field.labels.participation
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-              a3618495-fc40-4b95-99c0-acb0cb302554:
-                form: okido-forms.okido.field.labels.activity
-                description: okido-forms.okido.field.labels.activity
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-              e36b1823-1047-4aaa-b4a5-a2cb1274fabf:
-                form: okido-forms.okido.field.labels.externalFactor
-                description: okido-forms.okido.field.labels.externalFactor
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-              d941ec5d-254c-4af2-ac87-e4c4c5bbd502:
-                form: okido-forms.okido.field.labels.individualFactor
-                description: okido-forms.okido.field.labels.individualFactor
-                codifications:
-                  - type: CD-SEVERITY
-                    codes:
-                      - id: low
-                        label:
-                          nl: Licht
-                          fr: Léger
-                      - id: normal
-                        label:
-                          nl: Normaal
-                          fr: Normal
-                      - id: high
-                        label:
-                          nl: Ernstig
-                          fr: Grave
-                  - type: MS-OKIDO-CARE-STATUS
-                    codes:
-                      - id: active
-                        label:
-                          nl: Actief
-                          fr: Actif
-                      - id: passiveRelevant
-                        label:
-                          nl: Passief - relevant
-                          fr: Passif - relevant
-                      - id: passiveNotRelevant
-                        label:
-                          nl: Niet relevant
-                          fr: Passif - non relevant
-                      - id: notPresent
-                        label:
-                          nl: Niet aanwezig
-                          fr: Non présent
-                sections:
-                  - section: okido-forms.okido.field-labels.SECTION-1
-                    fields:
-                      - group: line
-                        borderless: true
-                        span: 24
-                        fields:
-                          - field: okido-forms.okido.field.labels.date
-                            type: date-picker
-                            computedProperties:
-                              defaultValue: |
-                                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
-                          - field: okido-forms.okido.field.labels.description
-                            type: textfield
-                            span: 24
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
-                              - CD-ITEM|complaint|1
-                          - field: okido-forms.okido.field.labels.status
-                            type: dropdown
-                            codifications:
-                              - MS-OKIDO-CARE-STATUS
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
-                          - field: okido-forms.okido.field.labels.severity
-                            type: dropdown
-                            codifications:
-                              - CD-SEVERITY
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
-                          - field: okido-forms.okido.field.labels.repercussion
-                            type: textfield
-                            span: 24
-                            multiline: true
-                            tags:
-                              - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
-                              - CD-ITEM|transactionreason|1
-
+            refs:
+              - baca774a-b96c-44af-84ff-15619e0af0e9
+              - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+              - c3704e08-b292-4b9f-a629-d616c9aa8d83
+              - e5e1f790-ed79-4a68-b024-ed29e698aa96
+              - a3618495-fc40-4b95-99c0-acb0cb302554
+              - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+              - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+              - 040428a2-96fd-45e4-bfdc-4b019a448660
+              - c5f79cb0-c258-4a6d-9e9b-109c46941c4f
+              - b9839e10-5fdf-4d23-9b95-01ae04c22002
   bec34e86-e20d-4ca4-b091-bd28c819f72f:
     form: okido-forms.okido.field.label.evaluation
     description: okido-forms.SUBSUB
@@ -1397,6 +286,21 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                  - MS-OKIDO-EVALUATION-ITEM|description|1
+              - subform:
+                id: b0b0ce14-7913-4aba-91aa-671f16ce6770
+                span: 24
+                borderless: true
+                refs:
+                  - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+                  - c3704e08-b292-4b9f-a629-d616c9aa8d83
+                  - e5e1f790-ed79-4a68-b024-ed29e698aa96
+                  - a3618495-fc40-4b95-99c0-acb0cb302554
+                  - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+                  - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+                  - 3f637117-6084-4338-a37f-82a2b994822f
+                  - c962445e-f7f2-4c9d-b37a-901ee9cd1471
   cc4e89da-6596-4764-a4cf-672f26bc8379:
     form: okido-forms.okido.field.label.planification
     description: okido-forms.SUBSUB
@@ -1412,6 +316,22 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                  - MS-OKIDO-PLANIFICATION-ITEM|description|1
+              - subform:
+                id: 045ff4b0-926e-404f-ac85-d87fbee3ecf7
+                span: 24
+                borderless: true
+                refs:
+                  - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+                  - c3704e08-b292-4b9f-a629-d616c9aa8d83
+                  - e5e1f790-ed79-4a68-b024-ed29e698aa96
+                  - a3618495-fc40-4b95-99c0-acb0cb302554
+                  - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+                  - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+                  - defcdda0-4f72-4b4c-b21a-bf40126d880f
+                  - d7466a97-1cde-4827-8c6e-9d068c8735ea
+                  - 495085c0-80be-44a6-b064-a656a7d0c332
   a57f5fc9-89e2-4654-b7d2-98abc1b8a04b:
     form: okido-forms.okido.field.label.treatment
     description: okido-forms.SUBSUB
@@ -1427,6 +347,16 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                    - MS-OKIDO-TREATMENT-ITEM|description|1
+              - subform:
+                id: a5bf2b1f-0f6e-41f7-b6d1-cd3e657fe3bd
+                span: 24
+                borderless: true
+                refs:
+                  - 11a9e1be-cca3-4972-83ee-b595a12e5d78
+                  - 2e978da7-0b3f-4a42-992f-821b75eac36b
+                  - ba8accc5-22de-4bc7-8da1-030c0a10bc0c
   267bf3b2-2b01-4d43-820f-f54e4d7dafc2:
     form: okido-forms.okido.field.label.diagnosis
     description: okido-forms.SUBSUB
@@ -1442,6 +372,22 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
+                tags:
+                  - MS-OKIDO-DIAGNOSIS-ITEM|description|1
+              - subform:
+                id: 8e830496-5456-4616-83ca-4772eab677fb
+                span: 24
+                borderless: true
+                refs:
+                  - baca774a-b96c-44af-84ff-15619e0af0e9
+                  - 520b50d1-d1ee-4721-b6d1-3ad9281e8290
+                  - c3704e08-b292-4b9f-a629-d616c9aa8d83
+                  - e5e1f790-ed79-4a68-b024-ed29e698aa96
+                  - a3618495-fc40-4b95-99c0-acb0cb302554
+                  - e36b1823-1047-4aaa-b4a5-a2cb1274fabf
+                  - d941ec5d-254c-4af2-ac87-e4c4c5bbd502
+                  - 3f637117-6084-4338-a37f-82a2b994822f
+                  - c962445e-f7f2-4c9d-b37a-901ee9cd1471
   b096d5fc-5b63-4775-8054-f2a2d73ac6ae:
     form: okido-forms.okido.field.label.closure
     description: okido-forms.SUBSUB
@@ -1457,4 +403,2103 @@ subForms:
                 span: 24
                 multiline: true
                 rowSpan: 5
-
+                tags:
+                  - MS-OKIDO-CLOSURE-ITEM|description|1
+              - subform:
+                id: c0341db7-807f-413f-bd36-0f120c46caa2
+                shortLabel: okido-forms.okido.field.label.form
+                span: 24
+                borderless: true
+                refs:
+                  - 6ca47ab7-3bb9-4cf1-be00-568bef1f2cac
+                  - 3505ed17-448a-4c05-9be2-9b5d181807a5
+                  - 79ccd586-3448-44c0-a527-f8eb8f158dbb
+                  - 705a19cf-cad9-4ea8-994b-9a928ab4b018
+                  - 0d3d352e-4743-4a0a-a99d-730b307189a2
+  f0a6f11e-3cd8-423e-a1d5-1802710194ba:
+    form: okido-forms.okido.field.labels.reasonOfConsultation
+    description: okido-forms.okido.field.labels.reasonOfConsultation
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.reasonOfConsultation
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 1
+                tags:
+                  - MS-OKIDO-ANAMNESIS|reasonOfConsultation|1
+                  - CD-ITEM|transactionreason|1
+  040428a2-96fd-45e4-bfdc-4b019a448660:
+    form: okido-forms.okido.field.labels.observation
+    description: okido-forms.okido.field.labels.observation
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 1
+                tags:
+                  - MS-OKIDO-OBSERVATION|description|1
+                  - CD-ITEM|clinical|1
+  c5f79cb0-c258-4a6d-9e9b-109c46941c4f:
+    form: okido-forms.okido.field.labels.palpation
+    description: okido-forms.okido.field.labels.palpation
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 1
+                tags:
+                  - MS-OKIDO-PALPATION|description|1
+                  - CD-ITEM|clinical|1
+  b9839e10-5fdf-4d23-9b95-01ae04c22002:
+    form: okido-forms.okido.field.labels.measure
+    description: okido-forms.okido.field.labels.measure
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - subform:
+            id: 94259cdf-2bf2-4f66-986d-8a6aedf10289
+            span: 24
+            borderless: true
+            refs:
+              - f145e2bf-2ff6-4c4c-94f1-1f050c6072b7
+              - 5ed38f13-5061-4e53-8db1-a6f64fce5a2e
+              - 229b343e-b64c-4150-a488-811313e6328b
+              - b0efce4e-241a-4c68-9084-20bfb11a6382
+              - f4115bfb-7af7-4547-937e-22eaeaa74990
+              - a07b9c4e-0757-4405-ac26-3eeb874cbae6
+              - 0fb429c5-adb7-412b-bd8c-081f5a83b3d4
+              - e893cb4f-6268-4461-8599-b667e1655248
+              - 0ca133a7-7b38-4b53-94b3-5691e945dee2
+              - aad57780-1679-447a-92c2-17e7aee43939
+              - 9098945f-384c-416d-ad89-90ce7a6db7ee
+              - 0b54bc9c-5ae7-4427-ad90-87d6e1ba2016
+              - ead8a3b1-078c-4755-b793-a6c19677a674
+              - f8e0d453-cb9a-4dba-86a2-85bf4e95f4b9
+  520b50d1-d1ee-4721-b6d1-3ad9281e8290:
+    form: okido-forms.okido.field.labels.functionalDisorder
+    description: okido-forms.okido.field.labels.functionalDisorder
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|description|1
+                  - CD-ITEM|complaint|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-FUNCTIONAL_DISORDER-ITEM|repercussion|1
+  c3704e08-b292-4b9f-a629-d616c9aa8d83:
+    form: okido-forms.okido.field.labels.anatomicalStructure
+    description: okido-forms.okido.field.labels.anatomicalStructure
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-ANATOMICAL-STRUCTURE-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-ANATOMICAL-STRUCTURE-ITEM|description|1
+                  - CD-ITEM|complaint|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-ANATOMICAL-STRUCTURE-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-ANATOMICAL-STRUCTURE-ITEM|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-ANATOMICAL-STRUCTURE-ITEM|repercussion|1
+  e5e1f790-ed79-4a68-b024-ed29e698aa96:
+    form: okido-forms.okido.field.labels.participation
+    description: okido-forms.okido.field.labels.participation
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-PARTICIPATION-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-PARTICIPATION-ITEM|description|1
+                  - CD-ITEM|complaint|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-PARTICIPATION-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-PARTICIPATION-ITEM|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-PARTICIPATION-ITEM|repercussion|1
+  a3618495-fc40-4b95-99c0-acb0cb302554:
+    form: okido-forms.okido.field.labels.activity
+    description: okido-forms.okido.field.labels.activity
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-ACTIVITY|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-ACTIVITY|description|1
+                  - CD-ITEM|complaint|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-ACTIVITY|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-ACTIVITY|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-ACTIVITY|repercussion|1
+  e36b1823-1047-4aaa-b4a5-a2cb1274fabf:
+    form: okido-forms.okido.field.labels.externalFactor
+    description: okido-forms.okido.field.labels.externalFactor
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|description|1
+                  - CD-ITEM|complaint|1
+                  - CD-ITEM|risk|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|repercussion|1
+  f775e827-1777-4620-a65f-7a532b760740:
+    form: okido-forms.okido.field.labels.complementaryExam
+    description: okido-forms.okido.field.labels.complementaryExam
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: CD-TECHNICAL
+        codes:
+          - id: CD-TECHNICAL|452723|1
+            label:
+              nl: Radiografie van de thorax, minimum 2 opnames
+              fr: Radiographie du thorax, minimum 2 clichés
+          - id: CD-TECHNICAL|453132|1
+            label:
+              nl: Coronografie
+              fr: Coronographie
+          - id: CD-TECHNICAL|460121|1
+            label:
+              nl: CT-scan van de abdomen
+              fr: Scan CT du cou, thorax, abdomen
+          - id: CD-TECHNICAL|475086|1
+            label:
+              nl: ECG van 12 afleidingen
+              fr: ECG à 12 dérivations
+          - id: CD-TECHNICAL|476254|1
+            label:
+              nl: Holter van minimum 24u
+              fr: Holter de minimum 24h
+          - id: CD-TECHNICAL|other|1
+            label:
+              nl: Andere
+              fr: Autre
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-COMPLEMENTARY-EXAM-ITEM|date|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-COMPLEMENTARY-EXAM-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-COMPLEMENTARY-EXAM-ITEM|severity|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: dropdown
+                span: 8
+                codifications:
+                  - CD-TECHNICAL
+                tags:
+                  - MS-OKIDO-COMPLEMENTARY-EXAM-ITEM|description|1
+                  - CD-ITEM|technical|1
+              - field: okido-forms.okido.field.labels.exam
+                type: textfield
+                span: 8
+                computedProperties:
+                  hidden: |
+                    return !self['okido-forms.okido.field.labels.description']?.some((item) => item?.codes.some(code => code.id === 'CD-TECHNICAL|other|1'))
+                tags:
+                    - MS-OKIDO-COMPLEMENTARY-EXAM-ITEM|examOther|1
+                    - CD-ITEM|technical|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-EXTERNAL-FACTOR-ITEM|repercussion|1
+  d941ec5d-254c-4af2-ac87-e4c4c5bbd502:
+    form: okido-forms.okido.field.labels.individualFactor
+    description: okido-forms.okido.field.labels.individualFactor
+    codifications:
+      - type: CD-SEVERITY
+        codes:
+          - id: CD-SEVERITY|low|1
+            label:
+              nl: Licht
+              fr: Léger
+          - id: CD-SEVERITY|normal|1
+            label:
+              nl: Normaal
+              fr: Normal
+          - id: CD-SEVERITY|high|1
+            label:
+              nl: Ernstig
+              fr: Grave
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-INDIVIDUAL-FACTOR-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-INDIVIDUAL-FACTOR-ITEM|description|1
+                  - CD-ITEM|complaint|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-INDIVIDUAL-FACTOR-ITEM|status|1
+              - field: okido-forms.okido.field.labels.severity
+                type: dropdown
+                codifications:
+                  - CD-SEVERITY
+                tags:
+                  - MS-OKIDO-INDIVIDUAL-FACTOR-ITEM|severity|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-INDIVIDUAL-FACTOR-ITEM|repercussion|1
+  bdf9ba36-74d4-4588-b660-ece73da4d1af:
+    form: okido-forms.okido.field.labels.medicalData
+    description: okido-forms.okido.field.labels.medicalData
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-MEDICAL-DATA-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-MEDICAL-DATA-ITEM|description|1
+                  - CD-ITEM|diagnosis|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-MEDICAL-DATA-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-MEDICAL-DATA-ITEM|repercussion|1
+  a8acea51-1982-4dbf-9f81-cbe00394ff46:
+    form: okido-forms.okido.field.labels.surgicalData
+    description: okido-forms.okido.field.labels.surgicalData
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SURGICAL-DATA-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-SURGICAL-DATA-ITEM|description|1
+                  - CD-ITEM|treatment|1
+                  - CD_ITEM_EXT_HE_TYPE|surgical|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-SURGICAL-DATA-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-SURGICAL-DATA-ITEM|repercussion|1
+  0842ece4-2fa2-4880-983e-296a7e485c06:
+    form: okido-forms.okido.field.labels.medicalCareDrug
+    description: okido-forms.okido.field.labels.medicalCareDrug
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-DRUG-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-DRUG-ITEM|description|1
+                  - CD-ITEM|medication|1
+                  - CD_ITEM_EXT_HE_TYPE|medical|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-DRUG-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-DRUG-ITEM|repercussion|1
+                  - CD-ITEM|transactionreason|1
+  c013306c-df74-47a8-aa32-e448d933b779:
+    form: okido-forms.okido.field.labels.medicalCareActe
+    description: okido-forms.okido.field.labels.medicalCareActe
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-ACT-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-ACT-ITEM|description|1
+                  - CD-ITEM|treatment|1
+                  - CD_ITEM_EXT_HE_TYPE|medical|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-ACT-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-MEDICAL-CARE-ACT-ITEM|repercussion|1
+  86196719-cb66-4af3-a99d-68cb0c2d8175:
+    form: okido-forms.okido.field.labels.paramedicalCare
+    description: okido-forms.okido.field.labels.paramedicalCare
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-PARAMEDICAL-CARE-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-PARAMEDICAL-CARE-ITEM|description|1
+                  - CD-ITEM|treatment|1
+                  - CD_ITEM_EXT_HE_TYPE|paramedical|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-PARAMEDICAL-CARE-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-PARAMEDICAL-CARE-ITEM|repercussion|1
+  b76a4b84-cd79-4bd6-bd36-c7aa0c29994b:
+    form: okido-forms.okido.field.labels.physiotherapyCare
+    description: okido-forms.okido.field.labels.physiotherapyCare
+    codifications:
+      - type: MS-OKIDO-CARE-STATUS
+        codes:
+          - id: MS-OKIDO-CARE-STATUS|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: MS-OKIDO-CARE-STATUS|passiveRelevant|1
+            label:
+              nl: Passief - relevant
+              fr: Passif - relevant
+          - id: MS-OKIDO-CARE-STATUS|passiveNotRelevant|1
+            label:
+              nl: Niet relevant
+              fr: Passif - non relevant
+          - id: MS-OKIDO-CARE-STATUS|notPresent|1
+            label:
+              nl: Niet aanwezig
+              fr: Non présent
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-PHYSIOTHERAPY-CARE-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                tags:
+                  - MS-OKIDO-PHYSIOTHERAPY-CARE-ITEM|description|1
+                  - CD-ITEM|treatment|1
+                  - CD_ITEM_EXT_HE_TYPE|paramedical|1
+              - field: okido-forms.okido.field.labels.status
+                type: dropdown
+                codifications:
+                  - MS-OKIDO-CARE-STATUS
+                tags:
+                  - MS-OKIDO-PHYSIOTHERAPY-CARE-ITEM|status|1
+              - field: okido-forms.okido.field.labels.repercussion
+                type: textfield
+                span: 24
+                multiline: true
+                tags:
+                  - MS-OKIDO-PHYSIOTHERAPY-CARE-ITEM|repercussion|1
+  baca774a-b96c-44af-84ff-15619e0af0e9:
+    form: okido-forms.okido.field.labels.stateOfPhysiotherapy
+    description: okido-forms.okido.field.labels.stateOfPhysiotherapy
+    codifications:
+      - type: CD-LIFECYCLE
+        codes:
+          - id: CD-LIFECYCLE|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: CD-LIFECYCLE|inactive|1
+            label:
+              nl: Inactief
+              fr: Inactif
+          - id: CD-LIFECYCLE|cancelled|1
+            label:
+              nl: Geannuleerd
+              fr: Annuler
+          - id: CD-LIFECYCLE|completed|1
+            label:
+              nl: Voltooid
+              fr: Complété
+          - id: CD-LIFECYCLE|prescribed|1
+            label:
+              nl: Voorgeschreven
+              fr: Prescrit
+          - id: CD-LIFECYCLE|added|1
+            label:
+              nl: Toegevoegd
+              fr: Ajouté
+          - id: CD-LIFECYCLE|planned|1
+            label:
+              nl: Gepland
+              fr: Plannifié
+          - id: CD-LIFECYCLE|delivered|1
+            label:
+              nl: Geleverd
+              fr: Délivré
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.state
+                type: dropdown
+                span: 12
+                codifications:
+                  - CD-LIFECYCLE
+                tags:
+                  - MS-OKIDO-STATE-OF-PHYSIOTHERAPY-ITEM|state|1
+  f145e2bf-2ff6-4c4c-94f1-1f050c6072b7:
+    form: okido-forms.okido.field.labels.shoulder
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.abduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|abduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.adduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|adduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.external_rotation
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|external_rotation|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.internal_rotation
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SHOULDER-ITEM|internal_rotation|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  229b343e-b64c-4150-a488-811313e6328b:
+    form: okido-forms.okido.field.labels.elbow
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.pronation
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|pronation|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.supination
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|supination|1
+                  - CD-ITEM|parameter|1
+  b0efce4e-241a-4c68-9084-20bfb11a6382:
+    form: okido-forms.okido.field.labels.wrist
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.radial_inclination
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|radialInclination|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.ulnar_inclination
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ELBOW-ITEM|ulnarInclination|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  f4115bfb-7af7-4547-937e-22eaeaa74990:
+    form: okido-forms.okido.field.labels.hip
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.abduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|abduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.adduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|adduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.external_rotation
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|externalRotation|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.internal_rotation
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HIP-ITEM|internalRotation|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  a07b9c4e-0757-4405-ac26-3eeb874cbae6:
+    form: okido-forms.okido.field.labels.knee
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-KNEE-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-KNEE-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  0fb429c5-adb7-412b-bd8c-081f5a83b3d4:
+    form: okido-forms.okido.field.labels.ankle
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.dorsal_flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ANKLE-ITEM|dorsalFlexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.plantar_flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-ANKLE-ITEM|plantarFlexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  e893cb4f-6268-4461-8599-b667e1655248:
+    form: okido-forms.okido.field.labels.spine
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SPINE-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SPINE-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.lateral_flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SPINE-ITEM|lateralFlexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.rotation
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-SPINE-ITEM|rotation|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  0ca133a7-7b38-4b53-94b3-5691e945dee2:
+    form: okido-forms.okido.field.labels.hand_mcp
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-MCP-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-MCP-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  aad57780-1679-447a-92c2-17e7aee43939:
+    form: okido-forms.okido.field.labels.hand_ipp
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-IPP-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-IPP-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  9098945f-384c-416d-ad89-90ce7a6db7ee:
+    form: okido-forms.okido.field.labels.hand_ipd
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-IPD-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-IPD-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  0b54bc9c-5ae7-4427-ad90-87d6e1ba2016:
+    form: okido-forms.okido.field.labels.hand_thumb_ccm
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.abduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-CCM-ITEM|abduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.adduction
+                type: measure-field
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-CCM-ITEM|adduction|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-CCM-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-CCM-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  ead8a3b1-078c-4755-b793-a6c19677a674:
+    form: okido-forms.okido.field.labels.hand_thumb_mcp
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-MCP-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-MCP-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+                  - CD-UNIT|degree|1
+  f8e0d453-cb9a-4dba-86a2-85bf4e95f4b9:
+    form: okido-forms.okido.field.labels.hand_thumb_ip
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.flexion
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-IP-ITEM|flexion|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.extension
+                type: measure-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'measure', unit: '°' } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SEARCH-HAND-THUMB-IP-ITEM|extension|1
+                  - CD-ITEM|parameter|1
+  5ed38f13-5061-4e53-8db1-a6f64fce5a2e:
+    form: okido-forms.okido.field.labels.other
+    codifications:
+      - type: CD-UNIT
+        codes:
+          - id: CD-UNIT|degree|1
+            label:
+              nl: Graden
+              fr: Degrés
+          - id: CD-UNIT|%|1
+            label:
+              nl: Procent
+              fr: Pourcent
+          - id: CD-UNIT|cm|1
+            label:
+              nl: Cm
+              fr: Cm
+          - id: CD-UNIT|kg|1
+            label:
+              nl: Kg
+              fr: Kg
+          - id: CD-UNIT|l|1
+            label:
+              nl: Liter
+              fr: Litre
+          - id: CD-UNIT|minute|1
+            label:
+              nl: Minuut
+              fr: Minute
+          - id: CD-UNIT|second|1
+            label:
+              nl: Seconde
+              fr: Seconde
+          - id: CD-UNIT|week|1
+            label:
+              nl: Week
+              fr: Semaine
+          - id: CD-UNIT|day|1
+            label:
+              nl: Dag
+              fr: Jour
+          - id: CD-UNIT|other|1
+            label:
+              nl: Andere
+              fr: Autre
+    sections:
+      - section: okido-forms.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.type
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-OTHER-ITEM|type|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.value
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-OTHER-ITEM|value|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.unit
+                type: dropdown
+                span: 8
+                codifications:
+                  - CD-UNIT
+                tags:
+                  - MS-OKIDO-SEARCH-OTHER-ITEM|unit|1
+                  - CD-ITEM|parameter|1
+              - field: okido-forms.okido.field.labels.other
+                type: textfield
+                computedProperties:
+                  hidden: |
+                    return !self['okido-forms.okido.field.labels.unit']?.some((item) => item?.codes.some(code => code.id === 'CD-UNIT|other|1'))
+                span: 4
+                tags:
+                  - MS-OKIDO-SEARCH-OTHER-ITEM|other|1
+                  - CD-ITEM|parameter|1
+  3f637117-6084-4338-a37f-82a2b994822f:
+    form: okido-forms.okido.field.labels.patientAppreciation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-PATIENT-APPRECIATION-ITEM|description|1
+                  - CD-HEADING|evaluation1|1
+  c962445e-f7f2-4c9d-b37a-901ee9cd1471:
+    form: okido-forms.okido.field.labels.conclusionOfEvaluation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-CONCLUSION-OF-EVALUATION-ITEM|description|1
+                  - CD-ITEM|outcome|1
+                  - CD-LIFECYCLE|obtained|1
+  defcdda0-4f72-4b4c-b21a-bf40126d880f:
+    form: okido-forms.okido.field.labels.goalOfTreatment
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-GOAL-OF-TREATMENT-ITEM|date|1
+                    - CD-ITEM|outcome|1
+                    - CD-LIFECYCLE|expected|1
+  d7466a97-1cde-4827-8c6e-9d068c8735ea:
+    form: okido-forms.okido.field.labels.supportOffered
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                  - MS-OKIDO-SUPPORT-OFFERED-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-SUPPORT-OFFERED-ITEM|description|1
+                  - CD-ITEM|act|1
+                  - CD-LIFECYCLE|planned|1
+  495085c0-80be-44a6-b064-a656a7d0c332:
+    form: okido-forms.okido.field.labels.plannedProcedure
+    description: okido-forms.SUBSUB
+    codifications:
+      - type: CD-LIFECYCLE
+        codes:
+          - id: CD-LIFECYCLE|active|1
+            label:
+              nl: Actief
+              fr: Actif
+          - id: CD-LIFECYCLE|inactive|1
+            label:
+              nl: Inactief
+              fr: Inactif
+          - id: CD-LIFECYCLE|cancelled|1
+            label:
+              nl: Geannuleerd
+              fr: Annuler
+          - id: CD-LIFECYCLE|completed|1
+            label:
+              nl: Voltooid
+              fr: Complété
+          - id: CD-LIFECYCLE|prescribed|1
+            label:
+              nl: Voorgeschreven
+              fr: Prescrit
+          - id: CD-LIFECYCLE|added|1
+            label:
+              nl: Toegevoegd
+              fr: Ajouté
+          - id: CD-LIFECYCLE|planned|1
+            label:
+              nl: Gepland
+              fr: Plannifié
+          - id: CD-LIFECYCLE|delivered|1
+            label:
+              nl: Geleverd
+              fr: Délivré
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.startDate
+                type: date-picker
+                span: 8
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-PLANNED-PROCEDURE-ITEM|startDate|1
+              - field: okido-forms.okido.field.labels.endDate
+                type: date-picker
+                span: 8
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-PLANNED-PROCEDURE-ITEM|endDate|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.state
+                type: dropdown
+                span: 12
+                codifications:
+                  - CD-LIFECYCLE
+                tags:
+                  - MS-OKIDO-PLANNED-PROCEDURE-ITEM|status|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-PLANNED-PROCEDURE-ITEM|description|1
+                  - CD-HEADING|treatmentplan|1
+  11a9e1be-cca3-4972-83ee-b595a12e5d78:
+    form: okido-forms.okido.field.labels.prestation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-PRESTATION-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                    - MS-OKIDO-PRESTATION-ITEM|description|1
+                    - CD-HEADING|treatment|1
+                    - CD-TRANSACTION|contactreport|1
+                    - CD-ITEM|act|1
+                    - CD-LIFECYCLE|completed|1
+  2e978da7-0b3f-4a42-992f-821b75eac36b:
+    form: okido-forms.okido.field.labels.convention
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-CONVENTION-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - CD-HEADING|treatment|1
+                  - CD-TRANSACTION|contactreport|1
+                  - CD-ITEM|instructionforpatient|1
+                  - MS-OKIDO-CONVENTION-ITEM|description|1
+  ba8accc5-22de-4bc7-8da1-030c0a10bc0c:
+    form: okido-forms.okido.field.labels.concertation
+    description: okido-forms.SUBSUB
+    codifications:
+      - type: CD-ENCOUNTER
+        codes:
+          - id: CD-ENCOUNTER|consult|1
+            label:
+              nl: Consult solo
+              fr: Concertation solo
+          - id: CD-ENCOUNTER|multidisciplinaryconsult|1
+            label:
+              nl: Multidisciplinair consult
+              fr: Consultation multidisciplinaire
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-CONCERTATION-ITEM|date|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.type
+                type: dropdown
+                span: 12
+                codifications:
+                  - CD-ENCOUNTER
+                tags:
+                  - MS-OKIDO-CONCERTATION-ITEM|type|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.concertation
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - CD-ENCOUNTER|multidisciplinaryconsult|1
+              - subform:
+                id: 4e713fdb-0a95-4ccf-98bc-6f3f83ee90fb
+                span: 24
+                borderless: true
+                refs:
+                  - 70c1c422-9308-44f5-bc0e-873840bf1599
+  70c1c422-9308-44f5-bc0e-873840bf1599:
+    form: okido-forms.okido.field.labels.hcp
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.lastname
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-HCP-ITEM|lastname|1
+              - field: okido-forms.okido.field.labels.firstname
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-HCP-ITEM|firstname|1
+              - field: okido-forms.okido.field.labels.ssin
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-HCP-ITEM|ssin|1
+              - field: okido-forms.okido.field.labels.nihii
+                type: textfield
+                span: 4
+                tags:
+                  - MS-OKIDO-HCP-ITEM|nihii|1
+              - field: okido-forms.okido.field.labels.disciplinary
+                type: dropdown
+                span: 4
+                tags:
+                    - MS-OKIDO-HCP-ITEM|disciplinary|1
+  6ca47ab7-3bb9-4cf1-be00-568bef1f2cac:
+    form: okido-forms.okido.field.labels.closureReason
+    description: okido-forms.SUBSUB
+    codifications:
+      - type: MS-OKIDO-CLOSURE-REASON
+        codes:
+          - id: MS-OKIDO-CLOSURE-REASON|noShowedUp|1
+            label:
+              nl: Afgesloten
+              fr: Le patient ne s'est plus présenté
+          - id: MS-OKIDO-CLOSURE-REASON|stoppedByPatient|1
+            label:
+              nl: Afgesloten op verzoek van de patiënt
+              fr: Arrêté sur décision du patient
+          - id: MS-OKIDO-CLOSURE-REASON|lackOfCooperation|1
+            label:
+              nl: Afgesloten wegens gebrek aan samenwerking
+              fr: Manque de coopération
+          - id: MS-OKIDO-CLOSURE-REASON|patientMoves|1
+            label:
+              nl: Afgesloten wegens verhuis van de patiënt
+              fr: Déménagement du patient
+          - id: MS-OKIDO-CLOSURE-REASON|serieFinalizedNormally|1
+            label:
+              nl: Serie normaal afgesloten
+              fr: Série finalisée normalement
+          - id: MS-OKIDO-CLOSURE-REASON|complaintDisappeared|1
+            label:
+              nl: Klacht verdwenen
+              fr: Plainte disparue
+          - id: MS-OKIDO-CLOSURE-REASON|noImprovements|1
+            label:
+              nl: Geen verbetering
+              fr: Pas d'amélioration
+          - id: MS-OKIDO-CLOSURE-REASON|decisionOfPhysiotherapist|1
+            label:
+              nl: Afgesloten op beslissing van de kinesitherapeut
+              fr: Sur décision du kinésithérapeute
+          - id: MS-OKIDO-CLOSURE-REASON|other|1
+            label:
+              nl: Andere
+              fr: Autre
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-CLOSURE-REASON-ITEM|date|1
+              - field: okido-forms.okido.field.labels.reason
+                type: dropdown
+                span: 4
+                codifications:
+                  - MS-OKIDO-CLOSURE-REASON
+                tags:
+                  - MS-OKIDO-CLOSURE-REASON-ITEM|reason|1
+              - field: okido-forms.okido.field.labels.other
+                type: textfield
+                computedProperties:
+                    hidden: |
+                      return !self['okido-forms.okido.field.labels.reason']?.some((item) => item?.codes.some(code => code.id === 'MS-OKIDO-CLOSURE-REASON|other|1'))
+                tags:
+                  - MS-OKIDO-CLOSURE-REASON-ITEM|other|1
+  3505ed17-448a-4c05-9be2-9b5d181807a5:
+    form: okido-forms.okido.field.labels.patientParticipation
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-PATIENT-PARTICIPATION-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-PATIENT-PARTICIPATION-ITEM|description|1
+  79ccd586-3448-44c0-a527-f8eb8f158dbb:
+    form: okido-forms.okido.field.labels.nextTreatment
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-NEXT-TREATMENT-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                    - MS-OKIDO-NEXT-TREATMENT-ITEM|description|1
+  705a19cf-cad9-4ea8-994b-9a928ab4b018:
+    form: okido-forms.okido.field.labels.agreementWithPatient
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-AGREEMENT-WITH-PATIENT-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                    - MS-OKIDO-AGREEMENT-WITH-PATIENT-ITEM|description|1
+  0d3d352e-4743-4a0a-a99d-730b307189a2:
+    form: okido-forms.okido.field.labels.report
+    description: okido-forms.SUBSUB
+    sections:
+      - section: okido-forms.okido.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: okido-forms.okido.field.labels.date
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                tags:
+                    - MS-OKIDO-REPORT-ITEM|date|1
+              - field: okido-forms.okido.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - MS-OKIDO-REPORT-ITEM|description|1
