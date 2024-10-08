@@ -31,7 +31,7 @@ $font-weight-label: 500;
 .icure-button-group {
 	padding-top: 16px;
 	width: $textbox-default-width;
-	> .icure-label {
+	.icure-label {
 		color: $color;
 		font-size: $label-font-size;
 		font-weight: $font-weight-label;

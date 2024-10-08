@@ -4,135 +4,135 @@ description: abortion-forms.PRELIMINARY-MEDICAL-INTERVIEW
 codifications:
   - type: MS-ABORTION-PLANNED-PREGNANCY
     codes:
-      - id: yes
+      - id: 'yes'
         label:
           nl: Ja
           fr: Oui
-      - id: no
+      - id: 'no'
         label:
           nl: Nee
           fr: Non
   - type: MS-ABORTION-USED-CONTRACEPTION
     codes:
-      - id: yes
+      - id: 'yes'
         label:
           nl: Ja
           fr: Oui
-      - id: no
+      - id: 'no'
         label:
           nl: Nee
           fr: Non
   - type: MS-ABORTION-NO-USED-CONTRACEPTION
     codes:
-      - id: unintended-pregnancy
+      - id: '1'
         label:
           nl: Zwangerschap niet gewenst
           fr: Grossesse non désirée
-      - id: intended-pregnancy
+      - id: '2'
         label:
           nl: Zwangerschap gewenst
           fr: Grossesse désirée
-      - id: presumed-infertility
+      - id: '3'
         label:
           nl: Veronderstelde onvruchtbaarheid
           fr: Infertilité présumée
-      - id: man-refused-contraception
+      - id: '4'
         label:
           nl: Partner weigerde anticonceptie
           fr: L'homme à refusé la contraception
-      - id: other
+      - id: '5'
         label:
           nl: Andere
           fr: Autre
   - type: MS-ABORTION-CONTRACEPTION
     codes:
-      - id: coitus-interrupted
+      - id: '06'
         label:
           nl: Coïtus interruptus
           fr: Coït interrompu
-      - id: male-sterilization
+      - id: '15'
         label:
           nl: Sterilisatie man
           fr: Stérilisation masculine
-      - id: periodic-abstinence
+      - id: '07'
         label:
           nl: Periodieke onthouding
           fr: Abstinence périodique
-      - id: female-sterilization
+      - id: '16'
         label:
           nl: Sterilisatie vrouw
           fr: Stérilisation féminine
-      - id: spermicides
+      - id: '08'
         label:
           nl: Spermicide middelen
           fr: Spermicides
-      - id: morning-after-pill
+      - id: '17'
         label:
           nl: Noodpil
           fr: Pilule du lendemain
-      - id: pessary
+      - id: '09'
         label:
           nl: Pessarium
           fr: Pessaire
-      - id: implant
+      - id: '18'
         label:
           nl: Implant
           fr: Implant contraceptif
-      - id: condom
+      - id: '10'
         label:
           nl: Condoom
           fr: Préservatif
-      - id: patch
+      - id: '19'
         label:
           nl: Patch
           fr: Patch contraceptif
-      - id: oral-pill
+      - id: '11'
         label:
           nl: Anticonceptiepil
           fr: Pilule contraceptive
-      - id: vaginal-ring
+      - id: '20'
         label:
           nl: Vaginale ring
           fr: Anneau vaginal
-      - id: progestone-only-pill
+      - id: '12'
         label:
           nl: Prikpil
           fr: Pilule progestative
-      - id: symptothermal-method
+      - id: '21'
         label:
           nl: NFP - Symptothermale methode
           fr: Méthode symptothermique
-      - id: Copper-IUD
+      - id: '13'
         label:
           nl: Koperspiraal
           fr: Stérilet en cuivre
-      - id: electronic-or-digital-methods
+      - id: '22'
         label:
           nl: Elektronische of digitale methoden
           fr: Méthodes électroniques ou numériques
-      - id: hormonal-IUD
+      - id: '14'
         label:
           nl: Hormoonspiraal
           fr: Stérilet hormonal
-      - id: other-contraceptives
+      - id: '23'
         label:
           nl: Andere anticonceptiva
           fr: Autres contraceptifs
   - type: MS-ABORTION-REASON-OF-FAILURE
     codes:
-      - id: did-not-use-contraception
+      - id: '1'
         label:
           nl: Heeft geen anticonceptie toegepast
           fr: N'a pas utilisé de contraception
-      - id: irregular-or-improper-use-contraception
+      - id: '2'
         label:
-          nl: AC onregelmatig of niet correct verkeerd gebruikt
+          nl: AC heeft gefaald ondanks alhoewel goed gebruikt
           fr: Utilisation irrégulière ou inappropriée contre la conception
-      - id: contraception-failed-despite-good-use
+      - id: '3'
         label:
           nl: AC heeft gefaald alhoewel goed gebruikt
           fr: La contraception a échoué malgré une bonne utilisation
-      - id: does-not-know
+      - id: '4'
         label:
           nl: Weet het niet
           fr: Ne sait pas
@@ -255,6 +255,7 @@ translations:
       field-labels.WKN: WKN
       field-labels.DGN: DGN
       field-labels.FL: FL
+      field-labels.MAX-CONTRACEPTION-ITEM: U kunt maximaal 3 keuzes selecteren.
   - language: fr
     translations:
       field-labels.PREGNANCY-SECTION: Section 1
@@ -291,6 +292,7 @@ translations:
       field-labels.WKN: WKN
       field-labels.DGN: DGN
       field-labels.FL: FL
+      field-labels.MAX-CONTRACEPTION-ITEM: Vous ne pouvez sélectionner que 3 choix maximum.
 sections:
   - section: field-labels.PREGNANCY-SECTION
     fields:
@@ -378,7 +380,7 @@ sections:
               alignItems: 'flex-end'
             computedProperties:
               hidden: |
-                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'no'))
+                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'no'))
             codifications:
               - MS-ABORTION-NO-USED-CONTRACEPTION
             tags:
@@ -392,7 +394,7 @@ sections:
             span: 12
             computedProperties:
               hidden: |
-                return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id === 'other')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'yes'))
+                return !self['field-labels.NO']?.some(d => d.codes?.some(c => c.id.split('|')[1] === '5')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'yes'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-no-used-contraception|1
           - field: field-labels.YES
@@ -404,7 +406,12 @@ sections:
               alignItems: 'flex-end'
             computedProperties:
               hidden: |
-                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'yes'))
+                return !self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'yes'))
+            validators:
+              - validation: |
+                  const codes = self['field-labels.YES']?.[0]?.codes.length ?? 0
+                  return codes <= 3
+                message: field-labels.MAX-CONTRACEPTION-ITEM
             codifications:
               - MS-ABORTION-CONTRACEPTION
             tags:
@@ -419,7 +426,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['field-labels.YES']?.some(d => d.codes?.some(c => c.id === 'other-contraceptives')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'no'))
+                return !self['field-labels.YES']?.some(d => d.codes?.some(c => c.id.split('|')[1] === '23')) || self['field-labels.USED-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'no'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-yes-used-contraception|1
               - MS-ABORTION-ITEM|contraception|1
@@ -444,6 +451,11 @@ sections:
           - field: field-labels.FUTURE-CONTRACEPTION
             type: checkbox
             span: 12
+            validators:
+              - validation: |
+                  const codes = self['field-labels.FUTURE-CONTRACEPTION']?.[0]?.codes.length ?? 0
+                  return codes <= 3
+                message: field-labels.MAX-CONTRACEPTION-ITEM
             styleOptions:
               direction: row
               span: 2
@@ -462,7 +474,7 @@ sections:
             span: 12
             computedProperties:
               hidden: |
-                return !self['field-labels.FUTURE-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id === 'other-contraceptives'))
+                return !self['field-labels.FUTURE-CONTRACEPTION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other-contraceptives'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|other-contraceptionFuture|1
               - MS-ABORTION-ITEM|contraception|1
@@ -559,7 +571,7 @@ sections:
             type: textfield
             computedProperties:
               hidden: |
-                return !self['field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION']?.some(d => d.codes?.some(c => c.id === 'other-referral'))
+                return !self['field-labels.RESULT-OF-THE-PRELIMINARY-INVESTIGATION']?.some(d => d.codes?.some(c => c.id.split('|')[1] === 'other-referral'))
             tags:
               - MS-ABORTION-MEDICAL-INTERVIEW-ITEM|referralPlace|1
       - group: line
