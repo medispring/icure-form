@@ -1,0 +1,227 @@
+form: physio-uro-forms.SEXUALITY
+id: 662f8ba2-304a-4b31-ac8b-6d18796a6fdf
+description: physio-uro-forms.SEXUALITY
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-URO-SEXUAL-PAIN
+    codes:
+      - id: MS-URO-SEXUAL-PAIN|intromission|1
+        label:
+          nl: Bij de intromissie
+          fr: A l'intromission
+      - id: MS-URO-SEXUAL-PAIN|during|1
+        label:
+          nl: Tijdens
+          fr: Au cours du rapport
+      - id: MS-URO-SEXUAL-PAIN|after|1
+        label:
+          nl: Na
+          fr: Après le rapport
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.sexuality.field.label.sexuality: Sexualité
+        physio-uro-forms.sexuality.field.label.sexualDisorder: Trouble de la sexualité
+        physio-uro-forms.sexuality.field.label.dateOfOnset: Date d'apparition
+        physio-uro-forms.sexuality.field.label.qualityOfErection: Qualité de l'érection
+        physio-uro-forms.sexuality.field.label.durationOfErection: Durée de l'érection
+        physio-uro-forms.sexuality.field.label.prematureEjaculation: Ejaculation précoce
+        physio-uro-forms.sexuality.field.label.triggeringFactor: Facteur déclenchant
+        physio-uro-forms.sexuality.field.label.frequencyOfSexualIntercourse: Fréquence des rapports sexuels
+        physio-uro-forms.sexuality.field.label.pain: Douleur
+        physio-uro-forms.sexuality.field.label.libido: Libido
+        physio-uro-forms.sexuality.field.label.painLocation: Localisation de la douleur
+        physio-uro-forms.sexuality.field.label.eva: EVA
+        physio-uro-forms.sexuality.field.label.painType: Type de douleur
+        physio-uro-forms.sexuality.field.label.orgasmicDisorder: Trouble de l'orgasme
+        physio-uro-forms.sexuality.field.label.orgamsQuality: Qualité de l'orgasme
+  - language: nl
+    translations:
+        physio-uro-forms.sexuality.field.label.sexuality: Sexualiteit
+        physio-uro-forms.sexuality.field.label.sexualDisorder: Seksuele stoornis
+        physio-uro-forms.sexuality.field.label.dateOfOnset: Datum van optreden
+        physio-uro-forms.sexuality.field.label.qualityOfErection: Kwaliteit van de erectie
+        physio-uro-forms.sexuality.field.label.durationOfErection: Duur van de erectie
+        physio-uro-forms.sexuality.field.label.prematureEjaculation: Vroegtijdige ejaculatie
+        physio-uro-forms.sexuality.field.label.triggeringFactor: Triggerend factor
+        physio-uro-forms.sexuality.field.label.frequencyOfSexualIntercourse: Frequentie van seksuele betrekkingen
+        physio-uro-forms.sexuality.field.label.pain: Pijn
+        physio-uro-forms.sexuality.field.label.libido: Libido
+        physio-uro-forms.sexuality.field.label.painLocation: Pijnlokalisatie
+        physio-uro-forms.sexuality.field.label.eva: EVA
+        physio-uro-forms.sexuality.field.label.painType: Pijntype
+        physio-uro-forms.sexuality.field.label.orgasmicDisorder: Orgasmestoornis
+        physio-uro-forms.sexuality.field.label.orgamsQuality: Kwaliteit van het orgasme
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.sexuality
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.sexualDisorder
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-SEXUAL-ITEM|sexualDisorder|1
+          - field: physio-uro-forms.sexuality.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.sexuality.field.label.sexualDisorder']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            span: 4
+            tags:
+              - MS-SEXUAL-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.qualityOfErection
+            type: textfield
+            span: 9
+            tags:
+              - MS-SEXUAL-ITEM|qualityOfErection|1
+          - field: physio-uro-forms.sexuality.field.label.durationOfErection
+            type: measure-field
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'sec' } }, codes: [] }
+            span: 4
+            tags:
+              - MS-SEXUAL-ITEM|durationOfErection|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.prematureEjaculation
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-SEXUAL-ITEM|prematureEjaculation|1
+          - field: physio-uro-forms.sexuality.field.label.triggeringFactor
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.sexuality.field.label.prematureEjaculation']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-SEXUAL-ITEM|prematureEjaculation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.frequencyOfSexualIntercourse
+            type: textfield
+            span: 9
+            tags:
+              - MS-SEXUAL-ITEM|frequencyOfSexualIntercourse|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.pain
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-SEXUAL-PAIN
+            tags:
+              - MS-SEXUAL-ITEM|pain|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.libido
+            type: textfield
+            span: 9
+            tags:
+              - MS-SEXUAL-ITEM|libido|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.painLocation
+            type: textfield
+            span: 9
+            tags:
+              - MS-SEXUAL-ITEM|painLocation|1
+          - field: physio-uro-forms.sexuality.field.label.eva
+            type: textfield
+            span: 4
+            tags:
+              - MS-SEXUAL-ITEM|eva|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.painType
+            type: textfield
+            span: 9
+            tags:
+              - MS-SEXUAL-ITEM|painType|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.sexuality.field.label.orgasmicDisorder
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-SEXUAL-ITEM|orgasmicDisorder|1
+          - field: physio-uro-forms.sexuality.field.label.orgamsQuality
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.sexuality.field.label.orgasmicDisorder']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-SEXUAL-ITEM|orgamsQuality|1
+
+

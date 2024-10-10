@@ -42,38 +42,54 @@ sections:
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|observation|1
           - field: physio-forms.physical.field.label.functionalDemonstration
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|functionalDemonstration|1
           - field: physio-forms.physical.field.label.neurologicalExam
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|neurologicalExam|1
           - field: physio-forms.physical.field.label.neurodynamicalExam
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|neurodynamicalExam|1
           - field: physio-forms.physical.field.label.palpation
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|palpation|1
           - field: physio-forms.physical.field.label.accessoryMovement
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|accessoryMovement|1
           - field: physio-forms.physical.field.label.physiologicalMovement
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|physiologicalMovement|1
           - field: physio-forms.physical.field.label.specificPurposeTest
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-PHYSICAL-EXAM-ITEM|specificPurposeTest|1

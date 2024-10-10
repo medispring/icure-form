@@ -1,0 +1,237 @@
+form: physio-uro-forms.PROLAPSE
+id: df45aced-c14d-4977-88f0-f4c2c08d9350
+description: physio-uro-forms.PROLAPSE
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-URA-PROLAPSE-TYPE
+    codes:
+      - id: MS-URA-PROLAPSE-TYPE|vaginal|1
+        label:
+            nl: Vaginaal
+            fr: Vaginal
+      - id: MS-URA-PROLAPSE-TYPE|rectal|1
+        label:
+            nl: Rectaal
+            fr: Rectal
+  - type: MS-URO-PROLASPE-PAIN-TYPE
+    codes:
+      - id: MS-URO-PROLASPE-PAIN-TYPE|pelvic|1
+        label:
+            nl: Pelvien
+            fr: Pelvien
+      - id: MS-URO-PROLASPE-PAIN-TYPE|perineal|1
+        label:
+            nl: Perineaal
+            fr: Périnéal
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.prolapse.field.label.prolapse: Prolapsus
+        physio-uro-forms.prolapse.field.label.cystocele: Cystocèle
+        physio-uro-forms.prolapse.field.label.rectocele: Rectocèle
+        physio-uro-forms.prolapse.field.label.hysteroptosis: Hystéroptose
+        physio-uro-forms.prolapse.field.label.elytrocele: Elytrocele
+        physio-uro-forms.prolapse.field.label.externalizedProlapse: Prolapsus extériorisé
+        physio-uro-forms.prolapse.field.label.size: Taille
+        physio-uro-forms.prolapse.field.label.feelingPerinealHeaviness: Sensation de lourdeur périnéale
+        physio-uro-forms.prolapse.field.label.feelingPelvicHeaviness: Sensation de lourdeur pelvienne
+        physio-uro-forms.prolapse.field.label.startDateOfSymptoms: Date d'apparition de la gêne
+        physio-uro-forms.prolapse.field.label.evaluation: EVA
+        physio-uro-forms.prolapse.field.label.activityLeadingAggravation: Activité entraînant une aggravation
+        physio-uro-forms.prolapse.field.label.pain: Douleur
+        physio-uro-forms.prolapse.field.label.painLocation: Localisation de la douleur
+        physio-uro-forms.prolapse.field.label.painType: Type de douleur
+  - language: nl
+    translations:
+        physio-uro-forms.prolapse.field.label.prolapse: Prolapsus
+        physio-uro-forms.prolapse.field.label.cystocele: Cystokel
+        physio-uro-forms.prolapse.field.label.rectocele: Rectocele
+        physio-uro-forms.prolapse.field.label.hysteroptosis: Hysteroptose
+        physio-uro-forms.prolapse.field.label.elytrocele: Elytrocele
+        physio-uro-forms.prolapse.field.label.externalizedProlapse: Externe verzakking
+        physio-uro-forms.prolapse.field.label.size: Grootte
+        physio-uro-forms.prolapse.field.label.feelingPerinealHeaviness: Gevoel van perineale zwaarte
+        physio-uro-forms.prolapse.field.label.feelingPelvicHeaviness: Gevoel van bekkenzwaarte
+        physio-uro-forms.prolapse.field.label.startDateOfSymptoms: Datum van optreden van de klachten
+        physio-uro-forms.prolapse.field.label.evaluation: EVA
+        physio-uro-forms.prolapse.field.label.activityLeadingAggravation: Activiteit die verergering veroorzaakt
+        physio-uro-forms.prolapse.field.label.pain: Pijn
+        physio-uro-forms.prolapse.field.label.painLocation: Lokalisatie van de pijn
+        physio-uro-forms.prolapse.field.label.painType: Type pijn
+sections:
+  - section: physio-uro.forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.prolapse
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.cystocele
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|cystocele|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.rectocele
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|rectocele|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.hysteroptosis
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|hysteroptosis|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.elytrocele
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|elytrocele|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.prolapse
+            type: dropdown
+            span: 12
+            codifications:
+              - MS-URA-PROLAPSE-TYPE
+            tags:
+              - MS-PROLAPSE-ITEM|prolapse|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.externalizedProlapse
+            type: textfield
+            span: 10
+            tags:
+              - MS-PROLAPSE-ITEM|externalizedProlapse|1
+          - field: physio-uro-forms.prolapse.field.label.size
+            type: measure-field
+            span: 2
+            computedProperties:
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 'cm' } }, codes: [] }
+            tags:
+              - MS-PROLAPSE-ITEM|size|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.feelingPerinealHeaviness
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-PROLAPSE-ITEM|feelingPerinealHeaviness|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.feelingPelvicHeaviness
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-PROLAPSE-ITEM|feelingPelvicHeaviness|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.startDateOfSymptoms
+            type: date-picker
+            tags:
+              - MS-PROLAPSE-ITEM|startDateOfSymptoms|1
+          - field: physio-uro-forms.prolapse.field.label.evaluation
+            type: textfield
+            span: 2
+            tags:
+              - MS-PROLAPSE-ITEM|evaluation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.activityLeadingAggravation
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|activityLeadingAggravation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.pain
+            type: dropdown
+            span: 12
+            codifications:
+              - MS-URO-PROLASPE-PAIN-TYPE
+            tags:
+              - MS-PROLAPSE-ITEM|pain|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.painLocation
+            type: textfield
+            span: 10
+            tags:
+              - MS-PROLAPSE-ITEM|painLocation|1
+          - field: physio-uro-forms.prolapse.field.label.evaluation
+            type: textfield
+            span: 2
+            tags:
+              - MS-PROLAPSE-ITEM|evaluation|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.prolapse.field.label.painType
+            type: textfield
+            span: 12
+            tags:
+              - MS-PROLAPSE-ITEM|painType|1
+

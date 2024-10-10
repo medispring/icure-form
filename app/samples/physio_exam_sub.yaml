@@ -108,21 +108,29 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|reasonOfConsultation|1
           - field: physio-forms.subjectif.field.label.relevantElementOfPatient
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|relevantElementOfPatient|1
           - field: physio-forms.subjectif.field.label.currentFunctionalCapacity
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|currentFunctionalCapacity|1
           - field: physio-forms.subjectif.field.label.goalAndExpectation
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|goalAndExpectation|1
   - section: physio-forms.section-label.medicalPerspective
     fields:
       - group: line
@@ -136,11 +144,15 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|diagnosis|1
           - field: physio-forms.subjectif.field.label.history
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|history|1
   - section: physio-forms.section-label.characteristicOfHealthProblem
     fields:
       - group: line
@@ -154,6 +166,8 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|characteristicOfSymptoms|1
       - group: line
         borderless: true
         span: 24
@@ -167,11 +181,15 @@ sections:
           - field: physio-forms.activityScoring.field.label.activity
             type: textfield
             span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
             codifications:
               - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score|1
       - subform:
         id: 0a25149a-f5b6-490d-ba3e-8a7d173b7249
         shortLabel: physio-forms.subjectif.field.label.activityScoringScheme
@@ -188,16 +206,22 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|symptomSite|1
           - field: physio-forms.subjectif.field.label.symptomBehavior
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|symptomBehavior|1
           - field: physio-forms.subjectif.field.label.individualFactors
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|individualFactors|1
 subForms:
   e4e4569c-d618-47b1-ad1c-6c8b0f3b3d0c:
     form: physio-forms.activityScoring.field.label.scoringScheme
@@ -259,9 +283,13 @@ subForms:
               - field: physio-forms.activityScoring.field.label.activity
                 type: textfield
                 span: 8
+                tags:
+                  - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity|1
               - field: physio-forms.activityScoring.field.label.score
                 type: dropdown
                 span: 4
                 codifications:
                   - MS-ACTIVITY-SCORING-VALUE
+                tags:
+                  - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score|1
 
