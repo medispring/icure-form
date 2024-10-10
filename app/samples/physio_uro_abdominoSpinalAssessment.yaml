@@ -1,0 +1,236 @@
+form: physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT
+id: 2a0cbe66-6fcc-4665-9022-bd30401ed975
+description: physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-URO-TRANSVERSE-RECTUS-ASYNERGY
+    codes:
+      - id: MS-URO-TRANSVERSE-RECTUS-ASYNERGY|yes|1
+        label:
+          nl: Versterkt door een transversale asynergie van de rechte buikspieren
+          fr: Accentuée par une asynergie grands-droits transverse
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abdominoSpinalAssessment: Evaluation abdomino-rachidienne
+        physio-uro-forms.abdominoSpinalAssessment.field.label.lumbarHyperlordosis: Hyperlordose lombaire
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abdominalPtosis: Ptose abdominale
+        physio-uro-forms.abdominoSpinalAssessment.field.label.rectusDiastasis: Diastasis des grands-droits
+        physio-uro-forms.abdominoSpinalAssessment.field.label.hernia: Hernie
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abilityMaintainPelvicSpinalStatics: Capacité de maintient de la statique pelvi-rachidienne
+        physio-uro-forms.abdominoSpinalAssessment.field.label.transverseRectusAsynergy: Accentuée par une asynergie grands-droits transverse
+        physio-uro-forms.abdominoSpinalAssessment.field.label.evaluationOfAbdominalStrap: Evaluation de la sangle abdominale
+        physio-uro-forms.abdominoSpinalAssessment.field.label.largeRightsTesting: Testing des grands-droits
+        physio-uro-forms.abdominoSpinalAssessment.field.label.crossFunctionalTesting: Testing transverse
+        physio-uro-forms.abdominoSpinalAssessment.field.label.leftObliqueTesting: Testing des obliques gauches
+        physio-uro-forms.abdominoSpinalAssessment.field.label.rightObliqueTesting: Testing des obliques droits
+        physio-uro-forms.abdominoSpinalAssessment.field.label.other: Autre
+        physio-uro-forms.abdominoSpinalAssessment.field.label.scar: Cicatrice
+        physio-uro-forms.abdominoSpinalAssessment.field.label.spinalPain: Douleurs rachidiennes
+        physio-uro-forms.abdominoSpinalAssessment.field.label.otherFunctionalPain: Autre douleur fonctionnelle
+  - language: nl
+    translations:
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abdominoSpinalAssessment: Abdomino-rachidische evaluatie
+        physio-uro-forms.abdominoSpinalAssessment.field.label.lumbarHyperlordosis: Lumbale hyperlordose
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abdominalPtosis: Abdominale ptose
+        physio-uro-forms.abdominoSpinalAssessment.field.label.rectusDiastasis: Diastase van de rechte buikspieren
+        physio-uro-forms.abdominoSpinalAssessment.field.label.hernia: Hernia
+        physio-uro-forms.abdominoSpinalAssessment.field.label.abilityMaintainPelvicSpinalStatics: Vermogen om de bekken-rugstatiek te behouden
+        physio-uro-forms.abdominoSpinalAssessment.field.label.transverseRectusAsynergy: Versterkt door een transversale asynergie van de rechte buikspieren
+        physio-uro-forms.abdominoSpinalAssessment.field.label.evaluationOfAbdominalStrap: Evaluatie van de buikriem
+        physio-uro-forms.abdominoSpinalAssessment.field.label.largeRightsTesting: Testing van de rechte buikspieren
+        physio-uro-forms.abdominoSpinalAssessment.field.label.crossFunctionalTesting: Transversale test
+        physio-uro-forms.abdominoSpinalAssessment.field.label.leftObliqueTesting: Testing van de linker schuine spieren
+        physio-uro-forms.abdominoSpinalAssessment.field.label.rightObliqueTesting: Testing van de rechter schuine spieren
+        physio-uro-forms.abdominoSpinalAssessment.field.label.other: Andere
+        physio-uro-forms.abdominoSpinalAssessment.field.label.scar: Litteken
+        physio-uro-forms.abdominoSpinalAssessment.field.label.spinalPain: Rugpijn
+        physio-uro-forms.abdominoSpinalAssessment.field.label.otherFunctionalPain: Andere functionele pijn
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.abdominoSpinalAssessment
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.lumbarHyperlordosis
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|lumbarHyperlordosis|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.abdominalPtosis
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|abdominalPtosis|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.transverseRectusAsynergy
+            type: radio-button
+            codifications:
+              - MS-URO-EVALUATION
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.abdominoSpinalAssessment.field.label.abdominalPtosis']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|transverseRectusAsynergy|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.rectusDiastasis
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|rectusDiastasis|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.hernia
+            type: textfield
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|hernia|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.abilityMaintainPelvicSpinalStatics
+            type: textfield
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|abilityMaintainPelvicSpinalStatics|1
+  - section: physio-uro-forms.section-label.SECTION-2
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.evaluationOfAbdominalStrap
+            type: label
+            span: 24
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.largeRightsTesting
+            type: textfield
+            span: 12
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|largeRightsTesting|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.crossFunctionalTesting
+            type: textfield
+            span: 12
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|crossFunctionalTesting|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.leftObliqueTesting
+            type: textfield
+            span: 12
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|leftObliqueTesting|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.rightObliqueTesting
+            type: textfield
+            span: 12
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|rightObliqueTesting|1
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.other
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 3
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|other|1
+  - section: physio-uro-forms.section-label.SECTION-3
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.scar
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|scar|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.spinalPain
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|spinalPain|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.abdominoSpinalAssessment.field.label.otherFunctionalPain
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|otherFunctionalPain|1
+

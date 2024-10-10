@@ -83,6 +83,12 @@ import physio_exam_phy from './samples/physio_exam_phy.yaml'
 import physio_exam_sub from './samples/physio_exam_sub.yaml'
 // @ts-ignore
 import physio_followUp from './samples/physio_followUp.yaml'
+// @ts-ignore
+import physio_uro_abdominoSpinalAssessment from './samples/physio_uro_abdominoSpinalAssessment.yaml'
+// @ts-ignore
+import physio_uro_sexuality from './samples/physio_uro_sexuality.yaml'
+// @ts-ignore
+import physio_uro_prolapse from './samples/physio_uro_prolapse.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -97,9 +103,9 @@ class DemoApp extends LitElement {
 	private samples = [
 		...[
 			/*{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
-			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
+			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },*/
 			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
-			{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
+			/*{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
 			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
 			// { title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
 			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
@@ -128,10 +134,13 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
 			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
 			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },
-			{ title: 'Kiné - Examen subjectif', form: Form.parse(YAML.parse(physio_exam_sub)) },
-			{ title: 'Kiné - Examen physique', form: Form.parse(YAML.parse(physio_exam_phy)) },
-			{ title: 'Kiné - Prise de décision clinique', form: Form.parse(YAML.parse(physio_clinical_decision)) },
+			{ title: 'Bilan kiné - Examen subjectif', form: Form.parse(YAML.parse(physio_exam_sub)) },
+			{ title: 'Bilan kiné - Examen physique', form: Form.parse(YAML.parse(physio_exam_phy)) },
+			{ title: 'Bilan kiné - Prise de décision clinique', form: Form.parse(YAML.parse(physio_clinical_decision)) },
 			{ title: 'Kiné - Suivi quotidien', form: Form.parse(YAML.parse(physio_followUp)) },
+			{ title: 'Kiné - Uro - Evaluation abdomino-rachidienne', form: Form.parse(YAML.parse(physio_uro_abdominoSpinalAssessment)) },
+			{ title: 'Kiné - Uro - Sexualité', form: Form.parse(YAML.parse(physio_uro_sexuality)) },
+			{ title: 'Kiné - Uro - Prolapsus', form: Form.parse(YAML.parse(physio_uro_prolapse)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

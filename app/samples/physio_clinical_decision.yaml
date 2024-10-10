@@ -41,18 +41,26 @@ sections:
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|physiotherapyDiagnosis|1
           - field: physio-forms.clinicalDecision.field.label.treatmentGoal
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentGoal|1
           - field: physio-forms.clinicalDecision.field.label.treatmentOffered
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentOffered|1
           - field: physio-forms.clinicalDecision.field.label.prognosis
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|prognosis|1
