@@ -1,20 +1,58 @@
-form: okido-forms.OKIDO
-id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
-description: okido-forms.OKIDO
+form: physio-forms.CLINICAL_DECISION
+id: 449f411e-8ac1-4903-9694-097ebe6d6639
+description: physio-forms.CLINICAL_DECISION
 translations:
   - language: fr
     translations:
-
+        physio-forms.clinicalDecision.field.label.clinicalDecision: Prise de décision clinique
+        physio-forms.clinicalDecision.field.label.treatementPlan: Plan de traitement
+        physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Diagnostic de kinésithérapeutique
+        physio-forms.clinicalDecision.field.label.treatmentGoal: Objectifs de traitement
+        physio-forms.clinicalDecision.field.label.treatmentOffered: Soins proposés
+        physio-forms.clinicalDecision.field.label.prognosis: Pronostique / planification
   - language: nl
     translations:
-
+      physio-forms.clinicalDecision.field.label.treatementPlan: Behandelingsplan
+      physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Fysiotherapeutische diagnose
+      physio-forms.clinicalDecision.field.label.treatmentGoal: Behandelingsdoelstellingen
+      physio-forms.clinicalDecision.field.label.treatmentOffered: Aangeboden behandeling
+      physio-forms.clinicalDecision.field.label.prognosis: Prognose / planning
 sections:
-  - section: okido-forms.section-label.SECTION-1
+  - section: physio-forms.section-label.SECTION-1
     fields:
       - group: line
         borderless: true
         span: 24
         fields:
-          - field: okido-forms.okido.field.label.okido
+          - field: physio-forms.clinicalDecision.field.label.clinicalDecision
             type: label
-
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.clinicalDecision.field.label.treatementPlan
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.clinicalDecision.field.label.treatmentGoal
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.clinicalDecision.field.label.treatmentOffered
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.clinicalDecision.field.label.prognosis
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2

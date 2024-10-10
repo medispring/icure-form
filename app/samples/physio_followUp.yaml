@@ -1,19 +1,43 @@
-form: okido-forms.OKIDO
+form: physio-forms.DAILY_FOLLOW_UP
 id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
-description: okido-forms.OKIDO
+description: physio-forms.DAILY_FOLLOW_UP
 translations:
   - language: fr
     translations:
-
+        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
+        physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
+        physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
+        physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
   - language: nl
     translations:
-
+        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Dagelijkse opvolging
+        physio-forms.dailyFollowUp.field.label.progressOfSession: Voortgang van de sessie
+        physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
 sections:
-  - section: okido-forms.section-label.SECTION-1
+  - section: physio-forms.section-label.SECTION-1
     fields:
       - group: line
         borderless: true
         span: 24
         fields:
-          - field: okido-forms.okido.field.label.okido
+          - field: physio-forms.dailyFollowUp.field.label.dailyFollowUp
             type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.dailyFollowUp.field.label.progressOfSession
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.dailyFollowUp.field.label.elementsHighlight
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.dailyFollowUp.field.label.conclusion
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2

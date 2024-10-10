@@ -1,6 +1,53 @@
-form: okido-forms.OKIDO
-id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
-description: okido-forms.OKIDO
+form: physio-forms.SUBJECTIF_EXAM
+id: 3df57593-4d25-4338-9224-8ea29f8b2f8f
+description: physio-forms.SUBJECTIF_EXAM
+codifications:
+  - type: MS-ACTIVITY-SCORING-VALUE
+    codes:
+        - id: MS-ACTIVITY-SCORING-VALUE|0|1
+          label:
+            nl: 0 - Niet in staat om een activiteit uit te voeren
+            fr: 0 - Incapable d'effectuer une activité
+        - id: MS-ACTIVITY-SCORING-VALUE|1|1
+          label:
+            nl: 1
+            fr: 1
+        - id: MS-ACTIVITY-SCORING-VALUE|2|1
+          label:
+            nl: 2
+            fr: 2
+        - id: MS-ACTIVITY-SCORING-VALUE|3|1
+          label:
+              nl: 3
+              fr: 3
+        - id: MS-ACTIVITY-SCORING-VALUE|4|1
+          label:
+              nl: 4
+              fr: 4
+        - id: MS-ACTIVITY-SCORING-VALUE|5|1
+          label:
+              nl: 5
+              fr: 5
+        - id: MS-ACTIVITY-SCORING-VALUE|6|1
+          label:
+              nl: 6
+              fr: 6
+        - id: MS-ACTIVITY-SCORING-VALUE|7|1
+          label:
+              nl: 7
+              fr: 7
+        - id: MS-ACTIVITY-SCORING-VALUE|8|1
+          label:
+              nl: 8
+              fr: 8
+        - id: MS-ACTIVITY-SCORING-VALUE|9|1
+          label:
+              nl: 9
+              fr: 9
+        - id: MS-ACTIVITY-SCORING-VALUE|10|1
+          label:
+              nl: 10 - In staat om op hetzelfde niveau als voorheen te presteren
+              fr: 10 - Capable d'éffectuer au même niveau qu'avant le problème
 translations:
   - language: fr
     translations:
@@ -17,7 +64,11 @@ translations:
       physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
       physio-forms.subjectif.field.label.symptomSite: Site de symptômes
       physio-forms.subjectif.field.label.symptomBehavior: Comportement des symptômes
-      physio-forms.subjectif.field.label.IndividualFactors: Facteurs individuels / facteurs externes
+      physio-forms.subjectif.field.label.individualFactors: Facteurs individuels / facteurs externes
+      physio-forms.subjectif.field.label.activityScoringScheme: Échelle fonctionnelle spécifique au patient
+      physio-forms.activityScoring.field.label.activity: Activité
+      physio-forms.activityScoring.field.label.score: Score
+      physio-forms.activityScoring.field.label.scoringScheme: Echelle
   - language: nl
     translations:
         physio-forms.subjectif.field.label.subjectif: Subjectief onderzoek
@@ -32,9 +83,13 @@ translations:
         physio-forms.subjectif.field.label.characteristicOfSymptoms: Kenmerken van de symptomen
         physio-forms.subjectif.field.label.symptomSite: Symptoomlocatie
         physio-forms.subjectif.field.label.symptomBehavior: Symptoomgedrag
-        physio-forms.subjectif.field.label.IndividualFactors: Individuele factoren / externe factoren
+        physio-forms.subjectif.field.label.individualFactors: Individuele factoren / externe factoren
+        physio-forms.subjectif.field.label.activityScoringScheme: Specifieke functionele schaal voor de patiënt
+        physio-forms.activityScoring.field.label.activity: Activiteit
+        physio-forms.activityScoring.field.label.score: Score
+        physio-forms.activityScoring.field.label.scoringScheme: Schaal
 sections:
-  - section: okido-forms.section-label.SECTION-1
+  - section: physio-forms.section-label.subjectif
     fields:
       - group: line
         borderless: true
@@ -68,6 +123,8 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+  - section: physio-forms.section-label.medicalPerspective
+    fields:
       - group: line
         borderless: true
         span: 24
@@ -84,6 +141,8 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+  - section: physio-forms.section-label.characteristicOfHealthProblem
+    fields:
       - group: line
         borderless: true
         span: 24
@@ -95,6 +154,35 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.activityScoringScheme
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+      - subform:
+        id: 0a25149a-f5b6-490d-ba3e-8a7d173b7249
+        shortLabel: physio-forms.subjectif.field.label.activityScoringScheme
+        span: 24
+        borderless: true
+        refs:
+          - e4e4569c-d618-47b1-ad1c-6c8b0f3b3d0c
+      - group: line
+        borderless: true
+        span: 24
+        fields:
           - field: physio-forms.subjectif.field.label.symptomSite
             type: textfield
             span: 24
@@ -105,8 +193,75 @@ sections:
             span: 24
             multiline: true
             rowSpan: 4
-          - field: physio-forms.subjectif.field.label.IndividualFactors
+          - field: physio-forms.subjectif.field.label.individualFactors
             type: textfield
             span: 24
             multiline: true
             rowSpan: 4
+subForms:
+  e4e4569c-d618-47b1-ad1c-6c8b0f3b3d0c:
+    form: physio-forms.activityScoring.field.label.scoringScheme
+    description: physio-forms.subjectif.field.label.scoringScheme
+    codifications:
+      - type: MS-ACTIVITY-SCORING-VALUE
+        codes:
+          - id: MS-ACTIVITY-SCORING-VALUE|0|1
+            label:
+              nl: 0 - Niet in staat om een activiteit uit te voeren
+              fr: 0 - Incapable d'effectuer une activité
+          - id: MS-ACTIVITY-SCORING-VALUE|1|1
+            label:
+              nl: 1
+              fr: 1
+          - id: MS-ACTIVITY-SCORING-VALUE|2|1
+            label:
+              nl: 2
+              fr: 2
+          - id: MS-ACTIVITY-SCORING-VALUE|3|1
+            label:
+              nl: 3
+              fr: 3
+          - id: MS-ACTIVITY-SCORING-VALUE|4|1
+            label:
+              nl: 4
+              fr: 4
+          - id: MS-ACTIVITY-SCORING-VALUE|5|1
+            label:
+              nl: 5
+              fr: 5
+          - id: MS-ACTIVITY-SCORING-VALUE|6|1
+            label:
+              nl: 6
+              fr: 6
+          - id: MS-ACTIVITY-SCORING-VALUE|7|1
+            label:
+              nl: 7
+              fr: 7
+          - id: MS-ACTIVITY-SCORING-VALUE|8|1
+            label:
+              nl: 8
+              fr: 8
+          - id: MS-ACTIVITY-SCORING-VALUE|9|1
+            label:
+              nl: 9
+              fr: 9
+          - id: MS-ACTIVITY-SCORING-VALUE|10|1
+            label:
+              nl: 10 - In staat om op hetzelfde niveau als voorheen te presteren
+              fr: 10 - Capable d'éffectuer au même niveau qu'avant le problème
+    sections:
+      - section: physio-forms.activityScoring.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-forms.activityScoring.field.label.activity
+                type: textfield
+                span: 8
+              - field: physio-forms.activityScoring.field.label.score
+                type: dropdown
+                span: 4
+                codifications:
+                  - MS-ACTIVITY-SCORING-VALUE
+

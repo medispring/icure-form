@@ -1,19 +1,79 @@
-form: okido-forms.OKIDO
-id: 74ea903a-552b-4a6e-be24-41d7f14c2a8a
-description: okido-forms.OKIDO
+form: physio-forms.PHYSICAL_EXAM
+id: a1287fbd-b328-4d94-a2a1-a15086bce6ed
+description: physio-forms.PHYSICAL_EXAM
 translations:
   - language: fr
     translations:
-
+      physio-forms.physical.field.label.physical: Examen physique
+      physio-forms.physical.field.label.observation: Observation
+      physio-forms.physical.field.label.functionalDemonstration: Démonstration fonctionnelle
+      physio-forms.physical.field.label.neurologicalExam: Examen neurologique
+      physio-forms.physical.field.label.neurodynamicalExam: Examen neurodynamique
+      physio-forms.physical.field.label.palpation: Palpation
+      physio-forms.physical.field.label.accessoryMovement: Mouvements accessoires
+      physio-forms.physical.field.label.physiologicalMovement: Mouvements physiologiques
+      physio-forms.physical.field.label.specificPurposeTest: Tests à finalité spécifique
   - language: nl
     translations:
-
+      physio-forms.physical.field.label.physical: Fysiek onderzoek
+      physio-forms.physical.field.label.observation: Observatie
+      physio-forms.physical.field.label.functionalDemonstration: Functionele demonstratie
+      physio-forms.physical.field.label.neurologicalExam: Neurologisch onderzoek
+      physio-forms.physical.field.label.neurodynamicalExam: Neurodynamisch onderzoek
+      physio-forms.physical.field.label.palpation: Palpatie
+      physio-forms.physical.field.label.accessoryMovement: Accessoire bewegingen
+      physio-forms.physical.field.label.physiologicalMovement: Fysiologische bewegingen
+      physio-forms.physical.field.label.specificPurposeTest: Specifieke doeltesten
 sections:
-  - section: okido-forms.section-label.SECTION-1
+  - section: physio-forms.section-label.SECTION-1
     fields:
       - group: line
         borderless: true
         span: 24
         fields:
-          - field: okido-forms.okido.field.label.okido
+          - field: physio-forms.physical.field.label.physical
             type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.physical.field.label.observation
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.functionalDemonstration
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.neurologicalExam
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.neurodynamicalExam
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.palpation
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.accessoryMovement
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.physiologicalMovement
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+          - field: physio-forms.physical.field.label.specificPurposeTest
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
