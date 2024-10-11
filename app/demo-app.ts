@@ -89,6 +89,8 @@ import physio_uro_abdominoSpinalAssessment from './samples/physio_uro_abdominoSp
 import physio_uro_sexuality from './samples/physio_uro_sexuality.yaml'
 // @ts-ignore
 import physio_uro_prolapse from './samples/physio_uro_prolapse.yaml'
+// @ts-ignore
+import physio_uro_urinaryLeakage from './samples/physio_uro_urinaryLeakage.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -141,6 +143,7 @@ class DemoApp extends LitElement {
 			{ title: 'Kiné - Uro - Evaluation abdomino-rachidienne', form: Form.parse(YAML.parse(physio_uro_abdominoSpinalAssessment)) },
 			{ title: 'Kiné - Uro - Sexualité', form: Form.parse(YAML.parse(physio_uro_sexuality)) },
 			{ title: 'Kiné - Uro - Prolapsus', form: Form.parse(YAML.parse(physio_uro_prolapse)) },
+			{ title: 'Kiné - Uro - Fuites urinaires', form: Form.parse(YAML.parse(physio_uro_urinaryLeakage)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

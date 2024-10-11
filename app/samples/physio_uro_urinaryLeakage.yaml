@@ -1,0 +1,504 @@
+form: physio-uro-forms.URINARY_LEAKAGE
+id: 0504147e-069c-43c9-abe7-04dd80a5c99b
+description: physio-uro-forms.URINARY_LEAKAGE
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-URINARY-LEAKAGE-CIRCUMSTANCE
+    codes:
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|cough|1
+        label:
+          nl: Hoesten
+          fr: Toux
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|briskWalk|1
+        label:
+          nl: Stevige wandeling
+          fr: Marche rapide
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|changeOfPosition|1
+        label:
+          nl: Verandering van positie
+          fr: Changement de position
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|chargingPort|1
+        label:
+          nl: Poort opladen
+          fr: Port de charge
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|laughing|1
+        label:
+          nl: Lachen
+          fr: Rire
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|compellingNeed|1
+        label:
+          nl: Dwingende behoefte
+          fr: Sur besoin d'emplée impérieux
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|stress|1
+        label:
+          nl: Stress
+          fr: Stress
+      - id: MS-URINARY-LEAKAGE-CIRCUMSTANCE|other|1
+        label:
+          nl: Andere
+          fr: Autre
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.urinaryLeakage.field.label.urinaryLeakage: Fuites urinaires
+        physio-uro-forms.urinaryLeakage.field.label.presenceOfUrinaryLeakage: Présence de fuites urinaires
+        physio-uro-forms.sexuality.field.label.dateOfOnset: Date de début
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfAppearanceOfLeaks: Circonstances d'apparition des fuites à l'effort
+        physio-uro-forms.urinaryLeakage.field.label.fullBladder: Vessie pleine
+        physio-uro-forms.sexuality.field.label.other: Autre
+        physio-uro-forms.urinaryLeakage.field.label.emptyBladder: Vessie vide
+        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks: Fuites diurnes
+        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount: Nombre
+        physio-uro-forms.urinaryLeakage.field.label.nocturalLeaks: Fuites nocturnes
+        physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount: Nombre
+        physio-uro-forms.urinaryLeakage.field.label.leaksAppearing: Apparition des fuites
+        physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeak: Perception de la fuite
+        physio-uro-forms.urinaryLeakage.field.label.typeOfLeak: Type de fuite
+        physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeak: Possibilité d'interrompre la fuite
+        physio-uro-forms.urinaryLeakage.field.label.portOfTrim: Port de protections
+        physio-uro-forms.urinaryLeakage.field.label.typeOfTrim: Type de protections
+        physio-uro-forms.urinaryLeakage.field.label.numberOfTrim: Nombre / jour
+        physio-uro-forms.urinaryLeakage.field.label.leaksAppearingDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeakDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeakDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.portOfTrimDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination: Miction de précaution
+        physio-uro-forms.urinaryLeakage.field.label.geneEvaluation: Gêne EVA
+        physio-uro-forms.urinaryLeakage.field.label.frequencyDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.frequency: Fréquence
+        physio-uro-forms.urinaryLeakage.field.label.seniorityTVSDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.seniorityTVS: Ancienneté TVS
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallation: Circonstances d'installation du trouble
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallationDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.disorderEvolution: Evolution du trouble
+        physio-uro-forms.urinaryLeakage.field.label.disorderEvolutionDescription: Description
+        physio-uro-forms.urinaryLeakage.field.label.increaseSymptomsDate: Majoration des symptômes
+        physio-uro-forms.urinaryLeakage.field.label.variabilityOfSymptoms: Variabilité des symptômes
+  - language: nl
+    translations:
+        physio-uro-forms.urinaryLeakage.field.label.urinaryLeakage: Urineverlies
+        physio-uro-forms.urinaryLeakage.field.label.presenceOfUrinaryLeakage: Aanwezigheid van urineverlies
+        physio-uro-forms.sexuality.field.label.dateOfOnset: Datum van optreden
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfAppearanceOfLeaks: Omstandigheden van het verschijnen van lekken bij inspanning
+        physio-uro-forms.urinaryLeakage.field.label.fullBladder: Volle blaas
+        physio-uro-forms.sexuality.field.label.other: Andere
+        physio-uro-forms.urinaryLeakage.field.label.emptyBladder: Lege blaas
+        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks: Dagelijkse le
+        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount: Aantal
+        physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount: Aantal
+        physio-uro-forms.urinaryLeakage.field.label.leaksAppearing: Verschijnen van lekken
+        physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeak: Perceptie van het lek
+        physio-uro-forms.urinaryLeakage.field.label.typeOfLeak: Type lek
+        physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeak: Mogelijkheid om het lek te onderbreken
+        physio-uro-forms.urinaryLeakage.field.label.portOfTrim: Dragen van bescherming
+        physio-uro-forms.urinaryLeakage.field.label.typeOfTrim: Type bescherming
+        physio-uro-forms.urinaryLeakage.field.label.numberOfTrim: Aantal / dag
+        physio-uro-forms.urinaryLeakage.field.label.leaksAppearingDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeakDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeakDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.portOfTrimDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination: Voorzorgsplassen
+        physio-uro-forms.urinaryLeakage.field.label.geneEvaluation: Onbehagen EVA
+        physio-uro-forms.urinaryLeakage.field.label.frequencyDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.frequency: Frequentie
+        physio-uro-forms.urinaryLeakage.field.label.seniorityTVSDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.seniorityTVS: Anciënniteit TVS
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallation: Omstandigheden van de installatie van de stoornis
+        physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallationDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.disorderEvolution: Evolutie van de stoornis
+        physio-uro-forms.urinaryLeakage.field.label.disorderEvolutionDescription: Beschrijving
+        physio-uro-forms.urinaryLeakage.field.label.increaseSymptomsDate: Verergering van de symptomen
+        physio-uro-forms.urinaryLeakage.field.label.variabilityOfSymptoms: Variabiliteit van de symptomen
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.urinaryLeakage.field.label.urinaryLeakage
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.urinaryLeakage.field.label.presenceOfUrinaryLeakage
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-EVALUATION
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|presenceOfUrinaryLeakage|1
+          - field: physio-uro-forms.sexuality.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.urinaryLeakage.field.label.presenceOfUrinaryLeakage']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            span: 4
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.urinaryLeakage.field.label.circumstancesOfAppearanceOfLeaks
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.urinaryLeakage.field.label.fullBladder
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-URINARY-LEAKAGE-CIRCUMSTANCE
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|fullBladder|1
+          - field: physio-uro-forms.sexuality.field.label.other
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.urinaryLeakage.field.label.fullBladder']?.some((item) => item?.codes.some(code => code.id === 'MS-URINARY-LEAKAGE-CIRCUMSTANCE|other|1'))
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|fullBladderOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.urinaryLeakage.field.label.emptyBladder
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-URINARY-LEAKAGE-CIRCUMSTANCE
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|emptyBladder|1
+          - field: physio-uro-forms.sexuality.field.label.other
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.urinaryLeakage.field.label.emptyBladder']?.some((item) => item?.codes.some(code => code.id === 'MS-URINARY-LEAKAGE-CIRCUMSTANCE|other|1'))
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|emptyBladderOther|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                codifications:
+                  - MS-URO-EVALUATION
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|daytimeLeaks|1
+              - field: physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount
+                type: number-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                validators:
+                  - validation: |
+                      const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount']?.[0]?.content) ?? 0
+                      return mins >= 0 && mins <= 240
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|daytimeLeaksOther|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.nocturalLeaks
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|nocturalLeaks|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount
+                type: number-field
+                span: 4
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.nocturalLeaks']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                validators:
+                  - validation: |
+                      const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount']?.[0]?.content) ?? 0
+                      return mins >= 0 && mins <= 240
+                tags:
+                - MS-URINARY-LEAKAGE-ITEM|nocturalLeaksOther|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.leaksAppearing
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                codifications:
+                  - MS-URO-EVALUATION
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|leaksAppearing|1
+              - field: physio-uro-forms.urinaryLeakage.field.label.leaksAppearingDescription
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.leaksAppearing']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|leaksAppearingDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeak
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|perceptionOfTheLeak|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeakDescription
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeak']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|perceptionOfTheLeakDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.typeOfLeak
+                type: textfield
+                span: 9
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|typeOfLeak|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeak
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|possibilityOfInterruptingLeak|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeakDescription
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.possibilityOfInterruptingLeak']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|possibilityOfInterruptingLeakDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.portOfTrim
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|portOfTrim|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.typeOfTrim
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|typeOfTrim|1
+              - field: physio-uro-forms.urinaryLeakage.field.label.numberOfTrim
+                type: number-field
+                span: 2
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                  defaultValue: |
+                    return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+                validators:
+                  - validation: |
+                      const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.numberOfTrim']?.[0]?.content) ?? 0
+                      return mins >= 0 && mins <= 240
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|numberOfTrim|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|precautionatyUrination|1
+                codifications:
+                  - MS-URO-EVALUATION
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.geneEvaluation
+                type: textfield
+                span: 9
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|geneEvaluation|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.seniorityTVS
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|seniorityTVS|1
+              - field: physio-uro-forms.urinaryLeakage.field.label.seniorityTVSDescription
+                type: textfield
+                span: 5
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|seniorityTVS|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.frequency
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|frequency|1
+              - field: physio-uro-forms.urinaryLeakage.field.label.frequencyDescription
+                type: textfield
+                span: 5
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|frequencyDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallation
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|circumstancesOfDisorderInstallation|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallationDescription
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.circumstancesOfDisorderInstallation']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|circumstancesOfDisorderInstallationDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.disorderEvolution
+                type: dropdown
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|disorderEvolution|1
+                codifications:
+                  - MS-URO-EVALUATION
+              - field: physio-uro-forms.urinaryLeakage.field.label.disorderEvolutionDescription
+                type: textfield
+                span: 4
+                computedProperties:
+                  hidden: |
+                    return !self['physio-uro-forms.urinaryLeakage.field.label.disorderEvolution']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|disorderEvolutionDescription|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.increaseSymptomsDate
+                type: date-picker
+                computedProperties:
+                  defaultValue: |
+                    return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+                span: 4
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|increaseSymptomsDate|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.urinaryLeakage.field.label.variabilityOfSymptoms
+                type: textfield
+                span: 9
+                tags:
+                  - MS-URINARY-LEAKAGE-ITEM|variabilityOfSymptoms|1
+
+
