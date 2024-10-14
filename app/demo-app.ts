@@ -95,6 +95,8 @@ import physio_uro_urinaryLeakage from './samples/physio_uro_urinaryLeakage.yaml'
 import physio_uro_imperiousness from './samples/physio_uro_imperiousness.yaml'
 // @ts-ignore
 import physio_uro_miscellaneous from './samples/physio_uro_miscellaneous.yaml'
+// @ts-ignore
+import physio_uro_transit from './samples/physio_uro_transit.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -150,6 +152,7 @@ class DemoApp extends LitElement {
 			{ title: 'Kiné - Uro - Fuites urinaires', form: Form.parse(YAML.parse(physio_uro_urinaryLeakage)) },
 			{ title: 'Kiné - Uro - Impériosité', form: Form.parse(YAML.parse(physio_uro_imperiousness)) },
 			{ title: 'Kiné - Uro - Divers', form: Form.parse(YAML.parse(physio_uro_miscellaneous)) },
+			{ title: 'Kiné - Uro - Transit', form: Form.parse(YAML.parse(physio_uro_transit)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 

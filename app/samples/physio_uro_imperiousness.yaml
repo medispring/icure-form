@@ -59,7 +59,7 @@ codifications:
 translations:
   - language: fr
     translations:
-        physio-uro-forms.imperiousness.field.label.imperiousness: Impériosité
+        physio-uro-forms.imperiousness.field.label.imperiousness: Impériosité urinaire
         physio-uro-forms.imperiousness.field.label.urinaryUrgency: Urgence urinaire
         physio-uro-forms.imperiousness.field.label.dateOfOnset: Date d'apparition
         physio-uro-forms.imperiousness.field.label.portOfTrim: Port de garniture
@@ -77,7 +77,7 @@ translations:
         physio-uro-forms.imperiousness.field.label.factorPromotingUrgencyOther: Autre
   - language: nl
     translations:
-        physio-uro-forms.imperiousness.field.label.imperiousness: Impériosité
+        physio-uro-forms.imperiousness.field.label.imperiousness: Urinaire imperiositeit
         physio-uro-forms.imperiousness.field.label.urinaryUrgency: Urinaire urgentie
         physio-uro-forms.imperiousness.field.label.dateOfOnset: Datum van optreden
         physio-uro-forms.imperiousness.field.label.portOfTrim: Dragen van garnituur
