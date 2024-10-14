@@ -1,0 +1,392 @@
+form: physio-uro-forms.ANORECTAL-LEAK
+id: 0fe1a2a4-6e20-4d86-a1c1-9d4fc5287d15
+description: physio-uro-forms.ANORECTAL-LEAK
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER
+    codes:
+      - id: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|limp|1
+        label:
+          nl: Slap
+          fr: Molles
+      - id: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|hard|1
+        label:
+          nl: Hard
+          fr: Dures
+      - id: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|diarrhea|1
+        label:
+          nl: Diarree
+          fr: Diarrhée
+      - id: MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|other|1
+        label:
+          nl: Anders
+          fr: Autre
+  - type: MS-ANORECTAL-LEAK-TYPE
+    codes:
+      - id: MS-ANORECTAL-LEAK-TYPE|gaz|1
+        label:
+          nl: Gas
+          fr: Gaz
+      - id: MS-ANORECTAL-LEAK-TYPE|liquid|1
+        label:
+          nl: Vloeistof
+          fr: Liquide
+      - id: MS-ANORECTAL-LEAK-TYPE|matter|1
+        label:
+          nl: Materie
+          fr: Matières
+  - type: MS-ANORECTAL-LEAK-VOLUME
+    codes:
+      - id: MS-ANORECTAL-LEAK-VOLUME|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-ANORECTAL-LEAK-VOLUME|plug|1
+        label:
+          nl: Prop
+          fr: Bouchon
+      - id: MS-ANORECTAL-LEAK-VOLUME|traces|1
+        label:
+          nl: Sporen
+          fr: Traces
+      - id: MS-ANORECTAL-LEAK-VOLUME|completeSaddle|1
+        label:
+          nl: Volledig zadel
+          fr: Selle complète
+      - id: MS-ANORECTAL-LEAK-VOLUME|piece|1
+        label:
+          nl: Volledig zadel
+          fr: Selle complète
+      - id: MS-ANORECTAL-LEAK-VOLUME|other|1
+        label:
+          nl: Anders
+          fr: Autre
+  - type: MS-ANORECTAL-LEAK-CIRCUMSTANCES
+    codes:
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|coitus|1
+          label:
+            nl: Coït
+            fr: Coït
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|unexpected|1
+          label:
+            nl: Onverwacht
+            fr: Inopiné
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|orgasm|1
+          label:
+            nl: Orgasme
+            fr: Orgasme
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|changeOfPosition|1
+          label:
+            nl: Verandering van positie
+            fr: Changement de position
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|stress|1
+          label:
+            nl: Stress of angst
+            fr: Stress ou peur
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|heavyPort|1
+          label:
+            nl: Zware last
+            fr: Port de charge
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|pressingNeed|1
+          label:
+            nl: Drukke behoefte
+            fr: Besoin pressant
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|rapidWalking|1
+          label:
+            nl: Snel lopen
+            fr: Marche rapide
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|cought|1
+          label:
+            nl: Hoesten
+            fr: Toux
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|laught|1
+          label:
+            nl: Lachen
+            fr: Rire
+        - id: MS-ANORECTAL-LEAK-CIRCUMSTANCES|other|1
+          label:
+            nl: Anders
+            fr: Autre
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.anorectalLeak.field.label.anorectalLeak: Fuites anorectales
+        physio-uro-forms.anorectalLeak.field.label.dateOfOnset: Date de début
+        physio-uro-forms.anorectalLeak.field.label.feelingOfLeaking: Sensation de fuite
+        physio-uro-forms.anorectalLeak.field.label.leakPrecededByNeed: Fuite précédée par un besoin
+        physio-uro-forms.anorectalLeak.field.label.leakType: Type de fuite
+        physio-uro-forms.anorectalLeak.field.label.frequencyOfLeak: Fréquence de la fuite
+        physio-uro-forms.anorectalLeak.field.label.regularTime: A heure régulière
+        physio-uro-forms.anorectalLeak.field.label.portOfTrim: Port de garnitures
+        physio-uro-forms.anorectalLeak.field.label.typeOfTrim: Type
+        physio-uro-forms.anorectalLeak.field.label.numberOfTrim: Nombre
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter: Consistance des matières
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterDescription: Autre
+        physio-uro-forms.anorectalLeak.field.label.volume: Volume
+        physio-uro-forms.anorectalLeak.field.label.other: Autre
+        physio-uro-forms.anorectalLeak.field.label.circumstances: Circonstances
+        physio-uro-forms.anorectalLeak.field.label.circumstancesOther: Autre
+        physio-uro-forms.anorectalLeak.field.label.leakInteruption: Possibilité d'interrompre la fuite
+  - language: nl
+    translations:
+        physio-uro-forms.anorectalLeak.field.label.anorectalLeak: Anorectale lekkage
+        physio-uro-forms.anorectalLeak.field.label.dateOfOnset: Datum van begin
+        physio-uro-forms.anorectalLeak.field.label.feelingOfLeaking: Gevoel van lekkage
+        physio-uro-forms.anorectalLeak.field.label.leakPrecededByNeed: Lekkage voorafgegaan door een behoefte
+        physio-uro-forms.anorectalLeak.field.label.leakType: Type lekkage
+        physio-uro-forms.anorectalLeak.field.label.frequencyOfLeak: Frequentie van lekkage
+        physio-uro-forms.anorectalLeak.field.label.regularTime: Regelmatige tijd
+        physio-uro-forms.anorectalLeak.field.label.portOfTrim: Dragen van inlegkruisjes
+        physio-uro-forms.anorectalLeak.field.label.typeOfTrim: Type
+        physio-uro-forms.anorectalLeak.field.label.numberOfTrim: Aantal
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter: Consistentie van de materie
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterDescription: Anders
+        physio-uro-forms.anorectalLeak.field.label.volume: Volume
+        physio-uro-forms.anorectalLeak.field.label.other: Anders
+        physio-uro-forms.anorectalLeak.field.label.circumstances: Omstandigheden
+        physio-uro-forms.anorectalLeak.field.label.circumstancesOther: Anders
+        physio-uro-forms.anorectalLeak.field.label.leakInteruption: Mogelijkheid om lekkage te onderbreken
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.anorectalLeak
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.anorectalLeak
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|anorectalLeak|1
+          - field: physio-uro-forms.anorectalLeak.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.anorectalLeak']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            span: 4
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.feelingOfLeaking
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|feelingOfLeaking|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.leakPrecededByNeed
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|leakPrecededByNeed|1
+          - field: physio-uro-forms.anorectalLeak.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.leakPrecededByNeed']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            span: 4
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.leakType
+            type: dropdown
+            span: 9
+            codifications:
+             - MS-ANORECTAL-LEAK-TYPE
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|leakType|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.frequencyOfLeak
+            type: textfield
+            span: 9
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|frequencyOfLeak|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.regularTime
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|regularTime|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.portOfTrim
+            type: dropdown
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|portOfTrim|1
+            codifications:
+              - MS-URO-EVALUATION
+          - field: physio-uro-forms.anorectalLeak.field.label.typeOfTrim
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|typeOfTrim|1
+          - field: physio-uro-forms.anorectalLeak.field.label.numberOfTrim
+            type: number-field
+            span: 2
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+            validators:
+              - validation: |
+                  const mins = parseContent(self['physio-uro-forms.anorectalLeak.field.label.numberOfTrim']?.[0]?.content) ?? 0
+                  return mins >= 0 && mins <= 240
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|numberOfTrim|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|consistencyOfMatter|1
+          - field: physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterOther
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter']?.some((item) => item?.codes.some(code => code.id === 'MS-ANORECTAL-LEAK-CONSISTENCY-OF-MATTER|other|1'))
+            tags:
+              - MS-URINARY-LEAKAGE-ITEM|consistencyOfMatterOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.volume
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-ANORECTAL-LEAK-VOLUME
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|volume|1
+          - field: physio-uro-forms.anorectalLeak.field.label.volumeOther
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.volume']?.some((item) => item?.codes.some(code => code.id === 'MS-ANORECTAL-LEAK-VOLUME|other|1'))
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|volumeOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.circumstances
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-ANORECTAL-LEAK-CIRCUMSTANCES
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|circumstances|1
+          - field: physio-uro-forms.anorectalLeak.field.label.circumstancesOther
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.anorectalLeak.field.label.circumstances']?.some((item) => item?.codes.some(code => code.id === 'MS-ANORECTAL-LEAK-CIRCUMSTANCES|other|1'))
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|circumstancesOther|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.anorectalLeak.field.label.leakInteruption
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-ANORECTAL-LEAK-ITEM|leakInteruption|1
