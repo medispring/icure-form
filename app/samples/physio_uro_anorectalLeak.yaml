@@ -138,9 +138,9 @@ translations:
         physio-uro-forms.anorectalLeak.field.label.typeOfTrim: Type
         physio-uro-forms.anorectalLeak.field.label.numberOfTrim: Nombre
         physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter: Consistance des matières
-        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterDescription: Autre
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterOther: Autre
         physio-uro-forms.anorectalLeak.field.label.volume: Volume
-        physio-uro-forms.anorectalLeak.field.label.other: Autre
+        physio-uro-forms.anorectalLeak.field.label.volumeOther: Autre
         physio-uro-forms.anorectalLeak.field.label.circumstances: Circonstances
         physio-uro-forms.anorectalLeak.field.label.circumstancesOther: Autre
         physio-uro-forms.anorectalLeak.field.label.leakInteruption: Possibilité d'interrompre la fuite
@@ -157,9 +157,9 @@ translations:
         physio-uro-forms.anorectalLeak.field.label.typeOfTrim: Type
         physio-uro-forms.anorectalLeak.field.label.numberOfTrim: Aantal
         physio-uro-forms.anorectalLeak.field.label.consistencyOfMatter: Consistentie van de materie
-        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterDescription: Anders
+        physio-uro-forms.anorectalLeak.field.label.consistencyOfMatterOther: Anders
         physio-uro-forms.anorectalLeak.field.label.volume: Volume
-        physio-uro-forms.anorectalLeak.field.label.other: Anders
+        physio-uro-forms.anorectalLeak.field.label.volumeOther: Anders
         physio-uro-forms.anorectalLeak.field.label.circumstances: Omstandigheden
         physio-uro-forms.anorectalLeak.field.label.circumstancesOther: Anders
         physio-uro-forms.anorectalLeak.field.label.leakInteruption: Mogelijkheid om lekkage te onderbreken
@@ -256,7 +256,7 @@ sections:
         borderless: true
         span: 24
         fields:
-          - field: physio-uro-forms.transit.field.label.frequencyOfLeak
+          - field: physio-uro-forms.anorectalLeak.field.label.frequencyOfLeak
             type: textfield
             span: 9
             multiline: true
