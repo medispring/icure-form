@@ -1,0 +1,292 @@
+form: physio-uro-forms.IMPERIOUSNESS
+id: bd5019ce-799d-44c5-9503-25a98e554918
+description: physio-uro-forms.IMPERIOUSNESS
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-FACTOR-PROMOTING-URGENCY
+    codes:
+      - id: MS-FACTOR-PROMOTING-URGENCY|cold|1
+        label:
+          nl: Koude
+          fr: Froid
+      - id: MS-FACTOR-PROMOTING-URGENCY|waterContact|1
+        label:
+          nl: Contact met water
+          fr: Contact avec l'eau
+      - id: MS-FACTOR-PROMOTING-URGENCY|showerOrWaterFlow|1
+        label:
+          nl: Douche of waterstroom
+          fr: Douche ou écoulement de l'eau
+      - id: MS-FACTOR-PROMOTING-URGENCY|doormatSyndrome|1
+        label:
+          nl: Syndroom van deurmat
+          fr: Syndrome du paillasson
+      - id: MS-FACTOR-PROMOTING-URGENCY|other|1
+        label:
+          nl: Andere
+          fr: Autre
+  - type: MS-IMPERIOUSNESS-PAIN-TYPE
+    codes:
+      - id: MS-IMPERIOUSNESS-PAIN-TYPE|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-IMPERIOUSNESS-PAIN-TYPE|bladder|1
+        label:
+          nl: Vesicale
+          fr: Vésicale
+      - id: MS-IMPERIOUSNESS-PAIN-TYPE|dorsal|1
+        label:
+          nl: Dorsale
+          fr: Dorsale
+      - id: MS-IMPERIOUSNESS-PAIN-TYPE|abdominal|1
+        label:
+          nl: Abdominale
+          fr: Abdominale
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.imperiousness.field.label.imperiousness: Impériosité
+        physio-uro-forms.imperiousness.field.label.urinaryUrgency: Urgence urinaire
+        physio-uro-forms.imperiousness.field.label.dateOfOnset: Date d'apparition
+        physio-uro-forms.imperiousness.field.label.portOfTrim: Port de garniture
+        physio-uro-forms.imperiousness.field.label.typeOfTrim: Type
+        physio-uro-forms.imperiousness.field.label.numberOfTrim: Nombre / jour
+        physio-uro-forms.imperiousness.field.label.precautionaryUrination: Miction préventive
+        physio-uro-forms.imperiousness.field.label.progressionOfNeed: Progression du besoin
+        physio-uro-forms.imperiousness.field.label.abilityToInhibitNeed: Capacité à inhiber le besoin
+        physio-uro-forms.imperiousness.field.label.securityDelay: Délai de sécurité
+        physio-uro-forms.imperiousness.field.label.abilityToInhibitNeedDescription: Description
+        physio-uro-forms.imperiousness.field.label.matchingNeedWithQuantityUrinated: Correspondance besoin avec quantité urinée
+        physio-uro-forms.imperiousness.field.label.pain: Douleur
+        physio-uro-forms.imperiousness.field.label.painEva: EVA
+        physio-uro-forms.imperiousness.field.label.factorPromotingUrgency: Facteur favorisant l'urgence
+        physio-uro-forms.imperiousness.field.label.factorPromotingUrgencyOther: Autre
+  - language: nl
+    translations:
+        physio-uro-forms.imperiousness.field.label.imperiousness: Impériosité
+        physio-uro-forms.imperiousness.field.label.urinaryUrgency: Urinaire urgentie
+        physio-uro-forms.imperiousness.field.label.dateOfOnset: Datum van optreden
+        physio-uro-forms.imperiousness.field.label.portOfTrim: Dragen van garnituur
+        physio-uro-forms.imperiousness.field.label.typeOfTrim: Type
+        physio-uro-forms.imperiousness.field.label.numberOfTrim: Aantal / dag
+        physio-uro-forms.imperiousness.field.label.precautionaryUrination: Preventieve mictie
+        physio-uro-forms.imperiousness.field.label.progressionOfNeed: Progressie van de behoefte
+        physio-uro-forms.imperiousness.field.label.abilityToInhibitNeed: Vermogen om de behoefte te remmen
+        physio-uro-forms.imperiousness.field.label.securityDelay: Veiligheidsvertraging
+        physio-uro-forms.imperiousness.field.label.abilityToInhibitNeedDescription: Beschrijving
+        physio-uro-forms.imperiousness.field.label.matchingNeedWithQuantityUrinated: Overeenkomst behoefte met geürineerde hoeveelheid
+        physio-uro-forms.imperiousness.field.label.pain: Pijn
+        physio-uro-forms.imperiousness.field.label.painEva: EVA
+        physio-uro-forms.imperiousness.field.label.factorPromotingUrgency: Factor die urgentie bevordert
+        physio-uro-forms.imperiousness.field.label.factorPromotingUrgencyOther: Andere
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.imperiousness
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.urinaryUrgency
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-EVALUATION
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|presenceOfUrinaryLeakage|1
+          - field: physio-uro-forms.imperiousness.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.urinaryLeakage.field.label.presenceOfUrinaryLeakage']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            span: 4
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.portOfTrim
+            type: dropdown
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|portOfTrim|1
+            codifications:
+              - MS-URO-EVALUATION
+          - field: physio-uro-forms.imperiousness.field.label.typeOfTrim
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|typeOfTrim|1
+          - field: physio-uro-forms.imperiousness.field.label.numberOfTrim
+            type: number-field
+            span: 2
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.portOfTrim']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+            validators:
+              - validation: |
+                  const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.numberOfTrim']?.[0]?.content) ?? 0
+                  return mins >= 0 && mins <= 240
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|numberOfTrim|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.precautionaryUrination
+            type: text-field
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|precautionaryUrination|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.progressionOfNeed
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-EVALUATION
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|progressionOfNeed|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.abilityToInhibitNeed
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-EVALUATION
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|abilityToInhibitNeed|1
+          - field: physio-uro-forms.imperiousness.field.label.securityDelay
+            type: textfield
+            span: 2
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.abilityToInhibitNeed']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'number', value: 0 } }, codes: [] }
+            validators:
+              - validation: |
+                  const mins = parseContent(self['physio-uro-forms.imperiousness.field.label.securityDelay']?.[0]?.content) ?? 0
+                  return mins >= 0 && mins <= 240
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|securityDelay|1
+          - field: physio-uro-forms.imperiousness.field.label.abilityToInhibitNeedDescription
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.abilityToInhibitNeed']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|abilityToInhibitNeedDescription|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.matchingNeedWithQuantityUrinated
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            codifications:
+              - MS-URO-EVALUATION
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|matchingNeedWithQuantityUrinated|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.imperiousness.field.label.pain
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 4
+            span: 12
+            codifications:
+              - MS-IMPERIOUSNESS-PAIN-TYPE
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-IMPERIOUSNESS-PAIN-TYPE|NS|1'}]}
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|pain|1
+          - field: physio-uro-forms.imperiousness.field.label.painEva
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.pain']?.some((item) => item?.codes.some(code => code.id !== 'MS-IMPERIOUSNESS-PAIN-TYPE|NS|1'))
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|painEva|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field:  physio-uro-forms.imperiousness.field.label.factorPromotingUrgency
+            type: dropdown
+            span: 9
+            codifications:
+              - MS-FACTOR-PROMOTING-URGENCY
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|factorPromotingUrgency|1
+          - field: physio-uro-forms.imperiousness.field.label.factorPromotingUrgencyOther
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.imperiousness.field.label.factorPromotingUrgency']?.some((item) => item?.codes.some(code => code.id === 'MS-FACTOR-PROMOTING-URGENCY|other|1'))
+            tags:
+              - MS-IMPERIOUSNESS-ITEM|factorPromotingUrgencyOther|1
