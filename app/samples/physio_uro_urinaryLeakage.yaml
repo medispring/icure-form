@@ -229,7 +229,7 @@ sections:
                       const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount']?.[0]?.content) ?? 0
                       return mins >= 0 && mins <= 240
                 tags:
-                  - MS-URINARY-LEAKAGE-ITEM|daytimeLeaksOther|1
+                  - MS-URINARY-LEAKAGE-ITEM|daytimeLeaksCount|1
           - group: line
             borderless: true
             span: 24
@@ -257,7 +257,7 @@ sections:
                       const mins = parseContent(self['physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount']?.[0]?.content) ?? 0
                       return mins >= 0 && mins <= 240
                 tags:
-                - MS-URINARY-LEAKAGE-ITEM|nocturalLeaksOther|1
+                - MS-URINARY-LEAKAGE-ITEM|nocturalLeaksCount|1
           - group: line
             borderless: true
             span: 24
@@ -414,7 +414,7 @@ sections:
                   hidden: |
                     return !self['physio-uro-forms.urinaryLeakage.field.label.precautionatyUrination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
                 tags:
-                  - MS-URINARY-LEAKAGE-ITEM|seniorityTVS|1
+                  - MS-URINARY-LEAKAGE-ITEM|seniorityTVSDescription|1
           - group: line
             borderless: true
             span: 24
