@@ -158,12 +158,6 @@ export class DecoratedForm extends LitElement {
 			this.redoStack.push(this.formValuesContainer)
 			const popped = this.undoStack.pop() as BridgedFormValuesContainer
 			this.formValuesContainer = popped.synchronise()
-			const allForms = this.formValuesContainer.getContactFormValuesContainer().allForms()
-			Object.values(db.forms ?? {}).forEach((f) => {
-				if (!allForms.some((af) => af.id === f.id) && this.observedForms[f.id!]) {
-					destroyForm(f.id!).catch(console.error)
-				}
-			})
 		} else {
 			console.log('undo stack is empty')
 		}
@@ -175,12 +169,6 @@ export class DecoratedForm extends LitElement {
 			this.undoStack.push(this.formValuesContainer)
 			const popped = this.redoStack.pop() as BridgedFormValuesContainer
 			this.formValuesContainer = popped.synchronise()
-			const allForms = this.formValuesContainer.getContactFormValuesContainer().allForms()
-			allForms.forEach((f) => {
-				if (!(db.forms ?? {})[f.id!] && this.observedForms[f.id!]) {
-					makeForm(f).catch(console.error)
-				}
-			})
 		} else {
 			console.log('redo stack is empty')
 		}
@@ -200,6 +188,7 @@ export class DecoratedForm extends LitElement {
 		const contactFormValuesContainer = await makeFormValuesContainer(this.observedForms, form, Object.values(db.contacts ?? {}).find((c) => c.rev === null) ?? currentContact, history, (parentId) =>
 			getForms(undefined, parentId),
 		)
+		contactFormValuesContainer.allForms().forEach((f) => (this.observedForms[f.id!] = this.form))
 		const responsible = '1'
 
 		const findForm = (form: Form, anchorId: string | undefined, templateId: string | undefined): Form | undefined => {
@@ -320,15 +309,28 @@ export class DecoratedForm extends LitElement {
 					console.log('Saving', toSave)
 
 					// Save to the backend
+					const allForms = toSave.allForms()
 					Promise.all(
-						toSave.allForms().map((f) => {
-							!(db.forms ?? (db.forms = {}))[f.id!] ? makeForm(f).catch(console.error) : Promise.resolve(f)
+						allForms.map(async (f) => {
+							if (!(db.forms ?? (db.forms = {}))[f.id!]) {
+								makeForm(f).catch(console.error)
+							}
 						}),
-					).then(() => {
-						const c = toSave.coordinatedContact()
-						;(db.contacts ?? (db.contacts = {}))[c.id!] = c
-						localStorage.setItem('com.icure.storage', JSON.stringify(db))
-					})
+					)
+						.then(() =>
+							Promise.all(
+								Object.values(db.forms ?? {}).map(async (f) => {
+									if (!allForms.some((af) => af.id === f.id) && this.observedForms[f.id!]) {
+										destroyForm(f.id!).catch(console.error)
+									}
+								}),
+							),
+						)
+						.then(() => {
+							const c = toSave.coordinatedContact()
+							;(db.contacts ?? (db.contacts = {}))[c.id!] = c
+							localStorage.setItem('com.icure.storage', JSON.stringify(db))
+						})
 				}
 			}, 10000)
 		})
