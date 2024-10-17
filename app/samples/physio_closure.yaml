@@ -1,0 +1,50 @@
+form: physio-forms.CLOSURE
+id: 3df57593-4d25-4338-9224-8ea29f8b2f8f
+description: physio-forms.CLOSURE
+translations:
+  - language: fr
+    translations:
+      physio-forms.closure.field.label.closure: Session de clôture
+      physio-forms.closure.field.label.closureReason: Raison de la clôture
+      physio-forms.closure.field.label.appreciationOfPatient: Appréciation du patient sur le suivi thérapeutique
+      physio-forms.closure.field.label.nextTreatment: Proposition de traitement ultérieur
+  - language: nl
+    translations:
+      physio-forms.closure.field.label.closure: Afsluitende sessie
+      physio-forms.closure.field.label.closureReason: Reden voor afsluiting
+      physio-forms.closure.field.label.appreciationOfPatient: Waardering van de patiënt voor de therapeutische opvolging
+      physio-forms.closure.field.label.nextTreatment: Voorstel voor verdere behandeling
+sections:
+  - section: physio-forms.section-label.subjectif
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.closure.field.label.closure
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.closure.field.label.closureReason
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-CLOSURE-EXAM-ITEM|closureReason|1
+          - field: physio-forms.closure.field.label.appreciationOfPatient
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-CLOSURE-EXAM-ITEM|appreciationOfPatient|1
+          - field: physio-forms.closure.field.label.nextTreatment
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-CLOSURE-EXAM-ITEM|nextTreatment|1
