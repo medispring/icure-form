@@ -1,4 +1,4 @@
-import { Contact, Form as ICureForm, Service } from '@icure/api'
+import { Contact, Form, Form as ICureForm, Service } from '@icure/api'
 import { sortedBy } from '../utils/no-lodash'
 import { FormValuesContainer, Version, VersionedData } from '../generic'
 import { ServiceMetadata } from './model'
@@ -392,7 +392,8 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	contactsHistory: Contact[] //Must be sorted (most recent first), contains all the contacts linked to this form
 	children: ContactFormValuesContainer[] //Direct children of the ContactFormValuesContainer
 	serviceFactory: (label: string, serviceId?: string) => Service
-	formFactory: (anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>
+	formFactory: (parentId: string, anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>
+	formRecycler: (formId: string) => Promise<void>
 
 	changeListeners: ((newValue: ContactFormValuesContainer) => void)[]
 	private _id: string = uuidv4()
@@ -406,13 +407,36 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		return !this._initialised
 	}
 
+	/**
+	 * Returns a contact that combines the content of the contact in this form with the content of all contents stored in the children
+	 */
+	coordinatedContact(): Contact {
+		const childrenContacts = this.children.map((c) => c.coordinatedContact())
+		const thisKeptServiceIds = (this.currentContact.subContacts ?? []).filter((sc) => sc.formId === this.rootForm.id).flatMap((sc) => (sc.services ?? []).map((s) => s.serviceId))
+		return {
+			...this.currentContact,
+			services: childrenContacts.reduce((acc: Service[], c: Contact) => acc.concat(c.services ?? []), []).concat((this.currentContact.services ?? []).filter((s) => thisKeptServiceIds.includes(s.id))),
+			subContacts: childrenContacts
+				.reduce((acc: Service[], c: Contact) => acc.concat(c.subContacts ?? []), [])
+				.concat((this.currentContact.subContacts ?? []).filter((s) => s.formId === this.rootForm.id)),
+		}
+	}
+
+	/**
+	 * Returns a contact that combines the content of the contact in this form with the content of all contents stored in the children
+	 */
+	allForms(): Form[] {
+		return [this.rootForm].concat(this.children.flatMap((c) => c.allForms()))
+	}
+
 	constructor(
 		rootForm: ICureForm,
 		currentContact: Contact,
 		contactsHistory: Contact[],
 		serviceFactory: (label: string, serviceId?: string) => Service,
 		children: ContactFormValuesContainer[],
-		formFactory: (anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>,
+		formFactory: (parentId: string, anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>,
+		formRecycler: (formId: string) => Promise<void>,
 		changeListeners: ((newValue: ContactFormValuesContainer) => void)[] = [],
 		initialised = true,
 	) {
@@ -427,6 +451,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		this.children = children
 		this.serviceFactory = serviceFactory
 		this.formFactory = formFactory
+		this.formRecycler = formRecycler
 		this.changeListeners = changeListeners
 		this._initialised = initialised
 
@@ -454,6 +479,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 						return c.rootForm.id === childFormValueContainer.rootForm.id ? newValue : c
 					}),
 					this.formFactory,
+					this.formRecycler,
 				)
 				this.changeListeners.forEach((l) => notify(l, newContactFormValuesContainer))
 			},
@@ -465,8 +491,9 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 		currentContact: Contact,
 		contactsHistory: Contact[],
 		serviceFactory: (label: string, serviceId?: string) => Service,
-		formChildrenProvider: (parentId: string) => Promise<ICureForm[]>,
-		formFactory: (anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>,
+		formChildrenProvider: (parentId: string | undefined) => Promise<ICureForm[]>,
+		formFactory: (parentId: string, anchorId: string, formTemplateId: string, label: string) => Promise<ICureForm>,
+		formRecycler: (formId: string) => Promise<void>,
 		changeListeners: ((newValue: ContactFormValuesContainer) => void)[] = [],
 	): Promise<ContactFormValuesContainer> {
 		const contactFormValuesContainer = new ContactFormValuesContainer(
@@ -481,11 +508,12 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 						).map(
 							async (f) =>
 								// eslint-disable-next-line max-len
-								await ContactFormValuesContainer.fromFormsHierarchy(f, currentContact, contactsHistory, serviceFactory, formChildrenProvider, formFactory),
+								await ContactFormValuesContainer.fromFormsHierarchy(f, currentContact, contactsHistory, serviceFactory, formChildrenProvider, formFactory, formRecycler),
 						),
 				  )
 				: [],
 			formFactory,
+			formRecycler,
 			changeListeners,
 			false,
 		)
@@ -589,6 +617,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				this.serviceFactory,
 				this.children,
 				this.formFactory,
+				this.formRecycler,
 				this.changeListeners,
 			)
 
@@ -620,6 +649,15 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			if (!Object.entries(newContents).filter(([, cnt]) => cnt !== undefined).length) {
 				newCurrentContact = {
 					...this.currentContact,
+					subContacts: (this.currentContact.subContacts ?? []).some((sc) => sc.formId === this.rootForm.id)
+						? (this.currentContact.subContacts ?? []).map((sc) => {
+								if (sc.formId === this.rootForm.id) {
+									return { ...sc, services: (sc.services ?? []).filter((s) => s.serviceId !== service.id).concat([{ serviceId: service.id }]) }
+								} else {
+									return sc
+								}
+						  })
+						: (this.currentContact.subContacts ?? []).concat({ formId: this.rootForm.id, services: [{ serviceId: service.id }] }),
 					services: (this.currentContact.services ?? []).some((s) => s.id === service.id)
 						? (this.currentContact.services ?? []).filter((s) => s.id !== service.id)
 						: [...(this.currentContact.services ?? [])],
@@ -637,6 +675,15 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 
 				newCurrentContact = {
 					...this.currentContact,
+					subContacts: (this.currentContact.subContacts ?? []).some((sc) => sc.formId === this.rootForm.id)
+						? (this.currentContact.subContacts ?? []).map((sc) => {
+								if (sc.formId === this.rootForm.id) {
+									return { ...sc, services: (sc.services ?? []).filter((s) => s.serviceId !== service.id).concat([{ serviceId: service.id }]) }
+								} else {
+									return sc
+								}
+						  })
+						: (this.currentContact.subContacts ?? []).concat({ formId: this.rootForm.id, services: [{ serviceId: service.id }] }),
 					services: (this.currentContact.services ?? []).some((s) => s.id === service.id)
 						? (this.currentContact.services ?? []).map((s) => (s.id === service.id ? newService : s))
 						: [...(this.currentContact.services ?? []), newService],
@@ -649,6 +696,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				this.serviceFactory,
 				this.children,
 				this.formFactory,
+				this.formRecycler,
 				this.changeListeners,
 			)
 
@@ -676,6 +724,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 				this.serviceFactory,
 				this.children,
 				this.formFactory,
+				this.formRecycler,
 				this.changeListeners,
 			)
 
@@ -693,24 +742,26 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	 * @param revisionsFilter
 	 */
 	private getServicesInHistory(revisionsFilter: (id: string, history: Version<ServiceMetadata>[]) => (string | null)[]): VersionedData<Service> {
-		const indexedServices = [this.currentContact].concat(this.contactsHistory).reduce(
-			(acc, ctc) =>
-				ctc.services?.reduce(
-					(acc, s) =>
-						s.id
-							? {
-									...acc,
-									[s.id]: (acc[s.id] ?? (acc[s.id] = [])).concat({
-										revision: ctc.rev ?? null,
-										modified: ctc.created,
-										value: s,
-									}),
-							  }
-							: acc,
-					acc,
-				) ?? acc,
-			{} as VersionedData<Service>,
-		) //index services in history by id
+		const indexedServices = [this.currentContact].concat(this.contactsHistory).reduce((acc, ctc) => {
+			const services =
+				ctc.services
+					?.filter((s) => ctc.subContacts?.some((sc) => sc.formId === this.rootForm.id && sc.services?.some((sss) => sss.serviceId === s.id)))
+					?.reduce(
+						(acc, s) =>
+							s.id
+								? {
+										...acc,
+										[s.id]: (acc[s.id] ?? (acc[s.id] = [])).concat({
+											revision: ctc.rev ?? null,
+											modified: ctc.created,
+											value: s,
+										}),
+								  }
+								: acc,
+						acc,
+					) ?? acc
+			return services
+		}, {} as VersionedData<Service>) //index services in history by id
 		return Object.entries(indexedServices)
 			.map(([id, history]) => {
 				const keptRevisions = revisionsFilter(
@@ -733,8 +784,11 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 	}
 
 	async addChild(anchorId: string, templateId: string, label: string): Promise<void> {
-		const newForm = await this.formFactory(anchorId, templateId, label)
-		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory, [], false)
+		const parentId = this.rootForm.id
+		if (!parentId) return
+
+		const newForm = await this.formFactory(parentId, anchorId, templateId, label)
+		const childFVC = new ContactFormValuesContainer(newForm, this.currentContact, this.contactsHistory, this.serviceFactory, [], this.formFactory, this.formRecycler, [], false)
 
 		const newContactFormValuesContainer = new ContactFormValuesContainer(
 			this.rootForm,
@@ -743,6 +797,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			this.serviceFactory,
 			[...this.children, childFVC],
 			this.formFactory,
+			this.formRecycler,
 			this.changeListeners,
 		)
 		newContactFormValuesContainer.registerChildFormValuesContainer(childFVC)
@@ -762,6 +817,7 @@ export class ContactFormValuesContainer implements FormValuesContainer<Service, 
 			this.serviceFactory,
 			this.children.filter((c) => c.rootForm.id !== container.rootForm.id),
 			this.formFactory,
+			this.formRecycler,
 			this.changeListeners,
 		)
 		this.changeListeners.forEach((l) => notify(l, newContactFormValuesContainer))
