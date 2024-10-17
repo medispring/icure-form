@@ -84,6 +84,8 @@ import physio_exam_sub from './samples/physio_exam_sub.yaml'
 // @ts-ignore
 import physio_followUp from './samples/physio_followUp.yaml'
 // @ts-ignore
+import physio_closure from './samples/physio_closure.yaml'
+// @ts-ignore
 import physio_uro_abdominoSpinalAssessment from './samples/physio_uro_abdominoSpinalAssessment.yaml'
 // @ts-ignore
 import physio_uro_sexuality from './samples/physio_uro_sexuality.yaml'
@@ -147,6 +149,7 @@ class DemoApp extends LitElement {
 			{ title: 'Bilan kiné - Examen subjectif', form: Form.parse(YAML.parse(physio_exam_sub)) },
 			{ title: 'Bilan kiné - Examen physique', form: Form.parse(YAML.parse(physio_exam_phy)) },
 			{ title: 'Bilan kiné - Prise de décision clinique', form: Form.parse(YAML.parse(physio_clinical_decision)) },
+			{ title: 'Bilan kiné - Session de clôture', form: Form.parse(YAML.parse(physio_closure)) },
 			{ title: 'Kiné - Suivi quotidien', form: Form.parse(YAML.parse(physio_followUp)) },
 			{ title: 'Kiné - Uro - Evaluation abdomino-rachidienne', form: Form.parse(YAML.parse(physio_uro_abdominoSpinalAssessment)) },
 			{ title: 'Kiné - Uro - Sexualité', form: Form.parse(YAML.parse(physio_uro_sexuality)) },
