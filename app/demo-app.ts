@@ -130,7 +130,7 @@ class DemoApp extends LitElement {
 			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
 			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
 			{ title: 'OKIDO', form: Form.parse(YAML.parse(okido)) },
-			{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
+			/*{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
 			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
 			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
 			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
@@ -145,7 +145,7 @@ class DemoApp extends LitElement {
 			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
 			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
 			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
-			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },
+			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },*/
 			{ title: 'Bilan kiné - Examen subjectif', form: Form.parse(YAML.parse(physio_exam_sub)) },
 			{ title: 'Bilan kiné - Examen physique', form: Form.parse(YAML.parse(physio_exam_phy)) },
 			{ title: 'Bilan kiné - Prise de décision clinique', form: Form.parse(YAML.parse(physio_clinical_decision)) },
