@@ -118,6 +118,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|reasonOfConsultation|1
+              - CD-ITEM|transactionreason|1
           - field: physio-forms.subjectif.field.label.relevantElementOfPatient
             type: textfield
             span: 24
@@ -132,6 +133,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|currentFunctionalCapacity|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.subjectif.field.label.goalAndExpectation
             type: textfield
             span: 24
@@ -139,6 +141,8 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|goalAndExpectation|1
+              - CD-ITEM|outcome|1
+              - CD-LIFECYCLE|expected|1
   - section: physio-forms.section-label.medicalPerspective
     fields:
       - group: line
@@ -154,6 +158,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|diagnosis|1
+              - CD-ITEM|diagnosis|1
           - field: physio-forms.subjectif.field.label.atcd
             type: textfield
             span: 24
@@ -168,6 +173,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|complementaryExam|1
+              - CD-ITEM|technical|1
           - field: physio-forms.subjectif.field.label.previousTreatment
             type: textfield
             span: 24
@@ -175,6 +181,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|previousTreatment|1
+              - CD-ITEM|treatment|1
           - field: physio-forms.subjectif.field.label.evolution
             type: textfield
             span: 24
@@ -182,6 +189,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|evolution|1
+              - CD-HEADING|evolution1|1
   - section: physio-forms.section-label.characteristicOfHealthProblem
     fields:
       - group: line
@@ -197,6 +205,8 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|characteristicOfSymptoms|1
+              - CD-ITEM|parameter|1
+              - CD-PARAMETER|local|1
       - group: line
         borderless: true
         span: 24
@@ -212,6 +222,7 @@ sections:
             span: 8
             tags:
               - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_1|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
@@ -228,6 +239,7 @@ sections:
             span: 8
             tags:
               - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_2|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
@@ -244,6 +256,7 @@ sections:
             span: 8
             tags:
               - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_3|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
@@ -260,6 +273,7 @@ sections:
             span: 8
             tags:
               - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_4|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
@@ -276,6 +290,7 @@ sections:
             span: 8
             tags:
               - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_5|1
+              - CD-ITEM|complaint|1
           - field: physio-forms.activityScoring.field.label.score
             type: dropdown
             span: 4
@@ -308,4 +323,5 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|individualFactors|1
+              - CD-ITEM|complaint|1
 

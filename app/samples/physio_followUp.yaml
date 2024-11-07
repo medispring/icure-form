@@ -31,13 +31,22 @@ sections:
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|progressOfSession|1
+              - CD-ITEM|act|1
+              - CD-LIFECYCLE|completed|1
           - field: physio-forms.dailyFollowUp.field.label.elementsHighlight
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|elementsHighlight|1
           - field: physio-forms.dailyFollowUp.field.label.conclusion
             type: textfield
             span: 24
             multiline: true
             rowSpan: 2
+            tags:
+              - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|conclusion|1
+              - CD-ITEM|outcome|1

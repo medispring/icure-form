@@ -41,6 +41,7 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-CLOSURE-EXAM-ITEM|appreciationOfPatient|1
+              - CD-ITEM|outcome|1
           - field: physio-forms.closure.field.label.nextTreatment
             type: textfield
             span: 24
@@ -48,3 +49,6 @@ sections:
             rowSpan: 4
             tags:
               - MS-PHYSIO-CLOSURE-EXAM-ITEM|nextTreatment|1
+              - CD-ITEM|outcome|1
+              - CD-LIFECYCLE|realised|1
+              - CD-ITEM|instructionforpatient|1

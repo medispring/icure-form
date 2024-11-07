@@ -50,6 +50,7 @@ sections:
             rowSpan: 2
             tags:
               - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentGoal|1
+              - CD-ITEM|outcome|1
           - field: physio-forms.clinicalDecision.field.label.treatmentOffered
             type: textfield
             span: 24
@@ -57,6 +58,8 @@ sections:
             rowSpan: 2
             tags:
               - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentOffered|1
+              - CD-ITEM|act|1
+              - CD-LIFECYCLE|planned|1
           - field: physio-forms.clinicalDecision.field.label.prognosis
             type: textfield
             span: 24
