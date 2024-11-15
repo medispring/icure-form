@@ -9,7 +9,7 @@ translations:
         physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Diagnostic de kinésithérapeutique
         physio-forms.clinicalDecision.field.label.treatmentGoal: Objectifs de traitement
         physio-forms.clinicalDecision.field.label.treatmentOffered: Soins proposés
-        physio-forms.clinicalDecision.field.label.prognosis: Pronostique / planification
+        physio-forms.clinicalDecision.field.label.prognosis: Pronostic / planification
   - language: nl
     translations:
       physio-forms.clinicalDecision.field.label.treatementPlan: Behandelingsplan

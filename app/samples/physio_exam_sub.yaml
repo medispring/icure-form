@@ -59,7 +59,7 @@ translations:
       physio-forms.subjectif.field.label.relevantElementOfPatient: Eléments pertinents de la personne
       physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacité fonctionnelle actuelle
       physio-forms.subjectif.field.label.goalAndExpectation: Objectifs et attentes
-      physio-forms.subjectif.field.label.diagnosis: Diagnostic médical
+      physio-forms.subjectif.field.label.diagnosis: Complément au diagnostic médical
       physio-forms.subjectif.field.label.history: Histoire
       physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
       physio-forms.subjectif.field.label.symptomSite: Site de symptômes
