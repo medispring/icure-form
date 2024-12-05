@@ -59,7 +59,6 @@ translations:
       physio-forms.subjectif.field.label.relevantElementOfPatient: Eléments pertinents de la personne
       physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacité fonctionnelle actuelle
       physio-forms.subjectif.field.label.goalAndExpectation: Objectifs et attentes
-      physio-forms.subjectif.field.label.diagnosis: Complément au diagnostic médical
       physio-forms.subjectif.field.label.history: Histoire
       physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
       physio-forms.subjectif.field.label.symptomSite: Site de symptômes
@@ -82,7 +81,6 @@ translations:
         physio-forms.subjectif.field.label.relevantElementOfPatient: Relevante elementen van de persoon
         physio-forms.subjectif.field.label.currentFunctionalCapacity: Huidige functionele capaciteit
         physio-forms.subjectif.field.label.goalAndExpectation: Doelstellingen en verwachtingen
-        physio-forms.subjectif.field.label.diagnosis: Diagnose
         physio-forms.subjectif.field.label.history: Geschiedenis
         physio-forms.subjectif.field.label.characteristicOfSymptoms: Kenmerken van de symptomen
         physio-forms.subjectif.field.label.symptomSite: Symptoomlocatie
@@ -151,14 +149,6 @@ sections:
         fields:
           - field: physio-forms.subjectif.field.label.medicalPerspective
             type: label
-          - field: physio-forms.subjectif.field.label.diagnosis
-            type: textfield
-            span: 24
-            multiline: true
-            rowSpan: 4
-            tags:
-              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|diagnosis|1
-              - CD-ITEM|diagnosis|1
           - field: physio-forms.subjectif.field.label.atcd
             type: textfield
             span: 24
