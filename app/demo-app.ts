@@ -101,6 +101,8 @@ import physio_uro_miscellaneous from './samples/physio_uro_miscellaneous.yaml'
 import physio_uro_transit from './samples/physio_uro_transit.yaml'
 // @ts-ignore
 import physio_uro_anorectalLeak from './samples/physio_uro_anorectalLeak.yaml'
+// @ts-ignore
+import physio_assessment_full from './samples/physio_assessment_full.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -159,6 +161,7 @@ class DemoApp extends LitElement {
 			{ title: 'Kiné - Uro - Divers', form: Form.parse(YAML.parse(physio_uro_miscellaneous)) },
 			{ title: 'Kiné - Uro - Transit', form: Form.parse(YAML.parse(physio_uro_transit)) },
 			{ title: 'Kiné - Uro - Fuites anorectales', form: Form.parse(YAML.parse(physio_uro_anorectalLeak)) },
+			{ title: 'Bilan kiné - Complet', form: Form.parse(YAML.parse(physio_assessment_full)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 
