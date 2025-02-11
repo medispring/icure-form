@@ -11,9 +11,10 @@ translations:
         physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
   - language: nl
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Dagelijkse opvolging
-        physio-forms.dailyFollowUp.field.label.progressOfSession: Voortgang van de sessie
+        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
+        physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
         physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
+        physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
         physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
 sections:
   - section: physio-forms.section-label.SECTION-1

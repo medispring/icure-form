@@ -13,10 +13,11 @@ translations:
   - language: nl
     translations:
       physio-forms.clinicalDecision.field.label.treatementPlan: Behandelingsplan
-      physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Fysiotherapeutische diagnose
-      physio-forms.clinicalDecision.field.label.treatmentGoal: Behandelingsdoelstellingen
+      physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Kinesitherapeutische diagnose
+      physio-forms.clinicalDecision.field.label.treatmentGoal: Doelstellingen
       physio-forms.clinicalDecision.field.label.treatmentOffered: Aangeboden behandeling
       physio-forms.clinicalDecision.field.label.prognosis: Prognose / planning
+      physio-forms.clinicalDecision.field.label.clinicalDecision: Klinische beslissing
 sections:
   - section: physio-forms.section-label.SECTION-1
     fields:

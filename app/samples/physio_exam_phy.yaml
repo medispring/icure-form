@@ -23,7 +23,7 @@ translations:
       physio-forms.physical.field.label.palpation: Palpatie
       physio-forms.physical.field.label.accessoryMovement: Accessoire bewegingen
       physio-forms.physical.field.label.physiologicalMovement: Fysiologische bewegingen
-      physio-forms.physical.field.label.specificPurposeTest: Specifieke doeltesten
+      physio-forms.physical.field.label.specificPurposeTest: Testen met een specifiek doel
 sections:
   - section: physio-forms.section-label.SECTION-1
     fields:

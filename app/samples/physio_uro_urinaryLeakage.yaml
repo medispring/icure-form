@@ -96,8 +96,9 @@ translations:
         physio-uro-forms.urinaryLeakage.field.label.fullBladder: Volle blaas
         physio-uro-forms.sexuality.field.label.other: Andere
         physio-uro-forms.urinaryLeakage.field.label.emptyBladder: Lege blaas
-        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks: Dagelijkse le
+        physio-uro-forms.urinaryLeakage.field.label.daytimeLeaks: Overdag
         physio-uro-forms.urinaryLeakage.field.label.daytimeLeaksCount: Aantal
+        physio-uro-forms.urinaryLeakage.field.label.nocturalLeaks: s'Nachts
         physio-uro-forms.urinaryLeakage.field.label.nocturalLeaksCount: Aantal
         physio-uro-forms.urinaryLeakage.field.label.leaksAppearing: Verschijnen van lekken
         physio-uro-forms.urinaryLeakage.field.label.perceptionOfTheLeak: Perceptie van het lek
