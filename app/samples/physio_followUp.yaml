@@ -4,14 +4,12 @@ description: physio-forms.DAILY_FOLLOW_UP
 translations:
   - language: fr
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
         physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
         physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
         physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
         physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
   - language: nl
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
         physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
         physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
         physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
@@ -19,12 +17,6 @@ translations:
 sections:
   - section: physio-forms.section-label.SECTION-1
     fields:
-      - group: line
-        borderless: true
-        span: 24
-        fields:
-          - field: physio-forms.dailyFollowUp.field.label.dailyFollowUp
-            type: label
       - group: line
         borderless: true
         span: 24
