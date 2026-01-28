@@ -4,18 +4,20 @@ description: physio-forms.DAILY_FOLLOW_UP
 translations:
   - language: fr
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
-        physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
-        physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
-        physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
-        physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
+      physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
+      physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
+      physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
+      physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
+      physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
+      physio-forms_assessment_full: Évaluation complète
   - language: nl
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
-        physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
-        physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
-        physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
-        physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
+      physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
+      physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
+      physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
+      physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
+      physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
+      physio-forms_assessment_full: Volledige evaluatie
 sections:
   - section: physio-forms.section-label.SECTION-1
     fields:
@@ -60,3 +62,14 @@ sections:
             tags:
               - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|conclusion|1
               - CD-ITEM|outcome|1
+      - subform:
+        id: 0a25149a-f5b6-490d-ba3e-8a7d173b7249
+        shortLabel: okido-forms.okido.field.label.form
+        span: 24
+        borderless: true
+        refs:
+          - 1
+subForms:
+  1:
+    description: "Je suis un sous-formulaire d'évaluation complète"
+    form: physio-forms_assessment_full

@@ -36,73 +36,35 @@ import { convertLegacy } from '../src/conversion/icure-convert'
 const legacyForms = [obstetrics, incapacity, prescription, obstetrics_followup_short, obstetrics_followup_long, obstetrics_followup_midwife] as FormLayout[]
 
 // @ts-ignore
-import okido from './samples/okido.yaml'
+import okido from './samples/physio/okido.yaml'
 // @ts-ignore
-import okido_treatment from './samples/okido_treatment.yaml'
+import physio_assessment_full from './samples/physio/physio_assessment_full.yaml'
 // @ts-ignore
-import okido_anamnesis from './samples/okido_anamnesis.yaml'
+import physio_clinical_decision from './samples/physio/physio_clinical_decision.yaml'
 // @ts-ignore
-import okido_search from './samples/okido_search.yaml'
+import physio_closure from './samples/physio/physio_closure.yaml'
 // @ts-ignore
-import okido_measure from './samples/okido_measure.yaml'
+import physio_exam_phy from './samples/physio/physio_exam_phy.yaml'
 // @ts-ignore
-import okido_evaluation from './samples/okido_evaluation.yaml'
+import physio_exam_sub from './samples/physio/physio_exam_sub.yaml'
 // @ts-ignore
-import okido_planification from './samples/okido_planification.yaml'
+import physio_followUp from './samples/physio/physio_followUp.yaml'
 // @ts-ignore
-import okido_diagnostic from './samples/okido_diagnostic.yaml'
+import physio_uro_abdominoSpinalAssessment from './samples/physio/physio_uro_abdominoSpinalAssessment.yaml'
 // @ts-ignore
-import okido_closure from './samples/okido_closure.yaml'
+import physio_uro_anorectalLeak from './samples/physio/physio_uro_anorectalLeak.yaml'
 // @ts-ignore
-import okido_functional_disorder from './samples/okido_functional_disorder.yaml'
+import physio_uro_imperiousness from './samples/physio/physio_uro_imperiousness.yaml'
 // @ts-ignore
-import okido_complementary_exam from './samples/oki_complementary_exam.yaml'
+import physio_uro_miscellaneous from './samples/physio/physio_uro_miscellaneous.yaml'
 // @ts-ignore
-import okido_external_factor from './samples/okido_external_factor.yaml'
+import physio_uro_prolapse from './samples/physio/physio_uro_prolapse.yaml'
 // @ts-ignore
-import okido_individual_factor from './samples/okido_individual_factor.yaml'
+import physio_uro_sexuality from './samples/physio/physio_uro_sexuality.yaml'
 // @ts-ignore
-import okido_medical_data from './samples/okido_medical_data.yaml'
+import physio_uro_transit from './samples/physio/physio_uro_transit.yaml'
 // @ts-ignore
-import okido_severity_disorder from './samples/okido_severity_disorder.yaml'
-// @ts-ignore
-import okido_surgical_data from './samples/okido_surgical_data.yaml'
-// @ts-ignore
-import okido_medical_care from './samples/okido_medical_care.yaml'
-// @ts-ignore
-import okido_physiotherapy_care from './samples/okido_physiotherapy_care.yaml'
-// @ts-ignore
-import okido_paramedical_care from './samples/okido_paramedical_care.yaml'
-// @ts-ignore
-import okido from './samples/okido.yaml'
-// @ts-ignore
-import physio_clinical_decision from './samples/physio_clinical_decision.yaml'
-// @ts-ignore
-import physio_exam_phy from './samples/physio_exam_phy.yaml'
-// @ts-ignore
-import physio_exam_sub from './samples/physio_exam_sub.yaml'
-// @ts-ignore
-import physio_followUp from './samples/physio_followUp.yaml'
-// @ts-ignore
-import physio_closure from './samples/physio_closure.yaml'
-// @ts-ignore
-import physio_uro_abdominoSpinalAssessment from './samples/physio_uro_abdominoSpinalAssessment.yaml'
-// @ts-ignore
-import physio_uro_sexuality from './samples/physio_uro_sexuality.yaml'
-// @ts-ignore
-import physio_uro_prolapse from './samples/physio_uro_prolapse.yaml'
-// @ts-ignore
-import physio_uro_urinaryLeakage from './samples/physio_uro_urinaryLeakage.yaml'
-// @ts-ignore
-import physio_uro_imperiousness from './samples/physio_uro_imperiousness.yaml'
-// @ts-ignore
-import physio_uro_miscellaneous from './samples/physio_uro_miscellaneous.yaml'
-// @ts-ignore
-import physio_uro_transit from './samples/physio_uro_transit.yaml'
-// @ts-ignore
-import physio_uro_anorectalLeak from './samples/physio_uro_anorectalLeak.yaml'
-// @ts-ignore
-import physio_assessment_full from './samples/physio_assessment_full.yaml'
+import physio_uro_urinaryLeakage from './samples/physio/physio_uro_urinaryLeakage.yaml'
 
 import { Form } from '../src/components/model'
 import { state } from 'lit/decorators.js'
@@ -117,51 +79,22 @@ class DemoApp extends LitElement {
 	private samples = [
 		...[
 			/*{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
-			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },*/
-			{ title: '000 - Validators', form: Form.parse(YAML.parse(validators)) },
-			/*{ title: '01 - Token fields', form: Form.parse(YAML.parse(tokenFields)) },
-			{ title: '1 - BMI', form: Form.parse(YAML.parse(bmi)) },
-			// { title: '1 - Time of appointment', form: Form.parse(YAML.parse(time_of_appointment)) },
-			{ title: 'Obstetrics', form: convertLegacy(obstetrics as FormLayout, legacyForms) },
-			{ title: '2 - Preliminary psycho-social interview', form: Form.parse(YAML.parse(preliminary_psycho_social_interview)) },
-			{ title: '3 - Preliminary medical interview', form: Form.parse(YAML.parse(preliminary_medical_interview)) },
-			{ title: '4 - Termination of pregnancy curetage', form: Form.parse(YAML.parse(termination_of_pregnancy_curetage)) },
-			{ title: '5 - Interuption of pregnancy medical part 1', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_1)) },
-			{ title: '6 - Interuption of pregnancy medical part 2', form: Form.parse(YAML.parse(interruption_of_pregnancy_medical_part_2)) },
-			{ title: '7 - Control', form: Form.parse(YAML.parse(control)) },
-			{ title: '8 - Extra', form: Form.parse(YAML.parse(extra)) },
-			{ title: '9 - Note', form: Form.parse(YAML.parse(note)) },*/
-			{ title: 'OKIDO', form: Form.parse(YAML.parse(okido)) },
-			/*{ title: 'OKIDO - Anamnèse', form: Form.parse(YAML.parse(okido_anamnesis)) },
-			{ title: 'OKIDO - Recherche', form: Form.parse(YAML.parse(okido_search)) },
-			{ title: 'OKIDO - Evaluation', form: Form.parse(YAML.parse(okido_evaluation)) },
-			{ title: 'OKIDO - Planification', form: Form.parse(YAML.parse(okido_planification)) },
-			{ title: 'OKIDO - Traitement', form: Form.parse(YAML.parse(okido_treatment)) },
-			{ title: 'OKIDO - Diagnostique', form: Form.parse(YAML.parse(okido_diagnostic)) },
-			{ title: 'OKIDO - Clôture', form: Form.parse(YAML.parse(okido_closure)) },
-			{ title: 'OKIDO - Anamnèse - Trouble fonctionnel', form: Form.parse(YAML.parse(okido_functional_disorder)) },
-			{ title: 'OKIDO - Anamnèse - Répercution / Sévérité', form: Form.parse(YAML.parse(okido_severity_disorder)) },
-			{ title: 'OKIDO - Anamnèse - Facteur externe', form: Form.parse(YAML.parse(okido_external_factor)) },
-			{ title: 'OKIDO - Anamnèse - Facteur individuel / personnel', form: Form.parse(YAML.parse(okido_individual_factor)) },
-			{ title: 'OKIDO - Anamnèse - Donnée médicale', form: Form.parse(YAML.parse(okido_medical_data)) },
-			{ title: 'OKIDO - Anamnèse - Donnée chirurgicale', form: Form.parse(YAML.parse(okido_surgical_data)) },
-			{ title: 'OKIDO - Anamnèse - Soin médical', form: Form.parse(YAML.parse(okido_medical_care)) },
-			{ title: 'OKIDO - Anamnèse - Soin paramédical', form: Form.parse(YAML.parse(okido_paramedical_care)) },
-			{ title: 'OKIDO - Anamnèse - Soin kinésithérapeutique', form: Form.parse(YAML.parse(okido_physiotherapy_care)) },*/
-			{ title: 'Bilan kiné - Examen subjectif', form: Form.parse(YAML.parse(physio_exam_sub)) },
-			{ title: 'Bilan kiné - Examen physique', form: Form.parse(YAML.parse(physio_exam_phy)) },
-			{ title: 'Bilan kiné - Prise de décision clinique', form: Form.parse(YAML.parse(physio_clinical_decision)) },
-			{ title: 'Bilan kiné - Session de clôture', form: Form.parse(YAML.parse(physio_closure)) },
-			{ title: 'Kiné - Suivi quotidien', form: Form.parse(YAML.parse(physio_followUp)) },
-			{ title: 'Kiné - Uro - Evaluation abdomino-rachidienne', form: Form.parse(YAML.parse(physio_uro_abdominoSpinalAssessment)) },
-			{ title: 'Kiné - Uro - Sexualité', form: Form.parse(YAML.parse(physio_uro_sexuality)) },
-			{ title: 'Kiné - Uro - Prolapsus', form: Form.parse(YAML.parse(physio_uro_prolapse)) },
-			{ title: 'Kiné - Uro - Fuites urinaires', form: Form.parse(YAML.parse(physio_uro_urinaryLeakage)) },
-			{ title: 'Kiné - Uro - Impériosité', form: Form.parse(YAML.parse(physio_uro_imperiousness)) },
-			{ title: 'Kiné - Uro - Divers', form: Form.parse(YAML.parse(physio_uro_miscellaneous)) },
-			{ title: 'Kiné - Uro - Transit', form: Form.parse(YAML.parse(physio_uro_transit)) },
-			{ title: 'Kiné - Uro - Fuites anorectales', form: Form.parse(YAML.parse(physio_uro_anorectalLeak)) },
-			{ title: 'Bilan kiné - Complet', form: Form.parse(YAML.parse(physio_assessment_full)) },
+			 */
+			{ title: 'okido', form: Form.parse(YAML.parse(okido)) },
+			{ title: 'physio_assessment_full', form: Form.parse(YAML.parse(physio_assessment_full)) },
+			{ title: 'physio_clinical_decision', form: Form.parse(YAML.parse(physio_clinical_decision)) },
+			{ title: 'physio_closure', form: Form.parse(YAML.parse(physio_closure)) },
+			{ title: 'physio_exam_phy', form: Form.parse(YAML.parse(physio_exam_phy)) },
+			{ title: 'physio_exam_sub', form: Form.parse(YAML.parse(physio_exam_sub)) },
+			{ title: 'physio_followUp', form: Form.parse(YAML.parse(physio_followUp)) },
+			{ title: 'physio_uro_abdominoSpinalAssessment', form: Form.parse(YAML.parse(physio_uro_abdominoSpinalAssessment)) },
+			{ title: 'physio_uro_anorectalLeak', form: Form.parse(YAML.parse(physio_uro_anorectalLeak)) },
+			{ title: 'physio_uro_imperiousness', form: Form.parse(YAML.parse(physio_uro_imperiousness)) },
+			{ title: 'physio_uro_miscellaneous', form: Form.parse(YAML.parse(physio_uro_miscellaneous)) },
+			{ title: 'physio_uro_prolapse', form: Form.parse(YAML.parse(physio_uro_prolapse)) },
+			{ title: 'physio_uro_sexuality', form: Form.parse(YAML.parse(physio_uro_sexuality)) },
+			{ title: 'physio_uro_transit', form: Form.parse(YAML.parse(physio_uro_transit)) },
+			{ title: 'physio_uro_urinaryLeakage', form: Form.parse(YAML.parse(physio_uro_urinaryLeakage)) },
 		], //.filter((x, idx) => idx === 0),
 	]
 
