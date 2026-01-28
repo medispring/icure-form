@@ -1,0 +1,31 @@
+form: physio-uro-forms.MISCELLANEOUS
+id: 5f5fdbbc-86f4-4697-86a6-ef90a9350c51
+description: physio-uro-forms.MISCELLANEOUS
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.miscellaneous.field.label.miscellaneous: Divers
+  - language: nl
+    translations:
+        physio-uro-forms.miscellaneous.field.label.miscellaneous: Divers
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.miscellaneous.field.label.miscellaneous
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.miscellaneous.field.label.miscellaneous
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 12
+            tags:
+                - MS-MISCELLANEOUS-ITEM|miscellaneous|1
+

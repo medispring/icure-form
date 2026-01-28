@@ -1,0 +1,318 @@
+form: physio-forms.SUBJECTIF_EXAM
+id: 3df57593-4d25-4338-9224-8ea29f8b2f8f
+description: physio-forms.SUBJECTIF_EXAM
+codifications:
+  - type: MS-ACTIVITY-SCORING-VALUE
+    codes:
+        - id: MS-ACTIVITY-SCORING-VALUE|0|1
+          label:
+            nl: 0 - Niet in staat om een activiteit uit te voeren
+            fr: 0 - Incapable de réaliser l'activité
+        - id: MS-ACTIVITY-SCORING-VALUE|1|1
+          label:
+            nl: 1
+            fr: 1
+        - id: MS-ACTIVITY-SCORING-VALUE|2|1
+          label:
+            nl: 2
+            fr: 2
+        - id: MS-ACTIVITY-SCORING-VALUE|3|1
+          label:
+              nl: 3
+              fr: 3
+        - id: MS-ACTIVITY-SCORING-VALUE|4|1
+          label:
+              nl: 4
+              fr: 4
+        - id: MS-ACTIVITY-SCORING-VALUE|5|1
+          label:
+              nl: 5
+              fr: 5
+        - id: MS-ACTIVITY-SCORING-VALUE|6|1
+          label:
+              nl: 6
+              fr: 6
+        - id: MS-ACTIVITY-SCORING-VALUE|7|1
+          label:
+              nl: 7
+              fr: 7
+        - id: MS-ACTIVITY-SCORING-VALUE|8|1
+          label:
+              nl: 8
+              fr: 8
+        - id: MS-ACTIVITY-SCORING-VALUE|9|1
+          label:
+              nl: 9
+              fr: 9
+        - id: MS-ACTIVITY-SCORING-VALUE|10|1
+          label:
+              nl: 10 - In staat om op hetzelfde niveau als voorheen te presteren
+              fr: 10 - Capable de réaliser l'activité à une niveau égal à celui d'avant la blessure
+translations:
+  - language: fr
+    translations:
+      physio-forms.subjectif.field.label.subjectif: Examen subjectif
+      physio-forms.subjectif.field.label.patientPerspective: Perspective du patient
+      physio-forms.subjectif.field.label.medicalPerspective: Perspectives médicales
+      physio-forms.subjectif.field.label.characteristicOfHealthProblem: Caractéristiques du problème de santé
+      physio-forms.subjectif.field.label.reasonOfConsultation: Motif de la consultation
+      physio-forms.subjectif.field.label.relevantElementOfPatient: Eléments pertinents de la personne
+      physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacité fonctionnelle actuelle
+      physio-forms.subjectif.field.label.goalAndExpectation: Objectifs et attentes
+      physio-forms.subjectif.field.label.history: Histoire
+      physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
+      physio-forms.subjectif.field.label.symptomSite: Site de symptômes
+      physio-forms.subjectif.field.label.symptomBehavior: Comportement des symptômes
+      physio-forms.subjectif.field.label.individualFactors: Facteurs individuels / facteurs externes
+      physio-forms.subjectif.field.label.activityScoringScheme: Échelle fonctionnelle spécifique au patient
+      physio-forms.activityScoring.field.label.activity: Activité fonctionnelle
+      physio-forms.activityScoring.field.label.score: Score
+      physio-forms.activityScoring.field.label.scoringScheme: Echelle
+      physio-forms.subjectif.field.label.evolution: Evolution
+      physio-forms.subjectif.field.label.previousTreatment: Traitements précédents
+      physio-forms.subjectif.field.label.complementaryExam: Examens complémentaires
+      physio-forms.subjectif.field.label.atcd: Antécédants
+  - language: nl
+    translations:
+        physio-forms.subjectif.field.label.subjectif: Subjectief onderzoek
+        physio-forms.subjectif.field.label.patientPerspective: Patiëntenperspectief
+        physio-forms.subjectif.field.label.medicalPerspective: Medische perspectieven
+        physio-forms.subjectif.field.label.reasonOfConsultation: Reden voor raadpleging
+        physio-forms.subjectif.field.label.characteristicOfHealthProblem: Kenmerken van het gezondheidsprobleem
+        physio-forms.subjectif.field.label.relevantElementOfPatient: Relevante elementen van de persoon
+        physio-forms.subjectif.field.label.currentFunctionalCapacity: Huidige functionele capaciteit
+        physio-forms.subjectif.field.label.goalAndExpectation: Doelstellingen en verwachtingen
+        physio-forms.subjectif.field.label.history: Geschiedenis
+        physio-forms.subjectif.field.label.characteristicOfSymptoms: Kenmerken van de symptomen
+        physio-forms.subjectif.field.label.symptomSite: Symptoomlocatie
+        physio-forms.subjectif.field.label.symptomBehavior: Symptoomgedrag
+        physio-forms.subjectif.field.label.individualFactors: Individuele factoren / externe factoren
+        physio-forms.subjectif.field.label.activityScoringScheme: Specifieke functionele schaal voor de patiënt
+        physio-forms.activityScoring.field.label.activity: Activiteit
+        physio-forms.activityScoring.field.label.score: Score
+        physio-forms.activityScoring.field.label.scoringScheme: Schaal
+        physio-forms.subjectif.field.label.evolution: Evolutie
+        physio-forms.subjectif.field.label.previousTreatment: Vorige behandelingen
+        physio-forms.subjectif.field.label.complementaryExam: Aanvullende onderzoeken
+        physio-forms.subjectif.field.label.atcd: Voorgeschiedenis
+sections:
+  - section: physio-forms.section-label.subjectif
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.subjectif
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.patientPerspective
+            type: label
+          - field: physio-forms.subjectif.field.label.reasonOfConsultation
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|reasonOfConsultation|1
+              - CD-ITEM|transactionreason|1
+          - field: physio-forms.subjectif.field.label.relevantElementOfPatient
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|relevantElementOfPatient|1
+          - field: physio-forms.subjectif.field.label.currentFunctionalCapacity
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|currentFunctionalCapacity|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.subjectif.field.label.goalAndExpectation
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|goalAndExpectation|1
+              - CD-ITEM|outcome|1
+              - CD-LIFECYCLE|expected|1
+  - section: physio-forms.section-label.medicalPerspective
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.medicalPerspective
+            type: label
+          - field: physio-forms.subjectif.field.label.atcd
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|atcd|1
+          - field: physio-forms.subjectif.field.label.complementaryExam
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|complementaryExam|1
+              - CD-ITEM|technical|1
+          - field: physio-forms.subjectif.field.label.previousTreatment
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|previousTreatment|1
+              - CD-ITEM|treatment|1
+          - field: physio-forms.subjectif.field.label.evolution
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|evolution|1
+              - CD-HEADING|evolution1|1
+  - section: physio-forms.section-label.characteristicOfHealthProblem
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.characteristicOfHealthProblem
+            type: label
+          - field: physio-forms.subjectif.field.label.characteristicOfSymptoms
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|characteristicOfSymptoms|1
+              - CD-ITEM|parameter|1
+              - CD-PARAMETER|local|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.activityScoringScheme
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_1|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score_1|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_2|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score_2|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_3|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score_3|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_4|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score_4|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.activityScoring.field.label.activity
+            type: textfield
+            span: 8
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|activity_5|1
+              - CD-ITEM|complaint|1
+          - field: physio-forms.activityScoring.field.label.score
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-ACTIVITY-SCORING-VALUE
+            tags:
+              - MS-PHYSIO-ACTIVITY-SCORING-ITEM|score_5|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.subjectif.field.label.symptomSite
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|symptomSite|1
+          - field: physio-forms.subjectif.field.label.symptomBehavior
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|symptomBehavior|1
+          - field: physio-forms.subjectif.field.label.individualFactors
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|individualFactors|1
+              - CD-ITEM|complaint|1
+

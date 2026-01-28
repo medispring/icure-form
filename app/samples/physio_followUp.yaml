@@ -4,18 +4,18 @@ description: physio-forms.DAILY_FOLLOW_UP
 translations:
   - language: fr
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
-        physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
-        physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
-        physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
-        physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
+      physio-forms.dailyFollowUp.field.label.dailyFollowUp: Suivi quotidien
+      physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
+      physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
+      physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
+      physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
   - language: nl
     translations:
-        physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
-        physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
-        physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
-        physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
-        physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
+      physio-forms.dailyFollowUp.field.label.dailyFollowUp: Behandeling
+      physio-forms.dailyFollowUp.field.label.progressOfSession: Inhoud van de sessie
+      physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
+      physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
+      physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
 sections:
   - section: physio-forms.section-label.SECTION-1
     fields:
@@ -60,3 +60,41 @@ sections:
             tags:
               - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|conclusion|1
               - CD-ITEM|outcome|1
+subForms:
+  cf9e6b0c-78a8-4792-adcb-be0e2db10013:
+    form: physio-formsfield.label
+    description: physio-forms.PHYSIO_ANAMNESIS
+    sections:
+      - section: physio-forms.physio.field-labels.SECTION-1
+        fields:
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-forms.physio.field.labels.description
+                type: textfield
+                span: 24
+                multiline: true
+                rowSpan: 5
+                tags:
+                  - physio-forms-ANAMNESIS|description|1
+          - subform:
+            id: 1cfebef7-81c7-4641-9a49-7b8aabba9661
+            span: 24
+            borderless: true
+            refs:
+              - 07007849-00f1-412b-8816-7eeee693179e
+              - 1686711c-fdf6-419a-98a4-8c8a878a64ae
+              - 341402ff-2e21-4cd5-a0fd-f8929fffda69
+              - 68627ff1-b14e-4430-9bc0-67d7169634d4
+              - 6ef36ecd-f23d-48fe-8d39-f50406b7a070
+              - 7fe97497-5496-4bf8-b45d-13a5c1529c1b
+              - 8a893a22-291d-426b-ba33-1d28acf97fbb
+              - 9c456912-46af-40e6-92d9-1b57bfb59cef
+              - bd0102ad-1d1b-4345-ad06-9bee036d6fe3
+              - c0892149-2ff3-49c1-a658-f666e631baee
+              - d9b9e8cf-de8a-41ed-8d0c-858dc733c5aa
+              - eb633faa-96ef-43d2-951b-066b582d21a8
+              - f130b30b-964a-41fe-9ee2-a9f10462339c
+              - fc24df5b-312d-4eb8-8f2b-43e436265ba1
+              - ff27edbb-5871-4d2e-bca3-d5b08268a599

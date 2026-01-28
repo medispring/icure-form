@@ -1,0 +1,70 @@
+form: physio-forms.CLINICAL_DECISION
+id: 449f411e-8ac1-4903-9694-097ebe6d6639
+description: physio-forms.CLINICAL_DECISION
+translations:
+  - language: fr
+    translations:
+        physio-forms.clinicalDecision.field.label.clinicalDecision: Prise de décision clinique
+        physio-forms.clinicalDecision.field.label.treatementPlan: Plan de traitement
+        physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Diagnostic kinésithérapeutique
+        physio-forms.clinicalDecision.field.label.treatmentGoal: Objectifs de traitement
+        physio-forms.clinicalDecision.field.label.treatmentOffered: Soins proposés
+        physio-forms.clinicalDecision.field.label.prognosis: Pronostic / planification
+  - language: nl
+    translations:
+      physio-forms.clinicalDecision.field.label.treatementPlan: Behandelingsplan
+      physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis: Kinesitherapeutische diagnose
+      physio-forms.clinicalDecision.field.label.treatmentGoal: Doelstellingen
+      physio-forms.clinicalDecision.field.label.treatmentOffered: Aangeboden behandeling
+      physio-forms.clinicalDecision.field.label.prognosis: Prognose / planning
+      physio-forms.clinicalDecision.field.label.clinicalDecision: Klinische beslissing
+sections:
+  - section: physio-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.clinicalDecision.field.label.clinicalDecision
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.clinicalDecision.field.label.treatementPlan
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-forms.clinicalDecision.field.label.physiotherapyDiagnosis
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|physiotherapyDiagnosis|1
+          - field: physio-forms.clinicalDecision.field.label.treatmentGoal
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentGoal|1
+              - CD-ITEM|outcome|1
+          - field: physio-forms.clinicalDecision.field.label.treatmentOffered
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentOffered|1
+              - CD-ITEM|act|1
+              - CD-LIFECYCLE|planned|1
+          - field: physio-forms.clinicalDecision.field.label.prognosis
+            type: textfield
+            span: 24
+            multiline: true
+            rowSpan: 2
+            tags:
+              - MS-PHYSIO-CLINICAL-DECISION-ITEM|prognosis|1

@@ -1,0 +1,431 @@
+form: physio-uro-forms.TRANSIT
+id: 0fe1a2a4-6e20-4d86-a1c1-9d4fc5287d15
+description: physio-uro-forms.TRANSIT
+codifications:
+  - type: MS-URO-EVALUATION
+    codes:
+      - id: MS-URO-EVALUATION|NS|1
+        label:
+          nl: Niet gespecificeerd
+          fr: Non renseigné
+      - id: MS-URO-EVALUATION|yes|1
+        label:
+          nl: Ja
+          fr: Oui
+      - id: MS-URO-EVALUATION|no|1
+        label:
+          nl: Nee
+          fr: Non
+  - type: MS-SCHEDULES
+    codes:
+      - id: MS-SCHEDULES|morning|1
+        label:
+          nl: Ochtend
+          fr: Matin
+      - id: MS-SCHEDULES|afternoon|1
+        label:
+          nl: Middag
+          fr: Après-midi
+      - id: MS-SCHEDULES|evening|1
+        label:
+          nl: Avond
+          fr: Soir
+      - id: MS-SCHEDULES|night|1
+        label:
+          nl: Nacht
+          fr: Nuit
+      - id: MS-SCHEDULES|variable|1
+        label:
+          nl: Variabel
+          fr: Variable
+  - type: MS-CONSTIPATION-NATURE
+    codes:
+      - id: MS-CONSTIPATION-NATURE|old|1
+        label:
+          nl: Oud
+          fr: Ancien
+      - id: MS-CONSTIPATION-NATURE|recent|1
+        label:
+          nl: Recent
+          fr: Récent
+      - id: MS-CONSTIPATION-NATURE|environmental|1
+        label:
+          nl: Milieu
+          fr: Environmental
+translations:
+  - language: fr
+    translations:
+        physio-uro-forms.transit.field.label.transit: Transit
+        physio-uro-forms.transit.field.label.feelingOfNeed: Sensation du besoin
+        physio-uro-forms.transit.field.label.dateOfOnset: Date de début
+        physio-uro-forms.transit.field.label.triggering: Déclenchement
+        physio-uro-forms.transit.field.label.defecatoryDisorders: Troubles déféquatoires
+        physio-uro-forms.transit.field.label.triggerAssistance: Aide au déclenchement
+        physio-uro-forms.transit.field.label.medicationHelp: Aide médicamenteuse
+        physio-uro-forms.transit.field.label.exemptionAssistance: Aide à l'exonération
+        physio-uro-forms.transit.field.label.delayOfTriggering: Retard de déclenchement
+        physio-uro-forms.transit.field.label.delayOfExemption: Durée (s)
+        physio-uro-forms.transit.field.label.frequencyOfStools: Fréquence des selles
+        physio-uro-forms.transit.field.label.schedule: Horaire
+        physio-uro-forms.transit.field.label.descrimination: Descrimination
+        physio-uro-forms.transit.field.label.descriminationDescription: Description
+        physio-uro-forms.transit.field.label.gaz: Présence de gaz
+        physio-uro-forms.transit.field.label.constipation: Constipation
+        physio-uro-forms.transit.field.label.nature: Nature
+        physio-uro-forms.transit.field.label.frequencyOfConstipation: Fréquence
+        physio-uro-forms.transit.field.label.defecatoryDuration: Durée de la défécation (min)
+        physio-uro-forms.transit.field.label.defecatory: Défécation
+        physio-uro-forms.transit.field.label.consistencyOfStools: Consistance des selles
+        physio-uro-forms.transit.field.label.passageOfStools: Sensation de passage des selles
+        physio-uro-forms.transit.field.label.pain: Douleur
+        physio-uro-forms.transit.field.label.blood: Saignement lors de l'exonération
+        physio-uro-forms.transit.field.label.rectalVacuity: Vacuité rectale
+        physio-uro-forms.transit.field.label.food: Régime alimentaire
+  - language: nl
+    translations:
+        physio-uro-forms.transit.field.label.transit: Transit
+        physio-uro-forms.transit.field.label.feelingOfNeed: Gevoel van noodzaak
+        physio-uro-forms.transit.field.label.dateOfOnset: Datum van begin
+        physio-uro-forms.transit.field.label.triggering: Ontsteking
+        physio-uro-forms.transit.field.label.defecatoryDisorders: Defecatoire stoornissen
+        physio-uro-forms.transit.field.label.triggerAssistance: Hulp bij ontsteking
+        physio-uro-forms.transit.field.label.medicationHelp: Medicamenteuze hulp
+        physio-uro-forms.transit.field.label.exemptionAssistance: Hulp bij vrijstelling
+        physio-uro-forms.transit.field.label.delayOfTriggering: Activeer vertraging
+        physio-uro-forms.transit.field.label.delayOfExemption: Duur
+        physio-uro-forms.transit.field.label.frequencyOfStools: frequentie van ontlasting
+        physio-uro-forms.transit.field.label.schedule: Schema
+        physio-uro-forms.transit.field.label.descrimination: Descrimination
+        physio-uro-forms.transit.field.label.descriminationDescription: Beschrijving
+        physio-uro-forms.transit.field.label.gaz: Aanwezigheid van gas
+        physio-uro-forms.transit.field.label.constipation: Constipatie
+        physio-uro-forms.transit.field.label.nature: Aard
+        physio-uro-forms.transit.field.label.frequencyOfConstipation: Frequentie
+        physio-uro-forms.transit.field.label.defecatoryDuration: Duur van de defecatie (min)
+        physio-uro-forms.transit.field.label.defecatory: Defecatie
+        physio-uro-forms.transit.field.label.consistencyOfStools: Consistentie van de ontlasting
+        physio-uro-forms.transit.field.label.passageOfStools: Sensatie van passage van ontlasting
+        physio-uro-forms.transit.field.label.pain: Pijn
+        physio-uro-forms.transit.field.label.blood: Bloeding bij ontlasting
+        physio-uro-forms.transit.field.label.rectalVacuity: Rectale lediging
+        physio-uro-forms.transit.field.label.food: Dieet
+sections:
+  - section: physio-uro-forms.section-label.SECTION-1
+    fields:
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.transit
+            type: label
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.feelingOfNeed
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|sexualDisorder|1
+          - field: physio-uro-forms.transit.field.label.dateOfOnset
+            type: date-picker
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.feelingOfNeed']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'datetime', value: 1000000*parseInt((new Date()).toISOString().replace(/(....)-(..)-(..)T.+/,"$1$2$3")) } }, codes: [] }
+            span: 4
+            tags:
+              - MS-TRANSIT-ITEM|dateOfOnset|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.triggering
+            type: textfield
+            span: 9
+            tags:
+              - MS-TRANSIT-ITEM|triggering|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.defecatoryDisorders
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|defecatoryDisorders|1
+          - field: physio-uro-forms.transit.field.label.triggerAssistance
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.defecatoryDisorders']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              span: 4
+            tags:
+              - MS-TRANSIT-ITEM|triggerAssistance|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.medicationHelp
+            type: textfield
+            span: 9
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-TRANSIT-ITEM|medicationHelp|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.exemptionAssistance
+            type: textfield
+            span: 9
+            multiline: true
+            rowSpan: 4
+            tags:
+              - MS-TRANSIT-ITEM|exemptionAssistance|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.delayOfTriggering
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|delayOfTriggering|1
+          - field: physio-uro-forms.transit.field.label.delayOfExemption
+            type: measure-field
+            span: 2
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.delayOfTriggering']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+              defaultValue: |
+                return { content: { '*': { type: 'measure', unit: 's' } }, codes: [] }
+            tags:
+              - MS-TRANSIT-ITEM|delayOfExemption|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.frequencyOfStools
+            type: textfield
+            span: 9
+            tags:
+              - MS-TRANSIT-ITEM|frequencyOfStools|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.schedule
+            type: dropdown
+            span: 9
+            codifications:
+                - MS-SCHEDULES
+            tags:
+              - MS-TRANSIT-ITEM|schedule|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.descrimination
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|descriminationDescription|1
+          - field: physio-uro-forms.transit.field.label.descriminationDescription
+            type: textfield
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.descrimination']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            span: 9
+            tags:
+              - MS-TRANSIT-ITEM|descriminationDescription|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.gaz
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|gaz|1
+      - group: line
+        borderless: true
+        span: 24
+        fields:
+          - field: physio-uro-forms.transit.field.label.constipation
+            type: radio-button
+            styleOptions:
+              direction: column
+              span: 3
+            span: 9
+            computedProperties:
+              defaultValue: |
+                return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+            codifications:
+              - MS-URO-EVALUATION
+            tags:
+              - MS-TRANSIT-ITEM|constipation|1
+          - field: physio-uro-forms.transit.field.label.nature
+            type: dropdown
+            span: 4
+            codifications:
+              - MS-CONSTIPATION-NATURE
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.constipation']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-TRANSIT-ITEM|nature|1
+          - field: physio-uro-forms.transit.field.label.frequencyOfConstipation
+            type: textfield
+            span: 4
+            computedProperties:
+              hidden: |
+                return !self['physio-uro-forms.transit.field.label.constipation']?.some((item) => item?.codes.some(code => code.id === 'MS-URO-EVALUATION|yes|1'))
+            tags:
+              - MS-TRANSIT-ITEM|frequencyOfConstipation|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.consistencyOfStools
+                type: textfield
+                span: 9
+                tags:
+                  - MS-TRANSIT-ITEM|consistencyOfStools|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.defecatory
+                type: textfield
+                span: 9
+                tags:
+                  - MS-TRANSIT-ITEM|defecatory|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.defecatoryDuration
+                type: number-field
+                computedProperties:
+                validators:
+                  - validation: |
+                      const mins = parseContent(self['physio-uro-forms.transit.field.label.defecatoryDuration']?.[0]?.content) ?? 0
+                      return mins >= 0 && mins <= 240
+                span: 4
+                tags:
+                  - MS-TRANSIT-ITEM|defecatoryDuration|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.passageOfStools
+                type: radio-button
+                styleOptions:
+                  direction: column
+                  span: 3
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                codifications:
+                  - MS-URO-EVALUATION
+                tags:
+                  - MS-TRANSIT-ITEM|passageOfStools|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.pain
+                type: textfield
+                span: 9
+                tags:
+                  - MS-TRANSIT-ITEM|pain|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.blood
+                type: radio-button
+                styleOptions:
+                  direction: column
+                  span: 3
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                codifications:
+                  - MS-URO-EVALUATION
+                tags:
+                  - MS-TRANSIT-ITEM|blood|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.rectalVacuity
+                type: radio-button
+                styleOptions:
+                  direction: column
+                  span: 3
+                span: 9
+                computedProperties:
+                  defaultValue: |
+                    return { content: { fr: { type: 'string', value: 'Non renseigné'}, nl: {type: 'string', value: 'Niet gespecificeerd'}}, codes: [{id:'MS-URO-EVALUATION|NS|1'}]}
+                codifications:
+                  - MS-URO-EVALUATION
+                tags:
+                  - MS-TRANSIT-ITEM|rectalVacuity|1
+          - group: line
+            borderless: true
+            span: 24
+            fields:
+              - field: physio-uro-forms.transit.field.label.food
+                type: textfield
+                span: 9
+                multiline: true
+                rowSpan: 4
+                tags:
+                  - MS-TRANSIT-ITEM|food|1
+
