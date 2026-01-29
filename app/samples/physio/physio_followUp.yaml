@@ -9,11 +9,14 @@ translations:
       physio-forms.dailyFollowUp.field.label.elementsHighlight: Elements à mettre en évidence
       physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
       physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
+      dailyFollowUp.FormAddSubForm: Ajouter un formulaire
+      dailyFollowUp.FormAddSubForm.description: 'Formulaire :'
       physio-forms_assessment_full: Évaluation complète
       physio-forms.ASSESSMENT_FULL: Bilan complet
       physio-forms.CLINICAL_DECISION: Prise de décision clinique
-      physio-forms.CLOSURE: Clôture
+      physio-forms.CLOSURE: Session de clôture
       physio-forms.PHYSICAL_EXAM: Examen physique
+      physio-forms.SUBJECTIF_EXAM: Examen subjectif
       okido-forms.OKIDO: OKIDO
       okido-forms.okido.field.label.okido: OKIDO
       okido-forms.okido.field.label.form: Formulaire
@@ -102,14 +105,14 @@ translations:
       okido-forms.okido.field.labels.complementaryExam: Examen complémentaire
       okido-forms.okido.field.labels.startDate: Date de début
       okido-forms.okido.field.labels.endDate: Date de fin
-      physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT: URO - Evaluation abdomino-spinal
-      physio-uro-forms.ANORECTAL_LEAK: URO - Fuites anorectales
-      physio-uro-forms.ANORECTAL-LEAK: URO - Fuites anorectales
-      physio-uro-forms.IMPERIOUSNESS: URO - Impériosité
-      physio-uro-forms.URINARY_LEAKAGE: URA - Fuites urinaires
-      physio-uro-forms.PROLAPSE: URO - Prolapsus
-      physio-uro-forms.SEXUALITY: URO - Sexualité
-      physio-uro-forms.MISCELLANEOUS: URO - Divers
+      physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT: Evaluation abdomino-rachidienne
+      physio-uro-forms.ANORECTAL-LEAK: Fuite ano-rectale
+      physio-uro-forms.IMPERIOUSNESS: Impériosité urinaire
+      physio-uro-forms.URINARY_LEAKAGE: Fuite urinaire
+      physio-uro-forms.PROLAPSE: Prolapsus
+      physio-uro-forms.SEXUALITY: Sexualité
+      physio-uro-forms.MISCELLANEOUS: Divers
+      physio-uro-forms.TRANSIT: Transit
       physio-forms.subjectif.field.label.subjectif: Examen subjectif
       physio-forms.subjectif.field.label.patientPerspective: Perspective du patient
       physio-forms.subjectif.field.label.medicalPerspective: Perspectives médicales
@@ -256,7 +259,6 @@ translations:
       physio-uro-forms.sexuality.field.label.other: Autre
       physio-uro-forms.miscellaneous.field.label.miscellaneous: Divers
       physio-uro-forms.miscellaneous.field.label.notes: Notes
-      physio-uro-forms.TRANSIT: URO - Transit
       physio-uro-forms.transit.field.label.transit: Transit
       physio-uro-forms.transit.field.label.feelingOfNeed: Sensation du besoin
       physio-uro-forms.transit.field.label.dateOfOnset: Date de début
@@ -283,7 +285,6 @@ translations:
       physio-uro-forms.transit.field.label.blood: Saignement lors de l'exonération
       physio-uro-forms.transit.field.label.rectalVacuity: Vacuité rectale
       physio-uro-forms.transit.field.label.food: Régime alimentaire
-      physio-forms.SUBJECTIF_EXAM: Examen subjectif
       physio-forms.DAILY_FOLLOW_UP_LIGHT: Suivi journalier
   - language: nl
     translations:
@@ -292,11 +293,14 @@ translations:
       physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
       physio-forms.dailyFollowUp.field.label.elementsHighlight: Aandachtspunten
       physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
+      dailyFollowUp.FormAddSubForm: Formulier toevoegen
+      dailyFollowUp.FormAddSubForm.description: 'Formulier :'
       physio-forms_assessment_full: Volledige evaluatie
       physio-forms.ASSESSMENT_FULL: Volledig bilan
       physio-forms.CLINICAL_DECISION: Klinische besluitvorming
-      physio-forms.CLOSURE: Afsluiting
+      physio-forms.CLOSURE: Afsluitende sessie
       physio-forms.PHYSICAL_EXAM: Fysiek onderzoek
+      physio-forms.SUBJECTIF_EXAM: Subjectief onderzoek
       okido-forms.OKIDO: OKIDO
       okido-forms.okido.field.label.okido: OKIDO
       okido-forms.okido.field.label.form: Formulier
@@ -385,14 +389,14 @@ translations:
       okido-forms.okido.field.labels.complementaryExam: Aanvullend onderzoek
       okido-forms.okido.field.labels.startDate: Startdatum
       okido-forms.okido.field.labels.endDate: Einddatum
-      physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT: URO - Abdomino-spinale evaluatie
-      physio-uro-forms.ANORECTAL_LEAK: URO - Anorectaal verlies
-      physio-uro-forms.ANORECTAL-LEAK: URO - Anorectaal verlies
-      physio-uro-forms.IMPERIOUSNESS: URO - Imperiositeit
-      physio-uro-forms.URINARY_LEAKAGE: URA - Urineverlies
-      physio-uro-forms.PROLAPSE: URO - Prolaps
-      physio-uro-forms.SEXUALITY: URO - Seksualiteit
-      physio-uro-forms.MISCELLANEOUS: URO - Diversen
+      physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT: Abdomino-rachidische evaluatie
+      physio-uro-forms.ANORECTAL-LEAK: Anorectaal verlies
+      physio-uro-forms.IMPERIOUSNESS: Urinaire imperiositeit
+      physio-uro-forms.URINARY_LEAKAGE: Urineverlies
+      physio-uro-forms.PROLAPSE: Prolaps
+      physio-uro-forms.SEXUALITY: Seksualiteit
+      physio-uro-forms.MISCELLANEOUS: Diversen
+      physio-uro-forms.TRANSIT: Transit
       physio-forms.subjectif.field.label.subjectif: Subjectief onderzoek
       physio-forms.subjectif.field.label.patientPerspective: Patiëntenperspectief
       physio-forms.subjectif.field.label.medicalPerspective: Medische perspectieven
@@ -539,7 +543,6 @@ translations:
       physio-uro-forms.sexuality.field.label.other: Andere
       physio-uro-forms.miscellaneous.field.label.miscellaneous: Diversen
       physio-uro-forms.miscellaneous.field.label.notes: Notities
-      physio-uro-forms.TRANSIT: URO - Transit
       physio-uro-forms.transit.field.label.transit: Transit
       physio-uro-forms.transit.field.label.feelingOfNeed: Gevoel van noodzaak
       physio-uro-forms.transit.field.label.dateOfOnset: Datum van begin
@@ -566,7 +569,6 @@ translations:
       physio-uro-forms.transit.field.label.blood: Bloeding bij ontlasting
       physio-uro-forms.transit.field.label.rectalVacuity: Rectale lediging
       physio-uro-forms.transit.field.label.food: Dieet
-      physio-forms.SUBJECTIF_EXAM: Subjectief onderzoek
       physio-forms.DAILY_FOLLOW_UP_LIGHT: Dagelijkse opvolging
 sections:
   - section: physio-forms.section-label.SECTION-1
@@ -612,9 +614,11 @@ sections:
             tags:
               - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|conclusion|1
               - CD-ITEM|outcome|1
-      - subform: null
+      - subform: choice
         id: 0a25149a-f5b6-490d-ba3e-8a7d173b7250
         shortLabel: okido-forms.okido.field.label.form
+        labels:
+          add: dailyFollowUp.FormAddSubForm
         span: 24
         borderless: true
         refs:
@@ -770,12 +774,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.subjectif
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.subjectif.field.label.subjectif
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -1143,7 +1141,7 @@ subForms:
                   - CD-ITEM|instructionforpatient|1
   449f411e-8ac1-4903-9694-097ebe6d6639:
     form: physio-forms.CLINICAL_DECISION
-    description: physio-forms.CLINICAL_DECISION
+    description: physio-forms.clinicalDecision.field.label.clinicalDecision
     translations:
       - language: fr
         translations:
@@ -1164,12 +1162,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.clinicalDecision.field.label.clinicalDecision
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -1213,7 +1205,7 @@ subForms:
                   - MS-PHYSIO-CLINICAL-DECISION-ITEM|prognosis|1
   3df57593-4d25-4338-9224-8ea29f8b2f8f:
     form: physio-forms.CLOSURE
-    description: physio-forms.CLOSURE
+    description: physio-forms.closure.field.label.closure
     translations:
       - language: fr
         translations:
@@ -1230,12 +1222,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.subjectif
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.closure.field.label.closure
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -1267,7 +1253,7 @@ subForms:
                   - CD-ITEM|instructionforpatient|1
   a1287fbd-b328-4d94-a2a1-a15086bce6ed:
     form: physio-forms.PHYSICAL_EXAM
-    description: physio-forms.PHYSICAL_EXAM
+    description: physio-forms.physical.field.label.physical
     translations:
       - language: fr
         translations:
@@ -1294,12 +1280,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.physical.field.label.physical
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -1362,7 +1342,7 @@ subForms:
                   - MS-PHYSIO-PHYSICAL-EXAM-ITEM|specificPurposeTest|1
   2a0cbe66-6fcc-4665-9022-bd30401ed975:
     form: physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT
-    description: physio-uro-forms.ABDOMINO_SPINAL_ASSESSMENT
+    description: physio-uro-forms.abdominoSpinalAssessment.field.label.abdominoSpinalAssessment
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -1424,12 +1404,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.abdominoSpinalAssessment.field.label.abdominoSpinalAssessment
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -1604,7 +1578,7 @@ subForms:
                   - MS-ABDOMINAL-SPINAL-ASSESSMENT-ITEM|otherFunctionalPain|1
   0fe1a2a4-6e20-4d86-a1c1-9d4fc5287d15:
     form: physio-uro-forms.ANORECTAL-LEAK
-    description: physio-uro-forms.ANORECTAL-LEAK
+    description: physio-uro-forms.anorectalLeak.field.label.anorectalLeak
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -1770,12 +1744,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.anorectalLeak.field.label.anorectalLeak
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -2005,7 +1973,7 @@ subForms:
                   - MS-ANORECTAL-LEAK-ITEM|leakInteruption|1
   bd5019ce-799d-44c5-9503-25a98e554918:
     form: physio-uro-forms.IMPERIOUSNESS
-    description: physio-uro-forms.IMPERIOUSNESS
+    description: physio-uro-forms.imperiousness.field.label.imperiousness
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -2101,12 +2069,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.imperiousness.field.label.imperiousness
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -2319,7 +2281,7 @@ subForms:
                   - MS-IMPERIOUSNESS-ITEM|factorPromotingUrgencyOther|1
   5f5fdbbc-86f4-4697-86a6-ef90a9350c51:
     form: physio-uro-forms.MISCELLANEOUS
-    description: physio-uro-forms.MISCELLANEOUS
+    description: physio-uro-forms.miscellaneous.field.label.miscellaneous
     translations:
       - language: fr
         translations:
@@ -2335,12 +2297,6 @@ subForms:
             span: 24
             fields:
               - field: physio-uro-forms.miscellaneous.field.label.miscellaneous
-                type: label
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.miscellaneous.field.label.miscellaneous
                 type: textfield
                 span: 24
                 multiline: true
@@ -2349,7 +2305,7 @@ subForms:
                   - MS-MISCELLANEOUS-ITEM|miscellaneous|1
   df45aced-c14d-4977-88f0-f4c2c08d9350:
     form: physio-uro-forms.PROLAPSE
-    description: physio-uro-forms.PROLAPSE
+    description: physio-uro-forms.prolapse.field.label.prolapse
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -2423,12 +2379,6 @@ subForms:
     sections:
       - section: physio-uro.forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.prolapse.field.label.prolapse
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -2588,7 +2538,7 @@ subForms:
                   - MS-PROLAPSE-ITEM|painType|1
   662f8ba2-304a-4b31-ac8b-6d18796a6fdf:
     form: physio-uro-forms.SEXUALITY
-    description: physio-uro-forms.SEXUALITY
+    description: physio-uro-forms.sexuality.field.label.sexuality
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -2656,12 +2606,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.sexuality.field.label.sexuality
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -2821,7 +2765,7 @@ subForms:
                   - MS-SEXUAL-ITEM|orgamsQuality|1
   0504147e-069c-43c9-abe7-04dd80a5c99b:
     form: physio-uro-forms.URINARY_LEAKAGE
-    description: physio-uro-forms.URINARY_LEAKAGE
+    description: physio-uro-forms.urinaryLeakage.field.label.urinaryLeakage
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -2915,12 +2859,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.urinaryLeakage.field.label.urinaryLeakage
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -3116,7 +3054,7 @@ subForms:
                   - MS-URINARY-LEAKAGE-ITEM|numberOfTrim|1
   b8d3c5e7-9f1a-4b2c-8d6e-3a5c7f9b2d4e:
     form: okido-forms.OKIDO
-    description: okido-forms.OKIDO
+    description: okido-forms.okido.field.label.okido
     translations:
       - language: fr
         translations:
@@ -3292,12 +3230,6 @@ subForms:
     sections:
       - section: okido-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: okido-forms.okido.field.label.okido
-                type: label
           - subform: null
             id: 1a25149a-f5b6-490d-ba3e-8a7d173b7250
             shortLabel: okido-forms.okido.field.label.form
@@ -5675,7 +5607,7 @@ subForms:
                   - MS-OKIDO-REPORT-ITEM|description|1
   a1b2c3d4-5e6f-7a8b-9c0d-e1f2a3b4c5d6:
     form: physio-uro-forms.TRANSIT
-    description: physio-uro-forms.TRANSIT
+    description: physio-uro-forms.transit.field.label.transit
     codifications:
       - type: MS-URO-EVALUATION
         codes:
@@ -5787,12 +5719,6 @@ subForms:
     sections:
       - section: physio-uro-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-uro-forms.transit.field.label.transit
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -6125,7 +6051,7 @@ subForms:
   b1c2d3e4-5f6a-7b8c-9d0e-f1a2b3c4d5e6:
     form: physio-forms.SUBJECTIF_EXAM
     id: b1c2d3e4-5f6a-7b8c-9d0e-f1a2b3c4d5e6
-    description: physio-forms.SUBJECTIF_EXAM
+    description: physio-forms.subjectif.field.label.subjectif
     codifications:
       - type: MS-ACTIVITY-SCORING-VALUE
         codes:
@@ -6223,12 +6149,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.subjectif
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.subjectif.field.label.subjectif
-                type: label
           - group: line
             borderless: true
             span: 24
@@ -6462,12 +6382,6 @@ subForms:
     sections:
       - section: physio-forms.section-label.SECTION-1
         fields:
-          - group: line
-            borderless: true
-            span: 24
-            fields:
-              - field: physio-forms.dailyFollowUp.field.label.dailyFollowUp
-                type: label
           - group: line
             borderless: true
             span: 24
