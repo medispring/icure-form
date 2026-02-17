@@ -19,60 +19,89 @@ const stopWords = new Set(['du', 'au', 'le', 'les', 'un', 'la', 'des', 'sur', 'd
 const currentContact = new Contact({
 	id: 'c2',
 	created: +new Date(),
-	subContacts: [{ formId: 'f1', services: [{ serviceId: 's1' }, { serviceId: 's2' }] }],
+	subContacts: [],
 	services: [
-		{
-			id: 's1',
-			label: 'history',
-			valueDate: 20181012,
-			tags: [{ id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1' }],
-			content: { en: { stringValue: 'commentaire' } },
-		},
-		{
-			id: 's2',
-			label: 'inTakeDate',
-			tags: [{ id: 'MS-ABORTION-DATE|intake|1' }, { id: 'MS-ABORTION-ITEM|date|1' }, { id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1' }],
-			content: { en: { fuzzyDateValue: 19960823 } },
-		},
 	],
 })
 
 const history = [
 	new Contact({
-		id: 'c1',
-		rev: '1-12345',
-		created: +new Date() - 1000 * 60 * 60 * 24 * 7,
-		subContacts: [{ formId: 'f1', services: [{ serviceId: 's1' }, { serviceId: 's2' }, { serviceId: 's3' }] }],
+		created: 1771337056221,
+		id: "c1",
 		services: [
 			{
-				id: 's1',
-				label: 'abortion-forms.field-labels.HISTORY',
-				tags: [{ id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|HISTORY|1' }],
-				content: { en: { stringValue: 'test' } },
-			},
-			{
-				id: 's2',
-				label: 'abortion-forms.field-labels.IN-TAKE-DATE',
-				tags: [{ id: 'MS-ABORTION-DATE|intake|1' }, { id: 'MS-ABORTION-ITEM|date|1' }, { id: 'MS-ABORTION-PSYCHOSOCIAL-INTERVIEW-ITEM|IN-TAKE-DATE|1' }],
-				content: { en: { fuzzyDateValue: 20220404 } },
-			},
-			{
-				id: 's3',
-				label: 'abortion-forms.field-labels.NOTES',
-				valueDate: 20181012,
-				content: { fr: { stringValue: 'Un commentaire' } },
-				responsible: '2',
-				tags: [
-					{
-						id: 'MS-ABORTION-ITEM|comment-note|1',
-					},
-					{
-						id: 'MS-ABORTION-CONTROL-ITEM|medicalNotes|1',
-					},
-				],
-			},
-		],
-	}),
+			content: {fr: {stringValue: "test 3"}},
+			created: 1771337056515,
+			id: "ec0e597e-ddd9-482c-841f-9c4d6a361650",
+			label: "physio-forms.closure.field.label.closureReason",
+			modified: 1771337231657,
+			responsible: "1",
+			tags: [{code: "closureReason", id: "MS-PHYSIO-CLOSURE-EXAM-ITEM|closureReason|1", label: {}, type: "MS-PHYSIO-CLOSURE-EXAM-ITEM", version: "1"}],
+			valueDate: 20260217150711
+		},
+		{
+			content: {fr: {stringValue: "test 4"}},
+			created: 1771337056515,
+			id: "7b8634b4-4865-4c2d-94e7-5ab8bc8a1502",
+			label: "physio-forms.closure.field.label.appreciationOfPatient",
+			modified: 1771337234543,
+			responsible: "1",
+			tags: [
+				{code: "appreciationOfPatient", id: "MS-PHYSIO-CLOSURE-EXAM-ITEM|appreciationOfPatient|1", label: {}, type: "MS-PHYSIO-CLOSURE-EXAM-ITEM", version: "1"},
+				{code: "outcome", id: "CD-ITEM|outcome|1", label: {}, type: "CD-ITEM", version: "1"}
+			],
+			valueDate: 20260217150714
+		},
+		{
+			content: {fr: {stringValue: "test 1"}},
+			created: 1771337056515,
+			id: "1828c19f-790c-4b2e-b4b0-b691c8372aa7",
+			label: "physio-forms.dailyFollowUp.field.label.progressOfSession",
+			modified: 1771337222438,
+			responsible: "1",
+			tags: [
+				{code: "progressOfSession", id: "MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|progressOfSession|1", label: {}, type: "MS-PHYSIO-DAILY-FOLLOW-UP-ITEM", version: "1"},{code: "act", id: "CD-ITEM|act|1", label: {}, type: "CD-ITEM", version: "1"},{code: "completed", id: "CD-LIFECYCLE|completed|1", label: {}, type: "CD-LIFECYCLE", version: "1"}
+			],
+			valueDate: 20260217150702
+		},
+		{
+			content: {fr: {stringValue: "test 2"}},
+			created: 1771337056515,
+			id: "de203821-e262-47f2-a8e9-030f965c1fde",
+			label: "physio-forms.dailyFollowUp.field.label.elementsHighlight",
+			modified: 1771337226582,
+			responsible: "1",
+			tags: [
+				{code: "elementsHighlight", id: "MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|elementsHighlight|1", label: {}, type: "MS-PHYSIO-DAILY-FOLLOW-UP-ITEM", version: "1"}
+			],
+			valueDate: 20260217150706
+		}
+	],
+		subContacts: [
+		{
+			formId: "f4194428-df67-405a-a746-ce165f7da067",
+			services: [
+				{
+					serviceId: "ec0e597e-ddd9-482c-841f-9c4d6a361650"
+				},
+				{
+					serviceId: "7b8634b4-4865-4c2d-94e7-5ab8bc8a1502"
+				}
+			]
+		},
+		{
+			formId: "e65e3ee4-42c1-4cac-a7e3-e612e6a0604b",
+			services: [
+				{
+					serviceId: "1828c19f-790c-4b2e-b4b0-b691c8372aa7"
+				},
+				{
+					serviceId: "de203821-e262-47f2-a8e9-030f965c1fde"
+				}
+			]
+		}
+	]
+}),
 ]
 
 const rootForm = new ICureForm({
