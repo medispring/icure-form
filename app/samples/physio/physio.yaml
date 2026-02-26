@@ -120,7 +120,7 @@ sections:
             rowSpan: 2
             tags:
               - MS-PHYSIO-DAILY-FOLLOW-UP-ITEM|progressOfSession|1
-              - CD-ITEM|act|1
+              - CD-ITEM|acts|1
               - CD-LIFECYCLE|completed|1
           - field: physio-forms.dailyFollowUp.field.label.elementsHighlight
             type: textfield
