@@ -614,7 +614,7 @@ subForms:
                 rowSpan: 2
                 tags:
                   - MS-PHYSIO-CLINICAL-DECISION-ITEM|treatmentOffered|1
-                  - CD-ITEM|act|1
+                  - CD-ITEM|acts|1
                   - CD-LIFECYCLE|planned|1
               - field: physio-forms.clinicalDecision.field.label.prognosis
                 type: textfield
@@ -656,7 +656,7 @@ subForms:
                 tags:
                   - MS-PHYSIO-CLOSURE-EXAM-ITEM|nextTreatment|1
                   - CD-ITEM|outcome|1
-                  - CD-LIFECYCLE|realised|1
+                  - CD-LIFECYCLE|proposed|1
                   - CD-ITEM|instructionforpatient|1
   a1287fbd-b328-4d94-a2a1-a15086bce6ed:
     form: physio-forms.PHYSICAL_EXAM
@@ -854,7 +854,7 @@ subForms:
                 rowSpan: 4
                 tags:
                   - MS-PHYSIO-SUBJECTIF-EXAM-ITEM|evolution|1
-                  - CD-HEADING|evolution1|1
+                  - CD-HEADING|evolution|1
       - section: physio-forms.section-label.characteristicOfHealthProblem
         fields:
           - group: line
