@@ -9,6 +9,7 @@ translations:
       physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
       physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
       physio-forms.dailyFollowUp.subform.label.FormAddSubForm: Ajouter un formulaire
+      physio-forms.dailyFollowUp.subform.label.FormRemoveSubForm: Supprimer le formulaire
       physio-forms.dailyFollowUp.subform.label.form: Formulaire
       physio-forms.ASSESSMENT_FULL: Bilan complet
       physio-forms.CLINICAL_DECISION: Prise de décision clinique
@@ -62,6 +63,7 @@ translations:
       physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Aanbevelingen aan de patiënt
       physio-forms.dailyFollowUp.field.label.conclusion: Conclusie
       physio-forms.dailyFollowUp.subform.label.FormAddSubForm: Formulier toevoegen
+      physio-forms.dailyFollowUp.subform.label.FormRemoveSubForm: Formulier verwijderen
       physio-forms.dailyFollowUp.subform.label.form: Formulier
       physio-forms.ASSESSMENT_FULL: Volledig bilan
       physio-forms.CLINICAL_DECISION: Klinische besluitvorming
@@ -149,6 +151,7 @@ sections:
         shortLabel: physio-forms.dailyFollowUp.subform.label.form
         labels:
           add: physio-forms.dailyFollowUp.subform.label.FormAddSubForm
+          remove: physio-forms.dailyFollowUp.subform.label.FormRemoveSubForm
         span: 24
         borderless: true
         refs:
