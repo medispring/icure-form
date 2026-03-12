@@ -5,7 +5,7 @@ translations:
   - language: fr
     translations:
       physio-forms.dailyFollowUp.field.label.progressOfSession: Déroulé de la séance
-      physio-forms.dailyFollowUp.field.label.elementsHighlight: Élements à mettre en évidence
+      physio-forms.dailyFollowUp.field.label.elementsHighlight: Éléments à mettre en évidence
       physio-forms.dailyFollowUp.field.label.recommendationToThePatient: Recommandations au patient
       physio-forms.dailyFollowUp.field.label.conclusion: Conclusion
       physio-forms.dailyFollowUp.subform.label.FormAddSubForm: Ajouter un formulaire
@@ -17,14 +17,14 @@ translations:
       physio-forms.PHYSICAL_EXAM: Examen physique
       physio-forms.SUBJECTIF_EXAM: Examen subjectif
       physio-forms.subjectif.field.label.subjectif: Examen subjectif
-      physio-forms.subjectif.field.label.patientPerspective: Perspective du patient
+      physio-forms.subjectif.field.label.patientPerspective: Perspectives du patient
       physio-forms.subjectif.field.label.medicalPerspective: Perspectives médicales
       physio-forms.subjectif.field.label.characteristicOfHealthProblem: Caractéristiques du problème de santé
       physio-forms.subjectif.field.label.reasonOfConsultation: Motif de la consultation
-      physio-forms.subjectif.field.label.relevantElementOfPatient: Eléments pertinents de la personne
-      physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacité fonctionnelle actuelle
+      physio-forms.subjectif.field.label.relevantElementOfPatient: Éléments pertinents du patient
+      physio-forms.subjectif.field.label.currentFunctionalCapacity: Capacités fonctionnelles actuelles
       physio-forms.subjectif.field.label.goalAndExpectation: Objectifs et attentes
-      physio-forms.subjectif.field.label.history: Histoire
+      physio-forms.subjectif.field.label.history: Historique
       physio-forms.subjectif.field.label.characteristicOfSymptoms: Caractéristiques des symptômes
       physio-forms.subjectif.field.label.symptomSite: Site de symptômes
       physio-forms.subjectif.field.label.symptomBehavior: Comportement des symptômes
@@ -32,8 +32,8 @@ translations:
       physio-forms.subjectif.field.label.activityScoringScheme: Échelle fonctionnelle spécifique au patient
       physio-forms.activityScoring.field.label.activity: Activité fonctionnelle
       physio-forms.activityScoring.field.label.score: Score
-      physio-forms.activityScoring.field.label.scoringScheme: Echelle
-      physio-forms.subjectif.field.label.evolution: Evolution
+      physio-forms.activityScoring.field.label.scoringScheme: Échelle
+      physio-forms.subjectif.field.label.evolution: Évolution
       physio-forms.subjectif.field.label.previousTreatment: Traitements précédents
       physio-forms.subjectif.field.label.complementaryExam: Examens complémentaires
       physio-forms.subjectif.field.label.atcd: Antécédants
